@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_2dp">2dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="dimen_32dp">32dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
+    <dimen name="dimen_48dp">48dp</dimen>
+    <dimen name="dimen_56dp">56dp</dimen>
+    <dimen name="dimen_64dp">64dp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="dimen_128dp">128dp</dimen>
+    <dimen name="dimen_256dp">256dp</dimen>
+
+    <dimen name="text_size_extra_small">10sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size">13sp</dimen>
+    <dimen name="text_size_large">15sp</dimen>
+    <dimen name="text_size_xlarge">18sp</dimen>
+    <dimen name="text_size_xxlarge">21sp</dimen>
+    <dimen name="text_size_xxxlarge">26sp</dimen>
+
+    <dimen name="menu_item_height">40dp</dimen>
+    <dimen name="button_min_height">40dp</dimen>
+    <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="menu_header_height">48dp</dimen>
+    <dimen name="menu_height">40dp</dimen>
+
+    <dimen name="recycler_view_default_hotspot_height">56dp</dimen>
+    <dimen name="recycler_view_default_hotspot_offset_top">0dp</dimen>
+    <dimen name="recycler_view_default_hotspot_offset_bottom">0dp</dimen>
+
+</resources>

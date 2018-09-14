@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+def supportLibVersion = "27.1.1"
+def compileSdk = 27
+def buildTools = "27.0.3"
+def minSdk = 15
+def targetSdk = 27
+
+android {
+    buildToolsVersion buildTools
+    compileSdkVersion compileSdk
+
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-compat:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-core-ui:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-core-utils:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-fragment:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-vector-drawable:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:animated-vector-drawable:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-v4:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-v7:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:design:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:support-v13:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:animated-vector-drawable:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:appcompat-v7:$supportLibVersion"
+        resolutionStrategy.force "com.android.support:recyclerview-v7:$supportLibVersion"
+    }
+
+    defaultConfig {
+        applicationId "shishkin.cleanarchitecture.mvi"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:support-core-utils:$supportLibVersion"
+    implementation "com.android.support:support-v13:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+
+    // поддержка multidex на Android 4.*
+    implementation 'com.android.support:multidex:1.0.2'
+
+    // Toastы
+    implementation 'com.github.GrenderG:Toasty:1.2.8'
+
+    // Progressbar
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
+
+    // БД ROOM
+    implementation 'android.arch.persistence.room:runtime:1.1.1';
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1';
+
+    // сериализация
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    // добавление ripple эффекта
+    implementation 'com.balysv:material-ripple:1.0.2'
+
+    // Spinner
+    implementation 'com.jaredrummler:material-spinner:1.2.5'
+
+    //BottomSheetDialog
+    implementation 'org.michaelbel:bottomsheet:1.2.3'
+
+    // Stream API
+    implementation 'com.annimon:stream:1.1.9'
+
+}

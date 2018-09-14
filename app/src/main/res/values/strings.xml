@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MVI</string>
+    <string name="exit">Выход</string>
+    <string name="all">Все</string>
+    <string name="double_back_pressed">Для выхода нажмите ещё раз</string>
+
+    <string name="fragment_open_account_transaction_friendly_name_subtitle">Наименование счета</string>
+    <string name="fragment_open_account_transaction_friendly_name_hint">Например: "Текущий счет"</string>
+    <string name="fragment_open_account_transaction_balance_subtitle">Баланс по счету</string>
+    <string name="fragment_open_account_transaction_balance_value_hint">Например: 100000</string>
+    <string name="fragment_open_account_transaction_action_button">Открыть счет</string>
+
+    <string name="sort">Сортировать по ...</string>
+    <string name="sort_default">По умолчанию</string>
+    <string name="sort_name">По наименованию счета</string>
+    <string name="sort_currency">По валюте счета</string>
+
+    <string name="select">Выбрать по валюте</string>
+
+</resources>

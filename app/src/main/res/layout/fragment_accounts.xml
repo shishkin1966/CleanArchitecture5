@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light">
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="44dp">
+
+            <LinearLayout
+                android:id="@+id/balance_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue2"
+                    android:minHeight="@dimen/menu_header_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_12dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:layout_weight="1"
+                        android:text="Баланс"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_xlarge"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/balance_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dimen_4dp"
+                        android:layout_marginLeft="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_16dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:minHeight="@dimen/menu_header_height"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@drawable/below_shadow"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/balance_ll"
+                android:background="@color/white"
+                android:scrollbars="vertical"/>
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-6dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:mpb_indeterminateTint="@color/orange"
+                app:mpb_progressStyle="horizontal"
+                app:mpb_showProgressBackground="false"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomSheetContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:behavior_peekHeight="@dimen/dimen_48dp"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/above_shadow"/>
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/create_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_height"
+                        android:background="@drawable/side_menu_panel_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Открыть счет"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View
+                        style="@style/HorizontalDivider"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white_light"/>
+
+                    <TextView
+                        android:id="@+id/accounts_transfer"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_height"
+                        android:background="@drawable/side_menu_panel_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Перевод между счетами"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View
+                        style="@style/HorizontalDivider"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white_light"/>
+
+                    <TextView
+                        android:id="@+id/sort_accounts"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_height"
+                        android:background="@drawable/side_menu_panel_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Сортировать по ..."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View
+                        style="@style/HorizontalDivider"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white_light"/>
+
+                    <TextView
+                        android:id="@+id/select_accounts"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_height"
+                        android:background="@drawable/side_menu_panel_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Выбрать ..."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View
+                        style="@style/HorizontalDivider"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white_light"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</RelativeLayout>

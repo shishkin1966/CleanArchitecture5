@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_extra_small">12sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">21sp</dimen>
+    <dimen name="text_size_xxlarge">26sp</dimen>
+    <dimen name="text_size_xxxlarge">31sp</dimen>
+
+    <dimen name="menu_item_height">56dp</dimen>
+    <dimen name="button_min_height">48dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="menu_header_height">56dp</dimen>
+    <dimen name="menu_height">48dp</dimen>
+
+</resources>

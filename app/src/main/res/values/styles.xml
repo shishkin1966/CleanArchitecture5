@@ -1,0 +1,77 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="PopupMenu" parent="@style/Base.Widget.AppCompat.ListView.DropDown">
+        <item name="android:listPreferredItemHeightSmall">@dimen/menu_item_height</item>
+        <item name="android:divider">@color/divider_color</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:textColor">@color/popup_menu_item_selector</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:itemBackground">@drawable/popup_menu_selector</item>
+    </style>
+
+    <style name="VerticalDivider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/divider_color</item>
+    </style>
+
+    <style name="HorizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/divider_color</item>
+    </style>
+
+    <style name="BaseTextStyle" parent="@android:style/Widget.TextView" />
+
+    <style name="ButtonStyle" parent="HelveticaTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="HelveticaTextStyle" parent="BaseTextStyle">
+        <item name="android:textColor">@color/gray_text</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="FlatOrangeButtonStyle" parent="ButtonStyle">
+        <item name="android:textColor">@color/white_text_selector</item>
+        <item name="android:background">@drawable/orange_text_button_background</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColorHint">@color/gray_switch</item>
+    </style>
+
+
+</resources>
