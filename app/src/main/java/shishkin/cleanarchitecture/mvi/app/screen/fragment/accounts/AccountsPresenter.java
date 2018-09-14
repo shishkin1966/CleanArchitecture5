@@ -191,5 +191,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             }
         }
     }
+
+    public void onClickAccounts(Account account) {
+        getModel().getRouter().showAccount(account);
+    }
 }
 

@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.app;
 
+import com.squareup.leakcanary.LeakCanary;
+
+
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
@@ -20,7 +23,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         super.onStart();
 
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);
-
         SLUtil.getObservableUnion().register(new DbObservable());
+
+        LeakCanary.install(this);
     }
 }

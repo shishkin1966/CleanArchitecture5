@@ -59,6 +59,9 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mAccountsView = findView(R.id.list);
         mAccountsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAccountsView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter.setOnItemClickListener((v, position, item) -> {
+            getModel().getPresenter().onClickAccounts(item);
+        });
         mAccountsView.setAdapter(mAdapter);
 
         mBalanceAdapter = new BalanceRecyclerViewAdapter(getContext());
