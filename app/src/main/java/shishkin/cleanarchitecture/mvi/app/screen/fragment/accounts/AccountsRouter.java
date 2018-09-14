@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.account.AccountFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.create_account.CreateAccountFragment;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
@@ -23,6 +24,6 @@ public class AccountsRouter extends BaseModelRouter {
     }
 
     public void showAccount(Account account) {
-
+        showFragment(AccountFragment.newInstance(account));
     }
 }
