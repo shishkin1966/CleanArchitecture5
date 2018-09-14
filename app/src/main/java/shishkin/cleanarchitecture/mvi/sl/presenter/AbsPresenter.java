@@ -93,7 +93,7 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
     }
 
     @Override
-    public List<String> getModuleSubscription() {
+    public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
                 PresenterUnionImpl.NAME
         );

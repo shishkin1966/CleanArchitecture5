@@ -116,9 +116,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     @Override
-    public List<String> getModuleSubscription() {
+    public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
-                super.getModuleSubscription(),
+                super.getSpecialistSubscription(),
                 ObservableUnionImpl.NAME
         );
     }

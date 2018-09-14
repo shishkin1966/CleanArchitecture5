@@ -65,7 +65,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
             try {
                 // регистрируем модуль в других модулях
                 if (SpecialistSubscriber.class.isInstance(newModule)) {
-                    final List<String> types = ((SpecialistSubscriber) newModule).getModuleSubscription();
+                    final List<String> types = ((SpecialistSubscriber) newModule).getSpecialistSubscription();
                     if (types != null) {
                         for (int i = 0; i < types.size(); i++) {
                             types.set(i, getShortName(types.get(i)));
@@ -84,7 +84,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                     final String type = getShortName(newModule.getName());
                     for (Specialist module : mSecretary.values()) {
                         if (SpecialistSubscriber.class.isInstance(module)) {
-                            final List<String> types = ((SpecialistSubscriber) module).getModuleSubscription();
+                            final List<String> types = ((SpecialistSubscriber) module).getSpecialistSubscription();
                             if (types != null) {
                                 for (int i = 0; i < types.size(); i++) {
                                     types.set(i, getShortName(types.get(i)));
@@ -138,7 +138,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
                             // отменяем регистрацию в других модулях
                             if (SpecialistSubscriber.class.isInstance(module)) {
-                                final List<String> subscribers = ((SpecialistSubscriber) module).getModuleSubscription();
+                                final List<String> subscribers = ((SpecialistSubscriber) module).getSpecialistSubscription();
                                 for (String subscriber : subscribers) {
                                     final Specialist moduleSubscriber = mSecretary.get(getShortName(subscriber));
                                     if (moduleSubscriber != null && SmallUnion.class.isInstance(moduleSubscriber)) {
@@ -164,7 +164,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     public boolean register(final SpecialistSubscriber subscriber) {
         if (subscriber != null && !StringUtils.isNullOrEmpty(subscriber.getName())) {
             try {
-                final List<String> types = subscriber.getModuleSubscription();
+                final List<String> types = subscriber.getSpecialistSubscription();
                 if (types != null) {
                     // регистрируемся subscriber в модулях
                     for (String subscriberType : types) {
@@ -194,7 +194,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     public boolean unregister(final SpecialistSubscriber subscriber) {
         if (subscriber != null) {
             try {
-                final List<String> types = subscriber.getModuleSubscription();
+                final List<String> types = subscriber.getSpecialistSubscription();
                 if (types != null) {
                     for (int i = 0; i < types.size(); i++) {
                         types.set(i, getShortName(types.get(i)));
@@ -221,7 +221,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     public boolean setCurrentSubscriber(final SpecialistSubscriber subscriber) {
         try {
             if (subscriber != null) {
-                final List<String> types = subscriber.getModuleSubscription();
+                final List<String> types = subscriber.getSpecialistSubscription();
                 if (types != null) {
                     for (int i = 0; i < types.size(); i++) {
                         types.set(i, getShortName(types.get(i)));

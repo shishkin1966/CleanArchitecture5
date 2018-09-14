@@ -12,6 +12,6 @@ public interface SpecialistSubscriber extends Subscriber, Validated {
      *
      * @return список имен модулей
      */
-    List<String> getModuleSubscription();
+    List<String> getSpecialistSubscription();
 
 }

@@ -106,7 +106,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
     }
 
     @Override
-    public List<String> getModuleSubscription() {
+    public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
                 ActivityUnionImpl.NAME
         );
