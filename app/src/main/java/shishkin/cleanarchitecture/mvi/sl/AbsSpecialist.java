@@ -3,7 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 /**
- * Абстрактный модуль - объект предоставлющий сервис
+ * Абстрактный специалист - объект предоставлющий сервис
  */
 @SuppressWarnings("unused")
 public abstract class AbsSpecialist implements Specialist {

@@ -63,7 +63,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
             }
 
             try {
-                // регистрируем модуль в других модулях
+                // регистрируем специалиста у других специалистов
                 if (SpecialistSubscriber.class.isInstance(newModule)) {
                     final List<String> types = ((SpecialistSubscriber) newModule).getSpecialistSubscription();
                     if (types != null) {
@@ -79,7 +79,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                     }
                 }
 
-                // регистрируем другие модули в модуле
+                // регистрируем других специалистов у специалиста
                 if (SmallUnion.class.isInstance(newModule)) {
                     final String type = getShortName(newModule.getName());
                     for (Specialist module : mSecretary.values()) {
@@ -136,7 +136,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
                             module.onUnRegister();
 
-                            // отменяем регистрацию в других модулях
+                            // отменяем регистрацию у других специалистов
                             if (SpecialistSubscriber.class.isInstance(module)) {
                                 final List<String> subscribers = ((SpecialistSubscriber) module).getSpecialistSubscription();
                                 for (String subscriber : subscribers) {
@@ -166,7 +166,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
             try {
                 final List<String> types = subscriber.getSpecialistSubscription();
                 if (types != null) {
-                    // регистрируемся subscriber в модулях
+                    // регистрируемся subscriber у специалистов
                     for (String subscriberType : types) {
                         final String moduleName = getShortName(subscriberType);
                         if (mSecretary.containsKey(moduleName)) {

@@ -3,7 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
 
 /**
- * Интерфейс модуля пользовательской и бизнес логики
+ * Интерфейс специалиста пользовательской и бизнес логики
  */
 public interface UseCasesSpecialist extends Specialist {
 

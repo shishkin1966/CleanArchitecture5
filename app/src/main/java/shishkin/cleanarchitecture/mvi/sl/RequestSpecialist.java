@@ -4,7 +4,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 /**
- * Интерфейс модуля выполнения запросов
+ * Интерфейс специалиста выполнения запросов
  */
 public interface RequestSpecialist extends Specialist {
 

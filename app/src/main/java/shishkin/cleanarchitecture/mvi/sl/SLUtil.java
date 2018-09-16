@@ -74,18 +74,18 @@ public class SLUtil {
     }
 
     /**
-     * Зарегистрировать подписчика модуля
+     * Зарегистрировать подписчика специалиста
      *
-     * @param subscriber подписчик модуля
+     * @param subscriber подписчик специалиста
      */
     public static void register(final SpecialistSubscriber subscriber) {
         SL.getInstance().register(subscriber);
     }
 
     /**
-     * Отменить регистрацию подписчика модуля
+     * Отменить регистрацию подписчика специалиста
      *
-     * @param subscriber подписчик модуля
+     * @param subscriber подписчик специалиста
      */
     public static void unregister(final SpecialistSubscriber subscriber) {
         SL.getInstance().unregister(subscriber);
@@ -94,7 +94,7 @@ public class SLUtil {
     /**
      * Сделать подписчика текущим
      *
-     * @param subscriber подписчик модуля
+     * @param subscriber подписчик специалиста
      */
     public static void setCurrentSubscriber(final SpecialistSubscriber subscriber) {
         SL.getInstance().setCurrentSubscriber(subscriber);

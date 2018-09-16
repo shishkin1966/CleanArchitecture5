@@ -3,7 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.content.Context;
 
 /**
- * Интерфейс модуля приложения.
+ * Интерфейс специалиста приложения.
  */
 @SuppressWarnings("unused")
 public interface ApplicationSpecialist extends Specialist {

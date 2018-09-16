@@ -11,7 +11,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 
 /**
- * Модуль обработки ошибок
+ * Интерфейс специалиста обработки ошибок
  */
 public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialist {
     public static final String NAME = ErrorSpecialist.class.getName();

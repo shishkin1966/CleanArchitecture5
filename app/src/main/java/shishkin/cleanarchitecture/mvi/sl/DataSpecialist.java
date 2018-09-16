@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Comparator;
 
 /**
- * Интерфейс модуля преобразования данных
+ * Интерфейс специалиста преобразования данных
  */
 public interface DataSpecialist extends Specialist {
 

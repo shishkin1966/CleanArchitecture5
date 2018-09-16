@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 /**
- * Модуль, протоколирующий Uncaught Exception
+ * Специалист, протоколирующий Uncaught Exception
  */
 public class CrashSpecialist implements Thread.UncaughtExceptionHandler, Specialist {
 

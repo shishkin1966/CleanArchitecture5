@@ -7,58 +7,58 @@ package shishkin.cleanarchitecture.mvi.sl;
 public interface ServiceLocator extends Subscriber {
 
     /**
-     * Проверить существование модуля
+     * Проверить существование специалиста
      *
-     * @param name имя модуля
-     * @return true - модуль существует
+     * @param name имя специалиста
+     * @return true - специалист существует
      */
     boolean exists(final String name);
 
     /**
-     * Получить модуль
+     * Получить специалиста
      *
-     * @param <C>  тип модуля
-     * @param name имя модуля
-     * @return модуль
+     * @param <C>  тип специалиста
+     * @param name имя специалиста
+     * @return специалист
      */
     <C> C get(String name);
 
     /**
-     * Зарегистрировать модуль
+     * Зарегистрировать специалиста
      *
-     * @param specialist модуль
+     * @param specialist специалист
      * @return флаг - операция завершена успешно
      */
     boolean register(Specialist specialist);
 
     /**
-     * Зарегистрировать модуль
+     * Зарегистрировать специалиста
      *
-     * @param name имя класса модуля
+     * @param name имя класса специалиста
      * @return флаг - операция завершена успешно
      */
     boolean register(String name);
 
     /**
-     * Отменить регистрацию модуля
+     * Отменить регистрацию специалиста
      *
-     * @param name имя модуля/объекта
+     * @param name имя специалиста/объекта
      * @return флаг - операция завершена успешно
      */
     boolean unregister(String name);
 
     /**
-     * Зарегистрировать подписчика модуля
+     * Зарегистрировать подписчика специалиста
      *
-     * @param subscriber подписчик модуля
+     * @param subscriber подписчик специалиста
      * @return флаг - операция завершена успешно
      */
     boolean register(SpecialistSubscriber subscriber);
 
     /**
-     * Отменить регистрацию подписчика модуля
+     * Отменить регистрацию подписчика специалиста
      *
-     * @param subscriber подписчик модуля
+     * @param subscriber подписчик специалиста
      * @return флаг - операция завершена успешно
      */
     boolean unregister(SpecialistSubscriber subscriber);
@@ -82,9 +82,9 @@ public interface ServiceLocator extends Subscriber {
     void onStart();
 
     /**
-     * Получить фабрику модулей
+     * Получить фабрику специалистов
      *
-     * @return фабрика модулей
+     * @return фабрика специалистов
      */
     SpecialistFactory getSpecialistFactory();
 }
