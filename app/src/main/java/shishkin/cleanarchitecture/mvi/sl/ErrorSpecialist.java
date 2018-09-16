@@ -3,7 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 
 /**
- * Интерфейс модуля ошибок
+ * Интерфейс специалиста обработки ошибок
  */
 @SuppressWarnings("unused")
 public interface ErrorSpecialist extends Specialist {

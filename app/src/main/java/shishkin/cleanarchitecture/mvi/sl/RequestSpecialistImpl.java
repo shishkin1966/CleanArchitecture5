@@ -17,7 +17,7 @@ import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 
 /**
- * Модуль выполнения запросов
+ * Интерфейс специалиста выполнения запросов
  */
 public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpecialist {
 

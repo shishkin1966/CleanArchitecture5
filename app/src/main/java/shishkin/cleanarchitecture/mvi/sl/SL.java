@@ -34,13 +34,13 @@ public class SL extends AbsServiceLocator {
 
     @Override
     public void onStart() {
-        // Модуль приложения
+        // специалист приложения
         register(ApplicationSpecialistImpl.getInstance());
 
-        // Модуль регистрации ошибок в приложении
+        // специалист регистрации ошибок в приложении
         register(ErrorSpecialistImpl.getInstance());
 
-        // Модуль регистрации падения приложения
+        // специалист регистрации падения приложения
         register(CrashSpecialist.NAME);
 
         // Объединение Activity
@@ -52,16 +52,16 @@ public class SL extends AbsServiceLocator {
         // Объединение Observables
         register(ObservableUnionImpl.NAME);
 
-        // UseCase модуль
+        // UseCase специалист
         register(UseCasesSpecialistImpl.NAME);
 
-        // Модуль работы с БД
+        // специалист работы с БД
         register(DbProviderImpl.NAME);
 
-        // Модуль выполнения запросов
+        // специалист выполнения запросов
         register(RequestSpecialistImpl.NAME);
 
-        // Модуль преобразования данных
+        // специалист преобразования данных
         register(DataSpecialistImpl.NAME);
     }
 

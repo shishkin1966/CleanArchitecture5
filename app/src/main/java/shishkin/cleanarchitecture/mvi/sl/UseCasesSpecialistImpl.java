@@ -7,7 +7,7 @@ import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
 import shishkin.cleanarchitecture.mvi.sl.usecase.OnActionUseCase;
 
 /**
- * Модуль реализующий бизнес и пользовательскую логику в приложении
+ * Специалист реализующий бизнес и пользовательскую логику в приложении
  */
 @SuppressWarnings("unused")
 public class UseCasesSpecialistImpl extends AbsSpecialist implements UseCasesSpecialist {

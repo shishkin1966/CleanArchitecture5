@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Comparator;
 
 /**
- * Модуль преобразования данных
+ * Спеуиалист преобразования данных
  */
 @SuppressWarnings("unused")
 public class DataSpecialistImpl extends AbsSpecialist implements DataSpecialist {

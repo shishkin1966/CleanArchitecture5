@@ -11,7 +11,7 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 
 /**
- * Модуль приложения
+ * Специалист приложения
  */
 @SuppressWarnings("unused")
 public abstract class ApplicationSpecialistImpl extends MultiDexApplication implements ApplicationSpecialist {
