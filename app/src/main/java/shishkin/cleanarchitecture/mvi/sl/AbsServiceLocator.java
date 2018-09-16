@@ -29,11 +29,11 @@ public abstract class AbsServiceLocator implements ServiceLocator {
         }
 
         try {
-            final String moduleName = getShortName(name);
-            if (mSecretary.get(moduleName) != null) {
-                return (C) mSecretary.get(moduleName);
+            final String specialistName = getShortName(name);
+            if (mSecretary.get(specialistName) != null) {
+                return (C) mSecretary.get(specialistName);
             } else {
-                mSecretary.remove(moduleName);
+                mSecretary.remove(specialistName);
             }
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
@@ -42,30 +42,30 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     }
 
     @Override
-    public boolean exists(final String moduleName) {
-        if (StringUtils.isNullOrEmpty(moduleName)) {
+    public boolean exists(final String specialistName) {
+        if (StringUtils.isNullOrEmpty(specialistName)) {
             return false;
         }
 
-        return mSecretary.containsKey(getShortName(moduleName));
+        return mSecretary.containsKey(getShortName(specialistName));
     }
 
     @Override
-    public boolean register(final Specialist newModule) {
-        if (newModule != null && !StringUtils.isNullOrEmpty(newModule.getName())) {
-            if (mSecretary.containsKey(getShortName(newModule.getName()))) {
-                if (newModule.compareTo(get(getShortName(newModule.getName()))) != 0) {
+    public boolean register(final Specialist newSpecialist) {
+        if (newSpecialist != null && !StringUtils.isNullOrEmpty(newSpecialist.getName())) {
+            if (mSecretary.containsKey(getShortName(newSpecialist.getName()))) {
+                if (newSpecialist.compareTo(get(getShortName(newSpecialist.getName()))) != 0) {
                     return false;
                 }
-                if (!unregister(newModule.getName())) {
+                if (!unregister(newSpecialist.getName())) {
                     return false;
                 }
             }
 
             try {
                 // регистрируем специалиста у других специалистов
-                if (SpecialistSubscriber.class.isInstance(newModule)) {
-                    final List<String> types = ((SpecialistSubscriber) newModule).getSpecialistSubscription();
+                if (SpecialistSubscriber.class.isInstance(newSpecialist)) {
+                    final List<String> types = ((SpecialistSubscriber) newSpecialist).getSpecialistSubscription();
                     if (types != null) {
                         for (int i = 0; i < types.size(); i++) {
                             types.set(i, getShortName(types.get(i)));
@@ -73,34 +73,34 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
                         for (String type : types) {
                             if (mSecretary.containsKey(type)) {
-                                ((SmallUnion) mSecretary.get(type)).register(newModule);
+                                ((SmallUnion) mSecretary.get(type)).register(newSpecialist);
                             }
                         }
                     }
                 }
 
                 // регистрируем других специалистов у специалиста
-                if (SmallUnion.class.isInstance(newModule)) {
-                    final String type = getShortName(newModule.getName());
-                    for (Specialist module : mSecretary.values()) {
-                        if (SpecialistSubscriber.class.isInstance(module)) {
-                            final List<String> types = ((SpecialistSubscriber) module).getSpecialistSubscription();
+                if (SmallUnion.class.isInstance(newSpecialist)) {
+                    final String type = getShortName(newSpecialist.getName());
+                    for (Specialist specialist : mSecretary.values()) {
+                        if (SpecialistSubscriber.class.isInstance(specialist)) {
+                            final List<String> types = ((SpecialistSubscriber) specialist).getSpecialistSubscription();
                             if (types != null) {
                                 for (int i = 0; i < types.size(); i++) {
                                     types.set(i, getShortName(types.get(i)));
                                 }
 
                                 if (types.contains(type)) {
-                                    if (!getShortName(module.getName()).equalsIgnoreCase(getShortName(newModule.getName()))) {
-                                        ((SmallUnion) newModule).register(module);
+                                    if (!getShortName(specialist.getName()).equalsIgnoreCase(getShortName(newSpecialist.getName()))) {
+                                        ((SmallUnion) newSpecialist).register(specialist);
                                     }
                                 }
                             }
                         }
                     }
                 }
-                mSecretary.put(getShortName(newModule.getName()), newModule);
-                newModule.onRegister();
+                newSpecialist.onRegister();
+                mSecretary.put(getShortName(newSpecialist.getName()), newSpecialist);
             } catch (Exception e) {
                 ErrorSpecialistImpl.getInstance().onError(NAME, e);
                 return false;
@@ -111,9 +111,9 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
     @Override
     public boolean register(String name) {
-        final Specialist module = getSpecialistFactory().create(name);
-        if (module != null) {
-            return register(module);
+        final Specialist specialist = getSpecialistFactory().create(name);
+        if (specialist != null) {
+            return register(specialist);
         }
         return false;
     }
@@ -122,34 +122,34 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     public boolean unregister(final String name) {
         if (!StringUtils.isNullOrEmpty(name)) {
             try {
-                final String moduleName = getShortName(name);
-                if (mSecretary.containsKey(moduleName)) {
-                    final Specialist module = mSecretary.get(moduleName);
-                    if (module != null) {
-                        if (!module.isPersistent()) {
+                final String specialistName = getShortName(name);
+                if (mSecretary.containsKey(specialistName)) {
+                    final Specialist specialist = mSecretary.get(specialistName);
+                    if (specialist != null) {
+                        if (!specialist.isPersistent()) {
                             // нельзя отменить подписку у объединения с подписчиками
-                            if (SmallUnion.class.isInstance(module)) {
-                                if (((SmallUnion) module).hasSubscribers()) {
+                            if (SmallUnion.class.isInstance(specialist)) {
+                                if (((SmallUnion) specialist).hasSubscribers()) {
                                     return false;
                                 }
                             }
 
-                            module.onUnRegister();
+                            specialist.onUnRegister();
 
                             // отменяем регистрацию у других специалистов
-                            if (SpecialistSubscriber.class.isInstance(module)) {
-                                final List<String> subscribers = ((SpecialistSubscriber) module).getSpecialistSubscription();
+                            if (SpecialistSubscriber.class.isInstance(specialist)) {
+                                final List<String> subscribers = ((SpecialistSubscriber) specialist).getSpecialistSubscription();
                                 for (String subscriber : subscribers) {
-                                    final Specialist moduleSubscriber = mSecretary.get(getShortName(subscriber));
-                                    if (moduleSubscriber != null && SmallUnion.class.isInstance(moduleSubscriber)) {
-                                        ((SmallUnion) moduleSubscriber).unregister(module);
+                                    final Specialist specialistSubscriber = mSecretary.get(getShortName(subscriber));
+                                    if (specialistSubscriber != null && SmallUnion.class.isInstance(specialistSubscriber)) {
+                                        ((SmallUnion) specialistSubscriber).unregister(specialist);
                                     }
                                 }
                             }
-                            mSecretary.remove(moduleName);
+                            mSecretary.remove(specialistName);
                         }
                     } else {
-                        mSecretary.remove(moduleName);
+                        mSecretary.remove(specialistName);
                     }
                 }
             } catch (Exception e) {
@@ -168,13 +168,13 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                 if (types != null) {
                     // регистрируемся subscriber у специалистов
                     for (String subscriberType : types) {
-                        final String moduleName = getShortName(subscriberType);
-                        if (mSecretary.containsKey(moduleName)) {
-                            ((SmallUnion) mSecretary.get(moduleName)).register(subscriber);
+                        final String specialistName = getShortName(subscriberType);
+                        if (mSecretary.containsKey(specialistName)) {
+                            ((SmallUnion) mSecretary.get(specialistName)).register(subscriber);
                         } else {
                             register(subscriberType);
-                            if (mSecretary.containsKey(moduleName)) {
-                                ((SmallUnion) mSecretary.get(moduleName)).register(subscriber);
+                            if (mSecretary.containsKey(specialistName)) {
+                                ((SmallUnion) mSecretary.get(specialistName)).register(subscriber);
                             } else {
                                 ErrorSpecialistImpl.getInstance().onError(NAME, "Not found subscriber type: " + subscriberType, false);
                                 return false;
@@ -200,11 +200,11 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         types.set(i, getShortName(types.get(i)));
                     }
 
-                    for (Specialist module : mSecretary.values()) {
-                        if (SmallUnion.class.isInstance(module)) {
-                            final String subscriberType = getShortName(module.getName());
+                    for (Specialist specialist : mSecretary.values()) {
+                        if (SmallUnion.class.isInstance(specialist)) {
+                            final String subscriberType = getShortName(specialist.getName());
                             if (!StringUtils.isNullOrEmpty(subscriberType) && types.contains(subscriberType)) {
-                                ((SmallUnion) module).unregister(subscriber);
+                                ((SmallUnion) specialist).unregister(subscriber);
                             }
                         }
                     }
@@ -227,12 +227,12 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         types.set(i, getShortName(types.get(i)));
                     }
 
-                    for (Specialist module : mSecretary.values()) {
-                        if (Union.class.isInstance(module)) {
-                            final String moduleSubscriberType = getShortName(module.getName());
-                            if (!StringUtils.isNullOrEmpty(moduleSubscriberType)) {
-                                if (types.contains(moduleSubscriberType)) {
-                                    ((Union) module).setCurrentSubscriber(subscriber);
+                    for (Specialist specialist : mSecretary.values()) {
+                        if (Union.class.isInstance(specialist)) {
+                            final String specialistSubscriberType = getShortName(specialist.getName());
+                            if (!StringUtils.isNullOrEmpty(specialistSubscriberType)) {
+                                if (types.contains(specialistSubscriberType)) {
+                                    ((Union) specialist).setCurrentSubscriber(subscriber);
                                 }
                             }
                         }
