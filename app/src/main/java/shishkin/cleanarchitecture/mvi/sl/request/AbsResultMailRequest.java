@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -22,7 +23,7 @@ public abstract class AbsResultMailRequest<T> extends AbsRequest {
 
     @Override
     public boolean validate() {
-        return (!isCancelled());
+        return (!StringUtils.isNullOrEmpty(mListener) && !isCancelled());
     }
 
     public void response() {
