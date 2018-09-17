@@ -136,13 +136,13 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
     @Override
     public void request(Request request) {
         if (request != null && validate()) {
-            SLUtil.getRequestModule().request(this, request);
+            SLUtil.getRequestSpecialist().request(this, request);
         }
     }
 
     @Override
     public void cancelRequests(ResponseListener listener) {
-        SLUtil.getRequestModule().cancelRequests(this, listener);
+        SLUtil.getRequestSpecialist().cancelRequests(this, listener);
     }
 
     @Override

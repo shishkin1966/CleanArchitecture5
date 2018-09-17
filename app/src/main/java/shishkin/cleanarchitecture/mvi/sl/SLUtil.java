@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 /**
  * Инструменты администратора
  */
+@SuppressWarnings("unused")
 public class SLUtil {
 
     public static Context getContext() {
@@ -37,7 +38,7 @@ public class SLUtil {
         return SL.getInstance().get(UseCasesSpecialistImpl.NAME);
     }
 
-    public static RequestSpecialist getRequestModule() {
+    public static RequestSpecialist getRequestSpecialist() {
         return SL.getInstance().get(RequestSpecialistImpl.NAME);
     }
 
@@ -49,8 +50,12 @@ public class SLUtil {
         return SL.getInstance().get(DbProviderImpl.NAME);
     }
 
-    public static DataSpecialist getDataModule() {
+    public static DataSpecialist getDataSpecialist() {
         return SL.getInstance().get(DataSpecialistImpl.NAME);
+    }
+
+    public static MailUnion getMailUnion() {
+        return SL.getInstance().get(MailUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {
@@ -155,7 +160,7 @@ public class SLUtil {
      * @param subscriber почтовый подписчик
      */
     public static void readMail(final MailSubscriber subscriber) {
-        final MailSpecialist union = SL.getInstance().get(MailSpecialistImpl.NAME);
+        final MailUnion union = getMailUnion();
         if (union != null) {
             final List<Mail> list = union.getMail(subscriber);
             for (Mail mail : list) {
@@ -166,4 +171,17 @@ public class SLUtil {
             }
         }
     }
+
+    /**
+     * Добавить почтовое сообщение
+     *
+     * @param mail почтовое сообщение
+     */
+    public static void addMail(final Mail mail) {
+        final MailUnion union = getMailUnion();
+        if (union != null) {
+            union.addMail(mail);
+        }
+    }
+
 }
