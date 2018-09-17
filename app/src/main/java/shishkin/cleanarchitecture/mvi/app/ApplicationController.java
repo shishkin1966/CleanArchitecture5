@@ -7,6 +7,7 @@ import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 
 /**
  * Created by Shishkin on 08.02.2018.
@@ -24,6 +25,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);
         SLUtil.getObservableUnion().register(new DbObservable());
+        SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
+
 
         LeakCanary.install(this);
     }
