@@ -30,6 +30,6 @@ public class DbRepositoryProvider implements RepositoryProvider {
     }
 
     @Override
-    public void processing(Object sender, Object object) {
+    public void processing(Object object) {
     }
 }
