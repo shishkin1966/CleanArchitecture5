@@ -27,7 +27,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
 
-
         LeakCanary.install(this);
     }
 }

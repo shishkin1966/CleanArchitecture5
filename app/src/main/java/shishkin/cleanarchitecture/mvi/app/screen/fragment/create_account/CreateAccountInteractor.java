@@ -12,6 +12,6 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 public class CreateAccountInteractor implements ModelInteractor {
 
     public void addAccount(Account account, ResponseListener listener) {
-        Repository.addAccount(account, listener);
+        Repository.getInstance().addAccount(account, listener);
     }
 }
