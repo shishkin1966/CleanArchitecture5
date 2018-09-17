@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.sl.MailSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnion;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SLUtil;
@@ -50,6 +51,7 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
 
     @Override
     public void onResumeView() {
+        SLUtil.readMail(this);
     }
 
     @Override
@@ -95,7 +97,8 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
     @Override
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
-                PresenterUnionImpl.NAME
+                PresenterUnionImpl.NAME,
+                MailSpecialistImpl.NAME
         );
     }
 
