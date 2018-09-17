@@ -11,14 +11,14 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 public class AccountsInteractor implements ModelInteractor {
 
     public void getAccounts(ResponseListener listener) {
-        Repository.getAccounts(listener);
+        Repository.getInstance().getAccounts(listener);
     }
 
     public void getBalance(ResponseListener listener) {
-        Repository.getBalance(listener);
+        Repository.getInstance().getBalance(listener);
     }
 
     public void getCurrency(ResponseListener listener) {
-        Repository.getCurrency(listener);
+        Repository.getInstance().getCurrency(listener);
     }
 }
