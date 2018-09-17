@@ -1,10 +1,10 @@
 package shishkin.cleanarchitecture.mvi.app.sl;
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.sl.delegate.SenderDelegating;
+import shishkin.cleanarchitecture.mvi.sl.delegate.Delegating;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
-public interface RepositoryProvider extends SenderDelegating {
+public interface RepositoryProvider extends Delegating {
     void addAccount(Account account, ResponseListener listener);
 
     void getAccounts(ResponseListener listener);

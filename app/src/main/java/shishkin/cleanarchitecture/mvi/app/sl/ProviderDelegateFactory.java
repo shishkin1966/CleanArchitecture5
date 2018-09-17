@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.delegate.DelegatingFactory;
 
 public class ProviderDelegateFactory implements DelegatingFactory<RepositoryProvider> {
     @Override
-    public RepositoryProvider create(Object sender) {
+    public RepositoryProvider create(Object object) {
         return new DbRepositoryProvider();
     }
 }
