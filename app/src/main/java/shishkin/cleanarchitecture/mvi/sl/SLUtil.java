@@ -4,7 +4,11 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import java.util.List;
+
+
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
+import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProvider;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProviderImpl;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
@@ -145,4 +149,21 @@ public class SLUtil {
         return null;
     }
 
+    /**
+     * Читать почту
+     *
+     * @param subscriber почтовый подписчик
+     */
+    public static void readMail(final MailSubscriber subscriber) {
+        final MailSpecialist union = SL.getInstance().get(MailSpecialistImpl.NAME);
+        if (union != null) {
+            final List<Mail> list = union.getMail(subscriber);
+            for (Mail mail : list) {
+                if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+                    mail.read(subscriber);
+                    union.removeMail(mail);
+                }
+            }
+        }
+    }
 }
