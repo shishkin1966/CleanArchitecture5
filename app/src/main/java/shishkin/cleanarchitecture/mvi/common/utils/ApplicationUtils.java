@@ -203,6 +203,17 @@ public class ApplicationUtils {
         }
     }
 
+    /**
+     * Return the handle to a system-level service by name. The class of the
+     * returned object varies by the requested name.
+     */
+    public static <S> S getSystemService(final Context context, final String serviceName) {
+        if (context != null) {
+            return SafeUtils.cast(context.getSystemService(serviceName));
+        }
+        return null;
+    }
+
     private ApplicationUtils() {
     }
 

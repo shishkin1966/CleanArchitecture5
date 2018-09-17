@@ -15,6 +15,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.view.menu.MenuPopupHelper;
@@ -33,6 +34,9 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
+
+
+import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 
 /**
  * {@code ViewUtils} contains static methods which operate on {@code View}.
@@ -494,4 +498,15 @@ public class ViewUtils {
         return (int) (context.getResources().getDimension(resId) / context.getResources().getDisplayMetrics().density);
     }
 
+    public static Snackbar showSnackbar(View view, String message, int duration, int type) {
+        if (view != null) {
+            final Snackbar snackbar = BaseSnackbar.make(view, message, duration, type);
+            snackbar.show();
+            return snackbar;
+        }
+        return null;
+    }
 }
+
+
+
