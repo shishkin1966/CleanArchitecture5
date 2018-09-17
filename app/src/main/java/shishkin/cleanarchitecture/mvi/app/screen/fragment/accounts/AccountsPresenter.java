@@ -176,10 +176,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                     getModel().getView().refreshAccounts(mData);
                     break;
                 case 1:
-                    getModel().getView().refreshAccounts(SLUtil.getDataModule().sorted(mData, mComparatorName).toList());
+                    getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(mData, mComparatorName).toList());
                     break;
                 case 2:
-                    getModel().getView().refreshAccounts(SLUtil.getDataModule().sorted(mData, mComparatorCurrency).toList());
+                    getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(mData, mComparatorCurrency).toList());
                     break;
             }
         } else if (dialog.equals(mDialogSelect)) {
@@ -187,7 +187,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 getModel().getView().refreshAccounts(mData);
             } else {
                 final String currency = mCurrency.get(which - 1);
-                getModel().getView().refreshAccounts(SLUtil.getDataModule().filter(mData, value -> value.getCurrency().equals(currency)).toList());
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().filter(mData, value -> value.getCurrency().equals(currency)).toList());
             }
         }
     }

@@ -9,7 +9,7 @@ import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
  * Интерфейс объединения, предоставляющего почтовый сервис подписчикам
  */
 @SuppressWarnings("unused")
-public interface MailSpecialist extends SmallUnion<MailSubscriber> {
+public interface MailUnion extends SmallUnion<MailSubscriber> {
 
     /**
      * Получить почту подписчика

@@ -20,14 +20,14 @@ import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 /**
  * Объединение, предоставляющее почтовый сервис подписчикам
  */
-public class MailSpecialistImpl extends AbsSmallUnion<MailSubscriber> implements MailSpecialist {
+public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements MailUnion {
 
-    public static final String NAME = MailSpecialistImpl.class.getName();
+    public static final String NAME = MailUnionImpl.class.getName();
 
     private Map<Long, Mail> mMail = Collections.synchronizedMap(new ConcurrentHashMap<Long, Mail>());
     private AtomicLong mId = new AtomicLong(0L);
 
-    public MailSpecialistImpl() {
+    public MailUnionImpl() {
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MailSpecialistImpl extends AbsSmallUnion<MailSubscriber> implements
             // удаляем старые письма
             final String name = subscriber.getName();
             final long currentTime = System.currentTimeMillis();
-            final List<Mail> list = SLUtil.getDataModule().filter(mMail.values(), mail -> (mail.contains(name) && mail.getEndTime() != -1 && mail.getEndTime() < currentTime)).toList();
+            final List<Mail> list = SLUtil.getDataSpecialist().filter(mMail.values(), mail -> (mail.contains(name) && mail.getEndTime() != -1 && mail.getEndTime() < currentTime)).toList();
             if (!list.isEmpty()) {
                 for (Mail mail : list) {
                     mMail.remove(mail.getId());
@@ -57,7 +57,7 @@ public class MailSpecialistImpl extends AbsSmallUnion<MailSubscriber> implements
             }
 
             final Comparator<Mail> byId = (left, right) -> left.getId().compareTo(right.getId());
-            return SLUtil.getDataModule().filter(mMail.values(), mail -> mail.contains(name) && (mail.getEndTime() == -1 || (mail.getEndTime() != -1 && mail.getEndTime() > currentTime))).sorted(byId).toList();
+            return SLUtil.getDataSpecialist().filter(mMail.values(), mail -> mail.contains(name) && (mail.getEndTime() == -1 || (mail.getEndTime() != -1 && mail.getEndTime() > currentTime))).sorted(byId).toList();
         }
         return new ArrayList<>();
     }
@@ -70,7 +70,7 @@ public class MailSpecialistImpl extends AbsSmallUnion<MailSubscriber> implements
             }
 
             final String name = subscriber.getName();
-            final List<Mail> list = SLUtil.getDataModule().filter(mMail.values(), mail -> mail.contains(name)).toList();
+            final List<Mail> list = SLUtil.getDataSpecialist().filter(mMail.values(), mail -> mail.contains(name)).toList();
             if (!list.isEmpty()) {
                 for (Mail mail : list) {
                     mMail.remove(mail.getId());
@@ -157,6 +157,6 @@ public class MailSpecialistImpl extends AbsSmallUnion<MailSubscriber> implements
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return (MailSpecialist.class.isInstance(o)) ? 0 : 1;
+        return (MailUnion.class.isInstance(o)) ? 0 : 1;
     }
 }
