@@ -99,8 +99,8 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         }
                     }
                 }
-                newSpecialist.onRegister();
                 mSecretary.put(getShortName(newSpecialist.getName()), newSpecialist);
+                newSpecialist.onRegister();
             } catch (Exception e) {
                 ErrorSpecialistImpl.getInstance().onError(NAME, e);
                 return false;
