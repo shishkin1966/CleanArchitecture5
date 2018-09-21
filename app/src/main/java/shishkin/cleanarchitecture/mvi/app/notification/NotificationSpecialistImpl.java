@@ -22,7 +22,7 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
 
     public static final String NAME = NotificationSpecialistImpl.class.getName();
 
-    private NotifivationDelegate mNotifivationDelegate = new NotifivationDelegate();
+    private NotificationSpecialist mSpecialist = NotificationSpecialistFactory.get();
 
     @Override
     public int compareTo(@NonNull Object o) {
@@ -36,16 +36,15 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
 
     @Override
     public void showBalance(List<MviDao.Balance> list) {
-        mNotifivationDelegate.get(this).showBalance(list);
+        mSpecialist.showBalance(list);
     }
 
     @Override
     public void clear() {
-        mNotifivationDelegate.get(this).clear();
+        mSpecialist.clear();
     }
 
-    @Override
-    public void getBalance() {
+    private void getBalance() {
         Repository.getInstance().getBalance(this);
     }
 
@@ -89,6 +88,5 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
 
     @Override
     public void setState(int state) {
-
     }
 }

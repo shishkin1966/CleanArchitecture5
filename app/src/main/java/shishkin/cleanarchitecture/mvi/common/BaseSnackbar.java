@@ -52,7 +52,7 @@ public class BaseSnackbar {
 
             default:
                 snackbar.setActionTextColor(ViewUtils.getColor(view.getContext(), R.color.green));
-                backgroundColor = R.color.blue;
+                backgroundColor = R.color.gray_dark;
         }
         snackbarView.setBackgroundColor(ViewUtils.getColor(view.getContext(), backgroundColor));
         textView.setSingleLine(false);
