@@ -6,20 +6,23 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
-import shishkin.cleanarchitecture.mvi.app.observe.BalanceObserver;
+import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.DbObservableSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
-public class NotificationSpecialistImpl extends AbsSpecialist implements NotificationSpecialist, ResponseListener {
+public class NotificationSpecialistImpl extends AbsSpecialist implements NotificationSpecialist, ResponseListener, DbObservableSubscriber {
 
     public static final String NAME = NotificationSpecialistImpl.class.getName();
 
     private NotifivationDelegate mNotifivationDelegate = new NotifivationDelegate();
-    private BalanceObserver mBalanceObserver = new BalanceObserver();
 
     @Override
     public int compareTo(@NonNull Object o) {
@@ -48,7 +51,6 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
 
     @Override
     public void onRegister() {
-        SLUtil.register(mBalanceObserver);
         getBalance();
     }
 
@@ -60,5 +62,33 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
         }
     }
 
+    @Override
+    public List<String> getTables() {
+        return StringUtils.arrayToList(Account.TABLE);
+    }
 
+    @Override
+    public List<String> getObservable() {
+        return StringUtils.arrayToList(DbObservable.NAME);
+    }
+
+    @Override
+    public void onChange(Object object) {
+        getBalance();
+    }
+
+    @Override
+    public List<String> getSpecialistSubscription() {
+        return StringUtils.arrayToList(ObservableUnionImpl.NAME);
+    }
+
+    @Override
+    public int getState() {
+        return ViewStateObserver.STATE_RESUME;
+    }
+
+    @Override
+    public void setState(int state) {
+
+    }
 }

@@ -6,7 +6,6 @@ import com.squareup.leakcanary.LeakCanary;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.observe.BalanceObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
