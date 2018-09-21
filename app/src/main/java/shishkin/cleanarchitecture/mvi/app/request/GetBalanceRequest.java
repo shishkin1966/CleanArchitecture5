@@ -30,7 +30,7 @@ public class GetBalanceRequest extends AbsResultRequest<List<MviDao.Balance>> {
 
     @Override
     public boolean isDistinct() {
-        return true;
+        return false;
     }
 
     @Override
@@ -38,7 +38,6 @@ public class GetBalanceRequest extends AbsResultRequest<List<MviDao.Balance>> {
         try {
             final MviDb db = SLUtil.getDb();
             setData(db.MviDao().getBalance());
-            Thread.sleep(500);
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
             setError(new ExtError().addError(NAME, e));

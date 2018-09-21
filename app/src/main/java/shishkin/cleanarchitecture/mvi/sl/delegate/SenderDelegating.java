@@ -8,5 +8,4 @@ public interface SenderDelegating {
 
     void processing(Object sender, Object object);
 
-
 }
