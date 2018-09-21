@@ -16,7 +16,6 @@ import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 
 public class NotificationO implements NotificationSpecialist {
 
-    private static final int NOTIFICATION_ID = 1;
     private String GROUP_NAME;
     private static final String CANAL_NAME = "Notification Service Canal";
 
@@ -51,17 +50,6 @@ public class NotificationO implements NotificationSpecialist {
                 nm.createNotificationChannel(mChannel);
             }
         }
-
-        /*
-        final Notification notificationMain = new NotificationCompat.Builder(context, GROUP_NAME)
-                .setAutoCancel(true)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setGroup(GROUP_NAME)
-                .setStyle(new NotificationCompat.MessagingStyle(GROUP_NAME))
-                .setDefaults(0)
-                .build();
-        nm.notify(NOTIFICATION_ID, notificationMain);
-        */
 
         for (MviDao.Balance balance : list) {
             final String message = String.format("%,.0f", balance.balance) + " " + balance.currency;

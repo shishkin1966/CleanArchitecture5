@@ -15,7 +15,6 @@ import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 
 public class NotificationN implements NotificationSpecialist {
 
-    private static final int NOTIFICATION_ID = 1;
     private String GROUP_NAME;
 
     @Override
@@ -38,17 +37,6 @@ public class NotificationN implements NotificationSpecialist {
         if (nm == null) {
             return;
         }
-
-        /*
-        final Notification notificationMain = new NotificationCompat.Builder(context, GROUP_NAME)
-                .setAutoCancel(true)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setGroup(GROUP_NAME)
-                .setStyle(new NotificationCompat.MessagingStyle(GROUP_NAME))
-                .setDefaults(0)
-                .build();
-        nm.notify(NOTIFICATION_ID, notificationMain);
-        */
 
         for (MviDao.Balance balance : list) {
             final String message = String.format("%,.0f", balance.balance) + " " + balance.currency;
