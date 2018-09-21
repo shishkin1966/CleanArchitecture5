@@ -10,6 +10,4 @@ public interface NotificationSpecialist {
     void showBalance(List<MviDao.Balance> list);
 
     void clear();
-
-    void getBalance();
 }

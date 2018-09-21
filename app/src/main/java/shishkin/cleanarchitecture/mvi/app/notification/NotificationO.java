@@ -14,7 +14,7 @@ import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 
-public class NotificationO implements NotificationDelegating {
+public class NotificationO implements NotificationSpecialist {
 
     private static final int NOTIFICATION_ID = 1;
     private String GROUP_NAME;
@@ -86,10 +86,5 @@ public class NotificationO implements NotificationDelegating {
         if (nm != null) {
             nm.cancelAll();
         }
-    }
-
-    @Override
-    public void processing(Object object) {
-
     }
 }
