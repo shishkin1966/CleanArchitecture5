@@ -1,8 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app;
 
-import com.squareup.leakcanary.LeakCanary;
-
-
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
@@ -30,8 +27,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SL.getInstance().register(NotificationSpecialistImpl.NAME);
-
-        LeakCanary.install(this);
     }
 
     @Override
