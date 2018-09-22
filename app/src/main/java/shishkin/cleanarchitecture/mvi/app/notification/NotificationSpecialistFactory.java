@@ -5,11 +5,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 public class NotificationSpecialistFactory {
 
     public static NotificationSpecialist get() {
-        if (ApplicationUtils.hasO()) {
-            return new NotificationO();
-        } else if (ApplicationUtils.hasN()) {
-            return new NotificationN();
-        } else if (ApplicationUtils.hasMarshmallow()) {
+        if (ApplicationUtils.hasMarshmallow()) {
             return new NotificationM();
         }
         return new Notification();
