@@ -15,7 +15,7 @@ import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 
 public class Notification implements NotificationSpecialist {
 
-    private String GROUP_NAME;
+    private static final String GROUP_NAME = SLUtil.getContext().getString(R.string.app_name);
 
     @Override
     public void showBalance(List<MviDao.Balance> list) {
@@ -31,8 +31,6 @@ public class Notification implements NotificationSpecialist {
             return;
         }
 
-        GROUP_NAME = SLUtil.getContext().getString(R.string.app_name);
-
         final NotificationManager nm = ApplicationUtils.getSystemService(context, Context.NOTIFICATION_SERVICE);
         if (nm == null) {
             return;
@@ -46,8 +44,7 @@ public class Notification implements NotificationSpecialist {
                     .setAutoCancel(true)
                     .setWhen(System.currentTimeMillis())
                     .setDefaults(0)
-                    .setContentTitle(context.getString(R.string.app_name))
-                    .setGroup(GROUP_NAME)
+                    .setContentTitle(context.getString(R.string.fragment_account_balance))
                     .setContentText(message);
             nm.notify(Long.valueOf(System.currentTimeMillis()).intValue(),
                     notificationBuilder.build());
