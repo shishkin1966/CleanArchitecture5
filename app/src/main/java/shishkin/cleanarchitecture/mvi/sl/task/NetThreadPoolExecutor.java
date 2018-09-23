@@ -26,6 +26,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
+@SuppressWarnings("unused")
 public class NetThreadPoolExecutor implements IExecutor, ObservableSubscriber<Intent> {
 
     public static final String NAME = NetThreadPoolExecutor.class.getName();
