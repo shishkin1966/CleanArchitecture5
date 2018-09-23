@@ -12,6 +12,7 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 public class NotificationM implements NotificationSpecialist {
 
@@ -26,6 +27,22 @@ public class NotificationM implements NotificationSpecialist {
 
         clear();
 
+        final StringBuilder sb = new StringBuilder();
+        for (MviDao.Balance balance : list) {
+            sb.append(String.format("%,.0f", balance.balance) + " " + balance.currency);
+            sb.append("\n");
+        }
+
+        showMessage(sb.toString());
+    }
+
+    @Override
+    public void showMessage(String message) {
+        if (StringUtils.isNullOrEmpty(message)) {
+            clear();
+            return;
+        }
+
         final Context context = SLUtil.getContext();
         if (context == null) {
             return;
@@ -36,24 +53,19 @@ public class NotificationM implements NotificationSpecialist {
             return;
         }
 
-
-        final StringBuilder sb = new StringBuilder();
-        for (MviDao.Balance balance : list) {
-            sb.append(String.format("%,.0f", balance.balance) + " " + balance.currency);
-            sb.append("\n");
-        }
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, GROUP_NAME)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(0)
                 .setContentTitle(context.getString(R.string.fragment_account_balance))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(sb.toString()))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setGroup(GROUP_NAME)
-                .setContentText(sb.toString());
+                .setContentText(message);
         nm.notify(Long.valueOf(System.currentTimeMillis()).intValue(),
                 notificationBuilder.build());
     }
+
 
     @Override
     public void clear() {

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
@@ -38,6 +37,11 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
     @Override
     public void showBalance(List<MviDao.Balance> list) {
         mSpecialist.showBalance(list);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        mSpecialist.showMessage(message);
     }
 
     @Override
