@@ -1,13 +1,31 @@
-package shishkin.cleanarchitecture.mvi.sl;
+package shishkin.cleanarchitecture.mvi.app;
 
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
-import java.util.List;
-
-
+import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialist;
+import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialist;
+import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
+import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.MailUnion;
+import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
+import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.PresenterUnion;
+import shishkin.cleanarchitecture.mvi.sl.PresenterUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.RequestSpecialist;
+import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialist;
+import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProvider;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProviderImpl;
@@ -58,26 +76,18 @@ public class SLUtil {
         return SL.getInstance().get(MailUnionImpl.NAME);
     }
 
+    public static StorageSpecialist getStorageSpecialist() {
+        return SL.getInstance().get(StorageSpecialistImpl.NAME);
+    }
+
+    public static SecureStorageSpecialist getSecureStorageSpecialist() {
+        return SL.getInstance().get(SecureStorageSpecialistImpl.NAME);
+    }
+
     public static <C> C getActivity() {
         final ActivityUnion union = getActivityUnion();
         if (union != null) {
             return union.getActivity();
-        }
-        return null;
-    }
-
-    public static <C> C getActivity(final String name) {
-        final ActivityUnion union = getActivityUnion();
-        if (union != null) {
-            return union.getActivity(name);
-        }
-        return null;
-    }
-
-    public static <C> C getActivity(final String name, final boolean validate) {
-        final ActivityUnion union = getActivityUnion();
-        if (union != null) {
-            return union.getActivity(name, validate);
         }
         return null;
     }
@@ -152,24 +162,6 @@ public class SLUtil {
             return (T) provider.getDb();
         }
         return null;
-    }
-
-    /**
-     * Читать почту
-     *
-     * @param subscriber почтовый подписчик
-     */
-    public static void readMail(final MailSubscriber subscriber) {
-        final MailUnion union = getMailUnion();
-        if (union != null) {
-            final List<Mail> list = union.getMail(subscriber);
-            for (Mail mail : list) {
-                if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
-                    mail.read(subscriber);
-                    union.removeMail(mail);
-                }
-            }
-        }
     }
 
     /**

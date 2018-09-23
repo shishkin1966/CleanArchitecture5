@@ -6,6 +6,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
 import java.util.List;
@@ -62,8 +64,39 @@ public abstract class MviDao {
     @Query("SELECT DISTINCT " + Account.Columns.currency + " FROM " + Account.TABLE)
     public abstract List<String> getCurrency();
 
-    public static class Balance {
+    public static class Balance implements Parcelable {
         public String currency;
         public Double balance;
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.currency);
+            dest.writeValue(this.balance);
+        }
+
+        public Balance() {
+        }
+
+        protected Balance(Parcel in) {
+            this.currency = in.readString();
+            this.balance = (Double) in.readValue(Double.class.getClassLoader());
+        }
+
+        public static final Parcelable.Creator<Balance> CREATOR = new Parcelable.Creator<Balance>() {
+            @Override
+            public Balance createFromParcel(Parcel source) {
+                return new Balance(source);
+            }
+
+            @Override
+            public Balance[] newArray(int size) {
+                return new Balance[size];
+            }
+        };
     }
 }

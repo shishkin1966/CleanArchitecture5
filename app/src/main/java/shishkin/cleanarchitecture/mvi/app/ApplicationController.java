@@ -6,7 +6,6 @@ import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImp
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 
 /**
@@ -35,6 +34,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         if (specialist != null) {
             specialist.clear();
         }
+
+        SLUtil.getStorageSpecialist().onFinishApplication();
 
         super.onFinish();
     }

@@ -10,7 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.DbObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
+import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 
 /**
  * Created by Shishkin on 16.12.2017.
@@ -60,7 +62,7 @@ public abstract class AbsDbObservable extends AbsObservable<String> {
 
         final List<String> tableSubscribers = mTables.get(object);
         for (String name : tableSubscribers) {
-            final ObservableSubscriber subscriber = SLUtil.getObservableUnion().getSubscriber(name);
+            final ObservableSubscriber subscriber = ((ObservableUnion) SL.getInstance().get(ObservableUnionImpl.NAME)).getSubscriber(name);
             if (subscriber != null) {
                 subscriber.onChange(object);
             }

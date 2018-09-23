@@ -22,4 +22,5 @@ public interface Specialist extends Subscriber, Validated, Comparable {
      * Событие - регистрация
      */
     void onRegister();
+
 }

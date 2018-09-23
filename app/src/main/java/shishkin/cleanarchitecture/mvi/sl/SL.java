@@ -75,9 +75,9 @@ public class SL extends AbsServiceLocator {
 
     @Override
     public void onFinish() {
-        SLUtil.getActivityUnion().hideKeyboard();
-        SLUtil.getPresenterUnion().onFinishApplication();
-        SLUtil.getActivityUnion().onFinishApplication();
+        ((ActivityUnion) get(ActivityUnionImpl.NAME)).hideKeyboard();
+        ((PresenterUnion) SL.getInstance().get(PresenterUnionImpl.NAME)).onFinishApplication();
+        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).onFinishApplication();
     }
 
     @Override

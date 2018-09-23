@@ -45,7 +45,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             // удаляем старые письма
             final String name = subscriber.getName();
             final long currentTime = System.currentTimeMillis();
-            final List<Mail> list = SLUtil.getDataSpecialist().filter(mMail.values(), mail -> (mail.contains(name) && mail.getEndTime() != -1 && mail.getEndTime() < currentTime)).toList();
+            final List<Mail> list = ((DataSpecialist) SL.getInstance().get(DataSpecialistImpl.NAME)).filter(mMail.values(), mail -> (mail.contains(name) && mail.getEndTime() != -1 && mail.getEndTime() < currentTime)).toList();
             if (!list.isEmpty()) {
                 for (Mail mail : list) {
                     mMail.remove(mail.getId());
@@ -57,7 +57,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             }
 
             final Comparator<Mail> byId = (left, right) -> left.getId().compareTo(right.getId());
-            return SLUtil.getDataSpecialist().filter(mMail.values(), mail -> mail.contains(name) && (mail.getEndTime() == -1 || (mail.getEndTime() != -1 && mail.getEndTime() > currentTime))).sorted(byId).toList();
+            return ((DataSpecialist) SL.getInstance().get(DataSpecialistImpl.NAME)).filter(mMail.values(), mail -> mail.contains(name) && (mail.getEndTime() == -1 || (mail.getEndTime() != -1 && mail.getEndTime() > currentTime))).sorted(byId).toList();
         }
         return new ArrayList<>();
     }
@@ -70,7 +70,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             }
 
             final String name = subscriber.getName();
-            final List<Mail> list = SLUtil.getDataSpecialist().filter(mMail.values(), mail -> mail.contains(name)).toList();
+            final List<Mail> list = ((DataSpecialist) SL.getInstance().get(DataSpecialistImpl.NAME)).filter(mMail.values(), mail -> mail.contains(name)).toList();
             if (!list.isEmpty()) {
                 for (Mail mail : list) {
                     mMail.remove(mail.getId());
@@ -113,8 +113,24 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             final MailSubscriber subscriber = reference.get();
             if (address.equalsIgnoreCase(subscriber.getName())) {
                 if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
-                    SLUtil.readMail(subscriber);
+                    readMail(subscriber);
                 }
+            }
+        }
+    }
+
+    /**
+     * Читать почту
+     *
+     * @param subscriber почтовый подписчик
+     */
+    @Override
+    public void readMail(final MailSubscriber subscriber) {
+        final List<Mail> list = getMail(subscriber);
+        for (Mail mail : list) {
+            if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+                mail.read(subscriber);
+                removeMail(mail);
             }
         }
     }
