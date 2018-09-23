@@ -90,6 +90,9 @@ dependencies {
     implementation 'com.google.guava:guava:23.6-android'
 
     // Дисковый кэш
-    compile 'com.jakewharton:disklrucache:2.0.2'
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+
+    // кэширование на диске
+    implementation 'io.paperdb:paperdb:2.6'
 
 }

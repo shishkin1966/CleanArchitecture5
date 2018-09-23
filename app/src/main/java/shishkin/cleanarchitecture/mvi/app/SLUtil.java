@@ -4,6 +4,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialist;
+import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialist;
 import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
@@ -76,6 +78,10 @@ public class SLUtil {
 
     public static StorageSpecialist getStorageSpecialist() {
         return SL.getInstance().get(StorageSpecialistImpl.NAME);
+    }
+
+    public static SecureStorageSpecialist getSecureStorageSpecialist() {
+        return SL.getInstance().get(SecureStorageSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {
