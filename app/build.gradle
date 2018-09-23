@@ -5,6 +5,7 @@ def compileSdk = 27
 def buildTools = "27.0.3"
 def minSdk = 15
 def targetSdk = 27
+def playServices = "11.2.0"
 
 android {
     buildToolsVersion buildTools
@@ -57,6 +58,12 @@ dependencies {
     implementation "com.android.support:support-v13:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
+
+    implementation "com.google.android.gms:play-services-base:$playServices"
+    implementation "com.google.android.gms:play-services-maps:$playServices"
+    implementation "com.google.android.gms:play-services-location:$playServices"
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+
 
     // поддержка multidex на Android 4.*
     implementation 'com.android.support:multidex:1.0.3'

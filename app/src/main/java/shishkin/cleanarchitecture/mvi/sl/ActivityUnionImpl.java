@@ -1,7 +1,9 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.Constant;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
@@ -26,6 +29,7 @@ import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityForResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartChooseActivityEvent;
+import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
@@ -375,6 +379,35 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (activity == null) return;
 
         startActivity(new StartActivityEvent(new Intent(ApplicationSpecialistImpl.getInstance(), activity.getClass())));
+    }
+
+    @Override
+    public boolean checkPermission(String permission) {
+        if (ApplicationUtils.hasMarshmallow()) {
+            final IActivity subscriber = getCurrentSubscriber();
+            if (subscriber != null && subscriber.validate() && (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE)) {
+                if (ActivityCompat.checkSelfPermission(subscriber.getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void grantPermission(String permission) {
+        if (ApplicationUtils.hasMarshmallow()) {
+            final IActivity subscriber = getCurrentSubscriber();
+            if (subscriber != null && subscriber.validate()) {
+                if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(subscriber.getActivity(), permission)) {
+                        //showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, this.getName(), null, helpMessage, R.string.setting, R.string.cancel, false));
+                    } else {
+                        ActivityCompat.requestPermissions(subscriber.getActivity(), new String[]{permission}, Constant.REQUEST_PERMISSIONS);
+                    }
+                }
+            }
+        }
     }
 
     @Override
