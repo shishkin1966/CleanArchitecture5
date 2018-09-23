@@ -6,21 +6,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.Router;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity<M>
         implements ActivityResultListener, Router {
 
-    private static final String NAME = AbsContentActivity.class.getName();
-
     @Override
     protected void onPause() {
         super.onPause();
 
-        SLUtil.getActivityUnion().hideKeyboard();
+        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).hideKeyboard();
     }
 
     @Override

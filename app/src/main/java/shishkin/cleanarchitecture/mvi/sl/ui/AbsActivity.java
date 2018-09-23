@@ -30,7 +30,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.model.Model;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
@@ -64,7 +64,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
         mStateObservable.setState(ViewStateObserver.STATE_CREATE);
 
-        SLUtil.register(this);
+        SL.getInstance().register(this);
     }
 
     @Override
@@ -86,7 +86,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         mStateObservable.setState(ViewStateObserver.STATE_DESTROY);
         mStateObservable.clear();
 
-        SLUtil.unregister(this);
+        SL.getInstance().unregister(this);
     }
 
     @Override
@@ -95,7 +95,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
         mStateObservable.setState(ViewStateObserver.STATE_RESUME);
 
-        SLUtil.setCurrentSubscriber(this);
+        SL.getInstance().setCurrentSubscriber(this);
     }
 
     @Override

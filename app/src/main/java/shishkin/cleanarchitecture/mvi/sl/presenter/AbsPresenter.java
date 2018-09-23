@@ -7,10 +7,11 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.sl.MailUnion;
 import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnion;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnionImpl;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
@@ -44,14 +45,14 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
 
     @Override
     public void onReadyView() {
-        SLUtil.register(this);
+        SL.getInstance().register(this);
 
         onStart();
     }
 
     @Override
     public void onResumeView() {
-        SLUtil.readMail(this);
+        ((MailUnion) SL.getInstance().get(MailUnionImpl.NAME)).readMail(this);
     }
 
     @Override
@@ -60,9 +61,9 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
 
     @Override
     public void onDestroyView() {
-        SLUtil.unregister(this);
+        SL.getInstance().unregister(this);
 
-        final PresenterUnion union = SLUtil.getPresenterUnion();
+        final PresenterUnion union = ((PresenterUnion) SL.getInstance().get(PresenterUnionImpl.NAME));
         if (union != null) {
             if (!mLostStateData) {
                 union.saveStateData(this, getStateData());

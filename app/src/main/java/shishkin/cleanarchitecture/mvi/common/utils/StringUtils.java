@@ -672,7 +672,7 @@ public class StringUtils {
     }
 
     /**
-     * get "string" - return "%string%"
+     * getCache "string" - return "%string%"
      */
     public static String surroundWithPercent(final String toSearch) {
         return "%" + toSearch + "%";

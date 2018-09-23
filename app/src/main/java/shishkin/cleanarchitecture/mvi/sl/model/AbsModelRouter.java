@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
@@ -40,8 +42,8 @@ public abstract class AbsModelRouter implements ModelRouter {
                 return;
             }
         }
-        if (SLUtil.getActivityUnion().hasTop()) {
-            SLUtil.getActivityUnion().switchToTopFragment();
+        if (((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).hasTop()) {
+            ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).switchToTopFragment();
         } else {
             showMainFragment();
         }
@@ -83,6 +85,6 @@ public abstract class AbsModelRouter implements ModelRouter {
         } else {
             ErrorSpecialistImpl.getInstance().onError(NAME, "Object is not AbsContentActivity and AbsFragment", false);
         }
-        SLUtil.getActivityUnion().showFragment(new ShowFragmentEvent(fragment, allowingStateLoss, addToBackStack, clearBackStack, animate));
+        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).showFragment(new ShowFragmentEvent(fragment, allowingStateLoss, addToBackStack, clearBackStack, animate));
     }
 }

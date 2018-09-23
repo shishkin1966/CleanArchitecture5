@@ -12,7 +12,9 @@ import android.view.View;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
+import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 @SuppressWarnings("unused")
@@ -70,7 +72,7 @@ public abstract class AbsContentFragment<M extends AbsModel> extends AbsFragment
 
     @Override
     public void exit() {
-        SLUtil.getActivityUnion().back();
+        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).back();
     }
 
 }

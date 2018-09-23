@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+
 
 /**
  * Created by Shishkin on 15.12.2017.
@@ -25,7 +26,7 @@ public abstract class AbsBroadcastReceiverObservable extends AbsObservable<Inten
 
     @Override
     public void register() {
-        final Context context = SLUtil.getContext();
+        final Context context = ApplicationSpecialistImpl.getInstance();
         if (context != null) {
             mBroadcastReceiver = new BroadcastReceiver() {
                 @Override
@@ -41,7 +42,7 @@ public abstract class AbsBroadcastReceiverObservable extends AbsObservable<Inten
     @Override
     public void unregister() {
         if (mBroadcastReceiver != null) {
-            final Context context = SLUtil.getContext();
+            final Context context = ApplicationSpecialistImpl.getInstance();
             if (context != null && mBroadcastReceiver != null) {
                 context.unregisterReceiver(mBroadcastReceiver);
                 mBroadcastReceiver = null;

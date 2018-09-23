@@ -86,4 +86,7 @@ dependencies {
     // Stream API
     implementation 'com.annimon:stream:1.1.9'
 
+    // Кэш памяти и доп функции
+    implementation 'com.google.guava:guava:23.6-android'
+
 }

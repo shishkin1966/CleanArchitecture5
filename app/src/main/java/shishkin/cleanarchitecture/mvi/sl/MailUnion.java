@@ -45,4 +45,11 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
      */
     void clearMail(final MailSubscriber subscriber);
 
+    /**
+     * Читать почту
+     *
+     * @param subscriber почтовый подписчик
+     */
+    void readMail(final MailSubscriber subscriber);
+
 }

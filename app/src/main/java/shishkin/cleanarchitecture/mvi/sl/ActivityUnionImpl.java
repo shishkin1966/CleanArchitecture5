@@ -135,7 +135,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
             action = ((Button) view).getText().toString();
         }
         if (!StringUtils.isNullOrEmpty(action)) {
-            SLUtil.getUseCasesUnion().onAction(new OnActionEvent(action));
+            ((UseCasesSpecialist) SL.getInstance().get(UseCasesSpecialistImpl.NAME)).onAction(new OnActionEvent(action));
         }
     }
 

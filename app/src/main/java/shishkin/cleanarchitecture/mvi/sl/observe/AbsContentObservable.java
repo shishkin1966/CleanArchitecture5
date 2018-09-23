@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+
 
 /**
  * Created by Shishkin on 16.12.2017.
@@ -37,7 +38,7 @@ public abstract class AbsContentObservable extends AbsObservable<Boolean> {
 
     @Override
     public void register() {
-        final Context context = SLUtil.getContext();
+        final Context context = ApplicationSpecialistImpl.getInstance();
         if (context != null) {
             for (Uri uri : mUris) {
                 context.getContentResolver().registerContentObserver(uri, true, mObserver);
@@ -47,7 +48,7 @@ public abstract class AbsContentObservable extends AbsObservable<Boolean> {
 
     @Override
     public void unregister() {
-        final Context context = SLUtil.getContext();
+        final Context context = ApplicationSpecialistImpl.getInstance();
         if (context != null) {
             context.getContentResolver().unregisterContentObserver(mObserver);
         }

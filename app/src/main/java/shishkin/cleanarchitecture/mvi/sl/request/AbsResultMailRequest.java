@@ -1,7 +1,9 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.SLUtil;
+import shishkin.cleanarchitecture.mvi.sl.MailUnion;
+import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.mail.ResultMail;
@@ -28,7 +30,7 @@ public abstract class AbsResultMailRequest<T> extends AbsRequest {
 
     public void response() {
         if (validate()) {
-            SLUtil.addMail(new ResultMail(mListener, new Result().setName(getName()).setData(getData()).setError(getError())));
+            ((MailUnion) SL.getInstance().get(MailUnionImpl.NAME)).addMail(new ResultMail(mListener, new Result().setName(getName()).setData(getData()).setError(getError())));
         }
     }
 
