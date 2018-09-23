@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl.delegate;
 
-import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProvider;
 import shishkin.cleanarchitecture.mvi.sl.repository.NetProvider;
 import shishkin.cleanarchitecture.mvi.sl.task.CommonThreadPoolExecutor;

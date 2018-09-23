@@ -12,6 +12,7 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 public class Notification implements NotificationSpecialist {
 
@@ -26,6 +27,19 @@ public class Notification implements NotificationSpecialist {
 
         clear();
 
+        for (MviDao.Balance balance : list) {
+            final String message = String.format("%,.0f", balance.balance) + " " + balance.currency;
+            showMessage(message);
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        if (StringUtils.isNullOrEmpty(message)) {
+            clear();
+            return;
+        }
+
         final Context context = SLUtil.getContext();
         if (context == null) {
             return;
@@ -36,19 +50,15 @@ public class Notification implements NotificationSpecialist {
             return;
         }
 
-
-        for (MviDao.Balance balance : list) {
-            final String message = String.format("%,.0f", balance.balance) + " " + balance.currency;
-            final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, GROUP_NAME)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setAutoCancel(true)
-                    .setWhen(System.currentTimeMillis())
-                    .setDefaults(0)
-                    .setContentTitle(context.getString(R.string.fragment_account_balance))
-                    .setContentText(message);
-            nm.notify(Long.valueOf(System.currentTimeMillis()).intValue(),
-                    notificationBuilder.build());
-        }
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, GROUP_NAME)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis())
+                .setDefaults(0)
+                .setContentTitle(context.getString(R.string.fragment_account_balance))
+                .setContentText(message);
+        nm.notify(Long.valueOf(System.currentTimeMillis()).intValue(),
+                notificationBuilder.build());
     }
 
     @Override

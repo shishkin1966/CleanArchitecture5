@@ -7,7 +7,6 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
-
 import com.google.common.base.Charsets;
 
 
@@ -24,21 +23,19 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.security.auth.x500.X500Principal;
 
 
+import io.paperdb.Paper;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.CollectionsUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
-
-import io.paperdb.Paper;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 @SuppressWarnings("unused")
