@@ -125,4 +125,5 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     @Override
     public void onFinishApplication() {
     }
+
 }

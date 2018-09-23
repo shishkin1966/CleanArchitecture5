@@ -89,4 +89,7 @@ dependencies {
     // Кэш памяти и доп функции
     implementation 'com.google.guava:guava:23.6-android'
 
+    // Дисковый кэш
+    compile 'com.jakewharton:disklrucache:2.0.2'
+
 }

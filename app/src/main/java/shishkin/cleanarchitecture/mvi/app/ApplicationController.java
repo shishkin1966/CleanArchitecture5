@@ -35,6 +35,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
             specialist.clear();
         }
 
+        SLUtil.getStorageSpecialist().onFinishApplication();
+
         super.onFinish();
     }
 }

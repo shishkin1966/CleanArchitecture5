@@ -86,5 +86,4 @@ public interface SmallUnion<T> extends Specialist {
      * Событие - остановка приложения
      */
     void onFinishApplication();
-
 }
