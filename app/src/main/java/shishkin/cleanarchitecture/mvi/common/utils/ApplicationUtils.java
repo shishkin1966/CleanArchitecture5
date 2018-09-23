@@ -9,6 +9,9 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -213,6 +216,20 @@ public class ApplicationUtils {
         }
         return null;
     }
+
+    /**
+     * Контролировать наличие и версию Google Play Services
+     */
+    public static boolean isGooglePlayServices(final Context context) {
+        if (context != null) {
+            int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+            if (ConnectionResult.SUCCESS == resultCode) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private ApplicationUtils() {
     }

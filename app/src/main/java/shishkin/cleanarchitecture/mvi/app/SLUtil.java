@@ -4,6 +4,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
+import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
+import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialist;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialist;
@@ -82,6 +86,14 @@ public class SLUtil {
 
     public static SecureStorageSpecialist getSecureStorageSpecialist() {
         return SL.getInstance().get(SecureStorageSpecialistImpl.NAME);
+    }
+
+    public static NotificationSpecialist getNotificationSpecialist() {
+        return SL.getInstance().get(NotificationSpecialistImpl.NAME);
+    }
+
+    public static LocationUnion getLocationUnion() {
+        return SL.getInstance().get(LocationUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {

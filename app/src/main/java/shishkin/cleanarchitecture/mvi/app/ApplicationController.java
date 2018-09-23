@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app;
 
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
+import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
@@ -26,6 +27,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SL.getInstance().register(NotificationSpecialistImpl.NAME);
+        SL.getInstance().register(LocationUnionImpl.NAME);
     }
 
     @Override

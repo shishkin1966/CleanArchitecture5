@@ -159,5 +159,17 @@ public interface ActivityUnion extends IView, Union<IActivity> {
      */
     void showActivity(AbsActivity activity);
 
+    /**
+     * Проверить право у приложения
+     *
+     * @param permission право
+     */
+    boolean checkPermission(String permission);
 
+    /**
+     * запросить право приложению
+     *
+     * @param permission право
+     */
+    void grantPermission(String permission);
 }
