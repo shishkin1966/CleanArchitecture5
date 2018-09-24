@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 def supportLibVersion = "27.1.1"
 def compileSdk = 27
-def buildTools = "27.0.3"
+def buildTools = "28.0.2"
 def minSdk = 15
 def targetSdk = 27
 def playServices = "15.0.1"
