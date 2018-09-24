@@ -84,6 +84,10 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
     public void start() {
         if (!validate()) return;
 
+        if (!hasSubscribers()) {
+            return;
+        }
+
         if (isRuning) {
             stop();
         }
