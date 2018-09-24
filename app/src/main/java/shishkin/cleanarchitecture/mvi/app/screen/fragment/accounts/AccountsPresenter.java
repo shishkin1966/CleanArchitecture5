@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import org.michaelbel.bottomsheet.BottomSheet;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     private List<Account> mData;
     private DialogInterface mDialogSort;
     private DialogInterface mDialogSelect;
+    private int mSort = 0;
+    private int mSelect = 0;
     private Comparator<Account> mComparatorName = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
     private Comparator<Account> mComparatorCurrency = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
     private List<String> mCurrency;
@@ -157,7 +160,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
                 mData = SafeUtils.cast(result.getData());
-                getModel().getView().refreshAccounts(mData);
+                setData();
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 getModel().getView().refreshBalance(SafeUtils.cast(result.getData()));
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
@@ -171,24 +174,31 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog.equals(mDialogSort)) {
-            switch (which) {
-                case 0:
-                    getModel().getView().refreshAccounts(mData);
-                    break;
-                case 1:
-                    getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(mData, mComparatorName).toList());
-                    break;
-                case 2:
-                    getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(mData, mComparatorCurrency).toList());
-                    break;
-            }
+            mSort = which;
         } else if (dialog.equals(mDialogSelect)) {
-            if (which == 0) {
-                getModel().getView().refreshAccounts(mData);
-            } else {
-                final String currency = mCurrency.get(which - 1);
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().filter(mData, value -> value.getCurrency().equals(currency)).toList());
-            }
+            mSelect = which;
+        }
+        setData();
+    }
+
+    private void setData() {
+        final List<Account> list = new ArrayList<>();
+        if (mSelect == 0) {
+            list.addAll(mData);
+        } else {
+            final String currency = mCurrency.get(mSelect - 1);
+            list.addAll(SLUtil.getDataSpecialist().filter(mData, value -> value.getCurrency().equals(currency)).toList());
+        }
+        switch (mSort) {
+            case 0:
+                getModel().getView().refreshAccounts(list);
+                break;
+            case 1:
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(list, mComparatorName).toList());
+                break;
+            case 2:
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(list, mComparatorCurrency).toList());
+                break;
         }
     }
 

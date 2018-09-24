@@ -28,10 +28,8 @@
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/search_height"
-                    android:layout_marginBottom="@dimen/dimen_8dp"
                     android:layout_marginLeft="@dimen/dimen_12dp"
                     android:layout_marginRight="@dimen/dimen_12dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
                     android:hint="@string/search_hint"
                     android:inputType="text"
                     android:textColorHint="@color/gray_switch"/>

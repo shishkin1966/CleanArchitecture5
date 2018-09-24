@@ -15,10 +15,11 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.TickerRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
+import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -48,6 +49,8 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
         mSearchView = findView(R.id.search);
         mSearchView.setCompoundDrawablesWithIntrinsicBounds(ViewUtils.getVectorDrawable(getContext(), R.drawable.magnify, mSearchView.getContext().getTheme()), null, null, null);
+        new EditTextObservable(getModel().getPresenter(), mSearchView);
+        mSearchView.setText(SLUtil.getPreferencesSpecialist().getString(DigitalCurrenciesPresenter.FILTER_KEY, null));
 
         mRecyclerView = findView(R.id.list);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -64,6 +67,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
     @Override
     public void refreshTickers(List<Ticker> list) {
+        if (list == null) return;
         mAdapter.setItems(list);
     }
 }
