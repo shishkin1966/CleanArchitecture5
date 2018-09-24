@@ -7,8 +7,8 @@ import java.util.Observer;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
-import shishkin.cleanarchitecture.mvi.app.request.SaveTickerRequest;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
+import shishkin.cleanarchitecture.mvi.app.view_data.TickerViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -24,9 +24,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
-    public static final String FILTER_KEY = NAME + "_FILTER_KEY";
-    private List<Ticker> mData;
-    private String mPattern = SLUtil.getPreferencesSpecialist().getString(DigitalCurrenciesPresenter.FILTER_KEY, null);
+    private TickerViewData mViewData = new TickerViewData();
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
@@ -45,7 +43,6 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     @Override
     public void onStart() {
         getModel().getView().showProgressBar();
-        mData = SLUtil.getStorageSpecialist().getList(NAME, Ticker.class);
         setData();
         Repository.getInstance().getTicker(NAME);
     }
@@ -54,8 +51,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     public void response(Result result) {
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
-            mData = (List<Ticker>) result.getData();
-            SLUtil.getRequestSpecialist().request(this, new SaveTickerRequest(mData));
+            mViewData.setData((List<Ticker>) result.getData());
             setData();
         } else {
             SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -64,24 +60,22 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void update(Observable o, Object arg) {
-        mPattern = (String) arg;
+        mViewData.setPattern((String) arg);
         setData();
     }
 
     private void setData() {
-        if (mData == null) return;
+        if (mViewData.getData() == null) return;
 
-        if (StringUtils.isNullOrEmpty(mPattern)) {
-            getModel().getView().refreshTickers(mData);
+        if (StringUtils.isNullOrEmpty(mViewData.getPattern())) {
+            getModel().getView().refreshTickers(mViewData.getData());
         } else {
-            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().filter(mData, item -> StringUtils.containsIgnoreCase(item.getName(), mPattern)).toList());
+            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().filter(mViewData.getData(), item -> StringUtils.containsIgnoreCase(item.getName(), mViewData.getPattern())).toList());
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        SLUtil.getPreferencesSpecialist().putString(FILTER_KEY, mPattern);
-        super.onDestroyView();
+    public TickerViewData getViewData() {
+        return mViewData;
     }
 
 }

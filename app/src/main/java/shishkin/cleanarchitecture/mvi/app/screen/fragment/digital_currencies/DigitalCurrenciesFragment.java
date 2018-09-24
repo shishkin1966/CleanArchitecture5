@@ -15,7 +15,6 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.TickerRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
@@ -52,7 +51,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         mSearchView = findView(R.id.search);
         mSearchView.setCompoundDrawablesWithIntrinsicBounds(ViewUtils.getVectorDrawable(getContext(), R.drawable.magnify, mSearchView.getContext().getTheme()), null, null, null);
         new EditTextObservable(getModel().getPresenter(), mSearchView);
-        mSearchView.setText(SLUtil.getPreferencesSpecialist().getString(DigitalCurrenciesPresenter.FILTER_KEY, null));
+        mSearchView.setText(getModel().getPresenter().getViewData().getPattern());
 
         mRecyclerView = findView(R.id.list);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
