@@ -102,4 +102,16 @@ dependencies {
     // кэширование на диске
     implementation 'io.paperdb:paperdb:2.6'
 
+    // сериализация
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    // Tasks
+    implementation 'com.parse.bolts:bolts-tasks:1.4.0'
+
 }

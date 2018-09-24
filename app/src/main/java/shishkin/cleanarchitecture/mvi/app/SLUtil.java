@@ -6,6 +6,7 @@ import android.content.Context;
 
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialist;
@@ -72,6 +73,10 @@ public class SLUtil {
 
     public static DbProvider getDbProvider() {
         return SL.getInstance().get(DbProviderImpl.NAME);
+    }
+
+    public static NetProviderImpl getNetProvider() {
+        return SL.getInstance().get(NetProviderImpl.NAME);
     }
 
     public static DataSpecialist getDataSpecialist() {

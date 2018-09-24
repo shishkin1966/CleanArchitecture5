@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.delegate;
 
+import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProvider;
-import shishkin.cleanarchitecture.mvi.sl.repository.NetProvider;
 import shishkin.cleanarchitecture.mvi.sl.task.CommonThreadPoolExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.DbThreadPoolExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
@@ -16,7 +16,7 @@ public class RequestDelegateFactory implements DelegatingFactory<IExecutor> {
     public IExecutor create(Object sender) {
         if (DbProvider.class.isInstance(sender)) {
             return DbThreadPoolExecutor.getInstance();
-        } else if (NetProvider.class.isInstance(sender)) {
+        } else if (NetProviderImpl.class.isInstance(sender)) {
             return NetThreadPoolExecutor.getInstance();
         }
         return CommonThreadPoolExecutor.getInstance();

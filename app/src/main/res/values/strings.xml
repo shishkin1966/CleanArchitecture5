@@ -19,12 +19,10 @@
 
     <string name="fragment_account_balance">Баланс</string>
     <string name="fragment_account_open_date_format">Открыт</string>
-    <string name="fragment_account_transactions_subtitle">Переводы</string>
-    <string name="fragment_account_empty_transfers_title">You have no transfers yet</string>
-    <string name="fragment_account_popup_menu_action_transfer">Transfer to…</string>
-    <string name="fragment_account_popup_menu_action_replenish">Replenish from…</string>
+    <string name="fragment_account_transactions_subtitle">Курсы криптовалют</string>
 
     <string name="network_disconnected">Сеть недоступна</string>
     <string name="location">Местоположение</string>
+    <string name="search_hint">Найти</string>
 
 </resources>

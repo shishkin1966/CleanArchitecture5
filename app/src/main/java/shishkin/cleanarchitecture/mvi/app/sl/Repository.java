@@ -11,9 +11,6 @@ public class Repository {
 
     private static volatile Repository sInstance;
 
-    private ProviderDelegate mProviderDelegate;
-    private Contract mContract;
-
     public static void instantiate() {
         if (sInstance == null) {
             synchronized (Repository.class) {
@@ -32,27 +29,26 @@ public class Repository {
     }
 
     private Repository() {
-        mProviderDelegate = new ProviderDelegate();
-        mContract = new Contract();
     }
 
     public void addAccount(Account account, ResponseListener listener) {
-        getProvider().addAccount(account, listener);
+        DbRepositoryProvider.addAccount(account, listener);
     }
 
     public void getAccounts(ResponseListener listener) {
-        getProvider().getAccounts(listener);
+        DbRepositoryProvider.getAccounts(listener);
     }
 
     public void getBalance(ResponseListener listener) {
-        getProvider().getBalance(listener);
+        DbRepositoryProvider.getBalance(listener);
     }
 
     public void getCurrency(ResponseListener listener) {
-        getProvider().getCurrency(listener);
+        DbRepositoryProvider.getCurrency(listener);
     }
 
-    private RepositoryProvider getProvider() {
-        return mProviderDelegate.get(mContract);
+    public void getTicker(String listener) {
+        NetRepositoryProvider.getTicker(listener);
     }
+
 }
