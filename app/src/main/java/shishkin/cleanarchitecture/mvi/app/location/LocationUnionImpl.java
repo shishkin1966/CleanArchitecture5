@@ -23,10 +23,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
@@ -70,7 +70,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
     @Override
     public void onRegisterFirstSubscriber() {
-        if (ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             start();
         }
     }
@@ -91,7 +91,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
         isRuning = true;
 
         ApplicationUtils.runOnUiThread(() -> {
-            final Context context = SLUtil.getContext();
+            final Context context = ApplicationSpecialistImpl.getInstance();
             if (ApplicationUtils.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 if (context != null && mLocationRequest != null && mLocationCallback != null) {
                     isGetLocation = false;
@@ -170,7 +170,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
         }
 
         final List<Address> list = new ArrayList<>();
-        if (Connectivity.isNetworkConnectedOrConnecting(SLUtil.getContext()) && mGeocoder != null && Geocoder.isPresent()) {
+        if (Connectivity.isNetworkConnectedOrConnecting(ApplicationSpecialistImpl.getInstance()) && mGeocoder != null && Geocoder.isPresent()) {
             try {
                 list.addAll(mGeocoder.getFromLocation(
                         location.getLatitude(),
@@ -185,7 +185,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
     @Override
     public Result<Boolean> validateExt() {
-        final Context context = SLUtil.getContext();
+        final Context context = ApplicationSpecialistImpl.getInstance();
         if (context != null) {
             if (!ApplicationUtils.isGooglePlayServices(context)) {
                 return new Result<>(false).setError(NAME, "Not google play services");

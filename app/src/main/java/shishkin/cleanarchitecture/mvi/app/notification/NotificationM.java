@@ -13,6 +13,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
 public class NotificationM implements NotificationSpecialist {
 
@@ -20,6 +21,11 @@ public class NotificationM implements NotificationSpecialist {
 
     @Override
     public void showBalance(List<MviDao.Balance> list) {
+        final Context context = SLUtil.getContext();
+        if (context == null) {
+            return;
+        }
+
         if (list == null || list.isEmpty()) {
             clear();
             return;
@@ -27,17 +33,18 @@ public class NotificationM implements NotificationSpecialist {
 
         clear();
 
+        String title = ApplicationSpecialistImpl.getInstance().getString(R.string.fragment_account_balance);
         final StringBuilder sb = new StringBuilder();
         for (MviDao.Balance balance : list) {
             sb.append(String.format("%,.0f", balance.balance) + " " + balance.currency);
             sb.append("\n");
         }
 
-        showMessage(sb.toString());
+        showMessage(title, sb.toString());
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showMessage(String title, String message) {
         if (StringUtils.isNullOrEmpty(message)) {
             clear();
             return;
@@ -58,7 +65,7 @@ public class NotificationM implements NotificationSpecialist {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(0)
-                .setContentTitle(context.getString(R.string.fragment_account_balance))
+                .setContentTitle(title)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setGroup(GROUP_NAME)
                 .setContentText(message);

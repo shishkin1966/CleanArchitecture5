@@ -9,7 +9,7 @@ public interface NotificationSpecialist {
 
     void showBalance(List<MviDao.Balance> list);
 
-    void showMessage(String message);
+    void showMessage(String title, String message);
 
     void clear();
 }
