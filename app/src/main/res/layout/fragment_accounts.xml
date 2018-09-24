@@ -35,10 +35,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dimen_12dp"
+                        android:layout_marginLeft="@dimen/dimen_16dp"
                         android:layout_marginRight="@dimen/dimen_8dp"
                         android:layout_weight="1"
                         android:text="Баланс"
@@ -53,8 +53,7 @@
                         android:layout_marginBottom="@dimen/dimen_4dp"
                         android:layout_marginLeft="@dimen/dimen_8dp"
                         android:layout_marginRight="@dimen/dimen_16dp"
-                        android:layout_marginTop="@dimen/dimen_4dp"
-                        android:minHeight="@dimen/menu_header_height"/>
+                        android:layout_marginTop="@dimen/dimen_4dp"/>
 
                 </LinearLayout>
 
