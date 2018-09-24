@@ -5,6 +5,7 @@ import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
+import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -28,6 +29,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SL.getInstance().register(NotificationSpecialistImpl.NAME);
         SL.getInstance().register(LocationUnionImpl.NAME);
+        SL.getInstance().register(PreferencesSpecialistImpl.NAME);
     }
 
     @Override
