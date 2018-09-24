@@ -1,14 +1,12 @@
 package shishkin.cleanarchitecture.mvi.app.preference;
 
 
-import java.util.Map;
-
-
 import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
 /**
  * Интерфейс Preferences
  */
+@SuppressWarnings("unused")
 public interface PreferencesSpecialist extends Specialist {
 
     void putString(final String key, final String value);
@@ -40,8 +38,6 @@ public interface PreferencesSpecialist extends Specialist {
     boolean getBoolean(final String key);
 
     boolean getBoolean(final String key, final boolean defaultValue);
-
-    Map<String, ?> getAll();
 
     void remove(final String key);
 

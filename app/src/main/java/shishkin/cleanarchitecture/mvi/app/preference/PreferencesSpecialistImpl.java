@@ -6,9 +6,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 
-import java.util.Map;
-
-
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
@@ -158,16 +155,6 @@ public class PreferencesSpecialistImpl extends AbsSpecialist implements Preferen
             return settings.getBoolean(key, defaultValue);
         }
         return defaultValue;
-    }
-
-    @Override
-    public Map<String, ?> getAll() {
-        final Context context = ApplicationSpecialistImpl.getInstance();
-        if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getAll();
-        }
-        return null;
     }
 
     @Override
