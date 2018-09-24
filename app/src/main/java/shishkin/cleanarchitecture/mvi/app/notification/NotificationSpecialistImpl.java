@@ -40,8 +40,8 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
     }
 
     @Override
-    public void showMessage(String message) {
-        mSpecialist.showMessage(message);
+    public void showMessage(String title, String message) {
+        mSpecialist.showMessage(title, message);
     }
 
     @Override
