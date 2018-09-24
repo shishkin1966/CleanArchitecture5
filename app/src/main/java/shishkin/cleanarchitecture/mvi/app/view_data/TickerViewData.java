@@ -17,10 +17,6 @@ public class TickerViewData extends AbsCachedViewData<Ticker> {
         return NAME;
     }
 
-    public boolean isCacheEnabled() {
-        return true;
-    }
-
     @Override
     public Request getRequest() {
         return new SaveTickerRequest(NAME, getData());
