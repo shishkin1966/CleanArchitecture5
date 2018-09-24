@@ -40,6 +40,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(AddAccountRequest.NAME)) {
+                SLUtil.getActivityUnion().hideKeyboard();
                 getModel().getView().exit();
             }
         } else {
