@@ -45,6 +45,8 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mAdapter = new TickerRecyclerViewAdapter(getContext());
+
         setModel(new DigitalCurrenciesModel(this));
 
         mSearchView = findView(R.id.search);
@@ -56,7 +58,6 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new TickerRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
     }
 

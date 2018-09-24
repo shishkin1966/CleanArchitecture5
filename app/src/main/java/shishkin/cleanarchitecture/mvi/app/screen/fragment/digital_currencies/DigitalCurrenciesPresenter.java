@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
+import shishkin.cleanarchitecture.mvi.app.request.SaveTickerRequest;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -25,7 +26,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String FILTER_KEY = NAME + "_FILTER_KEY";
     private List<Ticker> mData;
-    private String mPattern;
+    private String mPattern = SLUtil.getPreferencesSpecialist().getString(DigitalCurrenciesPresenter.FILTER_KEY, null);
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
@@ -44,6 +45,8 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     @Override
     public void onStart() {
         getModel().getView().showProgressBar();
+        mData = SLUtil.getStorageSpecialist().getList(NAME, Ticker.class);
+        setData();
         Repository.getInstance().getTicker(NAME);
     }
 
@@ -52,6 +55,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             mData = (List<Ticker>) result.getData();
+            SLUtil.getRequestSpecialist().request(this, new SaveTickerRequest(mData));
             setData();
         } else {
             SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
