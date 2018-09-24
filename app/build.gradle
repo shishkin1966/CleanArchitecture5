@@ -5,7 +5,7 @@ def compileSdk = 27
 def buildTools = "27.0.3"
 def minSdk = 15
 def targetSdk = 27
-def playServices = "11.2.0"
+def playServices = "15.0.1"
 
 android {
     buildToolsVersion buildTools
