@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.view_data;
+package shishkin.cleanarchitecture.mvi.app.viewdata;
 
 import android.os.Parcelable;
 
@@ -7,7 +7,6 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
 public abstract class AbsViewData<T extends Parcelable> {
     private int mSort = 0;

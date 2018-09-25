@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.view_data;
+package shishkin.cleanarchitecture.mvi.app.viewdata;
 
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.app.request.SaveTickerRequest;

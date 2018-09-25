@@ -8,7 +8,7 @@ import java.util.Observer;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
-import shishkin.cleanarchitecture.mvi.app.view_data.TickerViewData;
+import shishkin.cleanarchitecture.mvi.app.viewdata.TickerViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
