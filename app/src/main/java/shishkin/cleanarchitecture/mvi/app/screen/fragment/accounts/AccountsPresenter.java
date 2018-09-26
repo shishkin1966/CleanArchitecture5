@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
+import shishkin.cleanarchitecture.mvi.app.viewdata.AccountViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -38,11 +39,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     public static final String NAME = AccountsPresenter.class.getName();
     private static final String ALL = ApplicationController.getInstance().getString(R.string.all);
 
-    private List<Account> mData;
+    private AccountViewData mViewData = new AccountViewData();
     private DialogInterface mDialogSort;
     private DialogInterface mDialogSelect;
-    private int mSort = 0;
-    private int mSelect = 0;
     private Comparator<Account> mComparatorName = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
     private Comparator<Account> mComparatorCurrency = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
     private List<String> mCurrency;
@@ -159,7 +158,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
-                mData = SafeUtils.cast(result.getData());
+                mViewData.setData(SafeUtils.cast(result.getData()));
                 setData();
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 getModel().getView().refreshBalance(SafeUtils.cast(result.getData()));
@@ -174,22 +173,22 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog.equals(mDialogSort)) {
-            mSort = which;
+            mViewData.setSort(which);
         } else if (dialog.equals(mDialogSelect)) {
-            mSelect = which;
+            mViewData.setFilter(which);
         }
         setData();
     }
 
     private void setData() {
         final List<Account> list = new ArrayList<>();
-        if (mSelect == 0) {
-            list.addAll(mData);
+        if (mViewData.getFilter() == 0) {
+            list.addAll(mViewData.getData());
         } else {
-            final String currency = mCurrency.get(mSelect - 1);
-            list.addAll(SLUtil.getDataSpecialist().filter(mData, value -> value.getCurrency().equals(currency)).toList());
+            final String currency = mCurrency.get(mViewData.getFilter() - 1);
+            list.addAll(SLUtil.getDataSpecialist().filter(mViewData.getData(), value -> value.getCurrency().equals(currency)).toList());
         }
-        switch (mSort) {
+        switch (mViewData.getSort()) {
             case 0:
                 getModel().getView().refreshAccounts(list);
                 break;
