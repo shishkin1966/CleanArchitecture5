@@ -14,8 +14,6 @@ import shishkin.cleanarchitecture.mvi.sl.request.AbsNetResultMailRequest;
 
 public class GetTickerRequest extends AbsNetResultMailRequest<List<Ticker>> {
 
-    public static final String NAME = GetTickerRequest.class.getName();
-
     public GetTickerRequest(final String listener) {
         super(listener);
     }
@@ -23,11 +21,6 @@ public class GetTickerRequest extends AbsNetResultMailRequest<List<Ticker>> {
     @Override
     public Call<List<Ticker>> getData() {
         return SLUtil.getNetProvider().getApi().getTicker();
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
     }
 
     @Override
