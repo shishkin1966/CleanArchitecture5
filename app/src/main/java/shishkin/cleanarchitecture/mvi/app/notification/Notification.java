@@ -58,7 +58,7 @@ public class Notification implements NotificationSpecialist {
         }
 
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, GROUP_NAME)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_cat)
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(0)
