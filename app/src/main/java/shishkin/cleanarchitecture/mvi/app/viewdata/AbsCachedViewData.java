@@ -30,5 +30,6 @@ public abstract class AbsCachedViewData<T extends Parcelable> extends AbsViewDat
         SLUtil.getRequestSpecialist().request(this, new SaveViewDataRequest<>(getName(), data));
     }
 
+    public abstract String getName();
 
 }
