@@ -59,4 +59,8 @@ public abstract class AbsRequest implements Request {
         return o.getRank() - this.getRank();
     }
 
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 }

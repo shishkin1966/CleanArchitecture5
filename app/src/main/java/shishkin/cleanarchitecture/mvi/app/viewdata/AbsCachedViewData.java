@@ -7,9 +7,9 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.sl.request.Request;
+import shishkin.cleanarchitecture.mvi.app.request.SaveViewDataRequest;
 
-public abstract class AbsCachedViewData<T extends Parcelable> extends AbsViewData<T>{
+public abstract class AbsCachedViewData<T extends Parcelable> extends AbsViewData<T> {
     private Class mClass;
 
     public AbsCachedViewData(Class cls) {
@@ -27,9 +27,8 @@ public abstract class AbsCachedViewData<T extends Parcelable> extends AbsViewDat
     @Override
     public void setData(List<T> data) {
         super.setData(data);
-        SLUtil.getRequestSpecialist().request(this, getRequest());
+        SLUtil.getRequestSpecialist().request(this, new SaveViewDataRequest<>(getName(), data));
     }
 
-    public abstract Request getRequest();
 
 }

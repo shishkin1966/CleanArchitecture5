@@ -1,20 +1,20 @@
 package shishkin.cleanarchitecture.mvi.app.request;
 
+import android.os.Parcelable;
+
+
 import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 
-public class SaveTickerRequest extends AbsRequest {
+public class SaveViewDataRequest<T extends Parcelable> extends AbsRequest {
 
-    public static final String NAME = SaveTickerRequest.class.getName();
-
-    private List<Ticker> mData;
+    private List<T> mData;
     private String mName;
 
-    public SaveTickerRequest(String name, List<Ticker> list) {
+    public SaveViewDataRequest(String name, List<T> list) {
         mName = name;
         mData = list;
     }
@@ -29,10 +29,5 @@ public class SaveTickerRequest extends AbsRequest {
         if (mData != null) {
             SLUtil.getStorageSpecialist().put(mName, mData);
         }
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
     }
 }
