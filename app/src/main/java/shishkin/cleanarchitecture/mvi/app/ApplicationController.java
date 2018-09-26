@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app;
 
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
+import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
@@ -32,6 +33,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(LocationUnionImpl.NAME);
         SL.getInstance().register(PreferencesSpecialistImpl.NAME);
         SL.getInstance().register(NetProviderImpl.NAME);
+        SL.getInstance().register(JobSpecialistImpl.NAME);
     }
 
     @Override

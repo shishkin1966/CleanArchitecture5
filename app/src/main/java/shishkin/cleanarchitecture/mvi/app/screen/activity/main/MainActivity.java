@@ -8,12 +8,18 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
+
 
 import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
@@ -44,6 +50,18 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getModel().getRouter().showMainFragment();
+
+        final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
+        final Job job = builder
+                .setService(JobSpecialistService.class)
+                .setLifetime(Lifetime.FOREVER)
+                .setRecurring(false)
+                .setTag(JobSpecialistService.NAME)
+                .setTrigger(Trigger.executionWindow(5, 15))
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setReplaceCurrent(false)
+                .build();
+        SLUtil.getJobSpecialist().schedule(job);
     }
 
     @Override

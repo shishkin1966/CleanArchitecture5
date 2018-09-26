@@ -4,6 +4,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
+import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
@@ -105,6 +107,10 @@ public class SLUtil {
 
     public static LocationUnion getLocationUnion() {
         return SL.getInstance().get(LocationUnionImpl.NAME);
+    }
+
+    public static JobSpecialist getJobSpecialist() {
+        return SL.getInstance().get(JobSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {
