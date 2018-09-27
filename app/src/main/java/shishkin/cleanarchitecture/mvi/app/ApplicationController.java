@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app;
 
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
+import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
@@ -38,11 +39,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onFinish() {
-        final NotificationSpecialist specialist = SL.getInstance().get(NotificationSpecialistImpl.NAME);
-        if (specialist != null) {
-            specialist.clear();
-        }
-
+        SLUtil.getJobSpecialist().cancelAll();
+        SLUtil.getNotificationSpecialist().clear();
         SLUtil.getStorageSpecialist().onFinishApplication();
 
         super.onFinish();
