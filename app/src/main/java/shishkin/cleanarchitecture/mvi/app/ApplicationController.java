@@ -1,11 +1,9 @@
 package shishkin.cleanarchitecture.mvi.app;
 
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
-import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
-import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;

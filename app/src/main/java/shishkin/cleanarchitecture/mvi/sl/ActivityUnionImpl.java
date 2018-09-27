@@ -144,7 +144,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     }
 
     @Override
-    public void showToast(ShowMessageEvent event) {
+    public void showMessage(ShowMessageEvent event) {
         final IActivity activity = getCurrentSubscriber();
         if (activity == null || !activity.validate()) {
             return;

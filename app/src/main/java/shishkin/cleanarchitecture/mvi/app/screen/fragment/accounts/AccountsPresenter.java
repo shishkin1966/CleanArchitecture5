@@ -166,7 +166,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 mCurrency = SafeUtils.cast(result.getData());
             }
         } else {
-            SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 

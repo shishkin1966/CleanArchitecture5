@@ -31,7 +31,7 @@ public interface ActivityUnion extends IView, Union<IActivity> {
      *
      * @param event событие
      */
-    void showToast(ShowMessageEvent event);
+    void showMessage(ShowMessageEvent event);
 
     /**
      * Обрабатывает событие - скрыть клавиатуру
