@@ -13,7 +13,9 @@ public class JobSpecialistService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters job) {
-        SLUtil.getActivityUnion().showToast(new ShowMessageEvent("Тестовое сообщение"));
+        if (SLUtil.getActivityUnion().hasSubscribers()) {
+            SLUtil.getActivityUnion().showToast(new ShowMessageEvent("Тестовое сообщение"));
+        }
         jobFinished(job, false);
         return true;
     }
