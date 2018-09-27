@@ -55,9 +55,6 @@ public class SL extends AbsServiceLocator {
         // Объединение Observables
         register(ObservableUnionImpl.NAME);
 
-        // UseCase специалист
-        register(UseCasesSpecialistImpl.NAME);
-
         // специалист работы с БД
         register(DbProviderImpl.NAME);
 

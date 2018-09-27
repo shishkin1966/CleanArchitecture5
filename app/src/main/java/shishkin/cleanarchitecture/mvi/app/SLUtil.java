@@ -61,7 +61,7 @@ public class SLUtil {
         return SL.getInstance().get(PresenterUnionImpl.NAME);
     }
 
-    public static UseCasesSpecialist getUseCasesUnion() {
+    public static UseCasesSpecialist getUseCasesSpecialist() {
         return SL.getInstance().get(UseCasesSpecialistImpl.NAME);
     }
 
