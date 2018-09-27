@@ -7,7 +7,6 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;

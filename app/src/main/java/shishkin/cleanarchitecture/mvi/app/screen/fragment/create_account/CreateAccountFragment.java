@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import org.angmarch.views.NiceSpinner;
 
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
