@@ -23,12 +23,12 @@ public interface JobSpecialist extends Specialist {
 
     /**
      * Отменить все задания
-     *
      */
     void cancelAll();
 
     /**
      * Получить построитель заданий
+     *
      * @return построитель заданий
      */
     Job.Builder getJobBuilder();
