@@ -5,6 +5,7 @@ import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.account.AccountFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.create_account.CreateAccountFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 /**
@@ -27,5 +28,9 @@ public class AccountsRouter extends BaseModelRouter {
 
     public void showAccount(Account account) {
         showFragment(AccountFragment.newInstance(account));
+    }
+
+    public void showMap() {
+        showFragment(MapFragment.newInstance());
     }
 }

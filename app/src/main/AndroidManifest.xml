@@ -15,6 +15,10 @@
         android:configChanges="keyboardHidden|orientation|screenSize"
         android:theme="@style/SplashTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBnh9UbjXH08sSAp5tC4WptRCDT0q3kOMM"/>
+
         <activity android:name=".app.screen.activity.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

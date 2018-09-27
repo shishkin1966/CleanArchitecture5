@@ -63,11 +63,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     public void onClick(int id) {
         switch (id) {
             case R.id.create_account:
-                create_account();
+                getModel().getRouter().createAccount();
+                break;
+
+            case R.id.map:
+                getModel().getRouter().showMap();
                 break;
 
             case R.id.accounts_transfer:
-                accounts_transfer();
+                getModel().getRouter().accountsTransfer();
                 break;
 
             case R.id.sort_accounts:
@@ -80,14 +84,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         }
     }
 
-
-    private void create_account() {
-        getModel().getRouter().createAccount();
-    }
-
-    private void accounts_transfer() {
-        getModel().getRouter().accountsTransfer();
-    }
 
     private void sort_accounts() {
         final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());

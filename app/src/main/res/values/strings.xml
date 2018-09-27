@@ -25,5 +25,6 @@
     <string name="network_disconnected">Сеть недоступна</string>
     <string name="location">Местоположение</string>
     <string name="search_hint">Найти</string>
+    <string name="map">Карты</string>
 
 </resources>
