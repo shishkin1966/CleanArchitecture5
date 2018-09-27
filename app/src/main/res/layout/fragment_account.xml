@@ -137,7 +137,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_12dp"
                         android:paddingRight="@dimen/dimen_8dp"
-                        android:text="@string/fragment_account_transactions_subtitle"
+                        android:text="@string/fragment_account_transfer"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_large"/>
 

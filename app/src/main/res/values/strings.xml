@@ -20,6 +20,7 @@
     <string name="fragment_account_balance">Баланс</string>
     <string name="fragment_account_open_date_format">Открыт</string>
     <string name="fragment_account_transactions_subtitle">Курсы криптовалют</string>
+    <string name="fragment_account_transfer">Переводы</string>
 
     <string name="network_disconnected">Сеть недоступна</string>
     <string name="location">Местоположение</string>

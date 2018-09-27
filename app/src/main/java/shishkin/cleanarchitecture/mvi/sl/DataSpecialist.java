@@ -14,5 +14,5 @@ public interface DataSpecialist extends Specialist {
 
     <T> Stream<T> filter(final Collection<T> list, final Predicate<? super T> predicate);
 
-    <T> Stream<T> sorted(final Collection<T> list, final Comparator<? super T> comparator);
+    <T> Stream<T> sort(final Collection<T> list, final Comparator<? super T> comparator);
 }

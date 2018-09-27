@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -51,7 +52,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     public void response(Result result) {
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
-            mViewData.setData((List<Ticker>) result.getData());
+            mViewData.setData(SLUtil.getDataSpecialist().sort((List<Ticker>) result.getData(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
             setData();
         } else {
             SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
