@@ -44,7 +44,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
                 getModel().getView().exit();
             }
         } else {
-            SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 
