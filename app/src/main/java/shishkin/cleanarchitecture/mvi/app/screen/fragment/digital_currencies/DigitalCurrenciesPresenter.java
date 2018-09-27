@@ -42,8 +42,8 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onStart() {
-        getModel().getView().showProgressBar();
         setData();
+        getModel().getView().showProgressBar();
         Repository.getInstance().getTicker(NAME);
     }
 
@@ -60,8 +60,10 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void update(Observable o, Object arg) {
-        mViewData.setPattern((String) arg);
-        setData();
+        if (arg != null && !arg.equals(mViewData.getPattern())) {
+            mViewData.setPattern((String) arg);
+            setData();
+        }
     }
 
     private void setData() {
