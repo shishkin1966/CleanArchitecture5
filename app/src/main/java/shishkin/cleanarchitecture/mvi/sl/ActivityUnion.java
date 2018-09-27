@@ -20,26 +20,26 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IView;
 public interface ActivityUnion extends IView, Union<IActivity> {
 
     /**
-     * Обрабатывает событие - показать сообщение на экран
+     * Показать Snackbar на экран
      *
      * @param event событие
      */
     void showSnackbar(ShowMessageEvent event);
 
     /**
-     * Обрабатывает событие - показать Toast на экран
+     * Показать сообщение на экран
      *
      * @param event событие
      */
     void showMessage(ShowMessageEvent event);
 
     /**
-     * Обрабатывает событие - скрыть клавиатуру
+     * Скрыть клавиатуру
      */
     void hideKeyboard();
 
     /**
-     * Обрабатывает событие - показать клавиатуру
+     * Показать клавиатуру
      *
      * @param event событие
      */
