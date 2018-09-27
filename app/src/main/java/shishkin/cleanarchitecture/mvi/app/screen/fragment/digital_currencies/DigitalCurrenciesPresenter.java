@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -52,7 +51,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     public void response(Result result) {
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
-            mViewData.setData(SLUtil.getDataSpecialist().sort((List<Ticker>) result.getData(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
+            mViewData.setData((List<Ticker>) result.getData());
             setData();
         } else {
             SLUtil.getActivityUnion().showToast(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -71,9 +70,9 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
         if (mViewData.getData() == null) return;
 
         if (StringUtils.isNullOrEmpty(mViewData.getPattern())) {
-            getModel().getView().refreshTickers(mViewData.getData());
+            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().sort(mViewData.getData(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
         } else {
-            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().filter(mViewData.getData(), item -> StringUtils.containsIgnoreCase(item.getName(), mViewData.getPattern())).toList());
+            getModel().getView().refreshTickers((SLUtil.getDataSpecialist().sort(SLUtil.getDataSpecialist().filter(mViewData.getData(), item -> StringUtils.containsIgnoreCase(item.getName(), mViewData.getPattern())).toList(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList()));
         }
     }
 
