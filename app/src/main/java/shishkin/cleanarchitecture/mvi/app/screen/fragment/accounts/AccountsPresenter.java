@@ -193,10 +193,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 getModel().getView().refreshAccounts(list);
                 break;
             case 1:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(list, mComparatorName).toList());
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, mComparatorName).toList());
                 break;
             case 2:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sorted(list, mComparatorCurrency).toList());
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, mComparatorCurrency).toList());
                 break;
         }
     }

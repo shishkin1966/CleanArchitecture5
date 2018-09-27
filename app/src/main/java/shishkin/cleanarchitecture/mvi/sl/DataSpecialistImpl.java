@@ -30,7 +30,7 @@ public class DataSpecialistImpl extends AbsSpecialist implements DataSpecialist 
     }
 
     @Override
-    public <T> Stream<T> sorted(final Collection<T> list, final Comparator<? super T> comparator) {
+    public <T> Stream<T> sort(final Collection<T> list, final Comparator<? super T> comparator) {
         return Stream.of(list).sorted(comparator);
     }
 
