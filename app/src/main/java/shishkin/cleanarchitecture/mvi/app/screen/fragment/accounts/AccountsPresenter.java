@@ -61,6 +61,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     public void onClick(int id) {
+        getModel().getView().collapseBottomSheet();
         switch (id) {
             case R.id.create_account:
                 getModel().getRouter().createAccount();

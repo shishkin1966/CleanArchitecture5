@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     private RecyclerView mBalanceView;
     private AccountsRecyclerViewAdapter mAdapter;
     private BalanceRecyclerViewAdapter mBalanceAdapter;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     public static AccountsFragment newInstance() {
         return new AccountsFragment();
@@ -49,6 +51,8 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         setModel(new AccountsModel(this));
 
         addStateObserver(mOnBackPressedPresenter);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(findView(R.id.bottomSheetContainer));
 
         findView(R.id.create_account).setOnClickListener(this);
         findView(R.id.map).setOnClickListener(this);
@@ -69,6 +73,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView = findView(R.id.balance_list);
         mBalanceView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBalanceView.setAdapter(mBalanceAdapter);
+
     }
 
     @Override
@@ -113,4 +118,8 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceAdapter.setItems(list);
     }
 
+    @Override
+    public void collapseBottomSheet() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
 }
