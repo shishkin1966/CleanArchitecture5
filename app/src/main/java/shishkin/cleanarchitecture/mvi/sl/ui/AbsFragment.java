@@ -13,6 +13,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 import shishkin.cleanarchitecture.mvi.sl.model.Model;
@@ -54,6 +55,10 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
+
+        if (SpecialistSubscriber.class.isInstance(this)) {
+            SL.getInstance().register((SpecialistSubscriber) this);
+        }
     }
 
     @Override
@@ -83,6 +88,10 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
 
         mStateObservable.setState(ViewStateObserver.STATE_DESTROY);
         mStateObservable.clear();
+
+        if (SpecialistSubscriber.class.isInstance(this)) {
+            SL.getInstance().unregister((SpecialistSubscriber) this);
+        }
     }
 
     @Override

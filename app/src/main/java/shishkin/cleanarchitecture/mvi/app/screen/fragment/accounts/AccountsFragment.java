@@ -51,6 +51,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         addStateObserver(mOnBackPressedPresenter);
 
         findView(R.id.create_account).setOnClickListener(this);
+        findView(R.id.map).setOnClickListener(this);
         findView(R.id.accounts_transfer).setOnClickListener(this);
         findView(R.id.sort_accounts).setOnClickListener(this);
         findView(R.id.select_accounts).setOnClickListener(this);
