@@ -26,7 +26,6 @@ import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -135,7 +134,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 sb.append(address.getAddressLine(i)).append("\n");
             }
-            SLUtil.getNotificationSpecialist().showMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
+            //SLUtil.getNotificationSpecialist().showMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
         }
     }
 }
