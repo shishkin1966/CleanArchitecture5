@@ -15,4 +15,6 @@ public interface AccountsView extends IFragment {
     void refreshAccounts(List<Account> list);
 
     void refreshBalance(List<MviDao.Balance> list);
+
+    void collapseBottomSheet();
 }
