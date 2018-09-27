@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="?listPreferredItemHeight">
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
+                    <org.angmarch.views.NiceSpinner
                         android:id="@+id/balanceCurrencySpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
