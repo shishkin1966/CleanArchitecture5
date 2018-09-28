@@ -15,8 +15,8 @@ import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialist;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialist;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialist;
-import shishkin.cleanarchitecture.mvi.app.storage.StorageSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialist;
+import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
@@ -89,8 +89,8 @@ public class SLUtil {
         return SL.getInstance().get(MailUnionImpl.NAME);
     }
 
-    public static StorageSpecialist getStorageSpecialist() {
-        return SL.getInstance().get(StorageSpecialistImpl.NAME);
+    public static CacheSpecialist getCacheSpecialist() {
+        return SL.getInstance().get(CacheSpecialistImpl.NAME);
     }
 
     public static SecureStorageSpecialist getSecureStorageSpecialist() {

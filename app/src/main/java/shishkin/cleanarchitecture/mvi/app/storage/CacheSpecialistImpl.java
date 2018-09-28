@@ -21,9 +21,9 @@ import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 @SuppressWarnings("unused")
-public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpecialist {
+public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialist {
 
-    public static final String NAME = StorageSpecialistImpl.class.getName();
+    public static final String NAME = CacheSpecialistImpl.class.getName();
 
     private static final String PARCELABLE = "PARCELABLE";
     private static final String LIST = "LIST";
@@ -56,7 +56,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public <T extends Parcelable> void putCache(final String key, final T value) {
+    public <T extends Parcelable> void put(final String key, final T value) {
         if (StringUtils.isNullOrEmpty(key) || value == null || mCache == null) {
             return;
         }
@@ -86,7 +86,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public <T extends Parcelable> void putCache(final String key, final List<T> values) {
+    public <T extends Parcelable> void put(final String key, final List<T> values) {
         if (StringUtils.isNullOrEmpty(key) || values == null) {
             return;
         }
@@ -116,7 +116,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public <T extends Parcelable> T getCache(final String key, final Class itemClass) {
+    public <T extends Parcelable> T get(final String key, final Class itemClass) {
         if (StringUtils.isNullOrEmpty(key)) {
             return null;
         }
@@ -148,7 +148,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public <T extends Parcelable> List<T> getListCache(final String key, final Class itemClass) {
+    public <T extends Parcelable> List<T> getList(final String key, final Class itemClass) {
         if (StringUtils.isNullOrEmpty(key)) {
             return null;
         }
@@ -189,7 +189,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public void clearCache(final String key) {
+    public void clear(final String key) {
         if (StringUtils.isNullOrEmpty(key)) {
             return;
         }
@@ -206,7 +206,7 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
     }
 
     @Override
-    public void clearCache() {
+    public void clear() {
         mLock.lock();
 
         try {
@@ -220,17 +220,12 @@ public class StorageSpecialistImpl extends AbsSpecialist implements StorageSpeci
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return (StorageSpecialist.class.isInstance(o)) ? 0 : 1;
+        return (CacheSpecialist.class.isInstance(o)) ? 0 : 1;
     }
 
     @Override
     public String getName() {
         return NAME;
-    }
-
-    @Override
-    public void onFinishApplication() {
-        clearCache();
     }
 
 }

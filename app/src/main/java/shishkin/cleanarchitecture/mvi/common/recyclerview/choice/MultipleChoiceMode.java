@@ -54,7 +54,7 @@ public class MultipleChoiceMode extends ChoiceMode {
         if (state != null) {
             final LongArrayList checkedIdStates = state.getParcelable(KEY_CHECKED_ID_STATES);
             if (checkedIdStates == null) {
-                throw new IllegalArgumentException("Did you putCache checked id states to the saved state?");
+                throw new IllegalArgumentException("Did you put checked id states to the saved state?");
             }
 
             final int count = checkedIdStates.size();
