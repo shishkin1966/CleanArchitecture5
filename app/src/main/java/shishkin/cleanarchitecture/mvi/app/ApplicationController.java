@@ -8,6 +8,7 @@ import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImp
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -31,6 +32,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());
+        SL.getInstance().register(CacheSpecialistImpl.NAME);
         SL.getInstance().register(NotificationSpecialistImpl.NAME);
         SL.getInstance().register(LocationUnionImpl.NAME);
         SL.getInstance().register(PreferencesSpecialistImpl.NAME);
@@ -41,9 +43,9 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onFinish() {
-        SLUtil.getJobSpecialist().cancelAll();
+        SLUtil.getJobSpecialist().cancel();
         SLUtil.getNotificationSpecialist().clear();
-        SLUtil.getStorageSpecialist().onFinishApplication();
+        SLUtil.getCacheSpecialist().clear();
 
         super.onFinish();
     }

@@ -41,7 +41,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onStart() {
-        tickerViewData = SLUtil.getStorageSpecialist().getCache(TickerViewData.NAME, TickerViewData.class);
+        tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
         if (tickerViewData == null) {
             tickerViewData = new TickerViewData();
         }
@@ -81,7 +81,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onDestroyView() {
-        SLUtil.getStorageSpecialist().putCache(TickerViewData.NAME, tickerViewData);
+        SLUtil.getCacheSpecialist().put(TickerViewData.NAME, tickerViewData);
 
         super.onDestroyView();
     }

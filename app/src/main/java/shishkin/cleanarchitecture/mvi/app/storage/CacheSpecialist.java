@@ -8,14 +8,14 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
-public interface StorageSpecialist extends Specialist {
+public interface CacheSpecialist extends Specialist {
     /**
      * Put value to cache.
      *
      * @param key   the key
      * @param value the value
      */
-    <T extends Parcelable> void putCache(final String key, final T value);
+    <T extends Parcelable> void put(final String key, final T value);
 
     /**
      * Put list to cache.
@@ -23,7 +23,7 @@ public interface StorageSpecialist extends Specialist {
      * @param key    the key
      * @param values the value
      */
-    <T extends Parcelable> void putCache(final String key, final List<T> values);
+    <T extends Parcelable> void put(final String key, final List<T> values);
 
     /**
      * Get value from cache.
@@ -32,7 +32,7 @@ public interface StorageSpecialist extends Specialist {
      * @param itemClass the value class
      * @return the Parcelable
      */
-    <T extends Parcelable> T getCache(final String key, final Class itemClass);
+    <T extends Parcelable> T get(final String key, final Class itemClass);
 
     /**
      * Get list from cache.
@@ -41,22 +41,18 @@ public interface StorageSpecialist extends Specialist {
      * @param itemClass the value class
      * @return the list
      */
-    <T extends Parcelable> List<T> getListCache(final String key, final Class itemClass);
+    <T extends Parcelable> List<T> getList(final String key, final Class itemClass);
 
     /**
      * delete value from cache
      *
      * @param key the key
      */
-    void clearCache(final String key);
+    void clear(final String key);
 
     /**
      * delete cache
      */
-    void clearCache();
+    void clear();
 
-    /**
-     * Событие - остановка приложения
-     */
-    void onFinishApplication();
 }

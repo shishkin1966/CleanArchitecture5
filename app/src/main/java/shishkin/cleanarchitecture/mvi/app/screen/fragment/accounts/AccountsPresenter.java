@@ -134,7 +134,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
-        accountsViewData = SLUtil.getStorageSpecialist().getCache(AccountsViewData.NAME, AccountsViewData.class);
+        accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
         if (accountsViewData == null) {
             accountsViewData = new AccountsViewData();
         }
@@ -189,7 +189,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onDestroyView() {
-        SLUtil.getStorageSpecialist().putCache(AccountsViewData.NAME, accountsViewData);
+        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
 
         super.onDestroyView();
     }

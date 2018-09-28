@@ -94,7 +94,7 @@ dependencies {
     implementation 'com.annimon:stream:1.1.9'
 
     // Кэш памяти и доп функции
-    implementation 'com.google.guava:guava:23.6-android'
+    implementation 'com.google.guava:guava:26.0-android'
 
     // кэширование на диске
     implementation 'io.paperdb:paperdb:2.6'

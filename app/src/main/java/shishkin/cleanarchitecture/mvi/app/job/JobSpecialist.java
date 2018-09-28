@@ -24,7 +24,7 @@ public interface JobSpecialist extends Specialist {
     /**
      * Отменить все задания
      */
-    void cancelAll();
+    void cancel();
 
     /**
      * Получить построитель заданий
