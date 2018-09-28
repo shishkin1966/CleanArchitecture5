@@ -7,7 +7,9 @@ import android.os.Parcelable;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 public class TickerViewData implements Parcelable {
 
@@ -15,17 +17,6 @@ public class TickerViewData implements Parcelable {
 
     private List<Ticker> tickers;
     private String filter;
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(this.tickers);
-        dest.writeString(this.filter);
-    }
 
     public TickerViewData() {
     }
@@ -44,6 +35,27 @@ public class TickerViewData implements Parcelable {
 
     public void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public List<Ticker> getData() {
+        if (tickers == null) return null;
+
+        if (StringUtils.isNullOrEmpty(filter)) {
+            return SLUtil.getDataSpecialist().sort(tickers, (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList();
+        } else {
+            return (SLUtil.getDataSpecialist().sort(SLUtil.getDataSpecialist().filter(tickers, item -> StringUtils.containsIgnoreCase(item.getName(), filter)).toList(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(this.tickers);
+        dest.writeString(this.filter);
     }
 
     protected TickerViewData(Parcel in) {

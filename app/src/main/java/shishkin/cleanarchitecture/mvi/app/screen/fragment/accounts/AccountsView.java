@@ -3,7 +3,6 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
@@ -13,11 +12,9 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface AccountsView extends IFragment {
-    void refreshAccounts(List<Account> list);
-
     void refreshBalance(List<MviDao.Balance> list);
 
     void collapseBottomSheet();
 
-    void refreshMenu(AccountsViewData setting);
+    void refreshViews(AccountsViewData setting);
 }

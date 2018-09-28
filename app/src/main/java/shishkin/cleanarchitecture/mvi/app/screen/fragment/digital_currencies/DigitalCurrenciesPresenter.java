@@ -10,7 +10,6 @@ import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
 import shishkin.cleanarchitecture.mvi.app.viewdata.TickerViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
@@ -46,7 +45,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
         if (tickerViewData == null) {
             tickerViewData = new TickerViewData();
         }
-        setData();
+        getModel().getView().refreshViews(tickerViewData);
         getData();
     }
 
@@ -57,10 +56,12 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void response(Result result) {
+        if (!validate()) return;
+
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             tickerViewData.setTickers((List<Ticker>) result.getData());
-            setData();
+            getModel().getView().refreshViews(tickerViewData);
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
@@ -70,17 +71,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     public void update(Observable o, Object arg) {
         if (arg != null && !arg.equals(tickerViewData.getFilter())) {
             tickerViewData.setFilter((String) arg);
-            setData();
-        }
-    }
-
-    private void setData() {
-        if (tickerViewData.getTickers() == null) return;
-
-        if (StringUtils.isNullOrEmpty(tickerViewData.getFilter())) {
-            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().sort(tickerViewData.getTickers(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
-        } else {
-            getModel().getView().refreshTickers((SLUtil.getDataSpecialist().sort(SLUtil.getDataSpecialist().filter(tickerViewData.getTickers(), item -> StringUtils.containsIgnoreCase(item.getName(), tickerViewData.getFilter())).toList(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList()));
+            getModel().getView().refreshViews(tickerViewData);
         }
     }
 

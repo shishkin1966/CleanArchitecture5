@@ -6,8 +6,6 @@ import android.graphics.drawable.Drawable;
 
 import org.michaelbel.bottomsheet.BottomSheet;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -42,8 +40,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
-    private Comparator<Account> nameComparator = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
-    private Comparator<Account> currencyComparator = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
     private AccountsViewData accountsViewData = new AccountsViewData();
 
     public AccountsPresenter(AccountsModel model) {
@@ -96,12 +92,12 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts() {
-        if (accountsViewData.getCurrency() != null && accountsViewData.getCurrency().size() > 1) {
-            final CharSequence[] items = new CharSequence[accountsViewData.getCurrency().size() + 1];
-            final Drawable[] icons = new Drawable[accountsViewData.getCurrency().size() + 1];
+        if (accountsViewData.getCurrencies() != null && accountsViewData.getCurrencies().size() > 1) {
+            final CharSequence[] items = new CharSequence[accountsViewData.getCurrencies().size() + 1];
+            final Drawable[] icons = new Drawable[accountsViewData.getCurrencies().size() + 1];
             items[0] = ALL;
-            for (int i = 0; i < accountsViewData.getCurrency().size(); i++) {
-                items[i + 1] = accountsViewData.getCurrency().get(i);
+            for (int i = 0; i < accountsViewData.getCurrencies().size(); i++) {
+                items[i + 1] = accountsViewData.getCurrencies().get(i);
             }
             final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
             filterDialog = builder
@@ -142,7 +138,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         if (accountsViewData == null) {
             accountsViewData = new AccountsViewData();
         }
-        setData();
+        getModel().getView().refreshViews(accountsViewData);
         getData();
     }
 
@@ -155,17 +151,18 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void response(Result result) {
+        if (!validate()) return;
+
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
                 accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
-                setData();
+                getModel().getView().refreshViews(accountsViewData);
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
                 getModel().getView().refreshBalance(list);
-                getModel().getView().refreshMenu(accountsViewData);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
-                accountsViewData.setCurrency(SafeUtils.cast(result.getData()));
+                accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -180,33 +177,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             if (which == 0) {
                 accountsViewData.setFilter(null);
             } else {
-                accountsViewData.setFilter(accountsViewData.getCurrency().get(which - 1));
+                accountsViewData.setFilter(accountsViewData.getCurrencies().get(which - 1));
             }
         }
-        setData();
-    }
-
-    private void setData() {
-        if (accountsViewData.getAccounts() == null) return;
-        final List<Account> list = new ArrayList<>();
-        if (StringUtils.isNullOrEmpty(accountsViewData.getFilter())) {
-            list.addAll(accountsViewData.getAccounts());
-        } else {
-            final String currency = accountsViewData.getFilter();
-            list.addAll(SLUtil.getDataSpecialist().filter(accountsViewData.getAccounts(), value -> value.getCurrency().equals(currency)).toList());
-        }
-        switch (accountsViewData.getSort()) {
-            case 0:
-                getModel().getView().refreshAccounts(list);
-                break;
-            case 1:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, nameComparator).toList());
-                break;
-            case 2:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, currencyComparator).toList());
-                break;
-        }
-        getModel().getView().refreshMenu(accountsViewData);
+        getModel().getView().refreshViews(accountsViewData);
     }
 
     public void onClickAccounts(Account account) {
