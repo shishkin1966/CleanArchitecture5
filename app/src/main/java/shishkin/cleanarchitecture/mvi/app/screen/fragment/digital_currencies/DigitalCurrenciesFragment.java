@@ -11,12 +11,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
-import java.util.List;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.adapter.TickerRecyclerViewAdapter;
-import shishkin.cleanarchitecture.mvi.app.data.Ticker;
+import shishkin.cleanarchitecture.mvi.app.viewdata.TickerViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
@@ -66,8 +63,8 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
     }
 
     @Override
-    public void refreshTickers(List<Ticker> list) {
-        if (list == null) return;
-        mAdapter.setItems(list);
+    public void refreshViews(TickerViewData viewData) {
+        if (viewData.getData() == null) return;
+        mAdapter.setItems(viewData.getData());
     }
 }

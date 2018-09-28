@@ -17,7 +17,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
-import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
@@ -109,11 +108,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
 
     @Override
-    public void refreshAccounts(List<Account> list) {
-        mAdapter.setItems(list);
-    }
-
-    @Override
     public void refreshBalance(List<MviDao.Balance> list) {
         mBalanceAdapter.setItems(list);
     }
@@ -124,8 +118,11 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     }
 
     @Override
-    public void refreshMenu(AccountsViewData setting) {
-        findView(R.id.sort_accounts).setEnabled(setting.isSortMenuEnabled());
-        findView(R.id.select_accounts).setEnabled(setting.isFilterMenuEnabled());
+    public void refreshViews(AccountsViewData viewData) {
+        if (viewData.getData() == null) return;
+
+        mAdapter.setItems(viewData.getData());
+        findView(R.id.sort_accounts).setEnabled(viewData.isSortMenuEnabled());
+        findView(R.id.select_accounts).setEnabled(viewData.isFilterMenuEnabled());
     }
 }

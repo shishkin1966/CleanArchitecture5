@@ -1,9 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
-import java.util.List;
-
-
-import shishkin.cleanarchitecture.mvi.app.data.Ticker;
+import shishkin.cleanarchitecture.mvi.app.viewdata.TickerViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
@@ -12,6 +9,6 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 public interface DigitalCurrenciesView extends IFragment {
 
-    void refreshTickers(List<Ticker> list);
+    void refreshViews(TickerViewData viewData);
 
 }
