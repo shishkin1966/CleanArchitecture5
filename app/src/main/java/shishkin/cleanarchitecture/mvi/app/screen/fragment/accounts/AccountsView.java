@@ -5,6 +5,7 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
+import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
@@ -17,4 +18,6 @@ public interface AccountsView extends IFragment {
     void refreshBalance(List<MviDao.Balance> list);
 
     void collapseBottomSheet();
+
+    void refreshMenu(AccountsViewData setting);
 }

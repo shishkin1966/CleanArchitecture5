@@ -27,7 +27,7 @@ public class SaveViewDataRequest<T extends Parcelable> extends AbsRequest {
     @Override
     public void run() {
         if (mData != null) {
-            SLUtil.getStorageSpecialist().put(mName, mData);
+            SLUtil.getStorageSpecialist().putCache(mName, mData);
         }
     }
 }

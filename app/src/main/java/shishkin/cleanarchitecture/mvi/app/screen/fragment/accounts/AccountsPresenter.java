@@ -15,11 +15,12 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
-import shishkin.cleanarchitecture.mvi.app.viewdata.AccountViewData;
+import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -39,12 +40,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     public static final String NAME = AccountsPresenter.class.getName();
     private static final String ALL = ApplicationController.getInstance().getString(R.string.all);
 
-    private AccountViewData mViewData = new AccountViewData();
-    private DialogInterface mDialogSort;
-    private DialogInterface mDialogSelect;
-    private Comparator<Account> mComparatorName = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
-    private Comparator<Account> mComparatorCurrency = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
-    private List<String> mCurrency;
+    private DialogInterface sortDialog;
+    private DialogInterface filterDialog;
+    private Comparator<Account> nameComparator = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
+    private Comparator<Account> currencyComparator = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
+    private AccountsViewData accountsViewData = new AccountsViewData();
 
     public AccountsPresenter(AccountsModel model) {
         super(model);
@@ -85,10 +85,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         }
     }
 
-
     private void sort_accounts() {
         final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
-        mDialogSort = builder
+        sortDialog = builder
                 .setDividers(true)
                 .setTitleTextColorRes(R.color.blue)
                 .setTitle(R.string.sort)
@@ -97,15 +96,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts() {
-        if (mCurrency != null && mCurrency.size() > 1) {
-            final CharSequence[] items = new CharSequence[mCurrency.size() + 1];
-            final Drawable[] icons = new Drawable[mCurrency.size() + 1];
+        if (accountsViewData.getCurrency() != null && accountsViewData.getCurrency().size() > 1) {
+            final CharSequence[] items = new CharSequence[accountsViewData.getCurrency().size() + 1];
+            final Drawable[] icons = new Drawable[accountsViewData.getCurrency().size() + 1];
             items[0] = ALL;
-            for (int i = 0; i < mCurrency.size(); i++) {
-                items[i + 1] = mCurrency.get(i);
+            for (int i = 0; i < accountsViewData.getCurrency().size(); i++) {
+                items[i + 1] = accountsViewData.getCurrency().get(i);
             }
             final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
-            mDialogSelect = builder
+            filterDialog = builder
                     .setDividers(true)
                     .setTitleTextColorRes(R.color.blue)
                     .setTitle(R.string.select)
@@ -121,7 +120,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 ObservableUnionImpl.NAME
         );
     }
-
 
     @Override
     public List<String> getTables() {
@@ -140,14 +138,19 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
+        accountsViewData = SLUtil.getStorageSpecialist().getCache(AccountsViewData.NAME, AccountsViewData.class);
+        if (accountsViewData == null) {
+            accountsViewData = new AccountsViewData();
+        }
+        setData();
         getData();
     }
 
     private void getData() {
         getModel().getView().showProgressBar();
+        getModel().getInteractor().getCurrency(this);
         getModel().getInteractor().getAccounts(this);
         getModel().getInteractor().getBalance(this);
-        getModel().getInteractor().getCurrency(this);
     }
 
     @Override
@@ -155,12 +158,14 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
-                mViewData.setData(SafeUtils.cast(result.getData()));
+                accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
                 setData();
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
-                getModel().getView().refreshBalance(SafeUtils.cast(result.getData()));
+                final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
+                getModel().getView().refreshBalance(list);
+                getModel().getView().refreshMenu(accountsViewData);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
-                mCurrency = SafeUtils.cast(result.getData());
+                accountsViewData.setCurrency(SafeUtils.cast(result.getData()));
             }
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -169,37 +174,51 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (dialog.equals(mDialogSort)) {
-            mViewData.setSort(which);
-        } else if (dialog.equals(mDialogSelect)) {
-            mViewData.setFilter(which);
+        if (dialog.equals(sortDialog)) {
+            accountsViewData.setSort(which);
+        } else if (dialog.equals(filterDialog)) {
+            if (which == 0) {
+                accountsViewData.setFilter(null);
+            } else {
+                accountsViewData.setFilter(accountsViewData.getCurrency().get(which - 1));
+            }
         }
         setData();
     }
 
     private void setData() {
+        if (accountsViewData.getAccounts() == null) return;
         final List<Account> list = new ArrayList<>();
-        if (mViewData.getFilter() == 0) {
-            list.addAll(mViewData.getData());
+        if (StringUtils.isNullOrEmpty(accountsViewData.getFilter())) {
+            list.addAll(accountsViewData.getAccounts());
         } else {
-            final String currency = mCurrency.get(mViewData.getFilter() - 1);
-            list.addAll(SLUtil.getDataSpecialist().filter(mViewData.getData(), value -> value.getCurrency().equals(currency)).toList());
+            final String currency = accountsViewData.getFilter();
+            list.addAll(SLUtil.getDataSpecialist().filter(accountsViewData.getAccounts(), value -> value.getCurrency().equals(currency)).toList());
         }
-        switch (mViewData.getSort()) {
+        switch (accountsViewData.getSort()) {
             case 0:
                 getModel().getView().refreshAccounts(list);
                 break;
             case 1:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, mComparatorName).toList());
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, nameComparator).toList());
                 break;
             case 2:
-                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, mComparatorCurrency).toList());
+                getModel().getView().refreshAccounts(SLUtil.getDataSpecialist().sort(list, currencyComparator).toList());
                 break;
         }
+        getModel().getView().refreshMenu(accountsViewData);
     }
 
     public void onClickAccounts(Account account) {
         getModel().getRouter().showAccount(account);
     }
+
+    @Override
+    public void onDestroyView() {
+        SLUtil.getStorageSpecialist().putCache(AccountsViewData.NAME, accountsViewData);
+
+        super.onDestroyView();
+    }
+
 }
 
