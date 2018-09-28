@@ -78,6 +78,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             case R.id.select_accounts:
                 select_accounts();
                 break;
+
+            case R.id.select_accounts_all:
+                select_accounts_all();
+                break;
         }
     }
 
@@ -107,6 +111,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                     .setItems(items, icons, this)
                     .show();
         }
+    }
+
+    private void select_accounts_all() {
+        accountsViewData.setFilter(null);
+        getModel().getView().refreshViews(accountsViewData);
     }
 
     @Override

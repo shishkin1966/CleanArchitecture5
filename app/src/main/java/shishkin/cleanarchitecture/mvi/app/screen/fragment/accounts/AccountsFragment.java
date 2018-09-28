@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -59,6 +60,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         findView(R.id.accounts_transfer).setOnClickListener(this);
         findView(R.id.sort_accounts).setOnClickListener(this);
         findView(R.id.select_accounts).setOnClickListener(this);
+        findView(R.id.select_accounts_all).setOnClickListener(this);
 
         mAdapter = new AccountsRecyclerViewAdapter(getContext());
         mAccountsView = findView(R.id.list);
@@ -124,5 +126,10 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mAdapter.setItems(viewData.getData());
         findView(R.id.sort_accounts).setEnabled(viewData.isSortMenuEnabled());
         findView(R.id.select_accounts).setEnabled(viewData.isFilterMenuEnabled());
+        if (viewData.isFilterMenuEnabled() && !StringUtils.isNullOrEmpty(viewData.getFilter())) {
+            findView(R.id.select_accounts_all_ll).setVisibility(View.VISIBLE);
+        } else {
+            findView(R.id.select_accounts_all_ll).setVisibility(View.GONE);
+        }
     }
 }
