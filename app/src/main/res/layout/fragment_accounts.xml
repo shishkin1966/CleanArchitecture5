@@ -50,10 +50,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="@dimen/dimen_4dp"
                         android:layout_marginLeft="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_marginRight="@dimen/dimen_16dp"
-                        android:layout_marginTop="@dimen/dimen_4dp"/>
+                        android:layout_marginBottom="@dimen/dimen_4dp"/>
 
                 </LinearLayout>
 
@@ -186,18 +186,50 @@
                         android:layout_height="0.5dp"
                         android:background="@color/white_light"/>
 
-                    <TextView
-                        android:id="@+id/select_accounts"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/menu_height"
-                        android:background="@drawable/side_menu_panel_selector"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_12dp"
-                        android:paddingRight="@dimen/dimen_8dp"
-                        android:text="Выбрать ..."
-                        android:textColor="@color/white_text_selector"
-                        android:textSize="@dimen/text_size_large"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/select_accounts"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/menu_height"
+                            android:layout_weight="1"
+                            android:background="@drawable/side_menu_panel_selector"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/dimen_12dp"
+                            android:paddingRight="@dimen/dimen_8dp"
+                            android:text="Выбрать ..."
+                            android:textColor="@color/white_text_selector"
+                            android:textSize="@dimen/text_size_large"/>
+
+                        <LinearLayout
+                            android:id="@+id/select_accounts_all_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <View
+                                style="@style/VerticalDivider"
+                                android:background="@color/white_light"/>
+
+                            <TextView
+                                android:id="@+id/select_accounts_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/menu_height"
+                                android:background="@drawable/side_menu_panel_selector"
+                                android:clickable="true"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/dimen_16dp"
+                                android:paddingRight="@dimen/dimen_16dp"
+                                android:text="@string/all"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_size_large"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <View
                         style="@style/HorizontalDivider"
