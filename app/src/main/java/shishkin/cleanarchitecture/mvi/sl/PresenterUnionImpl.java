@@ -40,35 +40,6 @@ public class PresenterUnionImpl extends AbsUnion<Presenter>
     }
 
     @Override
-    public void saveStateData(final Presenter presenter, final Bundle state) {
-        if (state != null && !ApplicationSpecialistImpl.getInstance().isFinished()) {
-            mStates.put(presenter.getName(), state);
-        }
-    }
-
-    @Override
-    public Bundle restoreStateData(final Presenter presenter) {
-        return mStates.get(presenter.getName());
-    }
-
-    @Override
-    public void clearStateData(final Presenter presenter) {
-        mStates.remove(presenter.getName());
-    }
-
-    @Override
-    public void clearStateData() {
-        mStates.clear();
-    }
-
-    @Override
-    public void onUnRegisterLastSubscriber() {
-        if (ApplicationSpecialistImpl.getInstance().isFinished()) {
-            clearStateData();
-        }
-    }
-
-    @Override
     public void onFinishApplication() {
         for (WeakReference<Presenter> ref : getSubscribers()) {
             unregister(ref.get());

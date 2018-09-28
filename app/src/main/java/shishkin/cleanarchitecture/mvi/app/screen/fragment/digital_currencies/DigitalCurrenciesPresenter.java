@@ -24,7 +24,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
-    private TickerViewData mViewData = new TickerViewData();
+    private TickerViewData tickerViewData = new TickerViewData();
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
@@ -42,7 +42,15 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onStart() {
+        tickerViewData = SLUtil.getStorageSpecialist().getCache(TickerViewData.NAME, TickerViewData.class);
+        if (tickerViewData == null) {
+            tickerViewData = new TickerViewData();
+        }
         setData();
+        getData();
+    }
+
+    private void getData() {
         getModel().getView().showProgressBar();
         Repository.getInstance().getTicker(NAME);
     }
@@ -51,7 +59,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     public void response(Result result) {
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
-            mViewData.setData((List<Ticker>) result.getData());
+            tickerViewData.setTickers((List<Ticker>) result.getData());
             setData();
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -60,25 +68,33 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg != null && !arg.equals(mViewData.getPattern())) {
-            mViewData.setPattern((String) arg);
+        if (arg != null && !arg.equals(tickerViewData.getFilter())) {
+            tickerViewData.setFilter((String) arg);
             setData();
         }
     }
 
     private void setData() {
-        if (mViewData.getData() == null) return;
+        if (tickerViewData.getTickers() == null) return;
 
-        if (StringUtils.isNullOrEmpty(mViewData.getPattern())) {
-            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().sort(mViewData.getData(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
+        if (StringUtils.isNullOrEmpty(tickerViewData.getFilter())) {
+            getModel().getView().refreshTickers(SLUtil.getDataSpecialist().sort(tickerViewData.getTickers(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList());
         } else {
-            getModel().getView().refreshTickers((SLUtil.getDataSpecialist().sort(SLUtil.getDataSpecialist().filter(mViewData.getData(), item -> StringUtils.containsIgnoreCase(item.getName(), mViewData.getPattern())).toList(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList()));
+            getModel().getView().refreshTickers((SLUtil.getDataSpecialist().sort(SLUtil.getDataSpecialist().filter(tickerViewData.getTickers(), item -> StringUtils.containsIgnoreCase(item.getName(), tickerViewData.getFilter())).toList(), (o1, o2) -> o1.getSymbol().compareTo(o2.getSymbol())).toList()));
         }
     }
 
     public TickerViewData getViewData() {
-        return mViewData;
+        return tickerViewData;
     }
+
+    @Override
+    public void onDestroyView() {
+        SLUtil.getStorageSpecialist().putCache(TickerViewData.NAME, tickerViewData);
+
+        super.onDestroyView();
+    }
+
 
 }
 

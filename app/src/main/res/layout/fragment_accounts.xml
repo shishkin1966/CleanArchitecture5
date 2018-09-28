@@ -178,7 +178,7 @@
                         android:paddingLeft="@dimen/dimen_12dp"
                         android:paddingRight="@dimen/dimen_8dp"
                         android:text="Сортировать по ..."
-                        android:textColor="@color/white"
+                        android:textColor="@color/white_text_selector"
                         android:textSize="@dimen/text_size_large"/>
 
                     <View
@@ -196,7 +196,7 @@
                         android:paddingLeft="@dimen/dimen_12dp"
                         android:paddingRight="@dimen/dimen_8dp"
                         android:text="Выбрать ..."
-                        android:textColor="@color/white"
+                        android:textColor="@color/white_text_selector"
                         android:textSize="@dimen/text_size_large"/>
 
                     <View

@@ -51,7 +51,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         mSearchView = findView(R.id.search);
         mSearchView.setCompoundDrawablesWithIntrinsicBounds(ViewUtils.getVectorDrawable(getContext(), R.drawable.magnify, mSearchView.getContext().getTheme()), null, null, null);
         new EditTextObservable(getModel().getPresenter(), mSearchView);
-        mSearchView.setText(getModel().getPresenter().getViewData().getPattern());
+        mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
 
         mRecyclerView = findView(R.id.list);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

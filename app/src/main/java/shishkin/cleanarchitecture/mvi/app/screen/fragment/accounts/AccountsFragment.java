@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
+import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -73,7 +74,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView = findView(R.id.balance_list);
         mBalanceView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBalanceView.setAdapter(mBalanceAdapter);
-
     }
 
     @Override
@@ -121,5 +121,11 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     @Override
     public void collapseBottomSheet() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    @Override
+    public void refreshMenu(AccountsViewData setting) {
+        findView(R.id.sort_accounts).setEnabled(setting.isSortMenuEnabled());
+        findView(R.id.select_accounts).setEnabled(setting.isFilterMenuEnabled());
     }
 }
