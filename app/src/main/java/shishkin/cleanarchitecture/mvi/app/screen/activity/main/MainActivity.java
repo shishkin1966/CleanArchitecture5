@@ -22,6 +22,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -36,6 +37,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     public static final String NAME = MainActivity.class.getName();
 
     private Snackbar mSnackbar;
+    private Intent mIntent;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,8 +50,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
         lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        getModel().getRouter().showMainFragment();
-
         final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
         final Job job = builder
                 .setService(JobSpecialistService.class)
@@ -61,6 +61,29 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
                 .setReplaceCurrent(false)
                 .build();
         SLUtil.getJobSpecialist().schedule(job);
+
+        onNewIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        mIntent = intent;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mIntent != null) {
+            final String action = mIntent.getAction();
+            if ("android.intent.action.MAIN".equalsIgnoreCase(action)) {
+                getModel().getRouter().showMainFragment();
+            } else if (AccountObserver.ACTION_CLICK.equalsIgnoreCase(action)) {
+                getModel().getRouter().showMainFragment();
+            }
+        } else {
+            getModel().getRouter().showMainFragment();
+        }
     }
 
     @Override

@@ -1,10 +1,16 @@
 package shishkin.cleanarchitecture.mvi.app;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
+
+
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
@@ -39,6 +45,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(NetProviderImpl.NAME);
         SL.getInstance().register(JobSpecialistImpl.NAME);
         SLUtil.register(new ScreenOnOffObserver());
+        SLUtil.register(AccountObserver.getInstance());
     }
 
     @Override
@@ -74,5 +81,12 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getLocationUnion().start();
     }
 
+    public void updateWidget() {
+        final Intent intent = new Intent(getInstance(), ApplicationWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        final int ids[] = AppWidgetManager.getInstance(getInstance()).getAppWidgetIds(new ComponentName(getInstance(), ApplicationWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        getInstance().sendBroadcast(intent);
+    }
 
 }
