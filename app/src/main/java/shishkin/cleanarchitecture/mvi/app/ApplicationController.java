@@ -1,5 +1,10 @@
 package shishkin.cleanarchitecture.mvi.app;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
+
+
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
@@ -76,5 +81,12 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getLocationUnion().start();
     }
 
+    public void updateWidget() {
+        final Intent intent = new Intent(getInstance(), ApplicationWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        final int ids[] = AppWidgetManager.getInstance(getInstance()).getAppWidgetIds(new ComponentName(getInstance(), ApplicationWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        getInstance().sendBroadcast(intent);
+    }
 
 }

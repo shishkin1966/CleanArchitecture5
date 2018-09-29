@@ -3,8 +3,11 @@ package shishkin.cleanarchitecture.mvi.app.observe;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.BuildConfig;
+import shishkin.cleanarchitecture.mvi.app.ApplicationController;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -15,7 +18,8 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 public class AccountObserver implements DbObservableSubscriber, ResponseListener {
-    private static final String NAME = AccountObserver.class.getName();
+    public static final String NAME = AccountObserver.class.getName();
+    public static final String ACTION_CLICK = BuildConfig.APPLICATION_ID + ".ACTION_CLICK";
 
     private static volatile AccountObserver sInstance;
 
@@ -89,7 +93,9 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     @Override
     public void response(Result result) {
         if (!result.hasError()) {
-            SLUtil.getNotificationSpecialist().showBalance(SafeUtils.cast(result.getData()));
+            final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
+            SLUtil.getNotificationSpecialist().showBalance(list);
+            ((ApplicationController)ApplicationController.getInstance()).updateWidget();
         }
     }
 }
