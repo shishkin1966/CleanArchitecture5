@@ -43,18 +43,18 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
         mAdapter = new TickerRecyclerViewAdapter(getContext());
 
-        setModel(new DigitalCurrenciesModel(this));
-
         mSearchView = findView(R.id.search);
         mSearchView.setCompoundDrawablesWithIntrinsicBounds(ViewUtils.getVectorDrawable(getContext(), R.drawable.magnify, mSearchView.getContext().getTheme()), null, null, null);
-        new EditTextObservable(getModel().getPresenter(), mSearchView);
-        mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
 
         mRecyclerView = findView(R.id.list);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
+        setModel(new DigitalCurrenciesModel(this));
+        new EditTextObservable(getModel().getPresenter(), mSearchView);
+        mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
     @Override
     public void refreshViews(TickerViewData viewData) {
-        if (viewData.getData() == null) return;
+        if (viewData == null || viewData.getData() == null) return;
         mAdapter.setItems(viewData.getData());
     }
 }

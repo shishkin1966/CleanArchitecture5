@@ -46,8 +46,6 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setModel(new CreateAccountModel(this));
-
         mSpinner = findView(R.id.balanceCurrencySpinner);
         mSpinner.attachDataSource(new LinkedList<>(Arrays.asList(Currency.RUR, Currency.USD, Currency.EUR, Currency.GBP, Currency.CHF)));
         mSpinner.setSelectedIndex(0);
@@ -57,6 +55,8 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
 
         mFriendlyNameView = findView(R.id.friendlyNameView);
         mBalanceValueView = findView(R.id.balanceValueView);
+
+        setModel(new CreateAccountModel(this));
 
         new EditTextObservable(getModel().getPresenter(), mFriendlyNameView);
         new EditTextObservable(getModel().getPresenter(), mBalanceValueView);

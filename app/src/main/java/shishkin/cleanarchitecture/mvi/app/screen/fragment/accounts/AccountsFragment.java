@@ -49,8 +49,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setModel(new AccountsModel(this));
-
         addStateObserver(mOnBackPressedPresenter);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(findView(R.id.bottomSheetContainer));
@@ -75,6 +73,8 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView = findView(R.id.balance_list);
         mBalanceView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBalanceView.setAdapter(mBalanceAdapter);
+
+        setModel(new AccountsModel(this));
     }
 
     @Override
@@ -121,7 +121,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
     @Override
     public void refreshViews(AccountsViewData viewData) {
-        if (viewData.getData() == null) return;
+        if (viewData == null || viewData.getData() == null) return;
 
         mAdapter.setItems(viewData.getData());
         findView(R.id.sort_accounts).setEnabled(viewData.isSortMenuEnabled());
