@@ -39,13 +39,13 @@ public class AccountFragment extends AbsContentFragment<CreateAccountModel> impl
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setModel(new AccountModel(this));
-
         mAccount = getArguments().getParcelable("account");
 
         ((TextView) findView(R.id.title)).setText(mAccount.getFriendlyName());
         ((TextView) findView(R.id.balanceView)).setText(String.format("%,.0f", mAccount.getBalance()) + " " + mAccount.getCurrency());
         ((TextView) findView(R.id.openDateView)).setText(getString(R.string.fragment_account_open_date_format) + " " + StringUtils.formatDateShortRu(mAccount.getOpenDate()));
+
+        setModel(new AccountModel(this));
     }
 
     @Override

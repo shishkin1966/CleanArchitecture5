@@ -53,6 +53,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         mRecyclerView.setAdapter(mAdapter);
 
         setModel(new DigitalCurrenciesModel(this));
+
         new EditTextObservable(getModel().getPresenter(), mSearchView);
         mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
     }
