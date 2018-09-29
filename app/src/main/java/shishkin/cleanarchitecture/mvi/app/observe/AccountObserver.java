@@ -95,7 +95,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
         if (!result.hasError()) {
             final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
             SLUtil.getNotificationSpecialist().showBalance(list);
-            ((ApplicationController)ApplicationController.getInstance()).updateWidget();
+            ((ApplicationController) ApplicationController.getInstance()).updateWidget();
         }
     }
 }
