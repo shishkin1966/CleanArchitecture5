@@ -5,6 +5,7 @@ import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
@@ -39,6 +40,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(NetProviderImpl.NAME);
         SL.getInstance().register(JobSpecialistImpl.NAME);
         SLUtil.register(new ScreenOnOffObserver());
+        SLUtil.register(AccountObserver.getInstance());
     }
 
     @Override
