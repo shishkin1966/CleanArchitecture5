@@ -40,4 +40,34 @@ public interface IFragment extends Subscriber, IView, ModelView, Stateable {
      * Закрыть
      */
     void exit();
+
+    /**
+     * Событие - право разрешено
+     *
+     * @param permission право
+     */
+    void onPermisionGranted(final String permission);
+
+    /**
+     * Событие - право запрещено
+     *
+     * @param permission право
+     */
+    void onPermisionDenied(final String permission);
+
+    /**
+     * Запросить право приложению
+     *
+     * @param permission право
+     */
+    void grantPermission(String permission);
+
+    /**
+     * Запросить право приложению
+     *
+     * @param listener    имя слушателя
+     * @param permission  право
+     * @param helpMessage сообщение если право запрещено спрашивать
+     */
+    void grantPermission(String listener, String permission, String helpMessage);
 }

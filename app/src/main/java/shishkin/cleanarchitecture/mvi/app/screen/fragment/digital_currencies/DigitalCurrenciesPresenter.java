@@ -89,7 +89,6 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
         super.onDestroyView();
     }
 
-
     @Override
     public void onRefresh() {
         getData();

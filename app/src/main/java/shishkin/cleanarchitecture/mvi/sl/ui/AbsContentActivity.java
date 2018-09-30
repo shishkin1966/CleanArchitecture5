@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity<M>
-        implements ActivityResultListener, Router {
+        implements Router {
 
     @Override
     protected void onPause() {
@@ -40,9 +39,6 @@ public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity
 
         BackStack.showFragment(this, getContentResId(), fragment, addToBackStack, clearBackStack, animate, allowingStateLoss);
     }
-
-    @Override
-    public abstract int getContentResId();
 
     @Override
     public boolean switchToFragment(@NonNull final String name) {
@@ -91,39 +87,6 @@ public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity
     @Override
     public <F> F getFragment(final Class<F> cls, final int id) {
         return BackStack.getFragment(this, cls, id);
-    }
-
-    /**
-     * Called when an activity you launched exits, giving you the requestCode
-     * you started it with, the resultCode it returned, and any additional
-     * data from it.  The <var>resultCode</var> will be
-     * {@link #RESULT_CANCELED} if the activity explicitly returned that,
-     * didn't return any result, or crashed during its operation.
-     * <p/>
-     * <p>You will receive this call immediately before onResume() when your
-     * activity is re-starting.
-     *
-     * @param requestCode The integer request code originally supplied to
-     *                    startActivityForResult(), allowing you to identify who this
-     *                    result came from.
-     * @param resultCode  The integer result code returned by the child activity
-     *                    through its setResult().
-     * @param data        An Intent, which can return result data to the caller
-     *                    (various data can be attached to Intent "extras").
-     * @see #startActivityForResult
-     * @see Fragment#startActivityForResult
-     * @see #createPendingResult
-     * @see #setResult(int)
-     */
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode,
-                                 final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        final AbsContentFragment fragment = getContentFragment(AbsContentFragment.class);
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, 0, data);
-        }
     }
 
 }

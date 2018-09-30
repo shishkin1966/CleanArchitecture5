@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.activity.main;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Address;
@@ -86,22 +85,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             }
         } else {
             getModel().getRouter().showMainFragment();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (!ApplicationUtils.checkPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            SLUtil.getActivityUnion().grantPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-    }
-
-    @Override
-    public void onPermisionGranted(final String permission) {
-        if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
-            SLUtil.getLocationUnion().start();
         }
     }
 

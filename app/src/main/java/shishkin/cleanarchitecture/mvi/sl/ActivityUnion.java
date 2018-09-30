@@ -3,6 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.view.LayoutInflater;
 
 
+import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowKeyboardEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -167,9 +168,25 @@ public interface ActivityUnion extends IView, Union<IActivity> {
     boolean checkPermission(String permission);
 
     /**
-     * запросить право приложению
+     * Запросить право приложению
      *
      * @param permission право
      */
     void grantPermission(String permission);
+
+    /**
+     * Запросить право приложению
+     *
+     * @param listener    имя слушателя
+     * @param permission  право
+     * @param helpMessage сообщение если право запрещено спрашивать
+     */
+    void grantPermission(String listener, String permission, String helpMessage);
+
+    /**
+     * Показать диалог
+     *
+     * @param event событие описывающее диалог
+     */
+    void showDialog(ShowDialogEvent event);
 }
