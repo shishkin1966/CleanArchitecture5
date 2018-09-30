@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,7 +22,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesModel> implements ResponseListener, Observer {
+public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesModel> implements ResponseListener, Observer, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
@@ -87,5 +90,9 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     }
 
 
+    @Override
+    public void onRefresh() {
+        getData();
+    }
 }
 

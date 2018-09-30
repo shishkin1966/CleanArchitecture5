@@ -7,58 +7,65 @@
     android:layout_height="match_parent"
     android:background="@color/white_light">
 
-    <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/search"
-                    style="@style/EditTextStyle"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/search_height"
-                    android:layout_marginLeft="@dimen/dimen_12dp"
-                    android:layout_marginRight="@dimen/dimen_12dp"
-                    android:hint="@string/search_hint"
-                    android:inputType="text"
-                    android:textColorHint="@color/gray_switch"/>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/search"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/search_height"
+                        android:layout_marginLeft="@dimen/dimen_12dp"
+                        android:layout_marginRight="@dimen/dimen_12dp"
+                        android:hint="@string/search_hint"
+                        android:inputType="text"
+                        android:textColorHint="@color/gray_switch"/>
+
+                </LinearLayout>
+
+                <View style="@style/HorizontalDivider"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:scrollbars="vertical"/>
 
             </LinearLayout>
 
-            <View style="@style/HorizontalDivider"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:scrollbars="vertical"/>
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-6dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:mpb_indeterminateTint="@color/orange"
+                app:mpb_progressStyle="horizontal"
+                app:mpb_showProgressBackground="false"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="-6dp"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:mpb_indeterminateTint="@color/orange"
-            app:mpb_progressStyle="horizontal"
-            app:mpb_showProgressBackground="false"/>
-
-    </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

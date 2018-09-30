@@ -2,7 +2,6 @@ package shishkin.cleanarchitecture.mvi.sl.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -60,9 +59,6 @@ public abstract class AbsContentFragment<M extends AbsModel> extends AbsFragment
                 }
             }
         }
-    }
-
-    public void onRequestPermissions(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     }
 
     @Override
