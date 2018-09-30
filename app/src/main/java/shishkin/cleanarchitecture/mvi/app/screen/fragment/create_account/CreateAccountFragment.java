@@ -55,19 +55,14 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
 
         mFriendlyNameView = findView(R.id.friendlyNameView);
         mBalanceValueView = findView(R.id.balanceValueView);
+
+        new EditTextObservable(getModel().getPresenter(), mFriendlyNameView);
+        new EditTextObservable(getModel().getPresenter(), mBalanceValueView);
     }
 
     @Override
     public CreateAccountModel createModel() {
         return new CreateAccountModel(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        new EditTextObservable(getModel().getPresenter(), mFriendlyNameView);
-        new EditTextObservable(getModel().getPresenter(), mBalanceValueView);
     }
 
     @Override

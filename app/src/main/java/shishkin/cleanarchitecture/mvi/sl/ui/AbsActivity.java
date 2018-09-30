@@ -65,6 +65,8 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
+        setModel(createModel());
+
         mStateObservable.setState(ViewStateObserver.STATE_CREATE);
 
         SL.getInstance().register(this);
@@ -81,7 +83,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        setModel(createModel());
+        getModel().addStateObserver();
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
     }

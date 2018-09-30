@@ -70,4 +70,9 @@ public interface Model extends Validated, ViewStateListener {
      * @return router модели
      */
     <C> C getRouter();
+
+    /**
+     * Установить State Observerable у объектов модели
+     */
+    void addStateObserver();
 }

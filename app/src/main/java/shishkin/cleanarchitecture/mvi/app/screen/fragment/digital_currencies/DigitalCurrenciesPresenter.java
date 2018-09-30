@@ -23,7 +23,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
-    private TickerViewData tickerViewData = new TickerViewData();
+    private TickerViewData tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);;
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
@@ -41,10 +41,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onStart() {
-        tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
-        if (tickerViewData == null) {
-            tickerViewData = new TickerViewData();
-        }
+        getViewData();
         getModel().getView().refreshViews(tickerViewData);
         getData();
     }
@@ -76,6 +73,9 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     }
 
     public TickerViewData getViewData() {
+        if (tickerViewData == null) {
+            tickerViewData = new TickerViewData();
+        }
         return tickerViewData;
     }
 

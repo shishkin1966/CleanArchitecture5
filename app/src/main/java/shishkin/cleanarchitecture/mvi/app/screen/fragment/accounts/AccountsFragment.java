@@ -114,6 +114,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
     @Override
     public void refreshBalance(List<MviDao.Balance> list) {
+        if (list == null) return;
         mBalanceAdapter.setItems(list);
     }
 
@@ -134,5 +135,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         } else {
             findView(R.id.select_accounts_all_ll).setVisibility(View.GONE);
         }
+        refreshBalance(viewData.getBalance());
     }
 }
