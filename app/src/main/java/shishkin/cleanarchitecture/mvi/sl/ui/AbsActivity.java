@@ -46,6 +46,9 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
     @Override
     public M getModel() {
+        if (mModel == null) {
+            mModel = createModel();
+        }
         return mModel;
     }
 
@@ -67,6 +70,8 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         SL.getInstance().register(this);
     }
 
+    public abstract M createModel();
+
     @Override
     public <V extends View> V findView(@IdRes final int id) {
         return ViewUtils.findView(this, id);
@@ -75,6 +80,8 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+
+        setModel(createModel());
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
     }

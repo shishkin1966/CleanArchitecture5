@@ -73,8 +73,11 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView = findView(R.id.balance_list);
         mBalanceView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBalanceView.setAdapter(mBalanceAdapter);
+    }
 
-        setModel(new AccountsModel(this));
+    @Override
+    public AccountsModel createModel() {
+        return new AccountsModel(this);
     }
 
     @Override

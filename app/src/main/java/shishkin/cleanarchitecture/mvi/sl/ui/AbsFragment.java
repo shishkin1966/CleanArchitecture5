@@ -31,6 +31,9 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
 
     @Override
     public M getModel() {
+        if (mModel == null) {
+            mModel = createModel();
+        }
         return mModel;
     }
 
@@ -40,6 +43,8 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
 
         mModel = (M) model;
     }
+
+    public abstract M createModel();
 
     @Override
     public <V extends View> V findView(@IdRes final int id) {
@@ -59,6 +64,15 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         if (SpecialistSubscriber.class.isInstance(this)) {
             SL.getInstance().register((SpecialistSubscriber) this);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        setModel(createModel());
+
+        mStateObservable.setState(ViewStateObserver.STATE_READY);
     }
 
     @Override

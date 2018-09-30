@@ -46,8 +46,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
         setContentView(R.layout.activity_main);
 
-        setModel(new MainModel(this));
-
         lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
@@ -63,6 +61,11 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         SLUtil.getJobSpecialist().schedule(job);
 
         onNewIntent(getIntent());
+    }
+
+    @Override
+    public MainModel createModel() {
+        return new MainModel(this);
     }
 
     @Override
