@@ -1,8 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl.presenter;
 
-import android.os.Bundle;
-
-
 import java.util.List;
 
 
@@ -19,7 +16,6 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
 
     private M mModel = null;
     private ViewStateObserver mLifecycle = new ViewStateObserver(this);
-    private boolean mLostStateData = false;
 
     public AbsPresenter() {
     }
@@ -91,15 +87,6 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
                 PresenterUnionImpl.NAME,
                 MailUnionImpl.NAME
         );
-    }
-
-    @Override
-    public Bundle getStateData() {
-        return null;
-    }
-
-    public void setLostStateData(boolean lostStateData) {
-        mLostStateData = lostStateData;
     }
 
     @Override
