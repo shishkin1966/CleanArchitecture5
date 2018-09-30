@@ -17,12 +17,14 @@ import java.util.List;
 
 
 import es.dmoral.toasty.Toasty;
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.Constant;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowKeyboardEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -34,6 +36,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
+import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
 /**
  * Объединение activities
@@ -395,17 +398,41 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     }
 
     @Override
-    public void grantPermission(String permission) {
+    public void grantPermission(String listener, String permission, String helpMessage) {
         if (ApplicationUtils.hasMarshmallow()) {
             final IActivity subscriber = getCurrentSubscriber();
             if (subscriber != null && subscriber.validate()) {
                 if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(subscriber.getActivity(), permission)) {
-                        //showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, this.getName(), null, helpMessage, R.string.setting, R.string.cancel, false));
+                        showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
                     } else {
                         ActivityCompat.requestPermissions(subscriber.getActivity(), new String[]{permission}, Constant.REQUEST_PERMISSIONS);
                     }
                 }
+            }
+        }
+    }
+
+    @Override
+    public void grantPermission(String permission) {
+        if (ApplicationUtils.hasMarshmallow()) {
+            final IActivity subscriber = getCurrentSubscriber();
+            if (subscriber != null && subscriber.validate()) {
+                if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(subscriber.getActivity(), permission)) {
+                        ActivityCompat.requestPermissions(subscriber.getActivity(), new String[]{permission}, Constant.REQUEST_PERMISSIONS);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void showDialog(ShowDialogEvent event) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                new MaterialDialogExt(subscriber.getActivity(), event.getListener(), event.getId(), event.getTitle(), event.getMessage(), event.getButtonPositive(), event.getButtonNegative(), event.isCancelable()).show();
             }
         }
     }

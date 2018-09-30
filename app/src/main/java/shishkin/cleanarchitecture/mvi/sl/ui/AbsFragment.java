@@ -1,20 +1,27 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.Constant;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 import shishkin.cleanarchitecture.mvi.sl.model.Model;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
@@ -186,4 +193,51 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
     public void addStateObserver(final Stateable stateable) {
         mStateObservable.addObserver(stateable);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for (int i = 0; i < permissions.length; i++) {
+            if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                onPermisionGranted(permissions[i]);
+            } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                onPermisionDenied(permissions[i]);
+            }
+        }
+    }
+
+    @Override
+    public void onPermisionGranted(final String permission) {
+    }
+
+    @Override
+    public void onPermisionDenied(final String permission) {
+    }
+
+    @Override
+    public void grantPermission(String permission) {
+        if (ApplicationUtils.hasMarshmallow()) {
+            if (getState() == ViewStateObserver.STATE_RESUME || getState() == ViewStateObserver.STATE_PAUSE) {
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
+                    requestPermissions(new String[]{permission}, Constant.REQUEST_PERMISSIONS);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void grantPermission(String listener, String permission, String helpMessage) {
+        if (ApplicationUtils.hasMarshmallow()) {
+            if (getState() == ViewStateObserver.STATE_RESUME || getState() == ViewStateObserver.STATE_PAUSE) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
+                    SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
+                } else {
+                    requestPermissions(new String[]{permission}, Constant.REQUEST_PERMISSIONS);
+                }
+            }
+        }
+    }
 }
+
+

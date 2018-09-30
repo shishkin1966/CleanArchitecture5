@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -15,19 +18,29 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.ApplicationController;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
+import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView, View.OnClickListener {
+public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView, View.OnClickListener, DialogResultListener, MailSubscriber {
+
+    public static final String NAME = AccountsFragment.class.getName();
 
     private OnBackPressedPresenter mOnBackPressedPresenter = new OnBackPressedPresenter();
     private RecyclerView mAccountsView;
@@ -82,7 +95,23 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
     @Override
     public String getName() {
-        return AccountsFragment.class.getName();
+        return NAME;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!ApplicationUtils.checkPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            grantPermission(NAME, Manifest.permission.ACCESS_FINE_LOCATION, "Право необходимо для показа карты");
+        }
+    }
+
+    @Override
+    public void onPermisionGranted(final String permission) {
+        if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
+            SLUtil.getLocationUnion().start();
+        }
     }
 
     @Override
@@ -136,5 +165,25 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
             findView(R.id.select_accounts_all_ll).setVisibility(View.GONE);
         }
         refreshBalance(viewData.getBalance());
+    }
+
+    @Override
+    public void onDialogResult(DialogResultEvent event) {
+        final Bundle bundle = event.getResult();
+        if (bundle != null && bundle.getInt("id", -1) == R.id.dialog_request_permissions) {
+            final String button = bundle.getString(MaterialDialogExt.BUTTON);
+            if (button != null && button.equalsIgnoreCase(MaterialDialogExt.POSITIVE)) {
+                final Intent intent = new Intent();
+                final String packageName = ApplicationController.getInstance().getPackageName();
+                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + packageName));
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    public List<String> getSpecialistSubscription() {
+        return StringUtils.arrayToList(MailUnionImpl.NAME);
     }
 }

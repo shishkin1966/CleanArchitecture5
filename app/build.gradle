@@ -114,4 +114,7 @@ dependencies {
     // Job
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
+    // диалоги
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
 }

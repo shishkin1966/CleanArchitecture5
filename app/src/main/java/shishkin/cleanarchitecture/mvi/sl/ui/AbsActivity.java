@@ -25,7 +25,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.KeyboardRunnable;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.PreferencesUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
@@ -131,7 +130,6 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         for (int i = 0; i < permissions.length; i++) {
-            PreferencesUtils.putInt(this, permissions[i], grantResults[i]);
             if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                 onPermisionGranted(permissions[i]);
             } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {

@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.sl.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -56,6 +57,21 @@ public abstract class AbsContentFragment<M extends AbsModel> extends AbsFragment
             for (final Fragment child : fragments) {
                 if (child != null) {
                     child.onActivityResult(requestCode, resultCode, intent);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        final List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (final Fragment child : fragments) {
+                if (child != null) {
+                    child.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 }
             }
         }
