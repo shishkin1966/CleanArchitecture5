@@ -290,7 +290,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     @Override
     public <C> C getActivity() {
         final IActivity subscriber = getCurrentSubscriber();
-        if (subscriber != null && AbsActivity.class.isInstance(subscriber)) {
+        if (AbsActivity.class.isInstance(subscriber)) {
             return (C) subscriber;
         }
         return null;
@@ -313,7 +313,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     @Override
     public <C> C getActivity(final String name, final boolean validate) {
         final IActivity subscriber = getSubscriber(name);
-        if (subscriber != null && AbsActivity.class.isInstance(subscriber)) {
+        if (AbsActivity.class.isInstance(subscriber)) {
             if (!validate || (validate && subscriber.validate())) {
                 return (C) subscriber;
             }
@@ -364,7 +364,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (StringUtils.isNullOrEmpty(name)) return;
 
         final IActivity subscriber = getCurrentSubscriber();
-        if (subscriber != null && subscriber instanceof AbsContentActivity) {
+        if (subscriber instanceof AbsContentActivity) {
             ((AbsContentActivity) subscriber).switchToFragment(name);
         }
     }
@@ -372,7 +372,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     @Override
     public void back() {
         final IActivity subscriber = getCurrentSubscriber();
-        if (subscriber != null && subscriber instanceof AbsActivity) {
+        if (subscriber instanceof AbsActivity) {
             ((AbsActivity) subscriber).onBackPressed();
         }
     }
