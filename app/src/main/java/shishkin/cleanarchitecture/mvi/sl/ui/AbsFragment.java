@@ -56,10 +56,17 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setModel(createModel());
+
+        mStateObservable.setState(ViewStateObserver.STATE_CREATE);
+    }
+
+    @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mStateObservable.setState(ViewStateObserver.STATE_READY);
 
         if (SpecialistSubscriber.class.isInstance(this)) {
             SL.getInstance().register((SpecialistSubscriber) this);
@@ -70,7 +77,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
     public void onStart() {
         super.onStart();
 
-        setModel(createModel());
+        getModel().addStateObserver();
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
     }

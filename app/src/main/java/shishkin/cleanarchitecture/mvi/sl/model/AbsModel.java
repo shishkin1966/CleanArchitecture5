@@ -24,6 +24,16 @@ public abstract class AbsModel implements Model {
     }
 
     @Override
+    public void addStateObserver() {
+        if (mModelView != null) {
+            mModelView.addStateObserver(this);
+            if (mPresenter != null) {
+                mModelView.addStateObserver(mPresenter);
+            }
+        }
+    }
+
+    @Override
     public <V> V getView() {
         return (V) mModelView;
     }

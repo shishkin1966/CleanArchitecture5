@@ -51,19 +51,14 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
+        new EditTextObservable(getModel().getPresenter(), mSearchView);
+        mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
     }
 
     @Override
     public DigitalCurrenciesModel createModel() {
         return new DigitalCurrenciesModel(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        new EditTextObservable(getModel().getPresenter(), mSearchView);
-        mSearchView.setText(getModel().getPresenter().getViewData().getFilter());
     }
 
     @Override

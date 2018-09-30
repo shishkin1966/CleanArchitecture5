@@ -11,6 +11,7 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 public class AccountsViewData implements Parcelable {
@@ -21,6 +22,8 @@ public class AccountsViewData implements Parcelable {
     private String filter;
     private List<Account> accounts;
     private List<String> currencies;
+    private List<MviDao.Balance> balance;
+
     private Comparator<Account> nameComparator = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
     private Comparator<Account> currencyComparator = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
 
@@ -54,6 +57,14 @@ public class AccountsViewData implements Parcelable {
 
     public void setCurrencies(List<String> currencies) {
         this.currencies = currencies;
+    }
+
+    public List<MviDao.Balance> getBalance() {
+        return balance;
+    }
+
+    public void setBalance(List<MviDao.Balance> balance) {
+        this.balance = balance;
     }
 
     public boolean isSortMenuEnabled() {
@@ -96,6 +107,7 @@ public class AccountsViewData implements Parcelable {
         dest.writeString(this.filter);
         dest.writeTypedList(this.accounts);
         dest.writeStringList(this.currencies);
+        dest.writeTypedList(this.balance);
     }
 
     public AccountsViewData() {
@@ -106,6 +118,7 @@ public class AccountsViewData implements Parcelable {
         this.filter = in.readString();
         this.accounts = in.createTypedArrayList(Account.CREATOR);
         this.currencies = in.createStringArrayList();
+        this.balance = in.createTypedArrayList(MviDao.Balance.CREATOR);
     }
 
     public static final Parcelable.Creator<AccountsViewData> CREATOR = new Parcelable.Creator<AccountsViewData>() {

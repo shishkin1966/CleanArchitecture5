@@ -40,7 +40,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
-    private AccountsViewData accountsViewData = new AccountsViewData();
+    private AccountsViewData accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
 
     public AccountsPresenter(AccountsModel model) {
         super(model);
@@ -143,7 +143,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
-        accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
         if (accountsViewData == null) {
             accountsViewData = new AccountsViewData();
         }
@@ -169,6 +168,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 getModel().getView().refreshViews(accountsViewData);
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
+                accountsViewData.setBalance(list);
                 getModel().getView().refreshBalance(list);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
                 accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
