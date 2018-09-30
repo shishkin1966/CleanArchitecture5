@@ -23,7 +23,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
-    private TickerViewData tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);;
+    private TickerViewData tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
