@@ -7,17 +7,24 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 
 import es.dmoral.toasty.Toasty;
+import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
 @SuppressWarnings("unused")
@@ -230,6 +237,30 @@ public class ApplicationUtils {
         return false;
     }
 
+    public static Snackbar showSnackbar(View view, String message, int duration, int type) {
+        if (view != null) {
+            final Snackbar snackbar = BaseSnackbar.make(view, message, duration, type);
+            snackbar.show();
+            return snackbar;
+        }
+        return null;
+    }
+
+    public static void showMenu(final Context context, final View view, final int menuId, PopupMenu.OnMenuItemClickListener onMenuItemClickListener, PopupMenu.OnDismissListener onDismissListener) {
+        try {
+            final PopupMenu popupMenu = new PopupMenu(context, view);
+            final Field mFieldPopup = popupMenu.getClass().getDeclaredField("mPopup");
+            mFieldPopup.setAccessible(true);
+            final MenuPopupHelper mPopup = (MenuPopupHelper) mFieldPopup.get(popupMenu);
+            mPopup.setForceShowIcon(true);
+            popupMenu.inflate(menuId);
+            popupMenu.setOnMenuItemClickListener(onMenuItemClickListener);
+            popupMenu.setOnDismissListener(onDismissListener);
+            popupMenu.show();
+        } catch (Exception e) {
+            Log.e("ViewUtils", e.getMessage());
+        }
+    }
 
     private ApplicationUtils() {
     }

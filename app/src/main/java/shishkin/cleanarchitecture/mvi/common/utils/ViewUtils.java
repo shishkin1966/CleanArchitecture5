@@ -15,13 +15,9 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.view.menu.MenuPopupHelper;
-import android.support.v7.widget.PopupMenu;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -32,11 +28,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 
-import java.lang.reflect.Field;
 import java.util.Locale;
-
-
-import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 
 /**
  * {@code ViewUtils} contains static methods which operate on {@code View}.
@@ -46,23 +38,6 @@ public class ViewUtils {
 
     private ViewUtils() {
     }
-
-    public static void showMenu(final Context context, final View view, final int menuId, PopupMenu.OnMenuItemClickListener onMenuItemClickListener, PopupMenu.OnDismissListener onDismissListener) {
-        try {
-            final PopupMenu popupMenu = new PopupMenu(context, view);
-            final Field mFieldPopup = popupMenu.getClass().getDeclaredField("mPopup");
-            mFieldPopup.setAccessible(true);
-            final MenuPopupHelper mPopup = (MenuPopupHelper) mFieldPopup.get(popupMenu);
-            mPopup.setForceShowIcon(true);
-            popupMenu.inflate(menuId);
-            popupMenu.setOnMenuItemClickListener(onMenuItemClickListener);
-            popupMenu.setOnDismissListener(onDismissListener);
-            popupMenu.show();
-        } catch (Exception e) {
-            Log.e("ViewUtils", e.getMessage());
-        }
-    }
-
 
     /**
      * Finds a view that was identified by the id attribute from the XML that
@@ -498,14 +473,6 @@ public class ViewUtils {
         return (int) (context.getResources().getDimension(resId) / context.getResources().getDisplayMetrics().density);
     }
 
-    public static Snackbar showSnackbar(View view, String message, int duration, int type) {
-        if (view != null) {
-            final Snackbar snackbar = BaseSnackbar.make(view, message, duration, type);
-            snackbar.show();
-            return snackbar;
-        }
-        return null;
-    }
 }
 
 
