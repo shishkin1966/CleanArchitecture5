@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
     private RecyclerView mRecyclerView;
     private EditText mSearchView;
     private TickerRecyclerViewAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,14 +43,18 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mSwipeRefreshLayout = findView(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.blue);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.gray_light);
+        mSwipeRefreshLayout.setOnRefreshListener(getModel().getPresenter());
+
         mAdapter = new TickerRecyclerViewAdapter(getContext());
 
         mSearchView = findView(R.id.search);
         mSearchView.setCompoundDrawablesWithIntrinsicBounds(ViewUtils.getVectorDrawable(getContext(), R.drawable.magnify, mSearchView.getContext().getTheme()), null, null, null);
 
         mRecyclerView = findView(R.id.list);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -71,4 +77,14 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         if (viewData == null || viewData.getData() == null) return;
         mAdapter.setItems(viewData.getData());
     }
+
+    @Override
+    public void hideProgressBar() {
+        if (validate()) {
+            super.hideProgressBar();
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+
 }
