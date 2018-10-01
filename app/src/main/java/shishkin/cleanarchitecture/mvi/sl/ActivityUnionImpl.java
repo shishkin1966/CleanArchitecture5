@@ -402,7 +402,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (ApplicationUtils.hasMarshmallow()) {
             final IActivity subscriber = getCurrentSubscriber();
             if (subscriber != null && subscriber.validate()) {
-                if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                if (subscriber.getActivity().getState() != ViewStateObserver.STATE_CREATE && subscriber.getActivity().getState() != ViewStateObserver.STATE_DESTROY) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(subscriber.getActivity(), permission)) {
                         showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
                     } else {
@@ -418,7 +418,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (ApplicationUtils.hasMarshmallow()) {
             final IActivity subscriber = getCurrentSubscriber();
             if (subscriber != null && subscriber.validate()) {
-                if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                if (subscriber.getActivity().getState() != ViewStateObserver.STATE_CREATE && subscriber.getActivity().getState() != ViewStateObserver.STATE_DESTROY) {
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(subscriber.getActivity(), permission)) {
                         ActivityCompat.requestPermissions(subscriber.getActivity(), new String[]{permission}, Constant.REQUEST_PERMISSIONS);
                     }
@@ -431,7 +431,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     public void showDialog(ShowDialogEvent event) {
         final IActivity subscriber = getCurrentSubscriber();
         if (subscriber != null && subscriber.validate()) {
-            if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+            if (subscriber.getActivity().getState() != ViewStateObserver.STATE_CREATE && subscriber.getActivity().getState() != ViewStateObserver.STATE_DESTROY) {
                 new MaterialDialogExt(subscriber.getActivity(), event.getListener(), event.getId(), event.getTitle(), event.getMessage(), event.getButtonPositive(), event.getButtonNegative(), event.isCancelable()).show();
             }
         }

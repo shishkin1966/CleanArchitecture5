@@ -23,6 +23,7 @@ public class AccountsViewData implements Parcelable {
     private List<Account> accounts;
     private List<String> currencies;
     private List<MviDao.Balance> balance;
+    private boolean isShowPermissionDialog = false;
 
     private Comparator<Account> nameComparator = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
     private Comparator<Account> currencyComparator = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
@@ -67,6 +68,14 @@ public class AccountsViewData implements Parcelable {
         this.balance = balance;
     }
 
+    public boolean isShowPermissionDialog() {
+        return isShowPermissionDialog;
+    }
+
+    public void setShowPermissionDialog(boolean showPermissionDialog) {
+        isShowPermissionDialog = showPermissionDialog;
+    }
+
     public boolean isSortMenuEnabled() {
         return (accounts != null && accounts.size() > 1);
     }
@@ -108,6 +117,7 @@ public class AccountsViewData implements Parcelable {
         dest.writeTypedList(this.accounts);
         dest.writeStringList(this.currencies);
         dest.writeTypedList(this.balance);
+        dest.writeByte(this.isShowPermissionDialog ? (byte) 1 : (byte) 0);
     }
 
     public AccountsViewData() {
@@ -119,9 +129,10 @@ public class AccountsViewData implements Parcelable {
         this.accounts = in.createTypedArrayList(Account.CREATOR);
         this.currencies = in.createStringArrayList();
         this.balance = in.createTypedArrayList(MviDao.Balance.CREATOR);
+        this.isShowPermissionDialog = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<AccountsViewData> CREATOR = new Parcelable.Creator<AccountsViewData>() {
+    public static final Creator<AccountsViewData> CREATOR = new Creator<AccountsViewData>() {
         @Override
         public AccountsViewData createFromParcel(Parcel source) {
             return new AccountsViewData(source);

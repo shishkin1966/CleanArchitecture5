@@ -69,11 +69,6 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         setModel(createModel());
 
         mStateObservable.setState(ViewStateObserver.STATE_CREATE);
-    }
-
-    @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         if (SpecialistSubscriber.class.isInstance(this)) {
             SL.getInstance().register((SpecialistSubscriber) this);
@@ -218,7 +213,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
     @Override
     public void grantPermission(String permission) {
         if (ApplicationUtils.hasMarshmallow()) {
-            if (getState() == ViewStateObserver.STATE_RESUME || getState() == ViewStateObserver.STATE_PAUSE) {
+            if (getState() != ViewStateObserver.STATE_CREATE && getState() != ViewStateObserver.STATE_DESTROY) {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
                     requestPermissions(new String[]{permission}, Constant.REQUEST_PERMISSIONS);
                 }
@@ -229,7 +224,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
     @Override
     public void grantPermission(String listener, String permission, String helpMessage) {
         if (ApplicationUtils.hasMarshmallow()) {
-            if (getState() == ViewStateObserver.STATE_RESUME || getState() == ViewStateObserver.STATE_PAUSE) {
+            if (getState() != ViewStateObserver.STATE_CREATE && getState() != ViewStateObserver.STATE_DESTROY) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
                     SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
                 } else {
