@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.map;
 
 import android.Manifest;
+import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import shishkin.cleanarchitecture.mvi.app.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
 @SuppressWarnings("unused")
@@ -100,6 +102,19 @@ public class MapFragment extends AbsFragment<MapModel> implements OnMapReadyCall
                 isInit = true;
             }
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
+            final List<Address> list = SLUtil.getLocationUnion().getAddress(location);
+            if (list != null && !list.isEmpty()) {
+                final Address address = list.get(0);
+                final StringBuilder sb = new StringBuilder();
+                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                    sb.append(address.getAddressLine(i));
+                    if (i < address.getMaxAddressLineIndex()) {
+                        sb.append("\n");
+                    }
+                }
+                SLUtil.getNotificationSpecialist().showMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
+            }
         }
     }
 
