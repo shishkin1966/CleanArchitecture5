@@ -57,20 +57,16 @@ public class MapFragment extends AbsFragment<MapModel> implements OnMapReadyCall
         super.onActivityCreated(savedInstanceState);
 
         if (ApplicationUtils.checkPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            startGoogleMap();
+            final GoogleMapOptions mapOptions = new GoogleMapOptions()
+                    .compassEnabled(true)
+                    .zoomControlsEnabled(false)
+                    .mapType(GoogleMap.MAP_TYPE_NORMAL);
+            final SupportMapFragment fragment = SupportMapFragment.newInstance(mapOptions);
+            fragment.getMapAsync(this);
+            final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.map, fragment, "map");
+            transaction.commit();
         }
-    }
-
-    private void startGoogleMap() {
-        final GoogleMapOptions mapOptions = new GoogleMapOptions()
-                .compassEnabled(true)
-                .zoomControlsEnabled(false)
-                .mapType(GoogleMap.MAP_TYPE_NORMAL);
-        final SupportMapFragment fragment = SupportMapFragment.newInstance(mapOptions);
-        fragment.getMapAsync(this);
-        final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.map, fragment, "map");
-        transaction.commit();
     }
 
     @Override
