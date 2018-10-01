@@ -2,8 +2,6 @@ package shishkin.cleanarchitecture.mvi.app.screen.activity.main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.location.Address;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
@@ -19,8 +17,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
-import shishkin.cleanarchitecture.mvi.app.location.LocationSubscriber;
-import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -30,7 +26,7 @@ import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 
-public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, LocationSubscriber {
+public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent> {
 
     public static final String NAME = MainActivity.class.getName();
 
@@ -127,22 +123,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
                 super.getSpecialistSubscription(),
-                ObservableUnionImpl.NAME,
-                LocationUnionImpl.NAME
+                ObservableUnionImpl.NAME
         );
-    }
-
-
-    @Override
-    public void setLocation(Location location) {
-        final List<Address> list = SLUtil.getLocationUnion().getAddress(location);
-        if (list != null && !list.isEmpty()) {
-            final Address address = list.get(0);
-            final StringBuilder sb = new StringBuilder();
-            for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                sb.append(address.getAddressLine(i)).append("\n");
-            }
-            //SLUtil.getNotificationSpecialist().showMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
-        }
     }
 }
