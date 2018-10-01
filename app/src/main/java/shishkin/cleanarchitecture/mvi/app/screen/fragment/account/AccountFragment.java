@@ -46,10 +46,11 @@ public class AccountFragment extends AbsContentFragment<AccountModel> implements
         super.onViewCreated(view, savedInstanceState);
 
         mAccount = getArguments().getParcelable(ACCOUNT);
-
-        ((TextView) findView(R.id.title)).setText(mAccount.getFriendlyName());
-        ((TextView) findView(R.id.balanceView)).setText(String.format("%,.0f", mAccount.getBalance()) + " " + mAccount.getCurrency());
-        ((TextView) findView(R.id.openDateView)).setText(getString(R.string.fragment_account_open_date_format) + " " + StringUtils.formatDateShortRu(mAccount.getOpenDate()));
+        if (mAccount != null) {
+            ((TextView) findView(R.id.title)).setText(mAccount.getFriendlyName());
+            ((TextView) findView(R.id.balanceView)).setText(String.format("%,.0f", mAccount.getBalance()) + " " + mAccount.getCurrency());
+            ((TextView) findView(R.id.openDateView)).setText(getString(R.string.fragment_account_open_date_format) + " " + StringUtils.formatDateShortRu(mAccount.getOpenDate()));
+        }
     }
 
     @Override
