@@ -1,7 +1,11 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
 
 
 import org.michaelbel.bottomsheet.BottomSheet;
@@ -25,25 +29,30 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.DbObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
+import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsPresenter extends AbsPresenter<AccountsModel> implements DbObservableSubscriber, ResponseListener, DialogInterface.OnClickListener {
+public class AccountsPresenter extends AbsPresenter<AccountsModel> implements DbObservableSubscriber, ResponseListener, DialogInterface.OnClickListener, DialogResultListener {
 
     public static final String NAME = AccountsPresenter.class.getName();
     private static final String ALL = ApplicationController.getInstance().getString(R.string.all);
 
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
-    private AccountsViewData accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
+    private AccountsViewData accountsViewData;
 
     public AccountsPresenter(AccountsModel model) {
         super(model);
+
+        accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
     }
 
     @Override
@@ -96,12 +105,12 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts() {
-        if (accountsViewData.getCurrencies() != null && accountsViewData.getCurrencies().size() > 1) {
-            final CharSequence[] items = new CharSequence[accountsViewData.getCurrencies().size() + 1];
-            final Drawable[] icons = new Drawable[accountsViewData.getCurrencies().size() + 1];
+        if (getViewData().getCurrencies() != null && getViewData().getCurrencies().size() > 1) {
+            final CharSequence[] items = new CharSequence[getViewData().getCurrencies().size() + 1];
+            final Drawable[] icons = new Drawable[getViewData().getCurrencies().size() + 1];
             items[0] = ALL;
-            for (int i = 0; i < accountsViewData.getCurrencies().size(); i++) {
-                items[i + 1] = accountsViewData.getCurrencies().get(i);
+            for (int i = 0; i < getViewData().getCurrencies().size(); i++) {
+                items[i + 1] = getViewData().getCurrencies().get(i);
             }
             final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
             filterDialog = builder
@@ -114,8 +123,8 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts_all() {
-        accountsViewData.setFilter(null);
-        getModel().getView().refreshViews(accountsViewData);
+        getViewData().setFilter(null);
+        getModel().getView().refreshViews(getViewData());
     }
 
     @Override
@@ -143,10 +152,13 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
-        if (accountsViewData == null) {
-            accountsViewData = new AccountsViewData();
+        if (!getViewData().isShowPermissionDialog() && !ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            getViewData().setShowPermissionDialog(true);
+            SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, getViewData());
+            getModel().getView().grantPermission(NAME, Manifest.permission.ACCESS_FINE_LOCATION, "Право необходимо для показа карты");
         }
-        getModel().getView().refreshViews(accountsViewData);
+
+        getModel().getView().refreshViews(getViewData());
         getData();
     }
 
@@ -164,14 +176,14 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
-                accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
-                getModel().getView().refreshViews(accountsViewData);
+                getViewData().setAccounts(SafeUtils.cast(result.getData()));
+                getModel().getView().refreshViews(getViewData());
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
-                accountsViewData.setBalance(list);
+                getViewData().setBalance(list);
                 getModel().getView().refreshBalance(list);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
-                accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
+                getViewData().setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -181,15 +193,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog.equals(sortDialog)) {
-            accountsViewData.setSort(which);
+            getViewData().setSort(which);
         } else if (dialog.equals(filterDialog)) {
             if (which == 0) {
-                accountsViewData.setFilter(null);
+                getViewData().setFilter(null);
             } else {
-                accountsViewData.setFilter(accountsViewData.getCurrencies().get(which - 1));
+                getViewData().setFilter(getViewData().getCurrencies().get(which - 1));
             }
         }
-        getModel().getView().refreshViews(accountsViewData);
+        getModel().getView().refreshViews(getViewData());
     }
 
     public void onClickAccounts(Account account) {
@@ -198,10 +210,31 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onDestroyView() {
-        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
+        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, getViewData());
 
         super.onDestroyView();
     }
 
+    @Override
+    public void onDialogResult(DialogResultEvent event) {
+        final Bundle bundle = event.getResult();
+        if (bundle != null && bundle.getInt("id", -1) == R.id.dialog_request_permissions) {
+            final String button = bundle.getString(MaterialDialogExt.BUTTON);
+            if (button != null && button.equalsIgnoreCase(MaterialDialogExt.POSITIVE)) {
+                final Intent intent = new Intent();
+                final String packageName = ApplicationController.getInstance().getPackageName();
+                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + packageName));
+                getModel().getView().startActivity(intent);
+            }
+        }
+    }
+
+    private AccountsViewData getViewData() {
+        if (accountsViewData == null) {
+            accountsViewData = new AccountsViewData();
+        }
+        return accountsViewData;
+    }
 }
 

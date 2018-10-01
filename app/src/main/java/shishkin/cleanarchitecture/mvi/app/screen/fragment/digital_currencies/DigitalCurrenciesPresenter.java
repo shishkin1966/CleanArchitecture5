@@ -26,10 +26,12 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     public static final String NAME = DigitalCurrenciesPresenter.class.getName();
 
-    private TickerViewData tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
+    private TickerViewData tickerViewData;
 
     public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
+
+        tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     @Override
     public void onStart() {
         getViewData();
-        getModel().getView().refreshViews(tickerViewData);
+        getModel().getView().refreshViews(getViewData());
         getData();
     }
 
@@ -60,8 +62,8 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
-            tickerViewData.setTickers((List<Ticker>) result.getData());
-            getModel().getView().refreshViews(tickerViewData);
+            getViewData().setTickers((List<Ticker>) result.getData());
+            getModel().getView().refreshViews(getViewData());
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
@@ -69,9 +71,9 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg != null && !arg.equals(tickerViewData.getFilter())) {
-            tickerViewData.setFilter((String) arg);
-            getModel().getView().refreshViews(tickerViewData);
+        if (arg != null && !arg.equals(getViewData().getFilter())) {
+            getViewData().setFilter((String) arg);
+            getModel().getView().refreshViews(getViewData());
         }
     }
 
@@ -84,7 +86,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onDestroyView() {
-        SLUtil.getCacheSpecialist().put(TickerViewData.NAME, tickerViewData);
+        SLUtil.getCacheSpecialist().put(TickerViewData.NAME, getViewData());
 
         super.onDestroyView();
     }
