@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.media;
 
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
@@ -109,6 +108,5 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-
     }
 }
