@@ -6,9 +6,9 @@ public interface MediaSpecialist extends Specialist {
 
     void play(int resId);
 
-    void pause();
+    int pause();
 
-    void resume(int lenght);
+    void resume(int position);
 
     void stop();
 

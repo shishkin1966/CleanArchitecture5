@@ -33,16 +33,18 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void pause() {
+    public int pause() {
         if (player != null) {
             player.pause();
+            return player.getCurrentPosition();
         }
+        return 0;
     }
 
     @Override
-    public void resume(int lenght) {
+    public void resume(int position) {
         if (player != null) {
-            player.seekTo(lenght);
+            player.seekTo(position);
             player.start();
         }
     }

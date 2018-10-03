@@ -118,6 +118,7 @@ public class SLUtil {
     public static MediaSpecialist getMediaSpecialist() {
         return SL.getInstance().get(MediaSpecialistImpl.NAME);
     }
+
     public static <C> C getActivity() {
         final ActivityUnion union = getActivityUnion();
         if (union != null) {
