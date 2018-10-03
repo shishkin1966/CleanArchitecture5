@@ -59,7 +59,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getJobSpecialist().cancel();
         SLUtil.getNotificationSpecialist().clear();
         SLUtil.getCacheSpecialist().clear();
-        SLUtil.getMediaSpecialist().stop();
+        SLUtil.getMediaSpecialist().release();
 
         super.onFinish();
     }

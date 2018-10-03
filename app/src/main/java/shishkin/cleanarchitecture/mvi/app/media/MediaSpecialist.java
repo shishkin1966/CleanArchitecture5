@@ -16,4 +16,6 @@ public interface MediaSpecialist extends Specialist {
 
     boolean isStop();
 
+    void release();
+
 }
