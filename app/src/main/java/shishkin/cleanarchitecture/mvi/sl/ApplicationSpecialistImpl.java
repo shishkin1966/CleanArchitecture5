@@ -7,6 +7,10 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 
+import com.crashlytics.android.Crashlytics;
+
+
+import io.fabric.sdk.android.Fabric;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 
@@ -25,6 +29,8 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Fabric.with(this, new Crashlytics());
 
         start();
     }

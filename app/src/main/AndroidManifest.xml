@@ -22,6 +22,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBnh9UbjXH08sSAp5tC4WptRCDT0q3kOMM"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="281db83fe0120557c58a812c0a71219bcc6acc5f" />
+
         <activity android:name=".app.screen.activity.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
