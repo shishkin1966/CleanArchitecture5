@@ -107,6 +107,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             case R.id.stop:
                 SLUtil.getMediaSpecialist().stop();
                 break;
+
         }
     }
 
@@ -168,8 +169,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
-        if (!getViewData().isShowPermissionDialog() && !ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            getViewData().setShowPermissionDialog(true);
+        accountsViewData = getViewData();
+        if (!accountsViewData.isShowPermissionDialog() && !ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            accountsViewData.setShowPermissionDialog(true);
             SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, getViewData());
             getModel().getView().grantPermission(NAME, Manifest.permission.ACCESS_FINE_LOCATION, "Право необходимо для показа карты");
         }

@@ -46,7 +46,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     @Override
     public void onStart() {
-        getViewData();
+        tickerViewData = getViewData();
         getModel().getView().refreshViews(getViewData());
         getData();
     }
