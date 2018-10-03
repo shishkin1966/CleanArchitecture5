@@ -10,6 +10,10 @@ public interface MediaSpecialist extends Specialist {
 
     void resume(int position);
 
+    void resume();
+
     void stop();
+
+    boolean isStop();
 
 }

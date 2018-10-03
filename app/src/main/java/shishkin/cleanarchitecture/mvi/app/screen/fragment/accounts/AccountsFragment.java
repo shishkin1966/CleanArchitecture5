@@ -63,6 +63,9 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         findView(R.id.sort_accounts).setOnClickListener(this);
         findView(R.id.select_accounts).setOnClickListener(this);
         findView(R.id.select_accounts_all).setOnClickListener(this);
+        findView(R.id.stop).setOnClickListener(this);
+        findView(R.id.start).setOnClickListener(this);
+        findView(R.id.pause).setOnClickListener(this);
 
         mAdapter = new AccountsRecyclerViewAdapter(getContext());
         mAccountsView = findView(R.id.list);

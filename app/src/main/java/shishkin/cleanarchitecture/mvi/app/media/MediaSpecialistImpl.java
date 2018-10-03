@@ -10,6 +10,9 @@ import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialist {
     public static final String NAME = MediaSpecialistImpl.class.getName();
     private MediaPlayer player;
+    private int position = -1;
+
+    private boolean isStop = false;
 
     @Override
     public void onUnRegister() {
@@ -28,6 +31,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
 
     @Override
     public void play(int resId) {
+        position = -1;
         player = MediaPlayer.create(ApplicationController.getInstance(), resId);
         player.start();
     }
@@ -36,7 +40,8 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     public int pause() {
         if (player != null) {
             player.pause();
-            return player.getCurrentPosition();
+            position = player.getCurrentPosition();
+            return position;
         }
         return 0;
     }
@@ -44,6 +49,21 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     @Override
     public void resume(int position) {
         if (player != null) {
+            if (position < 0) {
+                return;
+            }
+            this.position = position;
+            player.seekTo(position);
+            player.start();
+        }
+    }
+
+    @Override
+    public void resume() {
+        if (player != null) {
+            if (position < 0) {
+                return;
+            }
             player.seekTo(position);
             player.start();
         }
@@ -52,7 +72,15 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     @Override
     public void stop() {
         if (player != null) {
+            isStop = true;
+            position = -1;
             player.stop();
         }
     }
+
+    @Override
+    public boolean isStop() {
+        return isStop;
+    }
+
 }

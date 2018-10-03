@@ -91,6 +91,22 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             case R.id.select_accounts_all:
                 select_accounts_all();
                 break;
+
+            case R.id.start:
+                if (SLUtil.getMediaSpecialist().isStop()) {
+                    SLUtil.getMediaSpecialist().play(R.raw.music);
+                } else {
+                    SLUtil.getMediaSpecialist().resume();
+                }
+                break;
+
+            case R.id.pause:
+                SLUtil.getMediaSpecialist().pause();
+                break;
+
+            case R.id.stop:
+                SLUtil.getMediaSpecialist().stop();
+                break;
         }
     }
 

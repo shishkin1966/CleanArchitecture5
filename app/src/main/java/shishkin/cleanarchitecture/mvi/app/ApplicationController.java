@@ -51,7 +51,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(MediaSpecialistImpl.NAME);
 
         SLUtil.getMediaSpecialist().play(R.raw.music);
-
     }
 
 
