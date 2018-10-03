@@ -8,6 +8,8 @@ import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialist;
+import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
@@ -111,6 +113,10 @@ public class SLUtil {
 
     public static JobSpecialist getJobSpecialist() {
         return SL.getInstance().get(JobSpecialistImpl.NAME);
+    }
+
+    public static MediaSpecialist getMediaSpecialist() {
+        return SL.getInstance().get(MediaSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {

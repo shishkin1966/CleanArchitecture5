@@ -5,9 +5,11 @@ import android.content.ComponentName;
 import android.content.Intent;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
@@ -46,13 +48,18 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(JobSpecialistImpl.NAME);
         SLUtil.register(new ScreenOnOffObserver());
         SLUtil.register(AccountObserver.getInstance());
+        SL.getInstance().register(MediaSpecialistImpl.NAME);
+
+        SLUtil.getMediaSpecialist().play(R.raw.music);
     }
+
 
     @Override
     public void onFinish() {
         SLUtil.getJobSpecialist().cancel();
         SLUtil.getNotificationSpecialist().clear();
         SLUtil.getCacheSpecialist().clear();
+        SLUtil.getMediaSpecialist().release();
 
         super.onFinish();
     }
