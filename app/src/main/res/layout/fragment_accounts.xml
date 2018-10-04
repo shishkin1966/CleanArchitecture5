@@ -239,6 +239,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/side_menu_panel_selector"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -256,9 +257,9 @@
                         <ImageView
                             android:id="@+id/pause"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="@dimen/dimen_8dp"
-                            android:layout_height="wrap_content"
                             app:srcCompat="@drawable/ic_pause"/>
 
                         <View
@@ -267,10 +268,10 @@
 
                         <ImageView
                             android:id="@+id/stop"
-                            android:padding="@dimen/dimen_8dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:padding="@dimen/dimen_8dp"
                             app:srcCompat="@drawable/ic_stop"/>
 
                     </LinearLayout>
