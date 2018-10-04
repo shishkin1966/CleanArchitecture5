@@ -19,6 +19,7 @@
     <color name="gray_switch">#cbc8c8</color>
     <color name="gray_dark">#666666</color>
     <color name="blue">#276ab0</color>
+    <color name="blue_dark">#074a90</color>
     <color name="blue_pressed">#80345d9d</color>
     <color name="blue_light">#A9CEFF</color>
     <color name="blue_ripple">#f6f6f6</color>
@@ -39,7 +40,8 @@
     <color name="text_light">#787878</color>
     <color name="divider_color">#d9d9d9</color>
 
-    <color name="item_pressed">#3e404b</color>
+    <color name="item_pressed">#2e303b</color>
+    <color name="item_pressed_light">#6e707b</color>
     <color name="item_text">#eaeaea</color>
 
     <color name="orange_button_background">#ff5514</color>
