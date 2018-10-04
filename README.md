@@ -1,4 +1,3 @@
-# CleanArchitecture5
 Clean Architecture version 5
  
 Пример реализации Clean Architecture на базе Service Locator
