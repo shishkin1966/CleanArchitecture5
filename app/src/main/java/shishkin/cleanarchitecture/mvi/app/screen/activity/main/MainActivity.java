@@ -21,6 +21,7 @@ import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -41,6 +42,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         setContentView(R.layout.activity_main);
 
         lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
 
         final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
         final Job job = builder
