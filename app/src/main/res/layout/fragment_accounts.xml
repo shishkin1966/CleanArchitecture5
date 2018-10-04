@@ -30,7 +30,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue2"
+                    android:background="@color/blue_dark"
                     android:minHeight="@dimen/menu_header_height"
                     android:orientation="horizontal">
 
@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_play"/>
+                            app:srcCompat="@drawable/ic_play_selector"/>
 
                         <View
                             style="@style/VerticalDivider"
@@ -260,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_pause"/>
+                            app:srcCompat="@drawable/ic_pause_selector"/>
 
                         <View
                             style="@style/VerticalDivider"
@@ -272,7 +272,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_stop"/>
+                            app:srcCompat="@drawable/ic_stop_selector"/>
 
                     </LinearLayout>
 
