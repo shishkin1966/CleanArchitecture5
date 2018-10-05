@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
-
 import com.crashlytics.android.Crashlytics;
 
 

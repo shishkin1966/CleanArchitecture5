@@ -21,6 +21,7 @@ import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
+import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
@@ -55,7 +56,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
         addStateObserver(mOnBackPressedPresenter);
 
-        mBottomSheetBehavior = BottomSheetBehavior.from(findView(R.id.bottomSheetContainer));
+        mBottomSheetBehavior = LinearLayoutBehavior.from(findView(R.id.bottomSheetContainer));
 
         findView(R.id.create_account).setOnClickListener(this);
         findView(R.id.map).setOnClickListener(this);

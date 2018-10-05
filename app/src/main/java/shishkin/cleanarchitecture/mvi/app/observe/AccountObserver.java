@@ -5,7 +5,6 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
@@ -94,7 +93,6 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     public void response(Result result) {
         if (!result.hasError()) {
             final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
-            SLUtil.getNotificationSpecialist().showBalance(list);
             ((ApplicationController) ApplicationController.getInstance()).updateWidget();
         }
     }
