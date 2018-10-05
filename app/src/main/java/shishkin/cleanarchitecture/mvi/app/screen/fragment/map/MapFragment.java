@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.map;
 
 import android.Manifest;
-import android.location.Address;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -10,37 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-
-
-import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.location.LocationSubscriber;
-import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
 @SuppressWarnings("unused")
-public class MapFragment extends AbsFragment<MapModel> implements OnMapReadyCallback, MapView, LocationSubscriber {
+public class MapFragment extends AbsFragment<MapModel> implements MapView {
 
     public static final String NAME = MapFragment.class.getName();
 
     public static MapFragment newInstance() {
         return new MapFragment();
     }
-
-    private GoogleMap mGoogleMap;
-    private boolean isInit = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +46,7 @@ public class MapFragment extends AbsFragment<MapModel> implements OnMapReadyCall
                     .zoomControlsEnabled(false)
                     .mapType(GoogleMap.MAP_TYPE_NORMAL);
             final SupportMapFragment fragment = SupportMapFragment.newInstance(mapOptions);
-            fragment.getMapAsync(this);
+            fragment.getMapAsync(getModel().getPresenter());
             final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.map, fragment, "map");
             transaction.commit();
@@ -74,49 +58,5 @@ public class MapFragment extends AbsFragment<MapModel> implements OnMapReadyCall
         return NAME;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
-
-        if (ApplicationUtils.checkPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            mGoogleMap.setTrafficEnabled(true);
-            mGoogleMap.setMyLocationEnabled(true);
-            mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-            setLocation(SLUtil.getLocationUnion().getLocation());
-        }
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        if (mGoogleMap != null && location != null) {
-            final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            float zoomLevel = 13;
-            if (isInit) {
-                zoomLevel = mGoogleMap.getCameraPosition().zoom;
-            } else {
-                isInit = true;
-            }
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-
-            final List<Address> list = SLUtil.getLocationUnion().getAddress(location);
-            if (list != null && !list.isEmpty()) {
-                final Address address = list.get(0);
-                final StringBuilder sb = new StringBuilder();
-                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                    sb.append(address.getAddressLine(i));
-                    if (i < address.getMaxAddressLineIndex()) {
-                        sb.append("\n");
-                    }
-                }
-                SLUtil.getNotificationSpecialist().showMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
-            }
-        }
-    }
-
-    @Override
-    public List<String> getSpecialistSubscription() {
-        return StringUtils.arrayToList(LocationUnionImpl.NAME);
-    }
 }
 

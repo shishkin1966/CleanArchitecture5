@@ -10,6 +10,8 @@ public class MapModel extends AbsModel {
 
     public MapModel(MapFragment fragment) {
         super(fragment);
+
+        setPresenter(new MapPresenter(this));
     }
 
     @Override
@@ -17,5 +19,9 @@ public class MapModel extends AbsModel {
         return super.getView();
     }
 
+    @Override
+    public MapPresenter getPresenter() {
+        return super.getPresenter();
+    }
 
 }

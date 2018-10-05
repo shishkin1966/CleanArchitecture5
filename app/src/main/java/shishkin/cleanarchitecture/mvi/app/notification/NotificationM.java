@@ -7,50 +7,34 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 
-import java.util.List;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.screen.activity.main.MainActivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
 public class NotificationM implements NotificationSpecialist {
 
     private static final String GROUP_NAME = SLUtil.getContext().getString(R.string.app_name);
 
-    @Override
-    public void showBalance(List<MviDao.Balance> list) {
-        final Context context = SLUtil.getContext();
-        if (context == null) {
-            return;
-        }
-
-        if (list == null || list.isEmpty()) {
-            clear();
-            return;
-        }
-
-        clear();
-
-        String title = ApplicationSpecialistImpl.getInstance().getString(R.string.fragment_account_balance);
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(String.format("%,.0f", list.get(i).balance) + " " + list.get(i).currency);
-            if (i < list.size() - 1) {
-                sb.append("\n");
-            }
-        }
-
-        showMessage(title, sb.toString());
-    }
+    private int id = -1;
 
     @Override
     public void showMessage(String title, String message) {
+        id = Long.valueOf(System.currentTimeMillis()).intValue();
+        show(title, message);
+    }
+
+    @Override
+    public void replaceMessage(String title, String message) {
+        if (id == -1) {
+            id = Long.valueOf(System.currentTimeMillis()).intValue();
+        }
+        show(title, message);
+    }
+
+    private void show(String title, String message) {
         if (StringUtils.isNullOrEmpty(message)) {
             clear();
             return;
@@ -81,8 +65,7 @@ public class NotificationM implements NotificationSpecialist {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setGroup(GROUP_NAME)
                 .setContentText(message);
-        nm.notify(Long.valueOf(System.currentTimeMillis()).intValue(),
-                notificationBuilder.build());
+        nm.notify(id, notificationBuilder.build());
     }
 
 

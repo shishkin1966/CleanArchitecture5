@@ -3,10 +3,6 @@ package shishkin.cleanarchitecture.mvi.app.notification;
 import android.support.annotation.NonNull;
 
 
-import java.util.List;
-
-
-import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 
 public class NotificationSpecialistImpl extends AbsSpecialist implements NotificationSpecialist {
@@ -26,13 +22,13 @@ public class NotificationSpecialistImpl extends AbsSpecialist implements Notific
     }
 
     @Override
-    public void showBalance(List<MviDao.Balance> list) {
-        mSpecialist.showBalance(list);
+    public void showMessage(String title, String message) {
+        mSpecialist.showMessage(title, message);
     }
 
     @Override
-    public void showMessage(String title, String message) {
-        mSpecialist.showMessage(title, message);
+    public void replaceMessage(String title, String message) {
+        mSpecialist.replaceMessage(title, message);
     }
 
     @Override
