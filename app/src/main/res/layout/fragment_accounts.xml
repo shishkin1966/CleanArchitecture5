@@ -1,294 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light">
+    android:background="@color/gray_light"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="44dp">
-
-            <LinearLayout
-                android:id="@+id/balance_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/blue_dark"
-                    android:minHeight="@dimen/menu_header_height"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dimen_16dp"
-                        android:layout_marginRight="@dimen/dimen_8dp"
-                        android:layout_weight="1"
-                        android:text="Баланс"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_xlarge"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/balance_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dimen_8dp"
-                        android:layout_marginTop="@dimen/dimen_4dp"
-                        android:layout_marginRight="@dimen/dimen_16dp"
-                        android:layout_marginBottom="@dimen/dimen_4dp"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@drawable/below_shadow"/>
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/balance_ll"
-                android:background="@color/white"
-                android:scrollbars="vertical"/>
-
-            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-                android:id="@+id/progressBar"
-                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="-6dp"
-                android:indeterminate="true"
-                android:visibility="invisible"
-                app:mpb_indeterminateTint="@color/orange"
-                app:mpb_progressStyle="horizontal"
-                app:mpb_showProgressBackground="false"/>
-
-        </RelativeLayout>
+        android:layout_marginBottom="44dp">
 
         <LinearLayout
-            android:id="@+id/bottomSheetContainer"
+            android:id="@+id/balance_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:behavior_peekHeight="@dimen/dimen_48dp"
-            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_dark"
+                android:minHeight="@dimen/menu_header_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_16dp"
+                    android:layout_marginRight="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:text="Баланс"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_xlarge"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/balance_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_16dp"
+                    android:layout_marginBottom="@dimen/dimen_4dp"/>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:background="@drawable/above_shadow"/>
+                android:background="@drawable/below_shadow"/>
 
-            <android.support.v4.widget.NestedScrollView
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/balance_ll"
+            android:background="@color/white"
+            android:scrollbars="vertical"/>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-6dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:mpb_indeterminateTint="@color/orange"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_showProgressBackground="false"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomSheetContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:behavior_peekHeight="@dimen/dimen_48dp"
+        app:layout_behavior="shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/above_shadow"/>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/blue"
-                android:focusable="false"
-                android:focusableInTouchMode="false">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/create_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/menu_height"
+                    android:background="@drawable/side_menu_panel_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingRight="@dimen/dimen_8dp"
+                    android:text="@string/fragment_open_account_transaction_action_button"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large"/>
+
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
+
+                <TextView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/menu_height"
+                    android:background="@drawable/side_menu_panel_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingRight="@dimen/dimen_8dp"
+                    android:text="@string/map"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large"/>
+
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
+
+                <TextView
+                    android:id="@+id/accounts_transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/menu_height"
+                    android:background="@drawable/side_menu_panel_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingRight="@dimen/dimen_8dp"
+                    android:text="@string/fragment_account_transactions_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large"/>
+
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
+
+                <TextView
+                    android:id="@+id/sort_accounts"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/menu_height"
+                    android:background="@drawable/side_menu_panel_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingRight="@dimen/dimen_8dp"
+                    android:text="Сортировать по ..."
+                    android:textColor="@color/white_text_selector"
+                    android:textSize="@dimen/text_size_large"/>
+
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/create_account"
-                        android:layout_width="match_parent"
+                        android:id="@+id/select_accounts"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/menu_height"
+                        android:layout_weight="1"
                         android:background="@drawable/side_menu_panel_selector"
                         android:clickable="true"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_12dp"
                         android:paddingRight="@dimen/dimen_8dp"
-                        android:text="@string/fragment_open_account_transaction_action_button"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_large"/>
-
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
-                    <TextView
-                        android:id="@+id/map"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/menu_height"
-                        android:background="@drawable/side_menu_panel_selector"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_12dp"
-                        android:paddingRight="@dimen/dimen_8dp"
-                        android:text="@string/map"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_large"/>
-
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
-                    <TextView
-                        android:id="@+id/accounts_transfer"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/menu_height"
-                        android:background="@drawable/side_menu_panel_selector"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_12dp"
-                        android:paddingRight="@dimen/dimen_8dp"
-                        android:text="@string/fragment_account_transactions_subtitle"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_large"/>
-
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
-                    <TextView
-                        android:id="@+id/sort_accounts"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/menu_height"
-                        android:background="@drawable/side_menu_panel_selector"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_12dp"
-                        android:paddingRight="@dimen/dimen_8dp"
-                        android:text="Сортировать по ..."
+                        android:text="Выбрать ..."
                         android:textColor="@color/white_text_selector"
                         android:textSize="@dimen/text_size_large"/>
 
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/select_accounts_all_ll"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <View
+                            style="@style/VerticalDivider"
+                            android:background="@color/white_light"/>
 
                         <TextView
-                            android:id="@+id/select_accounts"
-                            android:layout_width="0dp"
+                            android:id="@+id/select_accounts_all"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/menu_height"
-                            android:layout_weight="1"
                             android:background="@drawable/side_menu_panel_selector"
                             android:clickable="true"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/dimen_12dp"
-                            android:paddingRight="@dimen/dimen_8dp"
-                            android:text="Выбрать ..."
-                            android:textColor="@color/white_text_selector"
+                            android:paddingLeft="@dimen/dimen_16dp"
+                            android:paddingRight="@dimen/dimen_16dp"
+                            android:text="@string/all"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/text_size_large"/>
-
-                        <LinearLayout
-                            android:id="@+id/select_accounts_all_ll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <View
-                                style="@style/VerticalDivider"
-                                android:background="@color/white_light"/>
-
-                            <TextView
-                                android:id="@+id/select_accounts_all"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/menu_height"
-                                android:background="@drawable/side_menu_panel_selector"
-                                android:clickable="true"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/dimen_16dp"
-                                android:paddingRight="@dimen/dimen_16dp"
-                                android:text="@string/all"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/text_size_large"/>
-                        </LinearLayout>
                     </LinearLayout>
-
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/side_menu_panel_selector"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/start"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_play_selector"/>
-
-                        <View
-                            style="@style/VerticalDivider"
-                            android:background="@color/white_light"/>
-
-                        <ImageView
-                            android:id="@+id/pause"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_pause_selector"/>
-
-                        <View
-                            style="@style/VerticalDivider"
-                            android:background="@color/white_light"/>
-
-                        <ImageView
-                            android:id="@+id/stop"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/dimen_8dp"
-                            app:srcCompat="@drawable/ic_stop_selector"/>
-
-                    </LinearLayout>
-
-                    <View
-                        style="@style/HorizontalDivider"
-                        android:layout_height="0.5dp"
-                        android:background="@color/white_light"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
 
-        </LinearLayout>
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/side_menu_panel_selector"
+                    android:orientation="horizontal">
 
-</RelativeLayout>
+                    <ImageView
+                        android:id="@+id/start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        app:srcCompat="@drawable/ic_play_selector"/>
+
+                    <View
+                        style="@style/VerticalDivider"
+                        android:background="@color/white_light"/>
+
+                    <ImageView
+                        android:id="@+id/pause"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        app:srcCompat="@drawable/ic_pause_selector"/>
+
+                    <View
+                        style="@style/VerticalDivider"
+                        android:background="@color/white_light"/>
+
+                    <ImageView
+                        android:id="@+id/stop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        app:srcCompat="@drawable/ic_stop_selector"/>
+
+                </LinearLayout>
+
+                <View
+                    style="@style/HorizontalDivider"
+                    android:layout_height="0.5dp"
+                    android:background="@color/white_light"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
