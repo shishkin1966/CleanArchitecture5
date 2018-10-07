@@ -110,6 +110,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 break;
 
             case R.id.message:
+                getModel().getRouter().showUrl();
                 hideMessage();
                 break;
 
