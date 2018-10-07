@@ -1,11 +1,13 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.account.AccountFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.create_account.CreateAccountFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 /**
@@ -32,5 +34,9 @@ public class AccountsRouter extends BaseModelRouter {
 
     public void showMap() {
         showFragment(MapFragment.newInstance());
+    }
+
+    public void showUrl() {
+        ApplicationUtils.showUrl(SLUtil.getActivity(), "https://github.com/shishkin1966/CleanArchitecture5");
     }
 }

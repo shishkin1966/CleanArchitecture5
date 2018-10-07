@@ -2,7 +2,9 @@ package shishkin.cleanarchitecture.mvi.common.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -261,6 +263,36 @@ public class ApplicationUtils {
             Log.e("ViewUtils", e.getMessage());
         }
     }
+
+    public static void showUrl(final Context context, final String url) {
+        if (context == null || StringUtils.isNullOrEmpty(url)) {
+            return;
+        }
+
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        if (canStartActivity(context, intent)) {
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * Return true if activity that can handle a given intent is found.
+     *
+     * @param context The context.
+     * @param intent  An intent containing all of the desired specification
+     *                (action, data, type, category, and/or component).
+     * @return true if activity that can handle a given intent is found, false otherwise.
+     */
+    public static boolean canStartActivity(final Context context, final Intent intent) {
+        if (context == null || intent == null) return false;
+
+        final PackageManager packageManager = context.getPackageManager();
+        return (packageManager != null && packageManager.resolveActivity(intent, 0) != null);
+    }
+
 
     private ApplicationUtils() {
     }
