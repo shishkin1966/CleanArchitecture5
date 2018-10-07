@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -24,6 +26,7 @@ import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
+import shishkin.cleanarchitecture.mvi.common.OnSwipeTouchListener;
 import shishkin.cleanarchitecture.mvi.common.RippleTextView;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -78,6 +81,15 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mExpandableLayout = findView(R.id.expandable_layout);
         mMessage = findView(R.id.message);
         mMessage.setOnClickListener(this);
+        mMessage.setOnTouchListener(new OnSwipeTouchListener(mMessage.getContext()) {
+            @Override
+            public void onSwipeRight() {
+                final Animation animation = AnimationUtils.loadAnimation(mMessage.getContext(), R.anim.slide);
+                mMessage.startAnimation(animation);
+                getModel().getPresenter().hideMessage();
+            }
+
+        });
 
         mAdapter = new AccountsRecyclerViewAdapter(getContext());
         mAccountsView = findView(R.id.list);
