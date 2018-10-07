@@ -28,13 +28,6 @@ public interface ActivityUnion extends IView, Union<IActivity> {
     void showSnackbar(ShowMessageEvent event);
 
     /**
-     * Показать сообщение на экран
-     *
-     * @param event событие
-     */
-    void showMessage(ShowMessageEvent event);
-
-    /**
      * Скрыть клавиатуру
      */
     void hideKeyboard();

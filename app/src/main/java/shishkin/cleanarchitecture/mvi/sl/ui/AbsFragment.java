@@ -22,6 +22,7 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 import shishkin.cleanarchitecture.mvi.sl.model.Model;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
@@ -233,6 +234,14 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
             }
         }
     }
+
+    @Override
+    public void showMessage(ShowMessageEvent event) {
+        if (event == null) return;
+
+        ApplicationUtils.showToast(event.getMessage(), event.getDuration(), event.getType());
+    }
+
 }
 
 

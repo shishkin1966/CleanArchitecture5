@@ -1,12 +1,13 @@
 package shishkin.cleanarchitecture.mvi.app.job;
 
-import android.widget.Toast;
-
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
 
-import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts.AccountsPresenter;
+import shishkin.cleanarchitecture.mvi.sl.mail.ShowMessageMail;
 
 public class JobSpecialistService extends JobService {
 
@@ -14,7 +15,7 @@ public class JobSpecialistService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters job) {
-        ApplicationUtils.showToast("Старт задания", Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_INFO);
+        SLUtil.addMail(new ShowMessageMail(AccountsPresenter.NAME, getApplicationContext().getString(R.string.readme)));
         jobFinished(job, false);
         return true;
     }

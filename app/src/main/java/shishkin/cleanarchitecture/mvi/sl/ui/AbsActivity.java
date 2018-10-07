@@ -31,6 +31,7 @@ import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.model.Model;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
 import shishkin.cleanarchitecture.mvi.sl.state.StateObservable;
@@ -323,6 +324,13 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
      */
     public void onActivityBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void showMessage(ShowMessageEvent event) {
+        if (event == null) return;
+
+        ApplicationUtils.showToast(event.getMessage(), event.getDuration(), event.getType());
     }
 }
 

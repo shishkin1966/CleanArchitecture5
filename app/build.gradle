@@ -137,4 +137,6 @@ dependencies {
         transitive = true;
     }
 
+    // Expandable Layout
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 }

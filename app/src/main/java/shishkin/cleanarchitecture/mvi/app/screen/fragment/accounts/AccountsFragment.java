@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.util.List;
 
 
@@ -22,7 +24,11 @@ import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
+import shishkin.cleanarchitecture.mvi.common.RippleTextView;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -40,6 +46,8 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     private AccountsRecyclerViewAdapter mAdapter;
     private BalanceRecyclerViewAdapter mBalanceAdapter;
     private BottomSheetBehavior mBottomSheetBehavior;
+    private ExpandableLayout mExpandableLayout;
+    private RippleTextView mMessage;
 
     public static AccountsFragment newInstance() {
         return new AccountsFragment();
@@ -67,6 +75,9 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         findView(R.id.stop).setOnClickListener(this);
         findView(R.id.start).setOnClickListener(this);
         findView(R.id.pause).setOnClickListener(this);
+        mExpandableLayout = findView(R.id.expandable_layout);
+        mMessage = findView(R.id.message);
+        mMessage.setOnClickListener(this);
 
         mAdapter = new AccountsRecyclerViewAdapter(getContext());
         mAccountsView = findView(R.id.list);
@@ -151,5 +162,23 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
             findView(R.id.select_accounts_all_ll).setVisibility(View.GONE);
         }
         refreshBalance(viewData.getBalance());
+    }
+
+    @Override
+    public void showMessage(ShowMessageEvent event) {
+        if (event == null) return;
+
+        mMessage.setText(event.getMessage());
+        if (event.getType() == ApplicationUtils.MESSAGE_TYPE_ERROR) {
+            mMessage.setBackgroundDrawable(ViewUtils.getDrawable(mMessage.getContext(), R.color.orange));
+        } else {
+            mMessage.setBackgroundDrawable(ViewUtils.getDrawable(mMessage.getContext(), R.color.gray_dark));
+        }
+        mExpandableLayout.expand();
+    }
+
+    @Override
+    public void hideMessage() {
+        mExpandableLayout.collapse();
     }
 }

@@ -17,4 +17,6 @@ public interface AccountsView extends IFragment {
     void collapseBottomSheet();
 
     void refreshViews(AccountsViewData setting);
+
+    void hideMessage();
 }
