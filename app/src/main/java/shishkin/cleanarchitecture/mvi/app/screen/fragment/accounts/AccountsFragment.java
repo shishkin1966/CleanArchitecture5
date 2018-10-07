@@ -88,7 +88,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
                 mMessage.startAnimation(animation);
                 getModel().getPresenter().hideMessage();
             }
-
         });
 
         mAdapter = new AccountsRecyclerViewAdapter(getContext());
