@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
-public interface IView {
+public interface IView extends Messager {
 
     /**
      * Показать progress bar.
@@ -11,4 +11,5 @@ public interface IView {
      * Скрыть progress bar.
      */
     void hideProgressBar();
+
 }

@@ -15,12 +15,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_8dp"
             android:layout_marginLeft="@dimen/dimen_16dp"
-            android:layout_marginRight="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:text="@string/fragment_open_account_transaction_friendly_name_subtitle"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_xlarge"/>
 
         <View
             android:layout_width="match_parent"
@@ -69,12 +69,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_8dp"
             android:layout_marginLeft="@dimen/dimen_16dp"
-            android:layout_marginRight="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:text="@string/fragment_open_account_transaction_balance_subtitle"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_xlarge"/>
 
         <View
             android:layout_width="match_parent"

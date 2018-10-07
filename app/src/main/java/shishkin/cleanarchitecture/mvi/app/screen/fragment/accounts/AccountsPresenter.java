@@ -35,12 +35,13 @@ import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
+import shishkin.cleanarchitecture.mvi.sl.ui.Messager;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsPresenter extends AbsPresenter<AccountsModel> implements DbObservableSubscriber, ResponseListener, DialogInterface.OnClickListener, DialogResultListener {
+public class AccountsPresenter extends AbsPresenter<AccountsModel> implements DbObservableSubscriber, ResponseListener, DialogInterface.OnClickListener, DialogResultListener, Messager {
 
     public static final String NAME = AccountsPresenter.class.getName();
     private static final String ALL = ApplicationController.getInstance().getString(R.string.all);
@@ -106,6 +107,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
             case R.id.stop:
                 SLUtil.getMediaSpecialist().stop();
+                break;
+
+            case R.id.message:
+                getModel().getView().hideMessage();
                 break;
 
         }
@@ -253,6 +258,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             accountsViewData = new AccountsViewData();
         }
         return accountsViewData;
+    }
+
+    @Override
+    public void showMessage(ShowMessageEvent event) {
+        getModel().getView().showMessage(event);
     }
 }
 

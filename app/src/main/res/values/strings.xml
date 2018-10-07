@@ -29,5 +29,6 @@
     <string name="location">Местоположение</string>
     <string name="search_hint">Найти</string>
     <string name="map">Карты</string>
+    <string name="readme">Приложение является объединением архитектурных шаблонов VIPER с Service Locator</string>
 
 </resources>
