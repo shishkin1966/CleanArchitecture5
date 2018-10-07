@@ -188,7 +188,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         if (event.getType() == ApplicationUtils.MESSAGE_TYPE_ERROR) {
             mMessage.setBackgroundDrawable(ViewUtils.getDrawable(mMessage.getContext(), R.color.orange));
         } else {
-            mMessage.setBackgroundDrawable(ViewUtils.getDrawable(mMessage.getContext(), R.color.gray_dark));
+            mMessage.setBackgroundDrawable(ViewUtils.getDrawable(mMessage.getContext(), R.drawable.rectangle_gray));
         }
         mExpandableLayout.expand();
     }
