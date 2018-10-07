@@ -70,7 +70,8 @@
                     android:paddingTop="@dimen/dimen_8dp"
                     android:paddingRight="@dimen/dimen_16dp"
                     android:paddingBottom="@dimen/dimen_8dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large"/>
 
             </net.cachapa.expandablelayout.ExpandableLayout>
 
