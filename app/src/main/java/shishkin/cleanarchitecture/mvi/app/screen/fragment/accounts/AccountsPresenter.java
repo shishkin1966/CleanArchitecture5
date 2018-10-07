@@ -110,8 +110,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 break;
 
             case R.id.message:
-                accountsViewData.setShowMessage(false);
-                getModel().getView().hideMessage();
+                hideMessage();
                 break;
 
         }
@@ -266,5 +265,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         accountsViewData.setShowMessage(true);
         getModel().getView().showMessage(event);
     }
+
+    public void hideMessage() {
+        accountsViewData.setShowMessage(false);
+        getModel().getView().hideMessage();
+    }
+
 }
 
