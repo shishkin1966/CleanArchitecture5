@@ -110,6 +110,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
                 break;
 
             case R.id.message:
+                accountsViewData.setShowMessage(false);
                 getModel().getView().hideMessage();
                 break;
 
@@ -127,12 +128,12 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts() {
-        if (getViewData().getCurrencies() != null && getViewData().getCurrencies().size() > 1) {
-            final CharSequence[] items = new CharSequence[getViewData().getCurrencies().size() + 1];
-            final Drawable[] icons = new Drawable[getViewData().getCurrencies().size() + 1];
+        if (accountsViewData.getCurrencies() != null && accountsViewData.getCurrencies().size() > 1) {
+            final CharSequence[] items = new CharSequence[accountsViewData.getCurrencies().size() + 1];
+            final Drawable[] icons = new Drawable[accountsViewData.getCurrencies().size() + 1];
             items[0] = ALL;
-            for (int i = 0; i < getViewData().getCurrencies().size(); i++) {
-                items[i + 1] = getViewData().getCurrencies().get(i);
+            for (int i = 0; i < accountsViewData.getCurrencies().size(); i++) {
+                items[i + 1] = accountsViewData.getCurrencies().get(i);
             }
             final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
             filterDialog = builder
@@ -145,8 +146,8 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     private void select_accounts_all() {
-        getViewData().setFilter(null);
-        getModel().getView().refreshViews(getViewData());
+        accountsViewData.setFilter(null);
+        getModel().getView().refreshViews(accountsViewData);
     }
 
     @Override
@@ -174,14 +175,19 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onStart() {
-        accountsViewData = getViewData();
+        if (accountsViewData == null) {
+            accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
+            if (accountsViewData == null) {
+                accountsViewData = new AccountsViewData();
+            }
+        }
         if (!accountsViewData.isShowPermissionDialog() && !ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             accountsViewData.setShowPermissionDialog(true);
-            SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, getViewData());
+            SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
             getModel().getView().grantPermission(NAME, Manifest.permission.ACCESS_FINE_LOCATION, "Право необходимо для показа карты");
         }
 
-        getModel().getView().refreshViews(getViewData());
+        getModel().getView().refreshViews(accountsViewData);
         getData();
     }
 
@@ -199,14 +205,14 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
-                getViewData().setAccounts(SafeUtils.cast(result.getData()));
-                getModel().getView().refreshViews(getViewData());
+                accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
+                getModel().getView().refreshViews(accountsViewData);
             } else if (result.getName().equals(GetBalanceRequest.NAME)) {
                 final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
-                getViewData().setBalance(list);
+                accountsViewData.setBalance(list);
                 getModel().getView().refreshBalance(list);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
-                getViewData().setCurrencies(SafeUtils.cast(result.getData()));
+                accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -216,15 +222,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog.equals(sortDialog)) {
-            getViewData().setSort(which);
+            accountsViewData.setSort(which);
         } else if (dialog.equals(filterDialog)) {
             if (which == 0) {
-                getViewData().setFilter(null);
+                accountsViewData.setFilter(null);
             } else {
-                getViewData().setFilter(getViewData().getCurrencies().get(which - 1));
+                accountsViewData.setFilter(accountsViewData.getCurrencies().get(which - 1));
             }
         }
-        getModel().getView().refreshViews(getViewData());
+        getModel().getView().refreshViews(accountsViewData);
     }
 
     public void onClickAccounts(Account account) {
@@ -233,7 +239,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
 
     @Override
     public void onDestroyView() {
-        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, getViewData());
+        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
 
         super.onDestroyView();
     }
@@ -253,15 +259,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         }
     }
 
-    private AccountsViewData getViewData() {
-        if (accountsViewData == null) {
-            accountsViewData = new AccountsViewData();
-        }
-        return accountsViewData;
-    }
-
     @Override
     public void showMessage(ShowMessageEvent event) {
+        accountsViewData.setMessage(event.getMessage());
+        accountsViewData.setMessageType(event.getType());
+        accountsViewData.setShowMessage(true);
         getModel().getView().showMessage(event);
     }
 }

@@ -51,7 +51,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(false)
                 .setTag(JobSpecialistService.NAME)
-                .setTrigger(Trigger.executionWindow(5, 15))
+                .setTrigger(Trigger.executionWindow(5, 8))
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setReplaceCurrent(false)
                 .build();

@@ -24,6 +24,9 @@ public class AccountsViewData implements Parcelable {
     private List<String> currencies;
     private List<MviDao.Balance> balance;
     private boolean isShowPermissionDialog = false;
+    private boolean isShowMessage = false;
+    private String message;
+    private int messageType;
 
     private Comparator<Account> nameComparator = (o1, o2) -> o1.getFriendlyName().compareTo(o2.getFriendlyName());
     private Comparator<Account> currencyComparator = (o1, o2) -> o1.getCurrency().compareTo(o2.getCurrency());
@@ -76,6 +79,30 @@ public class AccountsViewData implements Parcelable {
         isShowPermissionDialog = showPermissionDialog;
     }
 
+    public boolean isShowMessage() {
+        return isShowMessage;
+    }
+
+    public void setShowMessage(boolean showMessage) {
+        isShowMessage = showMessage;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
+
     public boolean isSortMenuEnabled() {
         return (accounts != null && accounts.size() > 1);
     }
@@ -118,6 +145,9 @@ public class AccountsViewData implements Parcelable {
         dest.writeStringList(this.currencies);
         dest.writeTypedList(this.balance);
         dest.writeByte(this.isShowPermissionDialog ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isShowMessage ? (byte) 1 : (byte) 0);
+        dest.writeString(this.message);
+        dest.writeInt(this.messageType);
     }
 
     public AccountsViewData() {
@@ -130,9 +160,12 @@ public class AccountsViewData implements Parcelable {
         this.currencies = in.createStringArrayList();
         this.balance = in.createTypedArrayList(MviDao.Balance.CREATOR);
         this.isShowPermissionDialog = in.readByte() != 0;
+        this.isShowMessage = in.readByte() != 0;
+        this.message = in.readString();
+        this.messageType = in.readInt();
     }
 
-    public static final Creator<AccountsViewData> CREATOR = new Creator<AccountsViewData>() {
+    public static final Parcelable.Creator<AccountsViewData> CREATOR = new Parcelable.Creator<AccountsViewData>() {
         @Override
         public AccountsViewData createFromParcel(Parcel source) {
             return new AccountsViewData(source);

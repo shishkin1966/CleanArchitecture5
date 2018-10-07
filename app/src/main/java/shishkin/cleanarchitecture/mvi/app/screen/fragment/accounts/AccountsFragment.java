@@ -162,6 +162,11 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
             findView(R.id.select_accounts_all_ll).setVisibility(View.GONE);
         }
         refreshBalance(viewData.getBalance());
+        if (viewData.isShowMessage()) {
+            showMessage(new ShowMessageEvent(viewData.getMessage(), viewData.getMessageType()));
+        } else {
+            mExpandableLayout.collapse();
+        }
     }
 
     @Override
