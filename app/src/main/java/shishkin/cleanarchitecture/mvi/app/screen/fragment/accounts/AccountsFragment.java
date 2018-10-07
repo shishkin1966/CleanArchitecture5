@@ -86,7 +86,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
             public void onSwipeRight() {
                 final Animation animation = AnimationUtils.loadAnimation(mMessage.getContext(), R.anim.slide);
                 mMessage.startAnimation(animation);
-                getModel().getPresenter().hideMessage();
+                mMessage.post(() -> getModel().getPresenter().hideMessage());
             }
         });
 
