@@ -24,6 +24,7 @@ import shishkin.cleanarchitecture.mvi.common.slidingmenu.SlidingMenu;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
+import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -160,7 +161,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     }
 
     private void setSideMenuFragment(AbsFragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.menu, fragment, "sidemenu").commitAllowingStateLoss();
+        BackStack.showFragment(this, R.id.menu, fragment, false, false, false, true);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.menu, fragment, "sidemenu").commitAllowingStateLoss();
     }
 
 }
