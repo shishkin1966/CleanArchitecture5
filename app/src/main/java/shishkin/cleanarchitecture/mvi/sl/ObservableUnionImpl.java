@@ -19,7 +19,7 @@ import shishkin.cleanarchitecture.mvi.sl.observe.Observable;
 public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> implements ObservableUnion {
 
     public static final String NAME = ObservableUnionImpl.class.getName();
-    private Map<String, Observable> mObservables = Collections.synchronizedMap(new ConcurrentHashMap<String, Observable>());
+    private Map<String, Observable> mObservables = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     public ObservableUnionImpl() {
         super();
