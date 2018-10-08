@@ -46,9 +46,10 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(PreferencesSpecialistImpl.NAME);
         SL.getInstance().register(NetProviderImpl.NAME);
         SL.getInstance().register(JobSpecialistImpl.NAME);
-        SLUtil.register(new ScreenOnOffObserver());
-        SLUtil.register(AccountObserver.getInstance());
         SL.getInstance().register(MediaSpecialistImpl.NAME);
+
+        SLUtil.register(ScreenOnOffObserver.getInstance());
+        SLUtil.register(AccountObserver.getInstance());
 
         SLUtil.getMediaSpecialist().play(R.raw.music);
     }
@@ -71,20 +72,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onResumeApplication() {
-        SLUtil.getLocationUnion().start();
-    }
-
-    @Override
-    public void onScreenOff() {
-        super.onScreenOff();
-
-        SLUtil.getLocationUnion().stop();
-    }
-
-    @Override
-    public void onScreenOn() {
-        super.onScreenOn();
-
         SLUtil.getLocationUnion().start();
     }
 

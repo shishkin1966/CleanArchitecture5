@@ -6,7 +6,7 @@ import android.content.Intent;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.app.ApplicationController;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
@@ -20,6 +20,28 @@ import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
 
     public static final String NAME = ScreenOnOffObserver.class.getName();
+
+    private static volatile ScreenOnOffObserver sInstance;
+
+    public static void instantiate() {
+        if (sInstance == null) {
+            synchronized (ScreenOnOffObserver.class) {
+                if (sInstance == null) {
+                    sInstance = new ScreenOnOffObserver();
+                }
+            }
+        }
+    }
+
+    public static ScreenOnOffObserver getInstance() {
+        if (sInstance == null) {
+            instantiate();
+        }
+        return sInstance;
+    }
+
+    private ScreenOnOffObserver() {
+    }
 
     @Override
     public String getName() {
@@ -36,9 +58,11 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
         final String strAction = intent.getAction();
 
         if (strAction.equals(Intent.ACTION_SCREEN_OFF)) {
-            ApplicationController.getInstance().onScreenOff();
+            SLUtil.getLocationUnion().stop();
+            SLUtil.getMediaSpecialist().pause();
         } else {
-            ApplicationController.getInstance().onScreenOn();
+            SLUtil.getLocationUnion().start();
+            SLUtil.getMediaSpecialist().resume();
         }
     }
 
