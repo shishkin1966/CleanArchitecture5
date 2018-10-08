@@ -1,7 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_dark">
@@ -245,28 +244,21 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dimen_12dp"
                     android:layout_marginRight="@dimen/dimen_8dp"
+                    android:layout_weight="1"
                     android:text="Счета"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_xlarge"
                     android:textStyle="bold"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/accounts_balance_list"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_12dp"
-                        android:gravity="right"
-                        android:text="128 000 ₽"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_xlarge"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_12dp"
+                    android:layout_marginBottom="@dimen/dimen_4dp"/>
 
             </LinearLayout>
 
@@ -334,48 +326,6 @@
                     android:layout_marginLeft="@dimen/dimen_12dp"
                     android:layout_marginRight="@dimen/dimen_8dp"
                     android:text="Кредиты"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_xlarge"
-                    android:textStyle="bold"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_12dp"
-                        android:gravity="right"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                style="@style/HorizontalDivider"
-                android:layout_height="0.5dp"
-                android:background="@color/white_light"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/side_menu_panel_selector"
-                android:clickable="true"
-                android:minHeight="@dimen/menu_header_height"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dimen_12dp"
-                    android:layout_marginRight="@dimen/dimen_8dp"
-                    android:text="Цели"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_xlarge"
                     android:textStyle="bold"/>
