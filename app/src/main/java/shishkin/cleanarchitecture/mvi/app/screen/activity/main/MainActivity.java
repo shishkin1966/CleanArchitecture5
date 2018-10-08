@@ -31,7 +31,7 @@ import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObserva
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
-public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent> {
+public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, MainView {
 
     public static final String NAME = MainActivity.class.getName();
 
@@ -164,4 +164,10 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         BackStack.showFragment(this, R.id.menu, fragment, false, false, false, true);
     }
 
+    @Override
+    public void hideSideMenu() {
+        if (mMenu.isMenuShowing()) {
+            mMenu.showContent();
+        }
+    }
 }

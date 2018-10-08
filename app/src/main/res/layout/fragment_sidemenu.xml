@@ -224,11 +224,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                style="@style/HorizontalDivider"
-                android:layout_height="0.5dp"
-                android:background="@color/white_light"/>
-
             <LinearLayout
                 android:id="@+id/accounts"
                 android:layout_width="match_parent"

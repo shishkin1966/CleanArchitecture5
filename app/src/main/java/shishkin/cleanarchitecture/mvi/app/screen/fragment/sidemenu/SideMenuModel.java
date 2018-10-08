@@ -8,6 +8,7 @@ public class SideMenuModel extends AbsModel {
     public SideMenuModel(SideMenuView view) {
         super(view);
 
+        setRouter(new SideMenuRouter(this));
         setPresenter(new SideMenuPresenter(this));
     }
 
@@ -21,4 +22,8 @@ public class SideMenuModel extends AbsModel {
         return super.getView();
     }
 
+    @Override
+    public SideMenuRouter getRouter() {
+        return super.getRouter();
+    }
 }
