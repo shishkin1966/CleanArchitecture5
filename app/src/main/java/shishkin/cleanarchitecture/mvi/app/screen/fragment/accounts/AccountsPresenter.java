@@ -69,14 +69,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 getModel().getRouter().createAccount();
                 break;
 
-            case R.id.map:
-                getModel().getRouter().showMap();
-                break;
-
-            case R.id.accounts_transfer:
-                getModel().getRouter().accountsTransfer();
-                break;
-
             case R.id.sort_accounts:
                 sort_accounts();
                 break;

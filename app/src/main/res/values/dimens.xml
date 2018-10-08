@@ -40,5 +40,6 @@
 
     <dimen name="shadow_width">4dp</dimen>
     <dimen name="slidingmenu_offset">64dp</dimen>
+    <dimen name="setting_min_high">40dp</dimen>
 
 </resources>

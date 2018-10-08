@@ -16,6 +16,9 @@ import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingPlayMusicEnabled;
 import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
@@ -51,7 +54,10 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
 
-        SLUtil.getMediaSpecialist().play(R.raw.music);
+        final ApplicationSetting setting = ApplicationSettingFactory.getApplicationSetting(ApplicationSettingPlayMusicEnabled.NAME);
+        if (setting.getCurrentValue().equalsIgnoreCase("true")) {
+            SLUtil.getMediaSpecialist().play(R.raw.music);
+        }
     }
 
 

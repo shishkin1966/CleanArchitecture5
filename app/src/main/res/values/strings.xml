@@ -34,5 +34,6 @@
     <string name="news">Новости</string>
     <string name="contact_bank">Связь с\nбанком</string>
     <string name="address">Адреса</string>
+    <string name="settings_show_screenshot">Разрешено играть музыку при старте</string>
 
 </resources>

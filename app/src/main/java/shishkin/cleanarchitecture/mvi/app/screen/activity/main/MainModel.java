@@ -13,10 +13,21 @@ public class MainModel extends AbsModel {
         super(activity);
 
         setRouter(new BaseModelRouter(this));
+        setPresenter(new MainPresenter(this));
     }
 
     @Override
     public BaseModelRouter getRouter() {
         return super.getRouter();
+    }
+
+    @Override
+    public MainPresenter getPresenter() {
+        return super.getPresenter();
+    }
+
+    @Override
+    public MainView getView() {
+        return super.getView();
     }
 }

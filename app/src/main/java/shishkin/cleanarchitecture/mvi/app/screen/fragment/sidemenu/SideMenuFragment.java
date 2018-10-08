@@ -44,6 +44,10 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
         mBalanceView = findView(R.id.accounts_balance_list);
         mBalanceView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBalanceView.setAdapter(mBalanceAdapter);
+
+        findView(R.id.exchange_rates).setOnClickListener(getModel().getPresenter());
+        findView(R.id.address).setOnClickListener(getModel().getPresenter());
+        findView(R.id.setting).setOnClickListener(getModel().getPresenter());
     }
 
     @Override

@@ -91,5 +91,9 @@
 		<item name="android:background">@drawable/side_menu_panel_button_selector</item>
     </style>
 
+    <style name="SwitchCompat">
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+        <item name="trackTint">@color/switch_track_selector</item>
+    </style>
 
 </resources>
