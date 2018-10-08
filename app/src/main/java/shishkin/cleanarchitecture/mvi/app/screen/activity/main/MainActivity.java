@@ -162,7 +162,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
     private void setSideMenuFragment(AbsFragment fragment) {
         BackStack.showFragment(this, R.id.menu, fragment, false, false, false, true);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.menu, fragment, "sidemenu").commitAllowingStateLoss();
     }
 
 }
