@@ -51,6 +51,10 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
             case R.id.address:
                 getModel().getRouter().showMap();
                 break;
+
+            case R.id.setting:
+                getModel().getRouter().showSetting();
+                break;
         }
     }
 }
