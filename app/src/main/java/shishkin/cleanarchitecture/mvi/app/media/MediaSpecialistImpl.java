@@ -93,6 +93,8 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
 
     @Override
     public boolean isStop() {
+        if (player == null) return true;
+        
         return isStop;
     }
 
