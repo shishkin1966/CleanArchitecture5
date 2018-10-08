@@ -20,7 +20,7 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
 
 public abstract class AbsDbObservable extends AbsObservable<String> {
 
-    private Map<String, List<String>> mTables = Collections.synchronizedMap(new ConcurrentHashMap<String, List<String>>());
+    private Map<String, List<String>> mTables = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     @Override
     public void addObserver(ObservableSubscriber subscriber) {

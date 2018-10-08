@@ -68,22 +68,7 @@ public interface ApplicationSpecialist extends Specialist {
     boolean isKillOnFinish();
 
     /**
-     * Событие - экран смартфона выключен
-     */
-    void onScreenOff();
-
-    /**
-     * Событие - экран смартфона включен
-     */
-    void onScreenOn();
-
-    /**
      * Флаг - приложение находится в Background
      */
     boolean isInBackground();
-
-    /**
-     * Флаг - смартфон находится в соотоянии экран выключен
-     */
-    boolean isScreenOff();
 }

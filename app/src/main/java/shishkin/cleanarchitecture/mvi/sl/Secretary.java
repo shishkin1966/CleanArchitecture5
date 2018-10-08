@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Secretary<T> {
 
-    private Map<String, T> mSubscribers = Collections.synchronizedMap(new ConcurrentHashMap<String, T>());
+    private Map<String, T> mSubscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     public Set<Map.Entry<String, T>> entrySet() {
         return mSubscribers.entrySet();

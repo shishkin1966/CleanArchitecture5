@@ -134,21 +134,6 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     }
 
     @Override
-    public void onScreenOff() {
-        isScreenOff = true;
-    }
-
-    @Override
-    public void onScreenOn() {
-        isScreenOff = false;
-    }
-
-    @Override
-    public boolean isScreenOff() {
-        return isScreenOff;
-    }
-
-    @Override
     public boolean isKillOnFinish() {
         return false;
     }
