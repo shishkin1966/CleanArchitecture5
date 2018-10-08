@@ -18,16 +18,12 @@ import shishkin.cleanarchitecture.mvi.app.ApplicationController;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
-import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
+import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
-import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
 import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.DbObservableSubscriber;
-import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -41,7 +37,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.Messager;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsPresenter extends AbsPresenter<AccountsModel> implements DbObservableSubscriber, ResponseListener, DialogInterface.OnClickListener, DialogResultListener, Messager {
+public class AccountsPresenter extends AbsPresenter<AccountsModel> implements ResponseListener, DialogInterface.OnClickListener, DialogResultListener, Messager, AccountsBalanceListener {
 
     public static final String NAME = AccountsPresenter.class.getName();
     private static final String ALL = ApplicationController.getInstance().getString(R.string.all);
@@ -151,29 +147,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
     }
 
     @Override
-    public List<String> getSpecialistSubscription() {
-        return StringUtils.arrayToList(
-                super.getSpecialistSubscription(),
-                ObservableUnionImpl.NAME
-        );
-    }
-
-    @Override
-    public List<String> getTables() {
-        return StringUtils.arrayToList(Account.TABLE);
-    }
-
-    @Override
-    public List<String> getObservable() {
-        return StringUtils.arrayToList(DbObservable.NAME);
-    }
-
-    @Override
-    public void onChange(Object object) {
-        getData();
-    }
-
-    @Override
     public void onStart() {
         if (accountsViewData == null) {
             accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
@@ -195,7 +168,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().showProgressBar();
         getModel().getInteractor().getCurrency(this);
         getModel().getInteractor().getAccounts(this);
-        getModel().getInteractor().getBalance(this);
     }
 
     @Override
@@ -207,15 +179,11 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
             if (result.getName().equals(GetAccountsRequest.NAME)) {
                 accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
                 getModel().getView().refreshViews(accountsViewData);
-            } else if (result.getName().equals(GetBalanceRequest.NAME)) {
-                final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
-                accountsViewData.setBalance(list);
-                getModel().getView().refreshBalance(list);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
                 accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            getModel().getView().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 
@@ -272,5 +240,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Db
         getModel().getView().hideMessage();
     }
 
+    @Override
+    public void showAccountsBalance(List<MviDao.Balance> list) {
+        accountsViewData.setBalance(list);
+        getModel().getView().refreshBalance(list);
+    }
 }
 

@@ -14,10 +14,6 @@ public class AccountsInteractor implements ModelInteractor {
         Repository.getInstance().getAccounts(listener);
     }
 
-    public void getBalance(ResponseListener listener) {
-        Repository.getInstance().getBalance(listener);
-    }
-
     public void getCurrency(ResponseListener listener) {
         Repository.getInstance().getCurrency(listener);
     }

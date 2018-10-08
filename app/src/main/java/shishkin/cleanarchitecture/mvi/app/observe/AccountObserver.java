@@ -9,13 +9,16 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.mail.AccountsBalanceMail;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts.AccountsPresenter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuPresenter;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.DbObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
@@ -98,6 +101,9 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
             final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
             ((ApplicationController) ApplicationController.getInstance()).updateWidget();
             SLUtil.addMail(new AccountsBalanceMail(SideMenuPresenter.NAME, list));
+            SLUtil.addMail(new AccountsBalanceMail(AccountsPresenter.NAME, list));
+        } else {
+            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText(), ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 }
