@@ -58,12 +58,20 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
         final String strAction = intent.getAction();
 
         if (strAction.equals(Intent.ACTION_SCREEN_OFF)) {
-            SLUtil.getLocationUnion().stop();
-            SLUtil.getMediaSpecialist().pause();
+            onScreenOff();
         } else {
-            SLUtil.getLocationUnion().start();
-            SLUtil.getMediaSpecialist().resume();
+            onScreenOn();
         }
+    }
+
+    private void onScreenOff() {
+        SLUtil.getLocationUnion().stop();
+        SLUtil.getMediaSpecialist().pause();
+    }
+
+    private void onScreenOn(){
+        SLUtil.getLocationUnion().start();
+        SLUtil.getMediaSpecialist().resume();
     }
 
     @Override
