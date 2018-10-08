@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -86,7 +87,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
             public void onSwipeRight() {
                 final Animation animation = AnimationUtils.loadAnimation(mMessage.getContext(), R.anim.slide);
                 mMessage.startAnimation(animation);
-                mMessage.post(() -> getModel().getPresenter().hideMessage());
+                mMessage.postDelayed(() -> getModel().getPresenter().hideMessage(), 200);
             }
         });
 
