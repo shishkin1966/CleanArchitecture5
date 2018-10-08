@@ -18,7 +18,9 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuFragment;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
+import shishkin.cleanarchitecture.mvi.common.slidingmenu.SlidingMenu;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
@@ -26,6 +28,7 @@ import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
+import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
 public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent> {
 
@@ -33,6 +36,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
     private Snackbar mSnackbar;
     private Intent mIntent;
+    private SlidingMenu mMenu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
+
+        prepareSlidingMenu();
+        setSideMenuFragment(SideMenuFragment.newInstance());
 
         final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
         final Job job = builder
@@ -59,6 +66,19 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
         onNewIntent(getIntent());
     }
+
+    private void prepareSlidingMenu() {
+        mMenu = new SlidingMenu(this);
+        mMenu.setMode(SlidingMenu.LEFT);
+        mMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        mMenu.setShadowWidthRes(R.dimen.shadow_width);
+        mMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        mMenu.setShadowDrawable(R.drawable.shadow);
+        mMenu.setFadeDegree(0.35f);
+        mMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        mMenu.setMenu(R.layout.menu_container);
+    }
+
 
     @Override
     public MainModel createModel() {
@@ -83,6 +103,15 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             }
         } else {
             getModel().getRouter().showMainFragment();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mMenu.isMenuShowing()) {
+            mMenu.showContent();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -129,4 +158,9 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
                 ObservableUnionImpl.NAME
         );
     }
+
+    private void setSideMenuFragment(AbsFragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.menu, fragment, "sidemenu").commitAllowingStateLoss();
+    }
+
 }

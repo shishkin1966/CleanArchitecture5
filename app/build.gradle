@@ -139,4 +139,8 @@ dependencies {
 
     // Expandable Layout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
+    // Circular Image View
+    implementation 'com.pkmmte.view:circularimageview:1.1'
+
 }
