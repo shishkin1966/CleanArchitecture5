@@ -42,4 +42,8 @@ public class AccountsBalanceMail extends AbsMail {
         return NAME;
     }
 
+    @Override
+    public boolean isCheckDublicate() {
+        return true;
+    }
 }
