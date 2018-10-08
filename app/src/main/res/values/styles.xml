@@ -73,4 +73,23 @@
         <item name="android:textColorHint">@color/gray_switch</item>
     </style>
 
+    <style name="SideMenuTextStyle" parent="HelveticaTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/item_text</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
+    <style name="SideMenuBottomButtonStyle" parent="SideMenuTextStyle" >
+    	<item name="android:layout_height">match_parent</item>
+    	<item name="android:layout_width">0dp</item>
+    	<item name="android:layout_weight">1</item>
+    	<item name="android:padding">8dp</item>
+		<item name="android:gravity">center</item>
+		<item name="android:clickable">true</item>
+		<item name="android:textSize">@dimen/text_size_small</item>
+		<item name="android:background">@drawable/side_menu_panel_button_selector</item>
+    </style>
+
+
 </resources>

@@ -2,5 +2,6 @@
 <resources>
 
     <item name="dialog_request_permissions" type="id" />
+    <item name="selected_view" type="id"/>
 
 </resources>

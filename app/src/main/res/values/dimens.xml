@@ -38,4 +38,7 @@
 
     <dimen name="search_height">40dp</dimen>
 
+    <dimen name="shadow_width">4dp</dimen>
+    <dimen name="slidingmenu_offset">64dp</dimen>
+
 </resources>
