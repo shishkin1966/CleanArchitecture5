@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -30,6 +31,9 @@ public class BaseSnackbar {
                                 final int type) {
         final Snackbar snackbar = Snackbar.make(view, title, duration);
         final View snackbarView = snackbar.getView();
+        final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) snackbarView.getLayoutParams();
+        params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
+        snackbarView.setLayoutParams(params);
         final TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(ViewUtils.getColor(view.getContext(), R.color.white));
         if (ViewUtils.diagonalInch(view.getContext()) < 5) {
