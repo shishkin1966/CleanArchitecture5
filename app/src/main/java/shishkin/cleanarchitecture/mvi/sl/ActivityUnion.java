@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowKeyboardEvent;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityForResultEvent;
@@ -182,4 +183,13 @@ public interface ActivityUnion extends IView, Union<IActivity> {
      * @param event событие описывающее диалог
      */
     void showDialog(ShowDialogEvent event);
+
+    /**
+     * Обрабатывает событие - показать диалок с выбором из списка
+     *
+     * @param event событие
+     */
+    void showListDialog(ShowListDialogEvent event);
+
+
 }

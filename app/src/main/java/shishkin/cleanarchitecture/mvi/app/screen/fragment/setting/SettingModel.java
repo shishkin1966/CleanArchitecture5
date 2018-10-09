@@ -10,6 +10,18 @@ public class SettingModel extends AbsModel {
 
     public SettingModel(SettingFragment fragment) {
         super(fragment);
+
+        setPresenter(new SettingPresenter(this));
+    }
+
+    @Override
+    public SettingPresenter getPresenter() {
+        return super.getPresenter();
+    }
+
+    @Override
+    public SettingFragment getView() {
+        return super.getView();
     }
 
 }

@@ -6,19 +6,20 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import java.util.List;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 @SuppressWarnings("unused")
-public class SettingFragment extends AbsContentFragment<SettingModel> implements CompoundButton.OnCheckedChangeListener {
+public class SettingFragment extends AbsContentFragment<SettingModel> implements SettingView {
 
     public static SettingFragment newInstance() {
         return new SettingFragment();
@@ -37,10 +38,13 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
         super.onViewCreated(view, savedInstanceState);
 
         mLinearLayout = findView(R.id.list);
+    }
 
+    @Override
+    public void refreshViews(List<ApplicationSetting> settings) {
         mLinearLayout.removeAllViews();
 
-        for (ApplicationSetting setting : ApplicationSettingFactory.getApplicationSettings()) {
+        for (ApplicationSetting setting : settings) {
             generateInfoItem(mLinearLayout, setting);
         }
     }
@@ -66,7 +70,17 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
                 currentValue = setting.getCurrentValue();
                 valueView.setChecked(Boolean.valueOf(currentValue));
                 valueView.setTag(setting);
-                valueView.setOnCheckedChangeListener(this);
+                valueView.setOnCheckedChangeListener(getModel().getPresenter());
+                break;
+
+            case ApplicationSetting.TYPE_LIST:
+                v = getLayoutInflater().inflate(R.layout.setting_item_list, parent, false);
+                ViewUtils.findView(v, R.id.ll).setTag(setting);
+                ViewUtils.findView(v, R.id.ll).setOnClickListener(getModel().getPresenter());
+                titleView = ViewUtils.findView(v, R.id.item_title);
+                titleView.setText(setting.getTitle());
+                titleView = ViewUtils.findView(v, R.id.item_value);
+                titleView.setText(setting.getCurrentValue());
                 break;
 
             default:
@@ -77,17 +91,6 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
             parent.addView(v);
         }
     }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        final ApplicationSetting setting = (ApplicationSetting) buttonView.getTag();
-        if (setting != null) {
-            setting.setCurrentValue(String.valueOf(isChecked));
-
-            ApplicationSettingFactory.setApplicationSetting(setting);
-        }
-    }
-
 
     @Override
     public String getName() {

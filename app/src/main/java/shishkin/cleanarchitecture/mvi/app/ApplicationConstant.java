@@ -7,4 +7,5 @@ package shishkin.cleanarchitecture.mvi.app;
 public class ApplicationConstant {
 
     public final static int APPLICATION_SETTING_PLAY_MUSIC_ENABLED = 1;
+    public final static int APPLICATION_SETTING_ORIENTATION = 2;
 }
