@@ -19,8 +19,8 @@ public class ApplicationSettingOrientation extends ApplicationSetting {
     public ApplicationSettingOrientation() {
         super(ApplicationSetting.TYPE_LIST);
 
-        final String[] values = SLUtil.getContext().getResources().getStringArray(R.array.orientation_key);
-        final String currentValue = "Вертикальная";
+        final String[] values = SLUtil.getContext().getResources().getStringArray(R.array.orientation_values);
+        final String currentValue = SLUtil.getContext().getString(R.string.orientation_portrait);
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.addAll(Arrays.asList(values));
