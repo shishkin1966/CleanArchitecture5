@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="orientation_key">
+    <string-array name="orientation_values">
         <item>@string/orientation_system</item>
         <item>@string/orientation_portrait</item>
         <item>@string/orientation_landscape</item>
