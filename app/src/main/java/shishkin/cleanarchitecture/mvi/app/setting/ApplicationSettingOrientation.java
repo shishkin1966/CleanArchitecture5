@@ -16,11 +16,11 @@ public class ApplicationSettingOrientation extends ApplicationSetting {
 
     public static final String NAME = "ApplicationSettingOrientation";
 
-    private String[] values = SLUtil.getContext().getResources().getStringArray(R.array.orientation_key);
-    private String currentValue = "Вертикальная";
-
     public ApplicationSettingOrientation() {
         super(ApplicationSetting.TYPE_LIST);
+
+        final String[] values = SLUtil.getContext().getResources().getStringArray(R.array.orientation_key);
+        final String currentValue = "Вертикальная";
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.addAll(Arrays.asList(values));
