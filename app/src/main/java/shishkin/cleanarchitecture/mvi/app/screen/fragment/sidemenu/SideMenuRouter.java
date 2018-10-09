@@ -4,6 +4,7 @@ import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.setting.SettingFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursFragment;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 /**
@@ -18,6 +19,10 @@ public class SideMenuRouter extends BaseModelRouter {
 
     public void showDigitalCurrencies() {
         showFragment(DigitalCurrenciesFragment.newInstance());
+    }
+
+    public void showValCurs() {
+        showFragment(ValCursFragment.newInstance());
     }
 
     public void showMap() {

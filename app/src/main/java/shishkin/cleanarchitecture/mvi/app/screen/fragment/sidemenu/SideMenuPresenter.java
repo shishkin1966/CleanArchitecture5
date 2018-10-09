@@ -66,6 +66,10 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
                 break;
 
             case R.id.exchange_rates:
+                getModel().getRouter().showValCurs();
+                break;
+
+            case R.id.exchange_cryptorates:
                 getModel().getRouter().showDigitalCurrencies();
                 break;
 

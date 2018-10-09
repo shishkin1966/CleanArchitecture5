@@ -50,6 +50,7 @@ android {
         targetSdkVersion targetSdk
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -79,7 +80,6 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$playServices"
     implementation "com.google.android.gms:play-services-location:$playServices"
     implementation 'com.google.maps.android:android-maps-utils:0.5'
-
 
     // поддержка multidex на Android 4.*
     implementation 'com.android.support:multidex:1.0.3'
@@ -120,6 +120,11 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation('com.squareup.retrofit2:converter-simplexml:2.3.0') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
 
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'

@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import okhttp3.OkHttpClient;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
@@ -33,9 +34,13 @@ public abstract class AbsNetProvider<T> extends AbsProvider implements NetProvid
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(getBaseUrl())
                 .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(getConverterFactory())
                 .build();
         mApi = mRetrofit.create(getApiClass());
+    }
+
+    public Converter.Factory getConverterFactory() {
+        return GsonConverterFactory.create();
     }
 
     public T getApi() {
