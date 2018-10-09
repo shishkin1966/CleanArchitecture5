@@ -61,10 +61,17 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/exchange_cryptorates"
+                style="@style/SideMenuBottomButtonStyle"
+                android:drawableTop="@drawable/ic_rates_white"
+                android:gravity="center"
+                android:text="@string/exchange_cryptorates"/>
+
+            <TextView
                 android:id="@+id/exchange_rates"
                 style="@style/SideMenuBottomButtonStyle"
                 android:drawableTop="@drawable/ic_rates_white"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:text="@string/exchange_rates"/>
 
             <TextView

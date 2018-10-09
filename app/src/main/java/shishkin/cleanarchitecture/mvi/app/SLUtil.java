@@ -10,6 +10,7 @@ import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialist;
 import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.net.NetCbProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
@@ -81,6 +82,10 @@ public class SLUtil {
 
     public static NetProviderImpl getNetProvider() {
         return SL.getInstance().get(NetProviderImpl.NAME);
+    }
+
+    public static NetCbProviderImpl getNetCbProvider() {
+        return SL.getInstance().get(NetCbProviderImpl.NAME);
     }
 
     public static DataSpecialist getDataSpecialist() {

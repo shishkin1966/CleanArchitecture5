@@ -51,4 +51,8 @@ public class Repository {
         NetRepositoryProvider.getTicker(listener);
     }
 
+    public void getValCurs(String listener, String date) {
+        NetRepositoryProvider.getValCurs(listener, date);
+    }
+
 }
