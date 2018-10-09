@@ -39,5 +39,6 @@
     <string name="orientation_system">Системная</string>
     <string name="orientation_portrait">Вертикальная</string>
     <string name="orientation_landscape">Горизонтальная</string>
+    <string name="restart_location">Перегрузите устройство. Не работатает служба получения адреса</string>
 
 </resources>

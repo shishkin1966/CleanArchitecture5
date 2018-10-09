@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
+import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
@@ -181,7 +183,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
                         location.getLongitude(),
                         cnt));
             } catch (Exception e) {
-                ErrorSpecialistImpl.getInstance().onError(NAME, e);
+                ErrorSpecialistImpl.getInstance().onError(NAME, SLUtil.getContext().getString(R.string.restart_location), true);
             }
         }
         return list;

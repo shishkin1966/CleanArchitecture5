@@ -76,9 +76,6 @@
 
             </net.cachapa.expandablelayout.ExpandableLayout>
 
-
-
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
@@ -116,7 +113,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="visible"
-        app:behavior_peekHeight="@dimen/dimen_48dp"
+        app:behavior_peekHeight="@dimen/menu_peek_height"
         app:layout_behavior="shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior">
 
         <View
