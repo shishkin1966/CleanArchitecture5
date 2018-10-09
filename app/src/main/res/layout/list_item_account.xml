@@ -27,7 +27,7 @@
                 android:layout_marginRight="@dimen/dimen_16dp"
                 android:layout_weight="1"
                 android:maxLines="2"
-                android:textAppearance="?android:textAppearanceListItem"/>
+                android:textSize="@dimen/text_size_large"/>
 
             <TextView
                 android:id="@+id/balanceView"
@@ -37,7 +37,7 @@
                 android:layout_marginRight="@dimen/dimen_16dp"
                 android:lines="1"
                 android:maxLines="1"
-                android:textAppearance="?android:textAppearanceMedium"/>
+                android:textSize="@dimen/text_size_large"/>
 
         </LinearLayout>
 

@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class BalanceRecyclerViewAdapter extends AbstractRecyclerViewAdapter<MviD
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, MviDao.Balance item, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), this.getItemCount());
     }
 
     static class ViewHolder extends AbstractViewHolder {
@@ -43,8 +44,13 @@ public class BalanceRecyclerViewAdapter extends AbstractRecyclerViewAdapter<MviD
             balance = findView(R.id.balance);
         }
 
-        void bind(@NonNull final MviDao.Balance item) {
+        void bind(@NonNull final MviDao.Balance item, int cnt) {
             balance.setText(String.format("%,.0f", item.balance) + " " + item.currency);
+            if (cnt == 1) {
+                balance.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size_xlarge));
+            } else {
+                balance.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size));
+            }
         }
     }
 
