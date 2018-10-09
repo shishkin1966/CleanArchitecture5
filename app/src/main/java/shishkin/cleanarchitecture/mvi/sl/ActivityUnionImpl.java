@@ -27,6 +27,7 @@ import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowKeyboardEvent;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityForResultEvent;
@@ -433,6 +434,18 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (subscriber != null && subscriber.validate()) {
             if (subscriber.getActivity().getState() != ViewStateObserver.STATE_CREATE && subscriber.getActivity().getState() != ViewStateObserver.STATE_DESTROY) {
                 new MaterialDialogExt(subscriber.getActivity(), event.getListener(), event.getId(), event.getTitle(), event.getMessage(), event.getButtonPositive(), event.getButtonNegative(), event.isCancelable()).show();
+            }
+        }
+    }
+
+    @Override
+    public void showListDialog(ShowListDialogEvent event) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            if (subscriber.getActivity().getState() == ViewStateObserver.STATE_RESUME || subscriber.getActivity().getState() == ViewStateObserver.STATE_PAUSE) {
+                new MaterialDialogExt(subscriber.getActivity(), event.getListener(), event.getId(),
+                        event.getTitle(), event.getMessage(), event.getList(), event.getSelected(), event.isMultiselect(), event.getButtonPositive(),
+                        event.getButtonNegative(), event.isCancelable()).show();
             }
         }
     }

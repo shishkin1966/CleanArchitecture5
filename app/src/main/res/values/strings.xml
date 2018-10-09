@@ -35,5 +35,9 @@
     <string name="contact_bank">Связь с\nбанком</string>
     <string name="address">Адреса</string>
     <string name="settings_show_screenshot">Разрешено играть музыку при старте</string>
+    <string name="settings_orientattion">Ориентация экрана</string>
+    <string name="orientation_system">Системная</string>
+    <string name="orientation_portrait">Вертикальная</string>
+    <string name="orientation_landscape">Горизонтальная</string>
 
 </resources>

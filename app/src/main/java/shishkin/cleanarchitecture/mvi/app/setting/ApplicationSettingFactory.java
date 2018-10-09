@@ -1,12 +1,10 @@
 package shishkin.cleanarchitecture.mvi.app.setting;
 
-import android.content.Context;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
@@ -19,11 +17,12 @@ public class ApplicationSettingFactory {
     public static List<ApplicationSetting> getApplicationSettings() {
         final List<ApplicationSetting> list = new ArrayList<>();
 
-
-        final Context context = SLUtil.getContext();
-        if (context == null) return list;
+        final ApplicationSetting setting = new ApplicationSetting(ApplicationSetting.TYPE_TEXT)
+                .setTitle(SLUtil.getContext().getString(R.string.setting));
+        list.add(setting);
 
         list.add(getApplicationSetting(ApplicationSettingPlayMusicEnabled.NAME));
+        list.add(getApplicationSetting(ApplicationSettingOrientation.NAME));
 
         return list;
     }
@@ -41,7 +40,13 @@ public class ApplicationSettingFactory {
         } else {
             switch (name) {
                 case ApplicationSettingPlayMusicEnabled.NAME:
-                    return new ApplicationSettingPlayMusicEnabled();
+                    final ApplicationSettingPlayMusicEnabled applicationSettingPlayMusicEnabled = new ApplicationSettingPlayMusicEnabled();
+                    setApplicationSetting(applicationSettingPlayMusicEnabled);
+                    return applicationSettingPlayMusicEnabled;
+                case ApplicationSettingOrientation.NAME:
+                    final ApplicationSettingOrientation applicationSettingOrientation = new ApplicationSettingOrientation();
+                    setApplicationSetting(applicationSettingOrientation);
+                    return applicationSettingOrientation;
             }
         }
         return null;

@@ -19,6 +19,9 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuFragment;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
+import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingOrientation;
 import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.slidingmenu.SlidingMenu;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -46,7 +49,12 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
         setContentView(R.layout.activity_main);
 
-        lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        final ApplicationSetting setting = ApplicationSettingFactory.getApplicationSetting(ApplicationSettingOrientation.NAME);
+        if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_portrait))) {
+            lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_landscape))) {
+            lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
 
         setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
 

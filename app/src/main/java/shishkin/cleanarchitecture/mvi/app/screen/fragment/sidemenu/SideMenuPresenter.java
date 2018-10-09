@@ -11,14 +11,30 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.screen.activity.main.MainPresenter;
+import shishkin.cleanarchitecture.mvi.app.viewdata.SideMenuViewData;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 
 public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements AccountsBalanceListener, View.OnClickListener {
 
     public static final String NAME = SideMenuPresenter.class.getName();
 
+    private SideMenuViewData sideMenuViewData;
+
     public SideMenuPresenter(SideMenuModel model) {
         super(model);
+
+        sideMenuViewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
+    }
+
+    @Override
+    public void onStart() {
+        if (sideMenuViewData == null) {
+            sideMenuViewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
+            if (sideMenuViewData == null) {
+                sideMenuViewData = new SideMenuViewData();
+            }
+        }
+        showAccountsBalance(sideMenuViewData.getBalance());
     }
 
     @Override
@@ -33,6 +49,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
 
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
+        sideMenuViewData.setBalance(list);
         getModel().getView().accountsChanged(list);
     }
 
@@ -44,6 +61,10 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
             presenter.hideSideMenu();
         }
         switch (id) {
+            case R.id.accounts:
+                getModel().getRouter().switchToTop();
+                break;
+
             case R.id.exchange_rates:
                 getModel().getRouter().showDigitalCurrencies();
                 break;
@@ -57,4 +78,12 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
                 break;
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        SLUtil.getCacheSpecialist().put(SideMenuViewData.NAME, sideMenuViewData);
+
+        super.onDestroyView();
+    }
+
 }

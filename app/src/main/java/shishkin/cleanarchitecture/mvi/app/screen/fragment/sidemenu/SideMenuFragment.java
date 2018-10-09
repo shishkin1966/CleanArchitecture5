@@ -48,6 +48,7 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
         findView(R.id.exchange_rates).setOnClickListener(getModel().getPresenter());
         findView(R.id.address).setOnClickListener(getModel().getPresenter());
         findView(R.id.setting).setOnClickListener(getModel().getPresenter());
+        findView(R.id.accounts).setOnClickListener(getModel().getPresenter());
     }
 
     @Override
