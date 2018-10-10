@@ -99,7 +99,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
             case R.id.message:
                 getModel().getRouter().showUrl();
-                hideMessage();
                 break;
 
         }

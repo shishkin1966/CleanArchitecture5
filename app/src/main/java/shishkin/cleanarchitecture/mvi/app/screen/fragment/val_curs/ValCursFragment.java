@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
     private ValCursRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,6 +38,11 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mSwipeRefreshLayout = findView(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.blue);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.gray_light);
+        mSwipeRefreshLayout.setOnRefreshListener(getModel().getPresenter());
 
         mAdapter = new ValCursRecyclerViewAdapter(getContext());
 
@@ -59,6 +66,14 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     public void refreshViews(ValCursViewData viewData) {
         if (viewData != null && viewData.getData() != null) {
             mAdapter.setItems(viewData.getData());
+        }
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if (validate()) {
+            super.hideProgressBar();
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 }

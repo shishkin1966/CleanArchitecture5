@@ -70,7 +70,7 @@
             <TextView
                 android:id="@+id/exchange_rates"
                 style="@style/SideMenuBottomButtonStyle"
-                android:drawableTop="@drawable/ic_rates_white"
+                android:drawableTop="@drawable/ic_show_chart"
                 android:gravity="center"
                 android:text="@string/exchange_rates"/>
 

@@ -85,6 +85,4 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
-
-
 }

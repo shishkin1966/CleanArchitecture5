@@ -30,7 +30,7 @@
     <string name="search_hint">Найти</string>
     <string name="map">Карты</string>
     <string name="readme">Приложение является объединением архитектурных шаблонов VIPER и Service Locator</string>
-    <string name="exchange_cryptorates">Курсы\nкриптовалют</string>
+    <string name="exchange_cryptorates">Курсы\nкрипто\nвалют</string>
     <string name="exchange_rates">Курсы\nвалют</string>
     <string name="news">Новости</string>
     <string name="contact_bank">Связь с\nбанком</string>
