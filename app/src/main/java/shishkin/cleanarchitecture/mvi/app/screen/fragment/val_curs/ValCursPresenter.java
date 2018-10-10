@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
+
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;
 import shishkin.cleanarchitecture.mvi.app.sl.Repository;
@@ -15,7 +18,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class ValCursPresenter extends AbsPresenter<ValCursModel> implements ResponseListener {
+public class ValCursPresenter extends AbsPresenter<ValCursModel> implements ResponseListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String NAME = ValCursPresenter.class.getName();
 
@@ -74,5 +77,9 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         super.onDestroyView();
     }
 
+    @Override
+    public void onRefresh() {
+        getData();
+    }
 }
 
