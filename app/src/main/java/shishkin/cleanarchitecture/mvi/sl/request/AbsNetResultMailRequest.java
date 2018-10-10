@@ -40,30 +40,28 @@ public abstract class AbsNetResultMailRequest<T> extends AbsResultMailRequest im
         final TaskCompletionSource<Result<T>> newTask = new TaskCompletionSource<>();
 
         if (validate()) {
-            getData().enqueue(new BaseCallback<T>(this) {
-                @Override
-                public void proceedResponse(final Response response, final Subscriber request) {
-                    super.proceedResponse(response, request);
+            if (Connectivity.isNetworkConnected(ApplicationSpecialistImpl.getInstance())) {
+                getData().enqueue(new BaseCallback<T>(this) {
+                    @Override
+                    public void proceedResponse(final Response response, final Subscriber request) {
+                        super.proceedResponse(response, request);
 
-                    newTask.setResult(getResult());
-                }
+                        newTask.setResult(getResult());
+                    }
 
-                @Override
-                public void proceedError(final Throwable t, final Subscriber request) {
-                    super.proceedError(t, request);
+                    @Override
+                    public void proceedError(final Throwable t, final Subscriber request) {
+                        super.proceedError(t, request);
 
-                    newTask.setResult(getResult());
-                }
-            });
+                        newTask.setResult(getResult());
+                    }
+                });
+            } else {
+                newTask.setResult(new Result<>());
+            }
         } else {
             newTask.setResult(new Result<>());
         }
         return newTask.getTask();
     }
-
-    @Override
-    public boolean validate() {
-        return (super.validate() && Connectivity.isNetworkConnected(ApplicationSpecialistImpl.getInstance()));
-    }
-
 }
