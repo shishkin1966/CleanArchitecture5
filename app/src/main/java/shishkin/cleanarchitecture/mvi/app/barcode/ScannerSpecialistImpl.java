@@ -18,7 +18,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +27,7 @@ import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.CloseUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
@@ -43,7 +44,7 @@ public class ScannerSpecialistImpl extends AbsSpecialist implements ScannerSpeci
     @Override
     public void onRegister() {
         detector = new BarcodeDetector.Builder(ApplicationSpecialistImpl.getInstance())
-                .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
     }
 
@@ -59,12 +60,18 @@ public class ScannerSpecialistImpl extends AbsSpecialist implements ScannerSpeci
     @Override
     public void scan() {
         if (ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            final File dir = new File(Environment.getExternalStorageDirectory(), BuildConfig.APPLICATION_ID);
-            dir.mkdirs();
-            final File photo = new File(Environment.getExternalStorageDirectory(), BuildConfig.APPLICATION_ID + "/picture.jpg");
-            uri = FileProvider.getUriForFile(ApplicationSpecialistImpl.getInstance(),
-                    BuildConfig.APPLICATION_ID + ".provider", photo);
-            scan(uri);
+            try {
+                final File dir = new File(Environment.getExternalStorageDirectory(), BuildConfig.APPLICATION_ID);
+                dir.mkdirs();
+                final File photo = new File(Environment.getExternalStorageDirectory(), BuildConfig.APPLICATION_ID + "/picture.jpg");
+                if (photo.exists()) {
+                    photo.delete();
+                }
+                uri = FileProvider.getUriForFile(ApplicationSpecialistImpl.getInstance(),BuildConfig.APPLICATION_ID + ".provider", photo);
+                scan(uri);
+            } catch (Exception e) {
+                ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            }
         }
     }
 
@@ -76,39 +83,52 @@ public class ScannerSpecialistImpl extends AbsSpecialist implements ScannerSpeci
     @Override
     public List<String> decode(Uri uri) {
         final List<String> list = new ArrayList<>();
-        try {
-            if (validate()) {
-                final Bitmap bitmap = decodeBitmapUri(SLUtil.getContext(), uri);
-                if (bitmap != null) {
-                    final Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                    final SparseArray<Barcode> barcodes = detector.detect(frame);
-                    for (int index = 0; index < barcodes.size(); index++) {
-                        Barcode code = barcodes.valueAt(index);
-                        list.add(code.rawValue);
+        if (validate()) {
+            try {
+                if (validate()) {
+                    final Bitmap bitmap = decodeBitmapUri(SLUtil.getContext(), uri);
+                    if (bitmap != null) {
+                        final Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                        final SparseArray<Barcode> barcodes = detector.detect(frame);
+                        for (int index = 0; index < barcodes.size(); index++) {
+                            Barcode code = barcodes.valueAt(index);
+                            list.add(code.rawValue);
+                        }
+                        bitmap.recycle();
                     }
                 }
+            } catch (Exception e) {
+                ErrorSpecialistImpl.getInstance().onError(NAME, e);
             }
-        } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
         }
         return list;
     }
 
-    private Bitmap decodeBitmapUri(Context ctx, Uri uri) throws FileNotFoundException {
-        int targetW = 600;
-        int targetH = 600;
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(ctx.getContentResolver().openInputStream(uri), null, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
+    private Bitmap decodeBitmapUri(Context context, Uri uri) {
+        InputStream stream = null;
+        try {
+            int targetW = 600;
+            int targetH = 600;
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            stream = context.getContentResolver().openInputStream(uri);
+            BitmapFactory.decodeStream(stream, null, bmOptions);
+            CloseUtils.close(stream);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
 
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
 
-        return BitmapFactory.decodeStream(ctx.getContentResolver()
-                .openInputStream(uri), null, bmOptions);
+            stream = context.getContentResolver().openInputStream(uri);
+            return BitmapFactory.decodeStream(stream, null, bmOptions);
+        } catch (Exception e) {
+            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+        } finally {
+            CloseUtils.close(stream);
+        }
+        return null;
     }
 
     @Override

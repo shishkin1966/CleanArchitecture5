@@ -31,6 +31,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
@@ -73,10 +74,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
                 .setReplaceCurrent(false)
                 .build();
         SLUtil.getJobSpecialist().schedule(job);
-
-        if (SLUtil.getScannerSpecialist().validate()) {
-            SLUtil.getScannerSpecialist().scan();
-        }
 
         onNewIntent(getIntent());
     }
@@ -187,7 +184,12 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ApplicationConstant.ScannerSpecialist_REQUEST) {
-            SLUtil.getScannerSpecialist().decode();
+            final List<String> list = SLUtil.getScannerSpecialist().decode();
+            final StringBuilder sb = new StringBuilder();
+            for (String code : list) {
+                sb.append(code +"\n");
+            }
+            SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Баркоды", sb.toString()));
         }
     }
 
