@@ -15,6 +15,7 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
@@ -72,6 +73,10 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
                 .setReplaceCurrent(false)
                 .build();
         SLUtil.getJobSpecialist().schedule(job);
+
+        if (SLUtil.getScannerSpecialist().validate()) {
+            SLUtil.getScannerSpecialist().scan();
+        }
 
         onNewIntent(getIntent());
     }
@@ -178,4 +183,12 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             mMenu.showContent();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ApplicationConstant.ScannerSpecialist_REQUEST) {
+            SLUtil.getScannerSpecialist().decode();
+        }
+    }
+
 }

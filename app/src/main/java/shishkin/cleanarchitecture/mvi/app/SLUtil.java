@@ -4,6 +4,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import shishkin.cleanarchitecture.mvi.app.barcode.ScannerSpecialist;
+import shishkin.cleanarchitecture.mvi.app.barcode.ScannerSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
@@ -122,6 +124,10 @@ public class SLUtil {
 
     public static MediaSpecialist getMediaSpecialist() {
         return SL.getInstance().get(MediaSpecialistImpl.NAME);
+    }
+
+    public static ScannerSpecialist getScannerSpecialist() {
+        return SL.getInstance().get(ScannerSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {
