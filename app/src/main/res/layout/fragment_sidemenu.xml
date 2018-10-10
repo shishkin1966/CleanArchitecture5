@@ -18,6 +18,7 @@
             android:background="@color/white_light"/>
 
         <TextView
+            android:id="@+id/scanner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_height"
             android:layout_gravity="center_vertical"
@@ -26,7 +27,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_12dp"
             android:paddingRight="@dimen/dimen_12dp"
-            android:text="Сообщения"
+            android:text="Сканер баркодов"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"/>
 

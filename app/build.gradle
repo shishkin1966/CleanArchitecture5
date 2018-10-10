@@ -42,6 +42,13 @@ android {
         resolutionStrategy.force "com.android.support:animated-vector-drawable:$supportLibVersion"
         resolutionStrategy.force "com.android.support:appcompat-v7:$supportLibVersion"
         resolutionStrategy.force "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g"
+        dexInProcess = true
     }
 
     defaultConfig {
@@ -148,4 +155,5 @@ dependencies {
     // Circular Image View
     implementation 'com.pkmmte.view:circularimageview:1.1'
 
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }

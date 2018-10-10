@@ -178,4 +178,5 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             mMenu.showContent();
         }
     }
+
 }
