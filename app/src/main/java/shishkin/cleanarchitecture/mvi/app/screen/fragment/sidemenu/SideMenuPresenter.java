@@ -82,7 +82,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
                 break;
 
             case R.id.scanner:
-                getModel().getRouter().scan();
+                getModel().getRouter().showScanner();
                 break;
         }
     }
