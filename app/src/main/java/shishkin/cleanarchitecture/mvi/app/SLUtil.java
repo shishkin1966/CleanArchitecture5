@@ -16,6 +16,8 @@ import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialist;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnion;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialist;
 import shishkin.cleanarchitecture.mvi.app.secure.SecureStorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialist;
@@ -122,6 +124,10 @@ public class SLUtil {
 
     public static MediaSpecialist getMediaSpecialist() {
         return SL.getInstance().get(MediaSpecialistImpl.NAME);
+    }
+
+    public static ScannerUnion getScannerUnion() {
+        return SL.getInstance().get(ScannerUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {

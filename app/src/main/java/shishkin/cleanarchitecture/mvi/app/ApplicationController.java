@@ -17,6 +17,7 @@ import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingPlayMusicEnabled;
@@ -52,6 +53,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SL.getInstance().register(NetCbProviderImpl.NAME);
         SL.getInstance().register(JobSpecialistImpl.NAME);
         SL.getInstance().register(MediaSpecialistImpl.NAME);
+        SL.getInstance().register(ScannerUnionImpl.NAME);
 
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
