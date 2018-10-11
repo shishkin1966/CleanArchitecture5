@@ -89,4 +89,25 @@ public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity
         return BackStack.getFragment(this, cls, id);
     }
 
+    @Override
+    public void onPermisionGranted(final String permission) {
+        super.onPermisionGranted(permission);
+
+        final AbsFragment fragment = getContentFragment(AbsFragment.class);
+        if (fragment != null) {
+            fragment.onPermisionGranted(permission);
+        }
+    }
+
+    @Override
+    public void onPermisionDenied(final String permission) {
+        super.onPermisionDenied(permission);
+
+        final AbsFragment fragment = getContentFragment(AbsFragment.class);
+        if (fragment != null) {
+            fragment.onPermisionDenied(permission);
+        }
+    }
+
+
 }

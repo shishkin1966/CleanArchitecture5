@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -145,12 +144,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 accountsViewData = new AccountsViewData();
             }
         }
-        if (!accountsViewData.isShowPermissionDialog() && !ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            accountsViewData.setShowPermissionDialog(true);
-            SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
-            getModel().getView().grantPermission(NAME, Manifest.permission.ACCESS_FINE_LOCATION, "Право необходимо для показа карты");
-        }
-
         getModel().getView().refreshViews(accountsViewData);
         getData();
     }
