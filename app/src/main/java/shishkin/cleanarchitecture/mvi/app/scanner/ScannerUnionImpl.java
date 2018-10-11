@@ -8,7 +8,6 @@ import com.google.zxing.Result;
 import java.lang.ref.WeakReference;
 
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
@@ -52,8 +51,8 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
             } catch (Exception e) {
                 ErrorSpecialistImpl.getInstance().onError(NAME, e);
             }
-        } else if (text.startsWith("ST00012|")){
-        } else if (text.startsWith("ST00013|")){
+        } else if (text.startsWith("ST00012|")) {
+        } else if (text.startsWith("ST00013|")) {
             try {
                 text = new String(text.getBytes("ISO8859_1"), "KOI8-R");
             } catch (Exception e) {
