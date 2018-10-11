@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner;
 
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
@@ -7,5 +8,5 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface ScannerView extends IFragment {
-
+    ZXingScannerView getScannerView();
 }
