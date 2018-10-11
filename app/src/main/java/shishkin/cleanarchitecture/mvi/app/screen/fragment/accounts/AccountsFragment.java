@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -20,7 +19,6 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
@@ -111,13 +109,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     @Override
     public String getName() {
         return NAME;
-    }
-
-    @Override
-    public void onPermisionGranted(final String permission) {
-        if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
-            SLUtil.getLocationUnion().start();
-        }
     }
 
     @Override

@@ -23,7 +23,6 @@ public class AccountsViewData implements Parcelable {
     private List<Account> accounts;
     private List<String> currencies;
     private List<MviDao.Balance> balance;
-    private boolean isShowPermissionDialog = false;
     private boolean isShowMessage = false;
     private String message;
     private int messageType;
@@ -69,14 +68,6 @@ public class AccountsViewData implements Parcelable {
 
     public void setBalance(List<MviDao.Balance> balance) {
         this.balance = balance;
-    }
-
-    public boolean isShowPermissionDialog() {
-        return isShowPermissionDialog;
-    }
-
-    public void setShowPermissionDialog(boolean showPermissionDialog) {
-        isShowPermissionDialog = showPermissionDialog;
     }
 
     public boolean isShowMessage() {
@@ -144,7 +135,6 @@ public class AccountsViewData implements Parcelable {
         dest.writeTypedList(this.accounts);
         dest.writeStringList(this.currencies);
         dest.writeTypedList(this.balance);
-        dest.writeByte(this.isShowPermissionDialog ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isShowMessage ? (byte) 1 : (byte) 0);
         dest.writeString(this.message);
         dest.writeInt(this.messageType);
@@ -159,7 +149,6 @@ public class AccountsViewData implements Parcelable {
         this.accounts = in.createTypedArrayList(Account.CREATOR);
         this.currencies = in.createStringArrayList();
         this.balance = in.createTypedArrayList(MviDao.Balance.CREATOR);
-        this.isShowPermissionDialog = in.readByte() != 0;
         this.isShowMessage = in.readByte() != 0;
         this.message = in.readString();
         this.messageType = in.readInt();

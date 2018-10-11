@@ -14,6 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
@@ -40,6 +41,10 @@ public class MapFragment extends AbsFragment<MapModel> implements MapView {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        startMap();
+    }
+
+    private void startMap() {
         if (ApplicationUtils.checkPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             final GoogleMapOptions mapOptions = new GoogleMapOptions()
                     .compassEnabled(true)
@@ -58,5 +63,12 @@ public class MapFragment extends AbsFragment<MapModel> implements MapView {
         return NAME;
     }
 
+    @Override
+    public void onPermisionGranted(final String permission) {
+        if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
+            SLUtil.getLocationUnion().start();
+            startMap();
+        }
+    }
 }
 

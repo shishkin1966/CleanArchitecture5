@@ -48,6 +48,13 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     }
 
     @Override
+    public void onStart() {
+        if (!SLUtil.getActivityUnion().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            SLUtil.getActivityUnion().grantPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
 
