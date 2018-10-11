@@ -11,15 +11,17 @@ import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerSubscriber;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.viewdata.ScannerViewData;
-import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ZXingScannerView.ResultHandler {
+public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ScannerSubscriber {
 
     public static final String NAME = ScannerPresenter.class.getName();
 
@@ -70,7 +72,7 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ZXin
     public void onResumeView() {
         super.onResumeView();
 
-        getScannerView().setResultHandler(this);
+        getScannerView().setResultHandler(SLUtil.getScannerUnion());
         setupFormats();
         getScannerView().startCamera(viewData.getCameraId());
         getScannerView().setFlash(false);
@@ -85,17 +87,23 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ZXin
     }
 
     @Override
-    public void handleResult(com.google.zxing.Result result) {
-        SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", result.getText()));
-        getModel().getView().exit();
-    }
-
-    @Override
     public void onDestroyView() {
         SLUtil.getCacheSpecialist().put(ScannerViewData.NAME, viewData);
 
         super.onDestroyView();
     }
 
+    @Override
+    public List<String> getSpecialistSubscription() {
+        return StringUtils.arrayToList(
+                super.getSpecialistSubscription(),
+                ScannerUnionImpl.NAME
+        );
+    }
+
+    @Override
+    public void onScan(String text) {
+        getModel().getView().exit();
+    }
 }
 

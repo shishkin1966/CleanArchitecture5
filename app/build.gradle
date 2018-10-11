@@ -155,5 +155,6 @@ dependencies {
     // Circular Image View
     implementation 'com.pkmmte.view:circularimageview:1.1'
 
+    // Scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }

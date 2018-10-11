@@ -18,6 +18,8 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistService;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerSubscriber;
+import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuFragment;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
@@ -30,11 +32,12 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
-public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, MainView {
+public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, MainView, ScannerSubscriber {
 
     public static final String NAME = MainActivity.class.getName();
 
@@ -164,7 +167,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
                 super.getSpecialistSubscription(),
-                ObservableUnionImpl.NAME
+                ObservableUnionImpl.NAME,
+                ScannerUnionImpl.NAME
         );
     }
 
@@ -179,4 +183,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
         }
     }
 
+    @Override
+    public void onScan(String text) {
+        SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
+    }
 }
