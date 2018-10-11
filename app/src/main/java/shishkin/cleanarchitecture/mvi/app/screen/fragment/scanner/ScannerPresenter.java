@@ -58,7 +58,7 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ZXin
         }
     }
 
-    public void setupFormats() {
+    private void setupFormats() {
         List<BarcodeFormat> formats = new ArrayList<>();
         for (int index : viewData.getSelectedIndices()) {
             formats.add(ZXingScannerView.ALL_FORMATS.get(index));
@@ -76,7 +76,6 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements ZXin
         getScannerView().setFlash(false);
         getScannerView().setAutoFocus(true);
     }
-
 
     @Override
     public void onPauseView() {
