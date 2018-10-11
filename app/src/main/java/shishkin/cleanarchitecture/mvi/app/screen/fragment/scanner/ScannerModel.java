@@ -10,10 +10,18 @@ public class ScannerModel extends AbsModel {
 
     public ScannerModel(ScannerFragment fragment) {
         super(fragment);
+
+        setPresenter(new ScannerPresenter(this));
     }
 
     @Override
     public ScannerFragment getView() {
         return super.getView();
     }
+
+    @Override
+    public ScannerPresenter getPresenter() {
+        return super.getPresenter();
+    }
+
 }
