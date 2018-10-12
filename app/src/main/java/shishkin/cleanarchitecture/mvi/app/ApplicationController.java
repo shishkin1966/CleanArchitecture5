@@ -5,6 +5,9 @@ import android.content.ComponentName;
 import android.content.Intent;
 
 
+import com.google.firebase.FirebaseApp;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;

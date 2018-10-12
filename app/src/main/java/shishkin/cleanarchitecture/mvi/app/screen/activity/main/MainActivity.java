@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.activity.main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
@@ -36,6 +37,8 @@ import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
+
+import static shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl.REQUEST_IMAGE_CAPTURE;
 
 public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, MainView, ScannerSubscriber {
 
@@ -186,5 +189,14 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     @Override
     public void onScan(String text) {
         SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            final Bundle extras = data.getExtras();
+            final Bitmap image = (Bitmap) extras.get("data");
+            SLUtil.getScannerUnion().decodeVision(image);
+        }
     }
 }

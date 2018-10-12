@@ -6,7 +6,7 @@ def compileSdk = 27
 def buildTools = "28.0.3"
 def minSdk = 15
 def targetSdk = 27
-def playServices = "15.0.1"
+def playServices = "16.0.0"
 
 android {
     buildToolsVersion buildTools
@@ -142,4 +142,10 @@ dependencies {
 
     // Scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation 'com.google.firebase:firebase-ml-vision:17.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.android.gms:play-services-vision:16.2.0'
+
+
 }
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "27878769",
+    "firebase_url": "https://cleanarchitecture5.firebaseio.com",
+    "project_id": "cleanarchitecture5",
+    "storage_bucket": "cleanarchitecture5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27878769:android:903953fb1ddab160",
+        "android_client_info": {
+          "package_name": "shishkin.cleanarchitecture.mvi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27878769-05r3gbf5o2hu46vc95vngmp08ohcums2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shishkin.cleanarchitecture.mvi",
+            "certificate_hash": "7d67d5fa5a0c19fca40b8e7098b9da1dc4513c87"
+          }
+        },
+        {
+          "client_id": "27878769-db7ts9a71aun3072d8f6f56hhi000vvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzj9f9lxn9k_kI0lNjZCGE_oO9FmHqflQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27878769-db7ts9a71aun3072d8f6f56hhi000vvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,7 +28,11 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="281db83fe0120557c58a812c0a71219bcc6acc5f" />
+            android:value="281db83fe0120557c58a812c0a71219bcc6acc5f"/>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode"/>
 
         <activity android:name=".app.screen.activity.main.MainActivity">
             <intent-filter>
