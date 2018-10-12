@@ -52,6 +52,8 @@ public class WidgetUpdateRequest extends AbsRequest {
         if (context == null) return;
 
         final MviDb db = SLUtil.getDb();
+        if (db == null) return;
+
         List<MviDao.Balance> list = db.MviDao().getBalance();
         if (list == null) {
             return;

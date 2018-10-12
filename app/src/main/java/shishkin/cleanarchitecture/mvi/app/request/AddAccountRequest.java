@@ -47,7 +47,6 @@ public class AddAccountRequest extends AbsResultRequest<Account> {
             setData(mAccount);
             final DbObservable observable = (DbObservable) SLUtil.getObservableUnion().get(DbObservable.NAME);
             observable.onChange(Account.TABLE);
-            Thread.sleep(500);
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
             setError(new ExtError().addError(NAME, e));

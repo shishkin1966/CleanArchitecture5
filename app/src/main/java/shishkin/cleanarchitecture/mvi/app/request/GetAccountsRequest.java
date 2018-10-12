@@ -38,7 +38,6 @@ public class GetAccountsRequest extends AbsResultRequest<List<Account>> {
         try {
             final MviDb db = SLUtil.getDb();
             setData(db.MviDao().getAccounts());
-            Thread.sleep(500);
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
             setError(new ExtError().addError(NAME, e));
