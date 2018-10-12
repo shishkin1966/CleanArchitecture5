@@ -187,4 +187,10 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     public void onScan(String text) {
         SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
     }
+
+    @Override
+    public void onUserInteraction() {
+        SLUtil.getIdleSpecialist().onUserInteraction();
+    }
+
 }

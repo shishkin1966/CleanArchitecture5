@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
 import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
@@ -24,7 +25,7 @@ public class OnBackPressedPresenter extends AbsPresenter {
     public boolean onClick() {
         if (validate()) {
             if (!mDoubleBackPressedOnce) {
-                final Context context = ApplicationSpecialistImpl.getInstance();
+                final Context context = SLUtil.getContext();
                 if (context != null) {
                     mDoubleBackPressedOnce = true;
                     ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).showSnackbar(new ShowMessageEvent(context.getString(R.string.double_back_pressed)).setAction(context.getString(R.string.exit)).setDuration(Snackbar.LENGTH_SHORT));
