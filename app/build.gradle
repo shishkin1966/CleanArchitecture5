@@ -1,24 +1,9 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
-
 def supportLibVersion = "27.1.1"
 def compileSdk = 27
-def buildTools = "28.0.2"
+def buildTools = "28.0.3"
 def minSdk = 15
 def targetSdk = 27
 def playServices = "15.0.1"
