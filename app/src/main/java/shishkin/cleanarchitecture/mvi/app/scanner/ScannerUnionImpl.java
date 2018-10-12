@@ -1,45 +1,30 @@
 package shishkin.cleanarchitecture.mvi.app.scanner;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.nio.ByteBuffer;
-import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner_vision.ScannerVisionFragment;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
-import shishkin.cleanarchitecture.mvi.sl.event.StartActivityForResultEvent;
 
 public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implements ScannerUnion {
     public static final String NAME = ScannerUnionImpl.class.getName();
@@ -97,10 +82,13 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
 
     @Override
     public void scanVision() {
+        SLUtil.getActivityUnion().showFragment(new ShowFragmentEvent(ScannerVisionFragment.newInstance()));
+        /*
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(SLUtil.getContext().getPackageManager()) != null) {
             SLUtil.getActivityUnion().startActivityForResult(new StartActivityForResultEvent(intent, REQUEST_IMAGE_CAPTURE));
         }
+        */
     }
 
     @Override

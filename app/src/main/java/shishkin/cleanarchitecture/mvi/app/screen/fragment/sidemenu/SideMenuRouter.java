@@ -4,7 +4,6 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.setting.SettingFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursFragment;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
@@ -37,7 +36,5 @@ public class SideMenuRouter extends BaseModelRouter {
 
     public void showScanner() {
         SLUtil.getScannerUnion().scanVision();
-        //SLUtil.getScannerUnion().scan();
-        //showFragment(ScannerFragment.newInstance());
     }
 }

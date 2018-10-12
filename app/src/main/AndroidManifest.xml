@@ -34,6 +34,10 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode"/>
 
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
         <activity android:name=".app.screen.activity.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
