@@ -28,6 +28,7 @@ import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.MailUnion;
 import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
@@ -38,6 +39,7 @@ import shishkin.cleanarchitecture.mvi.sl.RequestSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.Subscriber;
 import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
@@ -148,6 +150,24 @@ public class SLUtil {
     }
 
     /**
+     * Зарегистрировать специалиста
+     *
+     * @param specialist специалист
+     */
+    public static void register(final String specialist) {
+        SL.getInstance().register(specialist);
+    }
+
+    /**
+     * Отменить регистрацию специалиста
+     *
+     * @param specialist специалист
+     */
+    public static void unregister(final String specialist) {
+        SL.getInstance().unregister(specialist);
+    }
+
+    /**
      * Отменить регистрацию подписчика специалиста
      *
      * @param subscriber подписчик специалиста
@@ -222,4 +242,38 @@ public class SLUtil {
         }
     }
 
+    /**
+     * Событие - ошибка
+     *
+     * @param object источник ошибки
+     * @param e      Exception
+     */
+    public static void onError(Object object, Exception e) {
+        if (object instanceof Subscriber) {
+            ErrorSpecialistImpl.getInstance().onError(((Subscriber) object).getName(), e);
+        } else {
+            ErrorSpecialistImpl.getInstance().onError(object.getClass().getName(), e);
+        }
+    }
+
+    /**
+     * Событие - ошибка
+     *
+     * @param source источник ошибки
+     * @param e      Exception
+     */
+    public static void onError(String source, Exception e) {
+        ErrorSpecialistImpl.getInstance().onError(source, e);
+    }
+
+    /**
+     * Событие - ошибка
+     *
+     * @param source    источник ошибки
+     * @param message   текст ошибки пользователю
+     * @param isDisplay true - отображать на сообщение на дисплее, false - сохранять в журнале
+     */
+    public static void onError(final String source, final String message, final boolean isDisplay) {
+        ErrorSpecialistImpl.getInstance().onError(source, message, isDisplay);
+    }
 }

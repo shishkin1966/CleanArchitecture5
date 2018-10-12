@@ -4,7 +4,6 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsResultRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
@@ -48,7 +47,7 @@ public class AddAccountRequest extends AbsResultRequest<Account> {
             final DbObservable observable = (DbObservable) SLUtil.getObservableUnion().get(DbObservable.NAME);
             observable.onChange(Account.TABLE);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
             setError(new ExtError().addError(NAME, e));
         }
         response();

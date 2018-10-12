@@ -6,7 +6,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsResultRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
@@ -39,7 +38,7 @@ public class GetAccountsRequest extends AbsResultRequest<List<Account>> {
             final MviDb db = SLUtil.getDb();
             setData(db.MviDao().getAccounts());
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
             setError(new ExtError().addError(NAME, e));
         }
         response();

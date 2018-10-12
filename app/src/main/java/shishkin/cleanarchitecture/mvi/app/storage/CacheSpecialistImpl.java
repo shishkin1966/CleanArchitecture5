@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 @SuppressWarnings("unused")
@@ -76,7 +76,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
             mValue = parcel.marshall();
             mCache.put(key, mValue);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             if (parcel != null) {
                 parcel.recycle();
@@ -106,7 +106,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
             mValue = parcel.marshall();
             mCache.put(key, mValue);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             if (parcel != null) {
                 parcel.recycle();
@@ -137,7 +137,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
                 }
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             if (parcel != null) {
                 parcel.recycle();
@@ -171,7 +171,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
                 }
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             if (parcel != null) {
                 parcel.recycle();
@@ -199,7 +199,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
         try {
             mCache.invalidate(key);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -212,7 +212,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
         try {
             mCache.invalidateAll();
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }

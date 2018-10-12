@@ -12,7 +12,6 @@ import java.lang.ref.WeakReference;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 
 /**
@@ -55,7 +54,7 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
                     text = new String(text.getBytes("ISO8859_1"), "KOI8-R");
                 }
             } catch (Exception e) {
-                ErrorSpecialistImpl.getInstance().onError(NAME, e);
+                SLUtil.onError(NAME, e);
             }
         }
         for (WeakReference<ScannerSubscriber> ref : getSubscribers()) {

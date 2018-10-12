@@ -30,12 +30,12 @@ import javax.security.auth.x500.X500Principal;
 
 
 import io.paperdb.Paper;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.CollectionsUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 @SuppressWarnings("unused")
@@ -80,10 +80,10 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 sInstanceKeyStore.load(null);
                 isHardwareSupport = checkKeyPair();
             } else {
-                ErrorSpecialistImpl.getInstance().onError(NAME, "Not support os version", false);
+                SLUtil.onError(NAME, "Not support os version", false);
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         }
     }
 
@@ -103,7 +103,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 return true;
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -162,7 +162,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 return false;
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
             return false;
         }
         return true;
@@ -181,7 +181,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             }
             return true;
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -201,7 +201,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         try {
             privateKeyEntry = (KeyStore.PrivateKeyEntry) sInstanceKeyStore.getEntry(ALIAS, null);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         }
 
         try {
@@ -210,7 +210,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 return encryptBase64(data, publicKey);
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -244,7 +244,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             }
             return Base64.encodeToString(cipher.doFinal(dataBytes), Base64.DEFAULT);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         }
         return null;
     }
@@ -276,7 +276,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             }
             return new String(cipher.doFinal(dataBytes));
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         }
         return null;
     }
@@ -294,7 +294,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         try {
             privateKeyEntry = (KeyStore.PrivateKeyEntry) sInstanceKeyStore.getEntry(ALIAS, null);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         }
 
         try {
@@ -303,7 +303,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 return decryptBase64(base64string, privateKey);
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -334,7 +334,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 }
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -357,7 +357,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                 return decryptBase64(new String(data));
             }
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
@@ -375,7 +375,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
 
             Paper.book(ALIAS).delete(alias);
         } catch (Exception e) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            SLUtil.onError(NAME, e);
         } finally {
             mLock.unlock();
         }
