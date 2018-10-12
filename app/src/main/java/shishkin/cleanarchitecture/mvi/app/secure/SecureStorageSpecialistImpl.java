@@ -35,8 +35,8 @@ import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.CollectionsUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+
 
 @SuppressWarnings("unused")
 public class SecureStorageSpecialistImpl extends AbsSpecialist implements SecureStorageSpecialist {
@@ -45,10 +45,9 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
 
     private static final String ANDROID_KEYSTORE_INSTANCE = "AndroidKeyStore";
 
-    private static volatile KeyStore sInstanceKeyStore;
-    private static volatile SecureStorageSpecialist sInstance;
-    private static String ALIAS;
-    private ReentrantLock mLock = new ReentrantLock();
+    private KeyStore keyStore;
+    private String alias;
+    private ReentrantLock lock = new ReentrantLock();
 
     private static final String HASH_ALGORITHM = "SHA-1";
     private static final String KEY_ALGORITHM = "RSA";
@@ -63,21 +62,21 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
 
     @Override
     public void onRegister() {
-        mLock = new ReentrantLock();
+        lock = new ReentrantLock();
 
         try {
             final MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
             final byte[] hash = digest.digest(NAME.getBytes(Charsets.UTF_8));
-            ALIAS = StringUtils.byteArrayToHex(hash);
+            alias = StringUtils.byteArrayToHex(hash);
 
-            final Context context = ApplicationSpecialistImpl.getInstance();
+            final Context context = SLUtil.getContext();
             if (context != null) {
                 Paper.init(context);
             }
 
             if (validate()) {
-                sInstanceKeyStore = KeyStore.getInstance(ANDROID_KEYSTORE_INSTANCE);
-                sInstanceKeyStore.load(null);
+                keyStore = KeyStore.getInstance(ANDROID_KEYSTORE_INSTANCE);
+                keyStore.load(null);
                 isHardwareSupport = checkKeyPair();
             } else {
                 SLUtil.onError(NAME, "Not support os version", false);
@@ -92,10 +91,10 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             return false;
         }
 
-        mLock.lock();
+        lock.lock();
 
         try {
-            if (!sInstanceKeyStore.containsAlias(ALIAS)) {
+            if (!keyStore.containsAlias(alias)) {
                 if (createKeyPair()) {
                     return true;
                 }
@@ -105,7 +104,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
         return false;
     }
@@ -123,7 +122,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
 
                 keyPairGenerator.initialize(
                         new KeyGenParameterSpec.Builder(
-                                ALIAS,
+                                alias,
                                 KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                                 .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
                                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
@@ -137,10 +136,10 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
                     final Calendar end = new GregorianCalendar();
                     end.add(Calendar.ERA, 1);
 
-                    final Context context = ApplicationSpecialistImpl.getInstance();
+                    final Context context = SLUtil.getContext();
                     KeyPairGeneratorSpec keyPairGeneratorSpec =
                             new KeyPairGeneratorSpec.Builder(context)
-                                    .setAlias(ALIAS)
+                                    .setAlias(alias)
                                     // The subject used for the self-signed certificate of the generated pair
                                     .setSubject(new X500Principal("CN=" + context.getPackageName()))
                                     // The serial number used for the self-signed certificate of the
@@ -170,12 +169,12 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
 
     @Override
     public boolean deleteKeyPair() {
-        mLock.lock();
+        lock.lock();
 
         try {
-            if (sInstanceKeyStore.containsAlias(ALIAS)) {
-                sInstanceKeyStore.deleteEntry(ALIAS);
-                if (sInstanceKeyStore.containsAlias(ALIAS)) {
+            if (keyStore.containsAlias(alias)) {
+                keyStore.deleteEntry(alias);
+                if (keyStore.containsAlias(alias)) {
                     return false;
                 }
             }
@@ -183,7 +182,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
         return false;
     }
@@ -195,11 +194,11 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             return null;
         }
 
-        mLock.lock();
+        lock.lock();
 
         KeyStore.PrivateKeyEntry privateKeyEntry = null;
         try {
-            privateKeyEntry = (KeyStore.PrivateKeyEntry) sInstanceKeyStore.getEntry(ALIAS, null);
+            privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         }
@@ -212,7 +211,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
 
         return null;
@@ -288,11 +287,11 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             return null;
         }
 
-        mLock.lock();
+        lock.lock();
 
         KeyStore.PrivateKeyEntry privateKeyEntry = null;
         try {
-            privateKeyEntry = (KeyStore.PrivateKeyEntry) sInstanceKeyStore.getEntry(ALIAS, null);
+            privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         }
@@ -305,7 +304,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
         return null;
     }
@@ -314,7 +313,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
     public boolean put(@NonNull final String key, @NonNull final String data) {
         if (!isHardwareSupport) return false;
 
-        mLock.lock();
+        lock.lock();
 
         try {
             final MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
@@ -324,10 +323,10 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
             if (checkKeyPair()) {
                 final String dataEncrypted = encryptBase64(data);
                 if (dataEncrypted != null) {
-                    Paper.book(ALIAS).delete(alias);
+                    Paper.book(this.alias).delete(alias);
                     final byte[] byteEncrypted = dataEncrypted.getBytes(Charsets.UTF_8);
-                    Paper.book(ALIAS).write(alias, byteEncrypted);
-                    final byte[] dataRestored = Paper.book(ALIAS).read(alias, null);
+                    Paper.book(this.alias).write(alias, byteEncrypted);
+                    final byte[] dataRestored = Paper.book(this.alias).read(alias, null);
                     if (CollectionsUtils.equals(byteEncrypted, dataRestored)) {
                         return true;
                     }
@@ -336,7 +335,7 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
         return false;
     }
@@ -345,39 +344,39 @@ public class SecureStorageSpecialistImpl extends AbsSpecialist implements Secure
     public String get(@NonNull final String key) {
         if (!isHardwareSupport) return null;
 
-        mLock.lock();
+        lock.lock();
 
         try {
             final MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
             final byte[] hash = digest.digest(key.getBytes(Charsets.UTF_8));
             final String alias = StringUtils.byteArrayToHex(hash);
 
-            final byte[] data = Paper.book(ALIAS).read(alias, null);
+            final byte[] data = Paper.book(this.alias).read(alias, null);
             if (data != null) {
                 return decryptBase64(new String(data));
             }
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
         return null;
     }
 
     @Override
     public void clear(@NonNull final String key) {
-        mLock.lock();
+        lock.lock();
 
         try {
             final MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
             final byte[] hash = digest.digest(key.getBytes(Charsets.UTF_8));
             final String alias = StringUtils.byteArrayToHex(hash);
 
-            Paper.book(ALIAS).delete(alias);
+            Paper.book(this.alias).delete(alias);
         } catch (Exception e) {
             SLUtil.onError(NAME, e);
         } finally {
-            mLock.unlock();
+            lock.unlock();
         }
     }
 
