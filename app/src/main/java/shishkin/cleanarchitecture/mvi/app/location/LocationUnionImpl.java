@@ -29,7 +29,6 @@ import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 /**
@@ -103,7 +102,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
                     isGetLocation = false;
                     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-                            .addOnFailureListener(e -> ErrorSpecialistImpl.getInstance().onError(NAME, e));
+                            .addOnFailureListener(e -> SLUtil.onError(NAME, e));
 
                     if (mGeocoder == null) {
                         mGeocoder = new Geocoder(context, Locale.getDefault());
@@ -183,7 +182,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
                         location.getLongitude(),
                         cnt));
             } catch (Exception e) {
-                ErrorSpecialistImpl.getInstance().onError(NAME, SLUtil.getContext().getString(R.string.restart_location), true);
+                SLUtil.onError(NAME, SLUtil.getContext().getString(R.string.restart_location), true);
             }
         }
         return list;

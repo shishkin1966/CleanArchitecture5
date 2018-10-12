@@ -23,7 +23,6 @@ import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingPlayMusicEnabled;
 import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.observe.ScreenBroadcastReceiverObservable;
 
@@ -45,15 +44,15 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());
-        SL.getInstance().register(CacheSpecialistImpl.NAME);
-        SL.getInstance().register(NotificationSpecialistImpl.NAME);
-        SL.getInstance().register(LocationUnionImpl.NAME);
-        SL.getInstance().register(PreferencesSpecialistImpl.NAME);
-        SL.getInstance().register(NetProviderImpl.NAME);
-        SL.getInstance().register(NetCbProviderImpl.NAME);
-        SL.getInstance().register(JobSpecialistImpl.NAME);
-        SL.getInstance().register(MediaSpecialistImpl.NAME);
-        SL.getInstance().register(ScannerUnionImpl.NAME);
+        SLUtil.register(CacheSpecialistImpl.NAME);
+        SLUtil.register(NotificationSpecialistImpl.NAME);
+        SLUtil.register(LocationUnionImpl.NAME);
+        SLUtil.register(PreferencesSpecialistImpl.NAME);
+        SLUtil.register(NetProviderImpl.NAME);
+        SLUtil.register(NetCbProviderImpl.NAME);
+        SLUtil.register(JobSpecialistImpl.NAME);
+        SLUtil.register(MediaSpecialistImpl.NAME);
+        SLUtil.register(ScannerUnionImpl.NAME);
 
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
