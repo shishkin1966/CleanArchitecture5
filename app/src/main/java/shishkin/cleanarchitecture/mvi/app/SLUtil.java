@@ -4,6 +4,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 
+import shishkin.cleanarchitecture.mvi.app.idle.IdleSpecialist;
+import shishkin.cleanarchitecture.mvi.app.idle.IdleSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialist;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnion;
@@ -130,6 +132,10 @@ public class SLUtil {
 
     public static ScannerUnion getScannerUnion() {
         return SL.getInstance().get(ScannerUnionImpl.NAME);
+    }
+
+    public static IdleSpecialist getIdleSpecialist() {
+        return SL.getInstance().get(IdleSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {

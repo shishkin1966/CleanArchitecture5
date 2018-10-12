@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
+import shishkin.cleanarchitecture.mvi.app.idle.IdleSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialistImpl;
@@ -53,6 +54,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(JobSpecialistImpl.NAME);
         SLUtil.register(MediaSpecialistImpl.NAME);
         SLUtil.register(ScannerUnionImpl.NAME);
+        SLUtil.register(IdleSpecialistImpl.NAME);
 
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
