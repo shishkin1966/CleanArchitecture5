@@ -56,7 +56,7 @@ public class ScannerVisionFragment extends AbsContentFragment<ScannerVisionModel
 
         cameraSource = new CameraSource.Builder(SLUtil.getContext(), barcodeDetector)
                 .setRequestedFps(15.0f)
-                .setRequestedPreviewSize(960, 960)
+                .setRequestedPreviewSize(600, 600)
                 .setAutoFocusEnabled(true) //you should add this feature
                 .build();
 
