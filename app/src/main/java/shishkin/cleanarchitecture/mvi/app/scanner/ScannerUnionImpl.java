@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.scanner;
 
 import android.support.annotation.NonNull;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 
@@ -45,16 +46,14 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
     @Override
     public void handleResult(Result result) {
         String text = result.getText();
-        if (text.startsWith("ST00011|")) {
+        if (result.getBarcodeFormat() == BarcodeFormat.QR_CODE) {
             try {
-                text = new String(text.getBytes("ISO8859_1"), "cp1251");
-            } catch (Exception e) {
-                ErrorSpecialistImpl.getInstance().onError(NAME, e);
-            }
-        } else if (text.startsWith("ST00012|")) {
-        } else if (text.startsWith("ST00013|")) {
-            try {
-                text = new String(text.getBytes("ISO8859_1"), "KOI8-R");
+                if (text.startsWith("ST00011|")) {
+                    text = new String(text.getBytes("ISO8859_1"), "cp1251");
+                } else if (text.startsWith("ST00012|")) {
+                } else if (text.startsWith("ST00013|")) {
+                    text = new String(text.getBytes("ISO8859_1"), "KOI8-R");
+                }
             } catch (Exception e) {
                 ErrorSpecialistImpl.getInstance().onError(NAME, e);
             }
