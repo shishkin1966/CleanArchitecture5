@@ -69,7 +69,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
     @Override
     public void onFinish() {
         SLUtil.getJobSpecialist().cancel();
-        SLUtil.getNotificationSpecialist().clear();
         SLUtil.getCacheSpecialist().clear();
         SLUtil.getMediaSpecialist().release();
 
@@ -83,6 +82,9 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onResumeApplication() {
+        if (System.currentTimeMillis() - SLUtil.getIdleSpecialist().getCurrentTime() > SLUtil.getIdleSpecialist().getTimeout()) {
+            SLUtil.getIdleSpecialist().onUserInteraction();
+        }
         SLUtil.getLocationUnion().start();
     }
 

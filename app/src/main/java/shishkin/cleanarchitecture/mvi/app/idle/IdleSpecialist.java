@@ -19,4 +19,14 @@ public interface IdleSpecialist extends Specialist {
      * @param timeout таймоут
      */
     void setTimeout(final long timeout);
+
+    /**
+     * получить время таймаута
+     */
+    long getTimeout();
+
+    /**
+     * получить время последнего поьзовательского действия
+     */
+    long getCurrentTime();
 }

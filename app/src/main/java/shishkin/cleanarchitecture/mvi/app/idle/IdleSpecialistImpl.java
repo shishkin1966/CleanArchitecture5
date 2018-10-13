@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.TimeUnit;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.AutoCompleteHandler;
@@ -15,8 +17,9 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
 
     public static final String NAME = IdleSpecialistImpl.class.getName();
 
-    private long timeout = TimeUnit.MINUTES.toMillis(5);
+    private long timeout = TimeUnit.SECONDS.toMillis(30);
     private AutoCompleteHandler handler;
+    private long currentTime = System.currentTimeMillis();
 
     @Override
     public void onRegister() {
@@ -37,13 +40,26 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
     }
 
     @Override
+    public long getCurrentTime() {
+        return currentTime;
+    }
+
+    @Override
     public void onUserInteraction() {
-        handler.post(true);
+        if (System.currentTimeMillis() - currentTime > timeout) {
+            onShutdown(handler);
+        } else {
+            currentTime = System.currentTimeMillis();
+            handler.post(true);
+        }
     }
 
     @Override
     public void onShutdown(AutoCompleteHandler handler) {
-        ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().finish());
+        ApplicationUtils.runOnUiThread(() -> {
+            SLUtil.getNotificationSpecialist().replaceMessage(SLUtil.getContext().getString(R.string.app_name), SLUtil.getContext().getString(R.string.timeout_exit));
+            ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().finish());
+        });
     }
 
     @Override
@@ -51,6 +67,11 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
         if (timeout > 0) {
             handler.setShutdownTimeout(timeout);
         }
+    }
+
+    @Override
+    public long getTimeout() {
+        return timeout;
     }
 
 }
