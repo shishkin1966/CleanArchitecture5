@@ -70,6 +70,10 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
     }
 
     private void onScreenOn() {
+        if (System.currentTimeMillis() - SLUtil.getIdleSpecialist().getCurrentTime() > SLUtil.getIdleSpecialist().getTimeout()) {
+            SLUtil.getIdleSpecialist().onUserInteraction();
+        }
+
         SLUtil.getLocationUnion().start();
         SLUtil.getMediaSpecialist().resume();
     }
