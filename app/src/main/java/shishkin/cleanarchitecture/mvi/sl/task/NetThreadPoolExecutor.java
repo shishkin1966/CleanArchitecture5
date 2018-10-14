@@ -27,7 +27,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 @SuppressWarnings("unused")
-public class NetThreadPoolExecutor implements IExecutor, ObservableSubscriber<Intent> {
+public class NetThreadPoolExecutor implements RequestExecutor, ObservableSubscriber<Intent> {
 
     public static final String NAME = NetThreadPoolExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
@@ -117,10 +117,12 @@ public class NetThreadPoolExecutor implements IExecutor, ObservableSubscriber<In
         }
     }
 
+    @Override
     public void execute(final Request request) {
         mExecutor.addRequest(request);
     }
 
+    @Override
     public void shutdown() {
         mExecutor.shutdown();
 
@@ -131,10 +133,18 @@ public class NetThreadPoolExecutor implements IExecutor, ObservableSubscriber<In
     public void clear() {
     }
 
+    @Override
     public void cancelRequests(ResponseListener listener) {
         mExecutor.cancelRequests(listener);
     }
 
+    @Override
+    public void cancelRequests(ResponseListener listener, String taskName) {
+        mExecutor.cancelRequests(listener, taskName);
+    }
+
+
+    @Override
     public boolean isShutdown() {
         return mExecutor.isShutdown();
     }

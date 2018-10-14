@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
@@ -63,6 +64,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         }
     }
 
+    @Override
     public void clear() {
         mRequests.clear();
     }
@@ -75,6 +77,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         }
     }
 
+    @Override
     public void cancelRequests(ResponseListener listener) {
         if (listener == null) return;
 
@@ -90,6 +93,23 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         }
     }
 
+    @Override
+    public void cancelRequests(ResponseListener listener, String taskName) {
+        if (listener == null || StringUtils.isNullOrEmpty(taskName)) return;
+
+        checkNullRequest();
+
+        for (WeakReference<Request> ref : mRequests.values()) {
+            if (ResultRequest.class.isInstance(ref.get())) {
+                final ResultRequest request = SafeUtils.cast(ref.get());
+                if (request != null && request.validate() && request.getListener().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
+                    request.setCanceled();
+                }
+            }
+        }
+    }
+
+    @Override
     public void shutdown() {
         clear();
         shutdownNow();

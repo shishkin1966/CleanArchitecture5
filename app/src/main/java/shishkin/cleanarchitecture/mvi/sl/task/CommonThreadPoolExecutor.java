@@ -9,7 +9,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
-public class CommonThreadPoolExecutor implements IExecutor {
+public class CommonThreadPoolExecutor implements RequestExecutor {
 
     public static final String NAME = CommonThreadPoolExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
@@ -36,10 +36,12 @@ public class CommonThreadPoolExecutor implements IExecutor {
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
     }
 
+    @Override
     public void execute(final Request request) {
         mExecutor.addRequest(request);
     }
 
+    @Override
     public void shutdown() {
         mExecutor.shutdown();
     }
@@ -48,10 +50,17 @@ public class CommonThreadPoolExecutor implements IExecutor {
     public void clear() {
     }
 
+    @Override
     public void cancelRequests(ResponseListener listener) {
         mExecutor.cancelRequests(listener);
     }
 
+    @Override
+    public void cancelRequests(ResponseListener listener, String taskName) {
+        mExecutor.cancelRequests(listener, taskName);
+    }
+
+    @Override
     public boolean isShutdown() {
         return mExecutor.isShutdown();
     }
