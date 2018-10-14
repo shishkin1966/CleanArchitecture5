@@ -11,6 +11,8 @@ public interface IExecutor extends SenderDelegating {
 
     void cancelRequests(ResponseListener listener);
 
+    void cancelRequests(ResponseListener listener, String taskName);
+
     void shutdown();
 
     void clear();
