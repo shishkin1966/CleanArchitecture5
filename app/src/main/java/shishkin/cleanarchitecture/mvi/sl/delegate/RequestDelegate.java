@@ -1,15 +1,15 @@
 package shishkin.cleanarchitecture.mvi.sl.delegate;
 
-import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
+import shishkin.cleanarchitecture.mvi.sl.task.RequestExecutor;
 
 /**
  * Created by Shishkin on 13.03.2018.
  */
 
-public class RequestDelegate extends AbsSenderDelegate<IExecutor> {
+public class RequestDelegate extends AbsSenderDelegate<RequestExecutor> {
 
     @Override
-    public DelegatingFactory<IExecutor> getDelegateFactory() {
+    public DelegatingFactory<RequestExecutor> getDelegateFactory() {
         return new RequestDelegateFactory();
     }
 }
