@@ -6,6 +6,8 @@ import android.widget.CompoundButton;
 
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
@@ -15,11 +17,12 @@ import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
+import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
-public class SettingPresenter extends AbsPresenter<SettingModel> implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, DialogResultListener {
+public class SettingPresenter extends AbsPresenter<SettingModel> implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, DialogResultListener, Observer {
     public static final String NAME = SettingPresenter.class.getName();
 
     public SettingPresenter(SettingModel model) {
@@ -74,5 +77,17 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                 }
             }
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        final String value = (String) arg;
+        EditTextObservable observable = (EditTextObservable) o;
+        final Setting setting = (Setting) observable.getView().getTag();
+        if (setting != null) {
+            setting.setCurrentValue(value);
+            SettingFactory.setApplicationSetting(setting);
+        }
+
     }
 }

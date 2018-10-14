@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;

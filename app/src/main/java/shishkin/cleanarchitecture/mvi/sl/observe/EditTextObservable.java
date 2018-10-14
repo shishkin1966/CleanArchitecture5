@@ -57,4 +57,8 @@ public class EditTextObservable extends Observable implements TextWatcher {
         mDebouce.finish();
     }
 
+    public EditText getView() {
+        return mEditText;
+    }
+
 }
