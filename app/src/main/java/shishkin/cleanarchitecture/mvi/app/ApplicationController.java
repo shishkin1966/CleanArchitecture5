@@ -7,22 +7,22 @@ import android.content.Intent;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
-import shishkin.cleanarchitecture.mvi.app.idle.IdleSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.job.JobSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.location.LocationUnionImpl;
-import shishkin.cleanarchitecture.mvi.app.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetCbProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
-import shishkin.cleanarchitecture.mvi.app.notification.NotificationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.observe.DbObservable;
 import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
-import shishkin.cleanarchitecture.mvi.app.preference.PreferencesSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingPlayMusicEnabled;
-import shishkin.cleanarchitecture.mvi.app.storage.CacheSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.setting.Setting;
+import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
+import shishkin.cleanarchitecture.mvi.app.setting.SettingPlayMusicEnabled;
+import shishkin.cleanarchitecture.mvi.app.specialist.idle.IdleSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.media.MediaSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.preference.PreferencesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.observe.ScreenBroadcastReceiverObservable;
@@ -59,7 +59,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
 
-        final ApplicationSetting setting = ApplicationSettingFactory.getApplicationSetting(ApplicationSettingPlayMusicEnabled.NAME);
+        final Setting setting = SettingFactory.getApplicationSetting(SettingPlayMusicEnabled.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase("true")) {
             SLUtil.getMediaSpecialist().play(R.raw.music);
         }

@@ -15,6 +15,7 @@ import java.util.LinkedList;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.data.Currency;
 import shishkin.cleanarchitecture.mvi.common.RippleTextView;

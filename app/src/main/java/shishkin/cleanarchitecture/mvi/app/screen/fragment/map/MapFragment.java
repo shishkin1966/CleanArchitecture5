@@ -16,10 +16,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
+import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 @SuppressWarnings("unused")
-public class MapFragment extends AbsFragment<MapModel> implements MapView {
+public class MapFragment extends AbsContentFragment<MapModel> implements MapView {
 
     public static final String NAME = MapFragment.class.getName();
 
@@ -70,5 +70,6 @@ public class MapFragment extends AbsFragment<MapModel> implements MapView {
             startMap();
         }
     }
+
 }
 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingFactory;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSettingOrientation;
+import shishkin.cleanarchitecture.mvi.app.setting.Setting;
+import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
+import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
@@ -38,22 +38,22 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onStart() {
-        getModel().getView().refreshViews(ApplicationSettingFactory.getApplicationSettings());
+        getModel().getView().refreshViews(SettingFactory.getApplicationSettings());
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        final ApplicationSetting setting = (ApplicationSetting) buttonView.getTag();
+        final Setting setting = (Setting) buttonView.getTag();
         if (setting != null) {
             setting.setCurrentValue(String.valueOf(isChecked));
 
-            ApplicationSettingFactory.setApplicationSetting(setting);
+            SettingFactory.setApplicationSetting(setting);
         }
     }
 
     @Override
     public void onClick(View v) {
-        final ApplicationSetting setting = (ApplicationSetting) v.getTag();
+        final Setting setting = (Setting) v.getTag();
         if (setting != null) {
             SLUtil.getActivityUnion().showListDialog(new ShowListDialogEvent(setting.getId(), getName(), setting.getTitle(), null, setting.getValues(), MaterialDialogExt.NO_BUTTON, MaterialDialogExt.NO_BUTTON, true));
         }
@@ -67,10 +67,10 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                 final ArrayList<String> list = bundle.getStringArrayList("list");
                 if (list != null && list.size() == 1) {
                     final String currentValue = list.get(0);
-                    final ApplicationSetting setting = ApplicationSettingFactory.getApplicationSetting(ApplicationSettingOrientation.NAME);
+                    final Setting setting = SettingFactory.getApplicationSetting(SettingOrientation.NAME);
                     setting.setCurrentValue(currentValue);
-                    ApplicationSettingFactory.setApplicationSetting(setting);
-                    getModel().getView().refreshViews(ApplicationSettingFactory.getApplicationSettings());
+                    SettingFactory.setApplicationSetting(setting);
+                    getModel().getView().refreshViews(SettingFactory.getApplicationSettings());
                 }
             }
         }
