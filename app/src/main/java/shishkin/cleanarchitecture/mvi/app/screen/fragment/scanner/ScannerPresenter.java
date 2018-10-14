@@ -11,8 +11,8 @@ import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.scanner.ScannerSubscriber;
-import shishkin.cleanarchitecture.mvi.app.scanner.ScannerUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerSubscriber;
+import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.viewdata.ScannerViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;

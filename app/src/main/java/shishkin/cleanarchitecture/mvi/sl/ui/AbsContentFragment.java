@@ -21,11 +21,6 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 public abstract class AbsContentFragment<M extends AbsModel> extends AbsFragment<M> implements
         OnBackPressListener {
 
-    @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     /**
      * @return true if fragment itself or its children correctly handle back press event.
      */

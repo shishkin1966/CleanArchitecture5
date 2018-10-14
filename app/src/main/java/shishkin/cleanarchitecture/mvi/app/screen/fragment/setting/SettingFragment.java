@@ -14,7 +14,8 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.setting.ApplicationSetting;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -41,27 +42,27 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
     }
 
     @Override
-    public void refreshViews(List<ApplicationSetting> settings) {
+    public void refreshViews(List<Setting> settings) {
         mLinearLayout.removeAllViews();
 
-        for (ApplicationSetting setting : settings) {
+        for (Setting setting : settings) {
             generateInfoItem(mLinearLayout, setting);
         }
     }
 
-    private void generateInfoItem(final ViewGroup parent, final ApplicationSetting setting) {
+    private void generateInfoItem(final ViewGroup parent, final Setting setting) {
         View v = null;
         TextView titleView;
         String currentValue;
 
         switch (setting.getType()) {
-            case ApplicationSetting.TYPE_TEXT:
+            case Setting.TYPE_TEXT:
                 v = getLayoutInflater().inflate(R.layout.setting_item_text, parent, false);
                 titleView = ViewUtils.findView(v, R.id.item_title);
                 titleView.setText(setting.getTitle());
                 break;
 
-            case ApplicationSetting.TYPE_SWITCH:
+            case Setting.TYPE_SWITCH:
                 v = getLayoutInflater().inflate(R.layout.setting_item_switch, parent, false);
                 titleView = ViewUtils.findView(v, R.id.item_title);
                 titleView.setText(setting.getTitle());
@@ -73,7 +74,7 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
                 valueView.setOnCheckedChangeListener(getModel().getPresenter());
                 break;
 
-            case ApplicationSetting.TYPE_LIST:
+            case Setting.TYPE_LIST:
                 v = getLayoutInflater().inflate(R.layout.setting_item_list, parent, false);
                 ViewUtils.findView(v, R.id.ll).setTag(setting);
                 ViewUtils.findView(v, R.id.ll).setOnClickListener(getModel().getPresenter());
