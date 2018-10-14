@@ -27,29 +27,29 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 @SuppressWarnings("unused")
-public class NetThreadPoolExecutor implements RequestExecutor, ObservableSubscriber<Intent> {
+public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent> {
 
-    public static final String NAME = NetThreadPoolExecutor.class.getName();
+    public static final String NAME = NetExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
     private int mThreadCount = 2;
     private int mMaxThreadCount = 2;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
-    private static volatile NetThreadPoolExecutor sInstance;
+    private static volatile NetExecutor sInstance;
 
-    public static NetThreadPoolExecutor getInstance() {
+    public static NetExecutor getInstance() {
         if (sInstance == null) {
-            synchronized (NetThreadPoolExecutor.class) {
+            synchronized (NetExecutor.class) {
                 if (sInstance == null) {
-                    sInstance = new NetThreadPoolExecutor();
+                    sInstance = new NetExecutor();
                 }
             }
         }
         return sInstance;
     }
 
-    private NetThreadPoolExecutor() {
+    private NetExecutor() {
         setThreadCount(Connectivity.getActiveNetworkInfo(ApplicationSpecialistImpl.getInstance()));
 
         final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);

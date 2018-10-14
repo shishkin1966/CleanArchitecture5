@@ -10,29 +10,29 @@ import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 @SuppressWarnings("unused")
-public class DbThreadPoolExecutor implements RequestExecutor {
+public class DbExecutor implements RequestExecutor {
 
-    public static final String NAME = DbThreadPoolExecutor.class.getName();
+    public static final String NAME = DbExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
     private int mThreadCount = 4;
     private int mMaxThreadCount = 4;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
-    private static volatile DbThreadPoolExecutor sInstance;
+    private static volatile DbExecutor sInstance;
 
-    public static DbThreadPoolExecutor getInstance() {
+    public static DbExecutor getInstance() {
         if (sInstance == null) {
-            synchronized (DbThreadPoolExecutor.class) {
+            synchronized (DbExecutor.class) {
                 if (sInstance == null) {
-                    sInstance = new DbThreadPoolExecutor();
+                    sInstance = new DbExecutor();
                 }
             }
         }
         return sInstance;
     }
 
-    private DbThreadPoolExecutor() {
+    private DbExecutor() {
         final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
     }

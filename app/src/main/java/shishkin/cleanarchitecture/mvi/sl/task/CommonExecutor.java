@@ -9,29 +9,29 @@ import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
-public class CommonThreadPoolExecutor implements RequestExecutor {
+public class CommonExecutor implements RequestExecutor {
 
-    public static final String NAME = CommonThreadPoolExecutor.class.getName();
+    public static final String NAME = CommonExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
     private int mThreadCount = 4;
     private int mMaxThreadCount = 4;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
-    private static volatile CommonThreadPoolExecutor sInstance;
+    private static volatile CommonExecutor sInstance;
 
-    public static CommonThreadPoolExecutor getInstance() {
+    public static CommonExecutor getInstance() {
         if (sInstance == null) {
-            synchronized (CommonThreadPoolExecutor.class) {
+            synchronized (CommonExecutor.class) {
                 if (sInstance == null) {
-                    sInstance = new CommonThreadPoolExecutor();
+                    sInstance = new CommonExecutor();
                 }
             }
         }
         return sInstance;
     }
 
-    private CommonThreadPoolExecutor() {
+    private CommonExecutor() {
         final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
     }
