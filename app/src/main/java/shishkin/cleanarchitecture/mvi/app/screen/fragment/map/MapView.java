@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.map;
 
+import shishkin.cleanarchitecture.mvi.app.viewdata.MapViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
@@ -7,4 +8,5 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface MapView extends IFragment {
+    void refreshViews(MapViewData viewData);
 }

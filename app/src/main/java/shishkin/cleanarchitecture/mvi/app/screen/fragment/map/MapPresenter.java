@@ -13,13 +13,12 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
+import shishkin.cleanarchitecture.mvi.app.viewdata.MapViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 
 /**
@@ -32,6 +31,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
 
     private GoogleMap googleMap;
     private boolean isInit = false;
+    private MapViewData viewData;
 
     public MapPresenter(MapModel model) {
         super(model);
@@ -49,6 +49,9 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
 
     @Override
     public void onStart() {
+        if (viewData == null) {
+            viewData = new MapViewData();
+        }
         if (!SLUtil.getActivityUnion().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             SLUtil.getActivityUnion().grantPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
@@ -90,10 +93,10 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
                         sb.append("\n");
                     }
                 }
-                SLUtil.getNotificationSpecialist().replaceMessage(ApplicationSpecialistImpl.getInstance().getString(R.string.location), sb.toString());
+                viewData.setAddress(sb.toString());
+                getModel().getView().refreshViews(viewData);
             }
         }
-
     }
 
     @Override

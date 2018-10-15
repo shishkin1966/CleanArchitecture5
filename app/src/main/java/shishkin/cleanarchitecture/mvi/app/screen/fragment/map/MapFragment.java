@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.viewdata.MapViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -71,5 +73,9 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
         }
     }
 
+    @Override
+    public void refreshViews(MapViewData viewData) {
+        ((TextView) findView(R.id.name)).setText(viewData.getAddress());
+    }
 }
 
