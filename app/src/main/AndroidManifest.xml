@@ -30,7 +30,8 @@
             android:name="io.fabric.ApiKey"
             android:value="281db83fe0120557c58a812c0a71219bcc6acc5f" />
 
-        <activity android:name=".app.screen.activity.main.MainActivity">
+        <activity android:name=".app.screen.activity.main.MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

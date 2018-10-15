@@ -113,8 +113,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
             } else if (AccountObserver.ACTION_CLICK.equalsIgnoreCase(action)) {
                 getModel().getRouter().showMainFragment();
             }
-        } else {
-            getModel().getRouter().showMainFragment();
+            mIntent = null;
         }
     }
 
