@@ -25,7 +25,7 @@ import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCallback, LocationSubscriber {
+public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCallback, LocationSubscriber, GoogleMap.OnMyLocationButtonClickListener {
 
     public static final String NAME = MapPresenter.class.getName();
 
@@ -65,7 +65,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
             this.googleMap.setTrafficEnabled(true);
             this.googleMap.setMyLocationEnabled(true);
             this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
+            this.googleMap.setOnMyLocationButtonClickListener(this);
             setLocation(SLUtil.getLocationUnion().getLocation());
         }
     }
@@ -106,5 +106,10 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
                 LocationUnionImpl.NAME);
     }
 
+    @Override
+    public boolean onMyLocationButtonClick() {
+        getModel().getView().getRootView().post(() -> setLocation(SLUtil.getLocationUnion().getLocation()));
+        return false;
+    }
 }
 
