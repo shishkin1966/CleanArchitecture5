@@ -141,6 +141,9 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
     @Override
     public Location getLocation() {
+        if (mLocation == null) {
+            start();
+        }
         return mLocation;
     }
 
