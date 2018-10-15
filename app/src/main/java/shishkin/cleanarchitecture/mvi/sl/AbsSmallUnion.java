@@ -1,9 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -17,15 +14,7 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
 
     private static final String NAME = AbsSmallUnion.class.getName();
 
-    private Secretary<WeakReference<T>> mSecretary = new Secretary();
-
-    private void checkNullSubscriber() {
-        for (Map.Entry<String, WeakReference<T>> entry : mSecretary.entrySet()) {
-            if (entry.getValue() == null || entry.getValue().get() == null) {
-                mSecretary.remove(entry.getKey());
-            }
-        }
-    }
+    private Secretary<T> mSecretary = new RefSecretaryImpl();
 
     @Override
     public void register(final T subscriber) {
@@ -37,11 +26,9 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
             ErrorSpecialistImpl.getInstance().onError(NAME, "Registration not valid subscriber: " + subscriber.toString(), false);
         }
 
-        checkNullSubscriber();
-
         final int cnt = mSecretary.size();
 
-        mSecretary.put(subscriber.getName(), new WeakReference<>(subscriber));
+        mSecretary.put(subscriber.getName(), subscriber);
 
         if (cnt == 0 && mSecretary.size() == 1) {
             onRegisterFirstSubscriber();
@@ -55,11 +42,9 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
             return;
         }
 
-        checkNullSubscriber();
-
         final int cnt = mSecretary.size();
         if (mSecretary.containsKey(subscriber.getName())) {
-            if (subscriber.equals(mSecretary.get(subscriber.getName()).get())) {
+            if (subscriber.equals(mSecretary.get(subscriber.getName()))) {
                 mSecretary.remove(subscriber.getName());
             }
         }
@@ -82,29 +67,23 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     }
 
     @Override
-    public List<WeakReference<T>> getSubscribers() {
-        checkNullSubscriber();
-
-        return new ArrayList<>(mSecretary.values());
+    public List<T> getSubscribers() {
+        return mSecretary.values();
     }
 
     @Override
     public T getSubscriber(final String name) {
-        checkNullSubscriber();
-
         if (StringUtils.isNullOrEmpty(name)) return null;
 
         if (!mSecretary.containsKey(name)) {
             return null;
         }
 
-        return mSecretary.get(name).get();
+        return mSecretary.get(name);
     }
 
     @Override
     public boolean hasSubscribers() {
-        checkNullSubscriber();
-
         return (!mSecretary.isEmpty());
     }
 

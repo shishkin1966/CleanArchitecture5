@@ -16,7 +16,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -131,9 +130,9 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
         if (location != null) {
             ApplicationUtils.runOnUiThread(() -> {
-                for (WeakReference<LocationSubscriber> ref : getSubscribers()) {
-                    if (ref != null && ref.get() != null && ref.get().validate()) {
-                        ref.get().setLocation(mLocation);
+                for (LocationSubscriber subscriber : getSubscribers()) {
+                    if (subscriber.validate()) {
+                        subscriber.setLocation(mLocation);
                     }
                 }
             });

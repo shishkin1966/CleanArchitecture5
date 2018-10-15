@@ -57,19 +57,19 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
     }
 
     private T getAnySubscriber() {
-        final List<WeakReference<T>> list = getSubscribers();
+        final List<T> list = getSubscribers();
         if (!list.isEmpty()) {
             if (list.size() == 1) {
-                return list.get(0).get();
+                return list.get(0);
             }
 
-            for (WeakReference<T> ref : list) {
-                if (ref.get() != null && ref.get().validate()) {
-                    return ref.get();
+            for (T subscriber : list) {
+                if (subscriber.validate()) {
+                    return subscriber;
                 }
             }
 
-            return list.get(0).get();
+            return list.get(0);
         } else {
             ErrorSpecialistImpl.getInstance().onError(getName(), "Subscribers not found", false);
         }

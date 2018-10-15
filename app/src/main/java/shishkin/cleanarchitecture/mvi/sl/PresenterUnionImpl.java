@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 
-import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,8 +40,8 @@ public class PresenterUnionImpl extends AbsUnion<Presenter>
 
     @Override
     public void onFinishApplication() {
-        for (WeakReference<Presenter> ref : getSubscribers()) {
-            unregister(ref.get());
+        for (Presenter presenter : getSubscribers()) {
+            unregister(presenter);
         }
     }
 

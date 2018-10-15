@@ -6,9 +6,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 
-import java.lang.ref.WeakReference;
-
-
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
@@ -57,9 +54,9 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
                 SLUtil.onError(NAME, e);
             }
         }
-        for (WeakReference<ScannerSubscriber> ref : getSubscribers()) {
-            if (ref != null && ref.get() != null && ref.get().validate()) {
-                ref.get().onScan(text);
+        for (ScannerSubscriber subscriber : getSubscribers()) {
+            if (subscriber.validate()) {
+                subscriber.onScan(text);
             }
         }
     }

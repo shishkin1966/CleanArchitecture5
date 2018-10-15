@@ -3,7 +3,6 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.support.annotation.NonNull;
 
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -108,9 +107,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             return;
         }
 
-        List<WeakReference<MailSubscriber>> list = getSubscribers();
-        for (WeakReference<MailSubscriber> reference : list) {
-            final MailSubscriber subscriber = reference.get();
+        for (MailSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
                 if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
                     readMail(subscriber);
