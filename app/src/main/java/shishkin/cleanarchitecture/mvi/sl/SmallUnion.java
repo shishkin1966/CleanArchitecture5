@@ -1,7 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 
@@ -32,7 +31,7 @@ public interface SmallUnion<T> extends Specialist {
      *
      * @return список подписчиков
      */
-    List<WeakReference<T>> getSubscribers();
+    List<T> getSubscribers();
 
     /**
      * Проверить наличие подписчиков

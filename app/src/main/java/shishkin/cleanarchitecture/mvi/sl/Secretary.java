@@ -1,47 +1,20 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
-/**
- * Секретарь - ведет учет своих сотрудников
- */
-public class Secretary<T> {
+public interface Secretary<T> {
 
-    private Map<String, T> mSubscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    T remove(String key);
 
-    public Set<Map.Entry<String, T>> entrySet() {
-        return mSubscribers.entrySet();
-    }
+    int size();
 
-    public T remove(String key) {
-        return mSubscribers.remove(key);
-    }
+    T put(String key, T value);
 
-    public int size() {
-        return mSubscribers.size();
-    }
+    boolean containsKey(String key);
 
-    public T put(String key, T value) {
-        return mSubscribers.put(key, value);
-    }
+    T get(String key);
 
-    public boolean containsKey(String key) {
-        return mSubscribers.containsKey(key);
-    }
+    List<T> values();
 
-    public T get(String key) {
-        return mSubscribers.get(key);
-    }
-
-    public Collection<T> values() {
-        return mSubscribers.values();
-    }
-
-    public boolean isEmpty() {
-        return mSubscribers.isEmpty();
-    }
+    boolean isEmpty();
 }

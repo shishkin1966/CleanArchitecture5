@@ -14,7 +14,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
     private static final String NAME = AbsServiceLocator.class.getName();
 
-    private Secretary<Specialist> mSecretary = new Secretary();
+    private Secretary<Specialist> mSecretary = new SecretaryImpl<>();
 
     public String getShortName(final String name) {
         return StringUtils.last(name, "\\.");
