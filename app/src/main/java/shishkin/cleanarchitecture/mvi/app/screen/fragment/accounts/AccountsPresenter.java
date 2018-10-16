@@ -146,8 +146,13 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         }
         getModel().getView().refreshViews(accountsViewData);
         getData();
+    }
 
-        if (!SLUtil.getActivityUnion().checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+    @Override
+    public void onResumeView() {
+        super.onResumeView();
+
+        if (!ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             SLUtil.getActivityUnion().grantPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
