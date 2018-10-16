@@ -4,13 +4,12 @@ import android.Manifest;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-
 import com.github.snowdream.android.util.FilePathGenerator;
+import com.github.snowdream.android.util.Log;
 
 
 import java.io.File;
 
-import com.github.snowdream.android.util.Log;
 
 import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
