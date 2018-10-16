@@ -2,14 +2,17 @@ package shishkin.cleanarchitecture.mvi.sl;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
-import com.crashlytics.android.Crashlytics;
 
 
-import io.fabric.sdk.android.Fabric;
+import java.io.File;
+
+
+import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 
@@ -28,8 +31,6 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Fabric.with(this, new Crashlytics());
 
         start();
     }
@@ -147,6 +148,17 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     @Override
     public void onRegister() {
     }
+
+    @Override
+    public String getDataPath() {
+        return getFilesDir().getAbsolutePath() + File.separator;
+    }
+
+    @Override
+    public String getExternalDataPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + BuildConfig.APPLICATION_ID + File.separator;
+    }
+
 }
 
 

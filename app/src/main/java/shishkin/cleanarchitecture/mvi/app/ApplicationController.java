@@ -59,7 +59,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
 
-        final Setting setting = SettingFactory.getApplicationSetting(SettingPlayMusicEnabled.NAME);
+        final Setting setting = SettingFactory.getSetting(SettingPlayMusicEnabled.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase("true")) {
             SLUtil.getMediaSpecialist().play(R.raw.music);
         }
