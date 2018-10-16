@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.viewdata;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.map;
 
 import android.os.Parcel;
 import android.os.Parcelable;

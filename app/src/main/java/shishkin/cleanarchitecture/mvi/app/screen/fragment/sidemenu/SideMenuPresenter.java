@@ -11,7 +11,6 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.screen.activity.main.MainPresenter;
-import shishkin.cleanarchitecture.mvi.app.viewdata.SideMenuViewData;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 
 public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements AccountsBalanceListener, View.OnClickListener {
