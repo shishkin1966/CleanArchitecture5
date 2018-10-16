@@ -35,9 +35,15 @@ public class BaseSnackbar {
         params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
         snackbarView.setLayoutParams(params);
         final TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        final TextView actionView = snackbarView.findViewById(android.support.design.R.id.snackbar_action);
         textView.setTextColor(ViewUtils.getColor(view.getContext(), R.color.white));
-        if (ViewUtils.diagonalInch(view.getContext()) < 5) {
+        final double diagonal = ViewUtils.diagonalInch(view.getContext());
+        if (diagonal < 5) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size));
+            actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size));
+        } else if (diagonal > 6.5) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));
+            actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));
         }
         if (ApplicationUtils.hasJellyBeanMR1()) {
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
