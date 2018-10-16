@@ -52,7 +52,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
         setContentView(R.layout.activity_main);
 
-        final Setting setting = SettingFactory.getApplicationSetting(SettingOrientation.NAME);
+        final Setting setting = SettingFactory.getSetting(SettingOrientation.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_portrait))) {
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_landscape))) {

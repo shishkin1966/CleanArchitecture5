@@ -53,27 +53,6 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
         if (mCurrentSubscriber != null && mCurrentSubscriber.get() != null) {
             return mCurrentSubscriber.get();
         }
-        return getAnySubscriber();
-    }
-
-    private T getAnySubscriber() {
-        final List<T> list = getSubscribers();
-        if (!list.isEmpty()) {
-            if (list.size() == 1) {
-                return list.get(0);
-            }
-
-            for (T subscriber : list) {
-                if (subscriber.validate()) {
-                    return subscriber;
-                }
-            }
-
-            return list.get(0);
-        } else {
-            ErrorSpecialistImpl.getInstance().onError(getName(), "Subscribers not found", false);
-        }
         return null;
     }
-
 }

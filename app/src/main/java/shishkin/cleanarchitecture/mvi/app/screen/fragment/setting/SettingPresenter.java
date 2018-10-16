@@ -41,7 +41,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onStart() {
-        getModel().getView().refreshViews(SettingFactory.getApplicationSettings());
+        getModel().getView().refreshViews(SettingFactory.getSettings());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
         if (setting != null) {
             setting.setCurrentValue(String.valueOf(isChecked));
 
-            SettingFactory.setApplicationSetting(setting);
+            SettingFactory.setSetting(setting);
         }
     }
 
@@ -64,16 +64,16 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onDialogResult(DialogResultEvent event) {
-        if (event.getId() == ApplicationConstant.APPLICATION_SETTING_ORIENTATION) {
+        if (event.getId() == ApplicationConstant.SETTING_ORIENTATION) {
             final Bundle bundle = event.getResult();
             if (MaterialDialogExt.POSITIVE.equals(bundle.getString(MaterialDialogExt.BUTTON))) {
                 final ArrayList<String> list = bundle.getStringArrayList("list");
                 if (list != null && list.size() == 1) {
                     final String currentValue = list.get(0);
-                    final Setting setting = SettingFactory.getApplicationSetting(SettingOrientation.NAME);
+                    final Setting setting = SettingFactory.getSetting(SettingOrientation.NAME);
                     setting.setCurrentValue(currentValue);
-                    SettingFactory.setApplicationSetting(setting);
-                    getModel().getView().refreshViews(SettingFactory.getApplicationSettings());
+                    SettingFactory.setSetting(setting);
+                    getModel().getView().refreshViews(SettingFactory.getSettings());
                 }
             }
         }
@@ -86,7 +86,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
         final Setting setting = (Setting) observable.getView().getTag();
         if (setting != null) {
             setting.setCurrentValue(value);
-            SettingFactory.setApplicationSetting(setting);
+            SettingFactory.setSetting(setting);
         }
 
     }

@@ -1,9 +1,16 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
+import android.Manifest;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
+
+import com.github.snowdream.android.util.FilePathGenerator;
+
+
+import java.io.File;
+
+import com.github.snowdream.android.util.Log;
 
 import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -14,7 +21,9 @@ import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
  * Интерфейс специалиста обработки ошибок
  */
 public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialist {
+
     public static final String NAME = ErrorSpecialist.class.getName();
+    private static final long MAX_LOG_LENGTH = 2000000;//2Mb
 
     private static volatile ErrorSpecialist sInstance;
 
@@ -30,6 +39,54 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     }
 
     private ErrorSpecialistImpl() {
+        try {
+            Log.setEnabled(true);
+            Log.setLog2FileEnabled(true);
+            String path;
+            if (BuildConfig.DEBUG && ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                path = ApplicationSpecialistImpl.getInstance().getExternalDataPath();
+            } else {
+                path = ApplicationSpecialistImpl.getInstance().getDataPath();
+            }
+            final File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            if (file.exists()) {
+                Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator(path,
+                        StringUtils.replace(BuildConfig.APPLICATION_ID, ".", "_"), ".log"));
+                checkLogSize();
+            } else {
+                Log.setEnabled(false);
+            }
+        } catch (Exception e) {
+            Log.setEnabled(false);
+        }
+
+    }
+
+    private void checkLogSize() {
+        final String path = Log.getPath();
+
+        try {
+            final File file = new File(path);
+            if (file.exists()) {
+                if (file.length() == 0) {
+                    Log.i(ApplicationUtils.getPhoneInfo());
+                }
+
+                if (file.length() > MAX_LOG_LENGTH) {
+                    final String new_path = path + ".1";
+                    final File new_file = new File(new_path);
+                    if (new_file.exists()) {
+                        new_file.delete();
+                    }
+                    file.renameTo(new_file);
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e(NAME, e.getMessage());
+        }
     }
 
     @Override

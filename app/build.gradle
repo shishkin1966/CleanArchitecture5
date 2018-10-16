@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 def supportLibVersion = "27.1.1"
 def compileSdk = 27
@@ -130,10 +129,6 @@ dependencies {
     // диалоги
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
-    }
-
     // Expandable Layout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
@@ -142,4 +137,8 @@ dependencies {
 
     // Scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+
+    // логирование приложениия
+    implementation 'com.github.snowdream.android.util:log:1.2.0'
+
 }

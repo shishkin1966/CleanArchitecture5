@@ -14,7 +14,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 
 public class SettingOrientation extends Setting {
 
-    public static final String NAME = "ApplicationSettingOrientation";
+    public static final String NAME = "SettingOrientation";
 
     public SettingOrientation() {
         super(Setting.TYPE_LIST);
@@ -27,7 +27,7 @@ public class SettingOrientation extends Setting {
 
         setName(NAME);
         setTitle(SLUtil.getContext().getString(R.string.settings_orientattion));
-        setId(ApplicationConstant.APPLICATION_SETTING_ORIENTATION);
+        setId(ApplicationConstant.SETTING_ORIENTATION);
         setValues(arrayList);
         setCurrentValue(currentValue);
     }

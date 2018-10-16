@@ -71,4 +71,19 @@ public interface ApplicationSpecialist extends Specialist {
      * Флаг - приложение находится в Background
      */
     boolean isInBackground();
+
+    /**
+     * Получить путь хранения данных на SDCard
+     *
+     * @return путь хранения данных на SDCard
+     */
+    String getExternalDataPath();
+
+    /**
+     * Получить путь хранения данных
+     *
+     * @return путь хранения данных
+     */
+    String getDataPath();
+
 }

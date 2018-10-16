@@ -14,39 +14,39 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 public class SettingFactory {
 
-    public static List<Setting> getApplicationSettings() {
+    public static List<Setting> getSettings() {
         final List<Setting> list = new ArrayList<>();
 
         final Setting setting = new Setting(Setting.TYPE_TEXT)
                 .setTitle(SLUtil.getContext().getString(R.string.setting));
         list.add(setting);
 
-        list.add(getApplicationSetting(SettingPlayMusicEnabled.NAME));
-        list.add(getApplicationSetting(SettingOrientation.NAME));
+        list.add(getSetting(SettingPlayMusicEnabled.NAME));
+        list.add(getSetting(SettingOrientation.NAME));
 
         return list;
     }
 
-    public static void setApplicationSetting(Setting setting) {
+    public static void setSetting(Setting setting) {
         if (setting == null) return;
 
         SLUtil.getPreferencesSpecialist().putString(setting.getName(), setting.toJson());
     }
 
-    public static Setting getApplicationSetting(final String name) {
+    public static Setting getSetting(final String name) {
         final String s = SLUtil.getPreferencesSpecialist().getString(name, null);
         if (!StringUtils.isNullOrEmpty(s)) {
             return Setting.fromJson(s, Setting.class);
         } else {
             switch (name) {
                 case SettingPlayMusicEnabled.NAME:
-                    final SettingPlayMusicEnabled applicationSettingPlayMusicEnabled = new SettingPlayMusicEnabled();
-                    setApplicationSetting(applicationSettingPlayMusicEnabled);
-                    return applicationSettingPlayMusicEnabled;
+                    final SettingPlayMusicEnabled settingPlayMusicEnabled = new SettingPlayMusicEnabled();
+                    setSetting(settingPlayMusicEnabled);
+                    return settingPlayMusicEnabled;
                 case SettingOrientation.NAME:
-                    final SettingOrientation applicationSettingOrientation = new SettingOrientation();
-                    setApplicationSetting(applicationSettingOrientation);
-                    return applicationSettingOrientation;
+                    final SettingOrientation settingOrientation = new SettingOrientation();
+                    setSetting(settingOrientation);
+                    return settingOrientation;
             }
         }
         return null;

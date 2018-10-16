@@ -10,7 +10,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 
 public class SettingPlayMusicEnabled extends Setting {
 
-    public static final String NAME = "ApplicationSettingPlayMusicEnabled";
+    public static final String NAME = "SettingPlayMusicEnabled";
 
     public SettingPlayMusicEnabled() {
         super(Setting.TYPE_SWITCH);
@@ -18,6 +18,6 @@ public class SettingPlayMusicEnabled extends Setting {
         setName(NAME);
         setTitle(SLUtil.getContext().getString(R.string.settings_show_screenshot));
         setCurrentValue("true");
-        setId(ApplicationConstant.APPLICATION_SETTING_PLAY_MUSIC_ENABLED);
+        setId(ApplicationConstant.SETTING_PLAY_MUSIC_ENABLED);
     }
 }
