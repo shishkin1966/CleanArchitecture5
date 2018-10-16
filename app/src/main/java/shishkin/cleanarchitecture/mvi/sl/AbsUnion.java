@@ -2,7 +2,6 @@ package shishkin.cleanarchitecture.mvi.sl;
 
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * Абстрактное объединение
