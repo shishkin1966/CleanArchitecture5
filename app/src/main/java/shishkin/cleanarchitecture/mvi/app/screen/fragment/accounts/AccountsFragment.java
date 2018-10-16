@@ -22,7 +22,6 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
-import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
 import shishkin.cleanarchitecture.mvi.common.OnSwipeTouchListener;
 import shishkin.cleanarchitecture.mvi.common.RippleTextView;

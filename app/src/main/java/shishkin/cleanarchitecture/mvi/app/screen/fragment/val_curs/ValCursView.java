@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
-import shishkin.cleanarchitecture.mvi.app.viewdata.ValCursViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**

@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;
 import shishkin.cleanarchitecture.mvi.app.repository.Repository;
-import shishkin.cleanarchitecture.mvi.app.viewdata.ValCursViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;

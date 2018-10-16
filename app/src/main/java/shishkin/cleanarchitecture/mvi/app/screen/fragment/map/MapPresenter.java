@@ -16,7 +16,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
-import shishkin.cleanarchitecture.mvi.app.viewdata.MapViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;

@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
-import shishkin.cleanarchitecture.mvi.app.viewdata.AccountsViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**

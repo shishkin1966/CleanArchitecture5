@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.map;
 
-import shishkin.cleanarchitecture.mvi.app.viewdata.MapViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
