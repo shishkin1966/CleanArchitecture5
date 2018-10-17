@@ -33,7 +33,7 @@ Clean Architecture version 5
 Наследником интерфейса Specialist является интерфейс SmallUnion, имеющий методы:
 - void register(T subscriber) – зарегистрировать подписчика
 - void unregister(T subscriber) – отписать подписчика
-- Map<String, WeakReference<T>> getSubscribers() - получить список подписчиков
+- List<T> getSubscribers() - получить список подписчиков
 - boolean hasSubscribers() - проверить наличие подписчиков
 - T getSubscriber(String name) – получить подписчика по его имени. 
 - Result<Boolean> validate(String name) - проверить подписчика
