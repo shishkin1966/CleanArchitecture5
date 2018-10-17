@@ -51,6 +51,7 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
         findView(R.id.setting).setOnClickListener(getModel().getPresenter());
         findView(R.id.accounts).setOnClickListener(getModel().getPresenter());
         findView(R.id.scanner).setOnClickListener(getModel().getPresenter());
+        findView(R.id.calc).setOnClickListener(getModel().getPresenter());
     }
 
     @Override

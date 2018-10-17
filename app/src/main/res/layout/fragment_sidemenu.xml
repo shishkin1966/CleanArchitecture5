@@ -18,6 +18,25 @@
             android:background="@color/white_light"/>
 
         <TextView
+            android:id="@+id/calc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_height"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/side_menu_panel_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_12dp"
+            android:paddingRight="@dimen/dimen_12dp"
+            android:text="Расчет"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"/>
+
+        <View
+            style="@style/HorizontalDivider"
+            android:layout_height="0.5dp"
+            android:background="@color/white_light"/>
+
+        <TextView
             android:id="@+id/scanner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_height"

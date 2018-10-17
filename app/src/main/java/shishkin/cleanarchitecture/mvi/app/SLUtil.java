@@ -6,6 +6,8 @@ import android.content.Context;
 
 import shishkin.cleanarchitecture.mvi.app.net.NetCbProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
+import shishkin.cleanarchitecture.mvi.app.specialist.calculation.CalculationUnion;
+import shishkin.cleanarchitecture.mvi.app.specialist.calculation.CalculationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.idle.IdleSpecialist;
 import shishkin.cleanarchitecture.mvi.app.specialist.idle.IdleSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialist;
@@ -136,6 +138,10 @@ public class SLUtil {
 
     public static IdleSpecialist getIdleSpecialist() {
         return SL.getInstance().get(IdleSpecialistImpl.NAME);
+    }
+
+    public static CalculationUnion getCalculationUnion() {
+        return SL.getInstance().get(CalculationUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {
