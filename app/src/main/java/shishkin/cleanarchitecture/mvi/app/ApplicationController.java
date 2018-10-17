@@ -15,6 +15,7 @@ import shishkin.cleanarchitecture.mvi.app.observe.ScreenOnOffObserver;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingPlayMusicEnabled;
+import shishkin.cleanarchitecture.mvi.app.specialist.calculation.CalculationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.idle.IdleSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
@@ -55,6 +56,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(MediaSpecialistImpl.NAME);
         SLUtil.register(ScannerUnionImpl.NAME);
         SLUtil.register(IdleSpecialistImpl.NAME);
+        SLUtil.register(CalculationUnionImpl.NAME);
 
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());

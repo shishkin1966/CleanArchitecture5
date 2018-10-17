@@ -73,6 +73,18 @@
         <item name="android:textColorHint">@color/gray_switch</item>
     </style>
 
+    <style name="EditTextCornerStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColorHint">@color/gray_switch</item>
+    </style>
+
     <style name="SideMenuTextStyle" parent="HelveticaTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
