@@ -23,7 +23,6 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 @SuppressWarnings("unused")

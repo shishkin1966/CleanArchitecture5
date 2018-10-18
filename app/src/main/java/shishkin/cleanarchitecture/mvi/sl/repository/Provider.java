@@ -2,7 +2,6 @@ package shishkin.cleanarchitecture.mvi.sl.repository;
 
 import shishkin.cleanarchitecture.mvi.sl.Specialist;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 /**
  * Created by Shishkin on 04.12.2017.
