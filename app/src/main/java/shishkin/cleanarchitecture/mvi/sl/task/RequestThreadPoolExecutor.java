@@ -66,6 +66,12 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
 
     @Override
     public void clear() {
+        checkNullRequest();
+
+        for (WeakReference<Request> ref : mRequests.values()) {
+            ref.get().setCanceled();
+        }
+
         mRequests.clear();
     }
 
