@@ -12,7 +12,7 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
     <style name="PopupMenu" parent="@style/Base.Widget.AppCompat.ListView.DropDown">

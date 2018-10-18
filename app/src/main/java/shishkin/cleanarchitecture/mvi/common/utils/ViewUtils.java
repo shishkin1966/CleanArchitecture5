@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -26,6 +29,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 
 import java.util.Locale;
@@ -471,6 +478,23 @@ public class ViewUtils {
 
     public static int getDimensionDp(Context context, int resId) {
         return (int) (context.getResources().getDimension(resId) / context.getResources().getDisplayMetrics().density);
+    }
+
+    public static BitmapDescriptor generateBitmapDescriptorFromRes(
+            Context context, int resId) {
+        final Drawable drawable = ContextCompat.getDrawable(context, resId);
+        drawable.setBounds(
+                0,
+                0,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+        final Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
 }

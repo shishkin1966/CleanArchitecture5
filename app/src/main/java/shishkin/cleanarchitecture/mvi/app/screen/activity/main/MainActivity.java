@@ -48,6 +48,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
