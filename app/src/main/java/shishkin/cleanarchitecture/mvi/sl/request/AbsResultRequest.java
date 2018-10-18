@@ -13,25 +13,29 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 public abstract class AbsResultRequest<T> extends AbsRequest implements ResultRequest {
 
-    private WeakReference<ResponseListener> mListener;
-    private T mData;
-    private ExtError mError;
+    private WeakReference<ResponseListener> listener;
+    private T data;
+    private ExtError error;
+    private String listenerName;
 
     public AbsResultRequest(final ResponseListener listener) {
-        mListener = new WeakReference<>(listener);
+        if (listener != null) {
+            this.listener = new WeakReference<>(listener);
+            this.listenerName = listener.getName();
+        }
     }
 
     @Override
     public ResponseListener getListener() {
-        if (mListener != null) {
-            return mListener.get();
+        if (listener != null) {
+            return listener.get();
         }
         return null;
     }
 
     @Override
     public boolean validate() {
-        return (mListener != null && mListener.get() != null && mListener.get().validate() && !isCancelled());
+        return (listener != null && listener.get() != null && listener.get().validate() && !isCancelled());
     }
 
     public void response() {
@@ -41,20 +45,23 @@ public abstract class AbsResultRequest<T> extends AbsRequest implements ResultRe
     }
 
     public T getData() {
-        return mData;
+        return data;
     }
 
     public void setData(T data) {
-        this.mData = data;
+        this.data = data;
     }
 
     public ExtError getError() {
-        return mError;
+        return error;
     }
 
     public void setError(ExtError error) {
-        this.mError = error;
+        this.error = error;
     }
 
-
+    @Override
+    public String getListenerName() {
+        return listenerName;
+    }
 }

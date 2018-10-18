@@ -84,10 +84,8 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     }
 
     @Override
-    public void onDestroyView() {
+    public void onStop() {
         SLUtil.getCacheSpecialist().put(TickerViewData.NAME, getViewData());
-
-        super.onDestroyView();
     }
 
     @Override

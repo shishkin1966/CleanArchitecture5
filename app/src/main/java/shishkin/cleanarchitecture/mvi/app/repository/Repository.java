@@ -33,4 +33,13 @@ public class Repository {
         NetRepositoryProvider.getValCurs(listener, date);
     }
 
+    public static void getPagingAccounts(String listener) {
+        DbRepositoryProvider.getPagingAccounts(listener);
+    }
+
+    public static void cancelRequests(String listener) {
+        DbRepositoryProvider.cancelRequests(listener);
+        NetRepositoryProvider.cancelRequests(listener);
+    }
+
 }

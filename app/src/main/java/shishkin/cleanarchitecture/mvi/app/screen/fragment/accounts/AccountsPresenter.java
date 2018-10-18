@@ -199,10 +199,8 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     }
 
     @Override
-    public void onDestroyView() {
+    public void onStop() {
         SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
-
-        super.onDestroyView();
     }
 
     @Override

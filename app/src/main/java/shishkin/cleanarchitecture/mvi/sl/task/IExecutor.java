@@ -9,9 +9,9 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public interface IExecutor extends SenderDelegating {
 
-    void cancelRequests(ResponseListener listener);
+    void cancelRequests(String listener);
 
-    void cancelRequests(ResponseListener listener, String taskName);
+    void cancelRequests(String listener, String taskName);
 
     void shutdown();
 

@@ -88,6 +88,10 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
                 getModel().getRouter().showCalc();
                 break;
 
+            case R.id.paging:
+                getModel().getRouter().showPaging();
+                break;
+
         }
     }
 

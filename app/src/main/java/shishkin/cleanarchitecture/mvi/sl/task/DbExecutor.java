@@ -52,12 +52,12 @@ public class DbExecutor implements RequestExecutor {
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener) {
+    public void cancelRequests(String listener) {
         mExecutor.cancelRequests(listener);
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener, String taskName) {
+    public void cancelRequests(String listener, String taskName) {
         mExecutor.cancelRequests(listener, taskName);
     }
 

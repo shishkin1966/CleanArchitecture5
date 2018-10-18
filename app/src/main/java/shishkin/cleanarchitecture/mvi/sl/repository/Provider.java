@@ -21,8 +21,8 @@ public interface Provider extends Specialist {
     /**
      * Прервать все запросы слушателя
      *
-     * @param listener слушатель
+     * @param listener имя слушателя
      */
-    void cancelRequests(ResponseListener listener);
+    void cancelRequests(String listener);
 
 }

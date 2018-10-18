@@ -144,7 +144,7 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener) {
+    public void cancelRequests(String listener) {
         ((RequestSpecialist) SL.getInstance().get(RequestSpecialistImpl.NAME)).cancelRequests(this, listener);
     }
 

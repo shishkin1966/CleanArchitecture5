@@ -16,7 +16,7 @@ public abstract class AbsResultMailRequest extends AbsRequest implements ResultM
     }
 
     @Override
-    public String getListener() {
+    public String getListenerName() {
         return mListener;
     }
 
