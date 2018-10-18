@@ -25,7 +25,7 @@ public interface RequestSpecialist extends Specialist {
     /**
      * Отменить запросы слушателя
      *
-     * @param listener слушатель
+     * @param listener имя слушателя
      */
-    void cancelRequests(Object sender, ResponseListener listener);
+    void cancelRequests(Object sender, String listener);
 }

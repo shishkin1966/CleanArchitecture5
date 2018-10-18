@@ -11,6 +11,6 @@ public interface ResultMailRequest extends Request {
      *
      * @return имя слушателя запроса
      */
-    String getListener();
+    String getListenerName();
 
 }

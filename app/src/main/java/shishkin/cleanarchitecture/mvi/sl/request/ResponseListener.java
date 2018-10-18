@@ -16,4 +16,11 @@ public interface ResponseListener extends Validated {
      */
     void response(Result result);
 
+    /**
+     * Получить имя слушателя
+     *
+     * @return имя слушателя
+     */
+    String getName();
+
 }

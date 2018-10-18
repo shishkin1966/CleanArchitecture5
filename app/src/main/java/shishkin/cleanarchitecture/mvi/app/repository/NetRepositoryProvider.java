@@ -3,6 +3,7 @@ package shishkin.cleanarchitecture.mvi.app.repository;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.request.GetTickerRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetValCursRequest;
+import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public class NetRepositoryProvider {
     public static void getTicker(String listener) {
@@ -12,4 +13,10 @@ public class NetRepositoryProvider {
     public static void getValCurs(String listener, String date) {
         SLUtil.getNetCbProvider().request(new GetValCursRequest(listener, date));
     }
+
+    public static void cancelRequests(String listener) {
+        SLUtil.getNetProvider().cancelRequests(listener);
+        SLUtil.getNetCbProvider().cancelRequests(listener);
+    }
+
 }

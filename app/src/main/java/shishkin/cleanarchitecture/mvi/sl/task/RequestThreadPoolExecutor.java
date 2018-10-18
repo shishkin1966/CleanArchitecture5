@@ -18,6 +18,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.request.ResultMailRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResultRequest;
 
 
@@ -71,30 +72,36 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
 
     private void checkNullRequest() {
         for (Map.Entry<String, WeakReference<Request>> entry : mRequests.entrySet()) {
-            if (entry.getValue() == null || entry.getValue().get() == null) {
+            if (entry.getValue() != null && entry.getValue().get() != null) {
+                if(!entry.getValue().get().validate()) {
+                    mRequests.remove(entry.getKey());
+                }
+            } else {
                 mRequests.remove(entry.getKey());
             }
         }
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener) {
+    public void cancelRequests(String listener) {
         if (listener == null) return;
 
         checkNullRequest();
 
         for (WeakReference<Request> ref : mRequests.values()) {
-            if (ResultRequest.class.isInstance(ref.get())) {
-                final ResultRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getListener().equals(listener)) {
+            if (ResultMailRequest.class.isInstance(ref.get())) {
+                final ResultMailRequest request = SafeUtils.cast(ref.get());
+                if (request != null && request.validate() && request.getListenerName().equals(listener)) {
                     request.setCanceled();
                 }
             }
         }
+
+        checkNullRequest();
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener, String taskName) {
+    public void cancelRequests(String listener, String taskName) {
         if (listener == null || StringUtils.isNullOrEmpty(taskName)) return;
 
         checkNullRequest();
@@ -102,11 +109,13 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         for (WeakReference<Request> ref : mRequests.values()) {
             if (ResultRequest.class.isInstance(ref.get())) {
                 final ResultRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getListener().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
+                if (request != null && request.validate() && request.getListenerName().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
                     request.setCanceled();
                 }
             }
         }
+
+        checkNullRequest();
     }
 
     @Override

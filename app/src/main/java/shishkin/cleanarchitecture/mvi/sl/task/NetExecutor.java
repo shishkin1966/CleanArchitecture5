@@ -134,15 +134,14 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener) {
+    public void cancelRequests(String listener) {
         mExecutor.cancelRequests(listener);
     }
 
     @Override
-    public void cancelRequests(ResponseListener listener, String taskName) {
+    public void cancelRequests(String listener, String taskName) {
         mExecutor.cancelRequests(listener, taskName);
     }
-
 
     @Override
     public boolean isShutdown() {

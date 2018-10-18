@@ -68,7 +68,7 @@ public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpeci
     }
 
     @Override
-    public void cancelRequests(Object sender, ResponseListener listener) {
+    public void cancelRequests(Object sender, String listener) {
         final IExecutor executor = mRequestDelegate.get(sender);
         if (executor != null) {
             executor.cancelRequests(listener);

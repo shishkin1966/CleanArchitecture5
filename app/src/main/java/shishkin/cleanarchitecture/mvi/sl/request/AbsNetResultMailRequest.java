@@ -28,7 +28,7 @@ public abstract class AbsNetResultMailRequest<T> extends AbsResultMailRequest im
 
         getFromNet().continueWith((Continuation<Result<T>, Void>) task -> {
             if (validate() && task.getResult() != null) {
-                SLUtil.getMailUnion().addMail(new ResultMail(getListener(), task.getResult().setOrder(Result.LAST).setName(getName())).setName(getName()));
+                SLUtil.getMailUnion().addMail(new ResultMail(getListenerName(), task.getResult().setOrder(Result.LAST).setName(getName())).setName(getName()));
             }
             return null;
         }, Task.UI_THREAD_EXECUTOR);
