@@ -1,7 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.Toast;
 
 
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.repository.Repository;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;

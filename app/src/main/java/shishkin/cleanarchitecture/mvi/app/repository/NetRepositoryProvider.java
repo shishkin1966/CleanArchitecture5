@@ -3,7 +3,6 @@ package shishkin.cleanarchitecture.mvi.app.repository;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.request.GetTickerRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetValCursRequest;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public class NetRepositoryProvider {
     public static void getTicker(String listener) {

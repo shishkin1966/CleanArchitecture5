@@ -17,7 +17,6 @@ import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.request.ResultMailRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResultRequest;
 
@@ -73,7 +72,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
     private void checkNullRequest() {
         for (Map.Entry<String, WeakReference<Request>> entry : mRequests.entrySet()) {
             if (entry.getValue() != null && entry.getValue().get() != null) {
-                if(!entry.getValue().get().validate()) {
+                if (!entry.getValue().get().validate()) {
                     mRequests.remove(entry.getKey());
                 }
             } else {

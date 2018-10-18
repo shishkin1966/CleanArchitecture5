@@ -17,7 +17,6 @@ import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public abstract class AbsNetProvider<T> extends AbsProvider implements NetProvider<T> {
     private static long CONNECT_TIMEOUT = 30; // 30 sec

@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 @SuppressWarnings("unused")
 public class DbExecutor implements RequestExecutor {

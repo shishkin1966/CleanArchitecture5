@@ -12,7 +12,6 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.delegate.RequestDelegate;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 

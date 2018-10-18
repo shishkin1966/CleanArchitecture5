@@ -1,7 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
-import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 /**
  * Интерфейс специалиста выполнения запросов
