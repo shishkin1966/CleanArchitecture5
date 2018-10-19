@@ -45,7 +45,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         super.onStart();
 
         Toasty.Config.getInstance()
-                .setTextSize(ViewUtils.getDimensionSp(this, R.dimen.text_size_xlarge))
+                .setTextSize(ViewUtils.getDimensionSp(this, R.dimen.text_size_large))
                 .apply();
 
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);

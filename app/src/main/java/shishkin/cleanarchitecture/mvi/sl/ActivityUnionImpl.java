@@ -56,6 +56,8 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     public void register(final IActivity subscriber) {
         super.register(subscriber);
 
+        if (subscriber == null) return;
+
         for (int i = mActivities.size() - 1; i >= 0; i--) {
             if (mActivities.get(i) == null) {
                 mActivities.remove(i);
@@ -66,23 +68,23 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
                 continue;
             }
 
-            if (subscriber != null) {
-                if (mActivities.get(i).get().getName().equals(subscriber.getName())) {
+            if (mActivities.get(i).get().getName().equals(subscriber.getName())) {
+                if (!mActivities.get(i).get().equals(subscriber)) {
                     mActivities.get(i).get().exit();
-                    mActivities.remove(i);
                 }
+                mActivities.remove(i);
             }
         }
 
-        if (subscriber != null) {
-            mActivities.add(new WeakReference<>(subscriber));
-        }
+        mActivities.add(new WeakReference<>(subscriber));
     }
 
     @Override
     public void unregister(final IActivity subscriber) {
         super.unregister(subscriber);
 
+        if (subscriber == null) return;
+
         for (int i = mActivities.size() - 1; i >= 0; i--) {
             if (mActivities.get(i) == null) {
                 mActivities.remove(i);
@@ -93,10 +95,8 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
                 continue;
             }
 
-            if (subscriber != null) {
-                if (mActivities.get(i).get().equals(subscriber)) {
-                    mActivities.remove(i);
-                }
+            if (mActivities.get(i).get().equals(subscriber)) {
+                mActivities.remove(i);
             }
         }
     }
