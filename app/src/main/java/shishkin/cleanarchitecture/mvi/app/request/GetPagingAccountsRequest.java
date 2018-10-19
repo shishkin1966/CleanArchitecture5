@@ -55,7 +55,7 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
                 }
                 if (validate()) {
                     ApplicationUtils.runOnUiThread(() -> {
-                        SLUtil.addMail(new ResultMail(getListenerName(), result));
+                        SLUtil.addMail(new ResultMail(getOwnerName(), result));
                     });
                 }
                 Thread.sleep(sleep);
@@ -72,7 +72,7 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
             final Result<List<Account>> result = new Result<>().setError(NAME, e);
             if (validate()) {
                 ApplicationUtils.runOnUiThread(() -> {
-                    SLUtil.addMail(new ResultMail(getListenerName(), result));
+                    SLUtil.addMail(new ResultMail(getOwnerName(), result));
                 });
             }
         }

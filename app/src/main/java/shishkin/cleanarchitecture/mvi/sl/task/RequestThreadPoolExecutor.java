@@ -96,7 +96,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         for (WeakReference<Request> ref : mRequests.values()) {
             if (ResultMailRequest.class.isInstance(ref.get())) {
                 final ResultMailRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getListenerName().equals(listener)) {
+                if (request != null && request.validate() && request.getOwnerName().equals(listener)) {
                     request.setCanceled();
                 }
             }
@@ -114,7 +114,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
         for (WeakReference<Request> ref : mRequests.values()) {
             if (ResultRequest.class.isInstance(ref.get())) {
                 final ResultRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getListenerName().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
+                if (request != null && request.validate() && request.getOwnerName().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
                     request.setCanceled();
                 }
             }

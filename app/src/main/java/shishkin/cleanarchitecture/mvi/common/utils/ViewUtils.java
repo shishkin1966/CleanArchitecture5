@@ -30,7 +30,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
