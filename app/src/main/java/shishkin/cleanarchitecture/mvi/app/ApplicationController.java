@@ -25,11 +25,9 @@ import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSp
 import shishkin.cleanarchitecture.mvi.app.specialist.preference.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
-import shishkin.cleanarchitecture.mvi.sl.observe.NetworkObservable;
 import shishkin.cleanarchitecture.mvi.sl.observe.ScreenBroadcastReceiverObservable;
 
 /**
@@ -52,11 +50,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);
         SLUtil.getObservableUnion().register(new DbObservable());
-        if (ApplicationUtils.hasN()) {
-            SLUtil.getObservableUnion().register(new NetworkObservable());
-        } else {
-            SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
-        }
+        SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());
         SLUtil.register(CacheSpecialistImpl.NAME);
         SLUtil.register(NotificationSpecialistImpl.NAME);

@@ -34,7 +34,6 @@ import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
-import shishkin.cleanarchitecture.mvi.sl.observe.NetworkObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
@@ -142,8 +141,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     @Override
     public List<String> getObservable() {
         return StringUtils.arrayToList(
-                NetworkBroadcastReceiverObservable.NAME,
-                NetworkObservable.NAME
+                NetworkBroadcastReceiverObservable.NAME
         );
     }
 
