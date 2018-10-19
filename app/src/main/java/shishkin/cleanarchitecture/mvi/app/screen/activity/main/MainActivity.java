@@ -11,9 +11,6 @@ import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
 
-import java.util.List;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
@@ -22,28 +19,20 @@ import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
 import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialistService;
-import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerSubscriber;
-import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
-import shishkin.cleanarchitecture.mvi.common.net.Connectivity;
 import shishkin.cleanarchitecture.mvi.common.slidingmenu.SlidingMenu;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
-import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
-import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
-import shishkin.cleanarchitecture.mvi.sl.event.ShowDialogEvent;
-import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
-public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber, MainView, ScannerSubscriber {
+public class MainActivity extends AbsContentActivity<MainModel> implements MainView {
 
     public static final String NAME = MainActivity.class.getName();
 
-    private Snackbar mSnackbar;
-    private Intent mIntent;
-    private SlidingMenu mMenu;
+    private Snackbar snackbar;
+    private Intent intent;
+    private SlidingMenu menu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -82,15 +71,15 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     }
 
     private void prepareSlidingMenu() {
-        mMenu = new SlidingMenu(this);
-        mMenu.setMode(SlidingMenu.LEFT);
-        mMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-        mMenu.setShadowWidthRes(R.dimen.shadow_width);
-        mMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        mMenu.setShadowDrawable(R.drawable.shadow);
-        mMenu.setFadeDegree(0.35f);
-        mMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-        mMenu.setMenu(R.layout.menu_container);
+        menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        menu.setShadowDrawable(R.drawable.shadow);
+        menu.setFadeDegree(0.35f);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(R.layout.menu_container);
     }
 
 
@@ -101,28 +90,28 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
     @Override
     protected void onNewIntent(Intent intent) {
-        mIntent = intent;
+        this.intent = intent;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if (mIntent != null) {
-            final String action = mIntent.getAction();
+        if (intent != null) {
+            final String action = intent.getAction();
             if ("android.intent.action.MAIN".equalsIgnoreCase(action)) {
                 getModel().getRouter().showMainFragment();
             } else if (AccountObserver.ACTION_CLICK.equalsIgnoreCase(action)) {
                 getModel().getRouter().showMainFragment();
             }
-            mIntent = null;
+            intent = null;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (mMenu.isMenuShowing()) {
-            mMenu.showContent();
+        if (menu.isMenuShowing()) {
+            menu.showContent();
         } else {
             super.onBackPressed();
         }
@@ -139,40 +128,15 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
     }
 
     @Override
-    public List<String> getObservable() {
-        return StringUtils.arrayToList(
-                NetworkBroadcastReceiverObservable.NAME
-        );
-    }
-
-    @Override
-    public void onChange(Object object) {
-        if (validate()) {
-            if (Connectivity.isNetworkConnected(SLUtil.getContext())) {
-                onConnect();
-            } else {
-                onDisconnect();
-            }
+    public void onConnect() {
+        if (snackbar != null) {
+            snackbar.dismiss();
         }
     }
 
-    private void onConnect() {
-        if (mSnackbar != null) {
-            mSnackbar.dismiss();
-        }
-    }
-
-    private void onDisconnect() {
-        mSnackbar = ApplicationUtils.showSnackbar(getRootView(), getString(R.string.network_disconnected), Snackbar.LENGTH_INDEFINITE, ApplicationUtils.MESSAGE_TYPE_WARNING);
-    }
-
     @Override
-    public List<String> getSpecialistSubscription() {
-        return StringUtils.arrayToList(
-                super.getSpecialistSubscription(),
-                ObservableUnionImpl.NAME,
-                ScannerUnionImpl.NAME
-        );
+    public void onDisconnect() {
+        snackbar = ApplicationUtils.showSnackbar(getRootView(), getString(R.string.network_disconnected), Snackbar.LENGTH_INDEFINITE, ApplicationUtils.MESSAGE_TYPE_WARNING);
     }
 
     private void setSideMenuFragment(AbsFragment fragment) {
@@ -181,14 +145,9 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
     @Override
     public void hideSideMenu() {
-        if (mMenu.isMenuShowing()) {
-            mMenu.showContent();
+        if (menu.isMenuShowing()) {
+            menu.showContent();
         }
-    }
-
-    @Override
-    public void onScan(String text) {
-        SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
     }
 
     @Override
