@@ -68,8 +68,6 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         setModel(createModel());
 
         mStateObservable.setState(ViewStateObserver.STATE_CREATE);
-
-        SL.getInstance().register(this);
     }
 
     public abstract M createModel();
@@ -86,6 +84,8 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         getModel().addStateObserver();
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
+
+        SL.getInstance().register(this);
     }
 
     @Override
@@ -194,7 +194,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
     @Override
     public Result<Boolean> validateExt() {
-        return new Result<>(getState() != ViewStateObserver.STATE_DESTROY && !isFinishing());
+        return new Result<>(getState() != ViewStateObserver.STATE_DESTROY);
     }
 
     @Override

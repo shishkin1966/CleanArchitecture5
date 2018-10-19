@@ -6,10 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;
 import shishkin.cleanarchitecture.mvi.app.repository.Repository;
-import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
-import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -65,7 +63,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
             viewData.setValCurs((ValCurs) result.getData());
             getModel().getView().refreshViews(viewData);
         } else {
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.onError(NAME, result.getErrorText(), true);
         }
     }
 

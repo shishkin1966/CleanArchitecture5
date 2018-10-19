@@ -479,6 +479,10 @@ public class ViewUtils {
         return (int) (context.getResources().getDimension(resId) / context.getResources().getDisplayMetrics().density);
     }
 
+    public static int getDimensionSp(Context context, int resId) {
+        return (int) (context.getResources().getDimension(resId) / context.getResources().getDisplayMetrics().scaledDensity);
+    }
+
     public static BitmapDescriptor generateBitmapDescriptorFromRes(
             Context context, int resId) {
         final Drawable drawable = ContextCompat.getDrawable(context, resId);

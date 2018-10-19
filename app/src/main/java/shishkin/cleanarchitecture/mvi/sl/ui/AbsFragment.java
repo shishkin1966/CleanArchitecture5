@@ -70,10 +70,6 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         setModel(createModel());
 
         mStateObservable.setState(ViewStateObserver.STATE_CREATE);
-
-        if (SpecialistSubscriber.class.isInstance(this)) {
-            SL.getInstance().register((SpecialistSubscriber) this);
-        }
     }
 
     @Override
@@ -83,6 +79,10 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         getModel().addStateObserver();
 
         mStateObservable.setState(ViewStateObserver.STATE_READY);
+
+        if (SpecialistSubscriber.class.isInstance(this)) {
+            SL.getInstance().register((SpecialistSubscriber) this);
+        }
     }
 
     @Override

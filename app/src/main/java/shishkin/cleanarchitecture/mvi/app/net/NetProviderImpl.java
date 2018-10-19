@@ -6,7 +6,7 @@ import shishkin.cleanarchitecture.mvi.sl.repository.AbsNetProvider;
 public class NetProviderImpl extends AbsNetProvider<NetApi> {
     public static final String NAME = NetProviderImpl.class.getName();
 
-    private static final String URL = "https://api.coinmarketcap.com"; //Базовый адрес
+    private static final String URL = "https://api.coinmarketcap.com/"; //Базовый адрес
 
     @Override
     public String getName() {

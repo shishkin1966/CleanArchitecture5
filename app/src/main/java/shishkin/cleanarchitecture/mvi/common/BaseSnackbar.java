@@ -38,10 +38,10 @@ public class BaseSnackbar {
         final TextView actionView = snackbarView.findViewById(android.support.design.R.id.snackbar_action);
         textView.setTextColor(ViewUtils.getColor(view.getContext(), R.color.white));
         final double diagonal = ViewUtils.diagonalInch(view.getContext());
-        if (diagonal < 5) {
+        if (diagonal < 6.5) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size));
             actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size));
-        } else if (diagonal > 6.5) {
+        } else {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));
             actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));
         }

@@ -193,23 +193,23 @@ public class ApplicationUtils {
         final Context context = ApplicationSpecialistImpl.getInstance();
         switch (type) {
             case MESSAGE_TYPE_INFO:
-                Toasty.info(context, message, duration).show();
+                Toasty.info(context, message, duration, false).show();
                 break;
 
             case MESSAGE_TYPE_ERROR:
-                Toasty.error(context, message, duration).show();
+                Toasty.error(context, message, duration, false).show();
                 break;
 
             case MESSAGE_TYPE_WARNING:
-                Toasty.warning(context, message, duration).show();
+                Toasty.warning(context, message, duration, false).show();
                 break;
 
             case MESSAGE_TYPE_SUCCESS:
-                Toasty.success(context, message, duration).show();
+                Toasty.success(context, message, duration, false).show();
                 break;
 
             default:
-                Toasty.info(context, message, duration).show();
+                Toasty.info(context, message, duration, false).show();
                 break;
 
         }

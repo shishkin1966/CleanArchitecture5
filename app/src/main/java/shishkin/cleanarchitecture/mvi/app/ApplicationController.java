@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 
 
+import es.dmoral.toasty.Toasty;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.app.net.NetCbProviderImpl;
@@ -24,8 +25,11 @@ import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSp
 import shishkin.cleanarchitecture.mvi.app.specialist.preference.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
+import shishkin.cleanarchitecture.mvi.sl.observe.NetworkObservable;
 import shishkin.cleanarchitecture.mvi.sl.observe.ScreenBroadcastReceiverObservable;
 
 /**
@@ -42,9 +46,17 @@ public class ApplicationController extends ApplicationSpecialistImpl {
     public void onStart() {
         super.onStart();
 
+        Toasty.Config.getInstance()
+                .setTextSize(ViewUtils.getDimensionSp(this, R.dimen.text_size_xlarge))
+                .apply();
+
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);
         SLUtil.getObservableUnion().register(new DbObservable());
-        SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
+        if (ApplicationUtils.hasN()) {
+            SLUtil.getObservableUnion().register(new NetworkObservable());
+        } else {
+            SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
+        }
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());
         SLUtil.register(CacheSpecialistImpl.NAME);
         SLUtil.register(NotificationSpecialistImpl.NAME);
