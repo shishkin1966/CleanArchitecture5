@@ -8,4 +8,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 
 public interface MainView extends IActivity {
     void hideSideMenu();
+
+    void onConnect();
+
+    void onDisconnect();
 }
