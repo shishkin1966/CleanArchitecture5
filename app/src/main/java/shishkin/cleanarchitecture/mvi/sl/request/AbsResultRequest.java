@@ -1,67 +1,44 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
+import android.support.annotation.NonNull;
+
+
 import java.lang.ref.WeakReference;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 /**
  * Created by Shishkin on 04.12.2017.
  */
 
-public abstract class AbsResultRequest<T> extends AbsRequest implements ResultRequest {
+public abstract class AbsResultRequest<T> extends AbsResultMailRequest<T> implements ResultRequest<T> {
 
-    private WeakReference<ResponseListener> listener;
-    private T data;
-    private ExtError error;
-    private String listenerName;
+    private WeakReference<ResponseListener> ref;
 
-    public AbsResultRequest(final ResponseListener listener) {
-        if (listener != null) {
-            this.listener = new WeakReference<>(listener);
-            this.listenerName = listener.getName();
-        }
+    public AbsResultRequest(@NonNull final ResponseListener listener) {
+        super(listener.getName());
+        this.ref = new WeakReference<>(listener);
     }
 
     @Override
-    public ResponseListener getListener() {
-        if (listener != null) {
-            return listener.get();
+    public ResponseListener getOwner() {
+        if (ref != null) {
+            return ref.get();
         }
         return null;
     }
 
     @Override
     public boolean validate() {
-        return (listener != null && listener.get() != null && listener.get().validate() && !isCancelled());
-    }
-
-    public void response() {
-        if (validate()) {
-            ApplicationUtils.runOnUiThread(() -> getListener().response(new Result().setName(getName()).setData(getData()).setError(getError())));
-        }
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public ExtError getError() {
-        return error;
-    }
-
-    public void setError(ExtError error) {
-        this.error = error;
+        return (ref != null && ref.get() != null && ref.get().validate() && !isCancelled());
     }
 
     @Override
-    public String getListenerName() {
-        return listenerName;
+    public void response() {
+        if (validate()) {
+            ApplicationUtils.runOnUiThread(() -> getOwner().response(new Result().setName(getName()).setData(getData()).setError(getError())));
+        }
     }
 }

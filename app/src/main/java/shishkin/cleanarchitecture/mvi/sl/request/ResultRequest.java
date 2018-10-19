@@ -4,12 +4,12 @@ package shishkin.cleanarchitecture.mvi.sl.request;
  * Created by Shishkin on 13.12.2017.
  */
 
-public interface ResultRequest extends ResultMailRequest {
+public interface ResultRequest<T> extends ResultMailRequest<T> {
 
     /**
-     * Получить слушателя запроса
+     * Получить собственника запроса
      *
-     * @return ResponseListener - слушатель запроса
+     * @return ResponseListener - собственник запроса
      */
-    ResponseListener getListener();
+    ResponseListener getOwner();
 }
