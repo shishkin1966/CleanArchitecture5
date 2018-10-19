@@ -7,9 +7,7 @@ import java.util.Observer;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.request.AddAccountRequest;
-import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
-import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -44,7 +42,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
                 getModel().getView().exit();
             }
         } else {
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.onError(NAME, result.getErrorText(), true);
         }
     }
 

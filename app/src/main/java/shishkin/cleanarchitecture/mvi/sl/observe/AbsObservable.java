@@ -31,11 +31,11 @@ public abstract class AbsObservable<T> implements Observable<T> {
 
         checkNullObserver();
 
-        if (mObservers.isEmpty()) {
+        mObservers.put(subscriber.getName(), new WeakReference<>(subscriber));
+
+        if (mObservers.size() == 1) {
             register();
         }
-
-        mObservers.put(subscriber.getName(), new WeakReference<>(subscriber));
     }
 
     @Override

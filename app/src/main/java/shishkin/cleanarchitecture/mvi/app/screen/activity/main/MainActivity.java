@@ -37,7 +37,7 @@ import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObserva
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
 
-public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber<Intent>, MainView, ScannerSubscriber {
+public class MainActivity extends AbsContentActivity<MainModel> implements ObservableSubscriber, MainView, ScannerSubscriber {
 
     public static final String NAME = MainActivity.class.getName();
 
@@ -140,11 +140,13 @@ public class MainActivity extends AbsContentActivity<MainModel> implements Obser
 
     @Override
     public List<String> getObservable() {
-        return StringUtils.arrayToList(NetworkBroadcastReceiverObservable.NAME);
+        return StringUtils.arrayToList(
+                NetworkBroadcastReceiverObservable.NAME
+        );
     }
 
     @Override
-    public void onChange(Intent object) {
+    public void onChange(Object object) {
         if (validate()) {
             if (Connectivity.isNetworkConnected(SLUtil.getContext())) {
                 onConnect();

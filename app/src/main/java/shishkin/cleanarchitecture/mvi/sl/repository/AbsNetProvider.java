@@ -54,6 +54,8 @@ public abstract class AbsNetProvider<T> extends AbsProvider implements NetProvid
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.MINUTES)
+                .followRedirects(false)
+                .followSslRedirects(false)
                 .retryOnConnectionFailure(false);
         return builder.build();
     }

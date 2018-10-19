@@ -176,7 +176,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
-            getModel().getView().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.onError(NAME, result.getErrorText(), true);
         }
     }
 

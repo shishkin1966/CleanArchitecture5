@@ -214,9 +214,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
     @Override
     public void exit() {
-        if (ApplicationUtils.hasLollipop()) {
-            super.finishAndRemoveTask();
-        } else if (ApplicationUtils.hasJellyBean()) {
+        if (ApplicationUtils.hasJellyBean()) {
             super.finishAffinity();
         } else {
             super.finish();
