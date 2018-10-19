@@ -39,7 +39,9 @@ public abstract class AbsResultMailRequest<T> extends AbsRequest implements Resu
 
     @Override
     public void setCopyTo(List<String> copyTo) {
-        this.copyTo = copyTo;
+        if (copyTo != null) {
+            this.copyTo = copyTo;
+        }
     }
 
     @Override
