@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.util.Locale;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
@@ -47,7 +50,7 @@ public class AccountsRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Acc
 
         void bind(@NonNull final Account item) {
             friendlyNameView.setText(item.getFriendlyName());
-            balanceView.setText(String.format("%,.0f", item.getBalance()) + " " + item.getCurrency());
+            balanceView.setText(String.format(Locale.getDefault(), "%,.0f", item.getBalance()) + " " + item.getCurrency());
         }
     }
 

@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.util.Locale;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
@@ -45,7 +48,7 @@ public class BalanceRecyclerViewAdapter extends AbstractRecyclerViewAdapter<MviD
         }
 
         void bind(@NonNull final MviDao.Balance item, int cnt) {
-            balance.setText(String.format("%,.0f", item.balance) + " " + item.currency);
+            balance.setText(String.format(Locale.getDefault(), "%,.0f", item.balance) + " " + item.currency);
             if (cnt == 1) {
                 balance.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size_xlarge));
             } else {
