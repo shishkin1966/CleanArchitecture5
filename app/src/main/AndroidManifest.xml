@@ -21,7 +21,6 @@
 
     <application
         android:name=".app.ApplicationController"
-        android:configChanges="keyboardHidden|orientation|screenSize"
         android:icon="@drawable/ic_cat"
         android:label="@string/app_name"
         android:theme="@style/SplashTheme"
@@ -34,6 +33,7 @@
 
         <activity
             android:name=".app.screen.activity.main.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

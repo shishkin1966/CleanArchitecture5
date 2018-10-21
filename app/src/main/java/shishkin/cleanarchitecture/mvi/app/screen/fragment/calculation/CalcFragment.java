@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import java.util.concurrent.TimeUnit;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
@@ -52,11 +55,11 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
 
         sumView = findView(R.id.sum);
 
-        new EditTextObservable(getModel().getPresenter(), itemView1);
-        new EditTextObservable(getModel().getPresenter(), itemView2);
-        new EditTextObservable(getModel().getPresenter(), itemView3);
-        new EditTextObservable(getModel().getPresenter(), itemView4);
-        new EditTextObservable(getModel().getPresenter(), itemView5);
+        new EditTextObservable(getModel().getPresenter(), itemView1, TimeUnit.SECONDS.toMillis(1));
+        new EditTextObservable(getModel().getPresenter(), itemView2, TimeUnit.SECONDS.toMillis(1));
+        new EditTextObservable(getModel().getPresenter(), itemView3, TimeUnit.SECONDS.toMillis(1));
+        new EditTextObservable(getModel().getPresenter(), itemView4, TimeUnit.SECONDS.toMillis(1));
+        new EditTextObservable(getModel().getPresenter(), itemView5, TimeUnit.SECONDS.toMillis(1));
     }
 
     @Override
