@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.PagingRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -74,5 +75,11 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
             super.hideProgressBar();
             mSwipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }

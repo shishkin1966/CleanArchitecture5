@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
@@ -56,5 +57,11 @@ public class AccountFragment extends AbsContentFragment<AccountModel> implements
     @Override
     public String getName() {
         return AccountFragment.class.getName();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }

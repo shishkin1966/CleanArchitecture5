@@ -16,6 +16,7 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
@@ -117,6 +118,12 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
     @Override
     public SettingModel createModel() {
         return new SettingModel(this);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }
 

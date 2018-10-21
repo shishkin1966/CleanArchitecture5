@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.adapter.TickerRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
@@ -83,5 +84,11 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
             super.hideProgressBar();
             mSwipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }
