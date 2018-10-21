@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.view.menu.MenuPopupHelper;
@@ -293,6 +294,20 @@ public class ApplicationUtils {
         return (packageManager != null && packageManager.resolveActivity(intent, 0) != null);
     }
 
+    public static Intent sendEmailIntent(
+            @NonNull String recipient,
+            @NonNull String subject,
+            @NonNull String body
+    ) {
+        final Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SENDTO);
+        intent.setType("plain/text");
+        intent.setData(Uri.parse("mailto:" + recipient));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
+    }
 
     private ApplicationUtils() {
     }

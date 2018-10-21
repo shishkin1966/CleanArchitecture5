@@ -47,4 +47,11 @@ public interface ErrorSpecialist extends Specialist {
      * @param extError ошибка
      */
     void onError(final ExtError extError);
+
+    /**
+     * Получить путь к файлу лога ошибок
+     *
+     * @return путь к файлу лога ошибок
+     */
+    String getPath();
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/HelveticaTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/gray"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/setting_min_high"
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingRight="@dimen/dimen_12dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="Контакты"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_xlarge"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <shishkin.cleanarchitecture.mvi.common.RippleTextView
+                        android:id="@+id/web"
+                        style="@style/HelveticaTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawableLeft="@drawable/ic_public"
+                        android:drawablePadding="@dimen/dimen_8dp"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/setting_min_high"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Адрес проекта"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View style="@style/HorizontalDivider"/>
+
+                    <shishkin.cleanarchitecture.mvi.common.RippleTextView
+                        android:id="@+id/mail"
+                        style="@style/HelveticaTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawableLeft="@drawable/ic_mail"
+                        android:drawablePadding="@dimen/dimen_8dp"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/setting_min_high"
+                        android:paddingLeft="@dimen/dimen_12dp"
+                        android:paddingRight="@dimen/dimen_8dp"
+                        android:text="Сообщение об ошибке"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <View style="@style/HorizontalDivider"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
