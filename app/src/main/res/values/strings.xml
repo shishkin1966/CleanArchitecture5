@@ -42,5 +42,6 @@
     <string name="orientation_landscape">Горизонтальная</string>
     <string name="restart_location">Перегрузите устройство. Не работатает служба получения адреса</string>
     <string name="timeout_exit">Приложение вышло по таймауту</string>
+    <string name="mail_error">Отсутствуют программы, осуществляющие посылку Email</string>
 
 </resources>
