@@ -327,7 +327,9 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (event != null) {
             final AbsActivity activity = getActivity();
             if (activity != null) {
-                activity.startActivity(event.getIntent());
+                if (event.getIntent().resolveActivity(activity.getPackageManager()) != null) {
+                    activity.startActivity(event.getIntent());
+                }
             }
         }
     }
@@ -337,7 +339,9 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (event != null) {
             final AbsActivity activity = getActivity();
             if (activity != null) {
-                activity.startActivity(Intent.createChooser(event.getIntent(), event.getTitle()));
+                if (event.getIntent().resolveActivity(activity.getPackageManager()) != null) {
+                    activity.startActivity(Intent.createChooser(event.getIntent(), event.getTitle()));
+                }
             }
         }
     }
@@ -347,7 +351,9 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         if (event != null) {
             final AbsActivity activity = getActivity();
             if (activity != null) {
-                activity.startActivityForResult(event.getIntent(), event.getRequestCode());
+                if (event.getIntent().resolveActivity(activity.getPackageManager()) != null) {
+                    activity.startActivityForResult(event.getIntent(), event.getRequestCode());
+                }
             }
         }
     }

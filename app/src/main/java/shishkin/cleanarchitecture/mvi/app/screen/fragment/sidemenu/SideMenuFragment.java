@@ -53,6 +53,7 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
         findView(R.id.scanner).setOnClickListener(getModel().getPresenter());
         findView(R.id.calc).setOnClickListener(getModel().getPresenter());
         findView(R.id.paging).setOnClickListener(getModel().getPresenter());
+        findView(R.id.contact).setOnClickListener(getModel().getPresenter());
     }
 
     @Override

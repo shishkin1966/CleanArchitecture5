@@ -61,7 +61,11 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
         } catch (Exception e) {
             Log.setEnabled(false);
         }
+    }
 
+    @Override
+    public String getPath() {
+        return Log.getPath();
     }
 
     private void checkLogSize() {
