@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.setting;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -10,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
@@ -20,6 +22,7 @@ import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
+import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
 public class SettingPresenter extends AbsPresenter<SettingModel> implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, DialogResultListener, Observer {
@@ -74,6 +77,13 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                     setting.setCurrentValue(currentValue);
                     SettingFactory.setSetting(setting);
                     getModel().getView().refreshViews(SettingFactory.getSettings());
+                    if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_portrait))) {
+                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    } else if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_landscape))) {
+                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    } else {
+                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    }
                 }
             }
         }
