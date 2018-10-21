@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.setting;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -17,6 +18,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
+import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
@@ -85,6 +87,9 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                             activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                         } else {
                             activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        }
+                        if (!ViewUtils.isPhone(SLUtil.getContext())) {
+                            ((AppCompatActivity) activity).recreate();
                         }
                     }
                 }

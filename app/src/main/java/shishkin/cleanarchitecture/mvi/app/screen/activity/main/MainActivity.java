@@ -2,8 +2,10 @@ package shishkin.cleanarchitecture.mvi.app.screen.activity.main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.view.ViewGroup;
 
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
@@ -25,7 +27,6 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
-import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 
 public class MainActivity extends AbsContentActivity<MainModel> implements MainView {
 
@@ -34,6 +35,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
     private Snackbar snackbar;
     private Intent intent;
     private SlidingMenu menu;
+    private int idLayout = R.layout.activity_main;
+    private int orientation = ViewUtils.getOrientation(SLUtil.getContext());
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,21 +45,26 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
+        Configuration conf = getResources().getConfiguration();
         final Setting setting = SettingFactory.getSetting(SettingOrientation.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_portrait))) {
+            orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_landscape))) {
+            orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            if (!ViewUtils.isPhone(this)) {
+                idLayout = R.layout.activity_main_land;
+            }
         } else {
-            ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
 
-        setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
+        setContentView(idLayout);
 
-        prepareSlidingMenu();
-        setSideMenuFragment(SideMenuFragment.newInstance());
+        setMenu();
+
+        setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
 
         final Job.Builder builder = SLUtil.getJobSpecialist().getJobBuilder();
         final Job job = builder
@@ -74,17 +82,18 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
     }
 
     private void prepareSlidingMenu() {
-        menu = new SlidingMenu(this);
-        menu.setMode(SlidingMenu.LEFT);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-        menu.setShadowWidthRes(R.dimen.shadow_width);
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        menu.setShadowDrawable(R.drawable.shadow);
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-        menu.setMenu(R.layout.menu_container);
+        if (menu == null) {
+            menu = new SlidingMenu(this);
+            menu.setMode(SlidingMenu.LEFT);
+            menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+            menu.setShadowWidthRes(R.dimen.shadow_width);
+            menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+            menu.setShadowDrawable(R.drawable.shadow);
+            menu.setFadeDegree(0.35f);
+            menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+            menu.setMenu(R.layout.menu_container);
+        }
     }
-
 
     @Override
     public MainModel createModel() {
@@ -96,9 +105,22 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
         this.intent = intent;
     }
 
+    private void setMenu() {
+        if (!ViewUtils.isPhone(this) && orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+        } else {
+            prepareSlidingMenu();
+        }
+        ViewGroup v = findViewById(R.id.menu);
+        if (v != null) {
+            setSideMenuFragment(R.id.menu, SideMenuFragment.newInstance());
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        setMenu();
 
         if (intent != null) {
             final String action = intent.getAction();
@@ -113,8 +135,12 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
 
     @Override
     public void onBackPressed() {
-        if (menu.isMenuShowing()) {
-            menu.showContent();
+        if (menu != null) {
+            if (menu.isMenuShowing()) {
+                menu.showContent();
+            } else {
+                super.onBackPressed();
+            }
         } else {
             super.onBackPressed();
         }
@@ -142,14 +168,16 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
         snackbar = ApplicationUtils.showSnackbar(getRootView(), getString(R.string.network_disconnected), Snackbar.LENGTH_INDEFINITE, ApplicationUtils.MESSAGE_TYPE_WARNING);
     }
 
-    private void setSideMenuFragment(AbsFragment fragment) {
-        BackStack.showFragment(this, R.id.menu, fragment, false, false, false, true);
+    private void setSideMenuFragment(int idRes, AbsFragment fragment) {
+        BackStack.showFragment(this, idRes, fragment, false, false, false, true);
     }
 
     @Override
     public void hideSideMenu() {
-        if (menu.isMenuShowing()) {
-            menu.showContent();
+        if (menu != null) {
+            if (menu.isMenuShowing()) {
+                menu.showContent();
+            }
         }
     }
 
@@ -158,4 +186,16 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
         SLUtil.getIdleSpecialist().onUserInteraction();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (menu != null) {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                menu.setBehindOffsetRes(R.dimen.slidingmenu_offset_land);
+            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+            }
+        }
+    }
 }
