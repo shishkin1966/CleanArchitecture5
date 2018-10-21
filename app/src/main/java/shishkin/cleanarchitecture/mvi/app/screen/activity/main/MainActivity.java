@@ -25,6 +25,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
+import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 
 public class MainActivity extends AbsContentActivity<MainModel> implements MainView {
 
@@ -48,6 +49,8 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_landscape))) {
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
 
         setStatusBarColor(ViewUtils.getColor(this, R.color.blue_dark));
