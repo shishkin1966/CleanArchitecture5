@@ -56,7 +56,7 @@
                         android:minHeight="@dimen/setting_min_high"
                         android:paddingLeft="@dimen/dimen_12dp"
                         android:paddingRight="@dimen/dimen_8dp"
-                        android:text="Адрес проекта"
+                        android:text="Сайт проекта"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_large"/>
 

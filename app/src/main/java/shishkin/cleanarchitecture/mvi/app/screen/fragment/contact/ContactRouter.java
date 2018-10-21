@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.contact;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -9,13 +10,16 @@ import com.google.common.io.Files;
 import java.io.File;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.model.BaseModelRouter;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityEvent;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
+import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -46,6 +50,10 @@ public class ContactRouter extends BaseModelRouter {
             }
         }
         final Intent intent = ApplicationUtils.sendEmailIntent(rec, "Ошибка", body);
-        SLUtil.getActivityUnion().startActivity(new StartActivityEvent(intent));
+        if (intent.resolveActivity(((AbsActivity)SLUtil.getActivity()).getPackageManager()) != null) {
+            SLUtil.getActivityUnion().startActivity(new StartActivityEvent(intent));
+        } else {
+            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+        }
     }
 }
