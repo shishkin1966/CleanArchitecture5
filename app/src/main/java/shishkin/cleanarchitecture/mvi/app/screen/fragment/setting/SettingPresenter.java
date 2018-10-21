@@ -77,12 +77,15 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                     setting.setCurrentValue(currentValue);
                     SettingFactory.setSetting(setting);
                     getModel().getView().refreshViews(SettingFactory.getSettings());
-                    if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_portrait))) {
-                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    } else if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_landscape))) {
-                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    } else {
-                        ((IActivity)SLUtil.getActivity()).lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    final IActivity activity = SLUtil.getActivity();
+                    if (activity != null) {
+                        if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_portrait))) {
+                            activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        } else if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_landscape))) {
+                            activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        } else {
+                            activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        }
                     }
                 }
             }
