@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -75,5 +76,11 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
     @Override
     public void refreshViews(CalcViewData viewData) {
         sumView.setText(String.valueOf(viewData.getSum()));
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }

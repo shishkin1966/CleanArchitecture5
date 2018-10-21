@@ -15,6 +15,7 @@ import java.util.LinkedList;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.data.Currency;
 import shishkin.cleanarchitecture.mvi.common.RippleTextView;
@@ -86,5 +87,11 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
         account.setBalance(StringUtils.toDouble(mBalanceValueView.getText().toString()));
         account.setCurrency(mSpinner.getText().toString());
         getModel().getPresenter().createAccount(account);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
     }
 }

@@ -76,5 +76,11 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
     public void refreshViews(MapViewData viewData) {
         ((TextView) findView(R.id.name)).setText(viewData.getAddress());
     }
+
+    @Override
+    public boolean onBackPressed() {
+        SLUtil.getActivityUnion().switchToTopFragment();
+        return true;
+    }
 }
 
