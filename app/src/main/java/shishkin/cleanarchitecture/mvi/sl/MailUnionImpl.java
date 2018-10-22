@@ -102,6 +102,26 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
         }
     }
 
+    @Override
+    public void replaceMail(final Mail mail) {
+        if (mail != null) {
+            final List<String> list = mail.getCopyTo();
+            list.add(mail.getAddress());
+            for (String address : list) {
+                final long id = mId.incrementAndGet();
+                final Mail newMail = mail.copy();
+                newMail.setId(id);
+                newMail.setAddress(address);
+                newMail.setCopyTo(new ArrayList<>());
+
+                removeDublicate(newMail);
+                mMail.put(id, newMail);
+
+                checkAddMailSubscriber(address);
+            }
+        }
+    }
+
     private void checkAddMailSubscriber(final String address) {
         if (StringUtils.isNullOrEmpty(address)) {
             return;
