@@ -6,6 +6,7 @@
     <string name="double_back_pressed">Для выхода нажмите ещё раз</string>
     <string name="setting">Настройки</string>
     <string name="cancel">Отмена</string>
+    <string name="warning">Внимание</string>
 
     <string name="fragment_open_account_transaction_friendly_name_subtitle">Наименование счета</string>
     <string name="fragment_open_account_transaction_friendly_name_hint">Например: "Текущий счет"</string>

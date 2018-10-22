@@ -18,7 +18,6 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.StartActivityEvent;
-import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
 
 /**
@@ -27,7 +26,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
 
 public class ContactRouter extends BaseModelRouter {
 
-    public ContactRouter(AbsModel model) {
+    public ContactRouter(ContactModel model) {
         super(model);
     }
 
@@ -53,7 +52,7 @@ public class ContactRouter extends BaseModelRouter {
         if (intent.resolveActivity(((AbsActivity) SLUtil.getActivity()).getPackageManager()) != null) {
             SLUtil.getActivityUnion().startActivity(new StartActivityEvent(intent));
         } else {
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getActivityUnion().showFlashbar(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_WARNING).setTitle(SLUtil.getContext().getString(R.string.warning)));
         }
     }
 }
