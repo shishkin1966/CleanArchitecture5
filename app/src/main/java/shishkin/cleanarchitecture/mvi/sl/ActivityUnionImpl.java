@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-import es.dmoral.toasty.Toasty;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -149,37 +148,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
 
     @Override
     public void showMessage(ShowMessageEvent event) {
-        final IActivity activity = getCurrentSubscriber();
-        if (activity == null || !activity.validate()) {
-            return;
-        }
-
-        final int type = event.getType();
-        final int duration = event.getDuration();
-        final String message = event.getMessage();
-
-        switch (type) {
-            case ApplicationUtils.MESSAGE_TYPE_INFO:
-                Toasty.info(activity.getActivity(), message, duration).show();
-                break;
-
-            case ApplicationUtils.MESSAGE_TYPE_ERROR:
-                Toasty.error(activity.getActivity(), message, duration).show();
-                break;
-
-            case ApplicationUtils.MESSAGE_TYPE_WARNING:
-                Toasty.warning(activity.getActivity(), message, duration).show();
-                break;
-
-            case ApplicationUtils.MESSAGE_TYPE_SUCCESS:
-                Toasty.success(activity.getActivity(), message, duration).show();
-                break;
-
-            default:
-                Toasty.info(activity.getActivity(), message, duration).show();
-                break;
-
-        }
+        ApplicationUtils.showToast(event.getMessage(), event.getDuration(), event.getType());
     }
 
     @Override
