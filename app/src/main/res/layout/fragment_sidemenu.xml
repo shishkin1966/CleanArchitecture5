@@ -95,7 +95,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="96dp"
             android:background="@color/blue"
             android:orientation="horizontal">
 
@@ -106,25 +106,34 @@
                 android:gravity="center"
                 android:text="@string/exchange_cryptorates"/>
 
+            <View
+                android:background="@drawable/below_shadow"
+                style="@style/VerticalDivider"/>
+
             <TextView
                 android:id="@+id/exchange_rates"
                 style="@style/SideMenuBottomButtonStyle"
                 android:drawableTop="@drawable/ic_show_chart"
-                android:gravity="center"
                 android:text="@string/exchange_rates"/>
+
+            <View
+                android:background="@drawable/below_shadow"
+                style="@style/VerticalDivider"/>
 
             <TextView
                 android:id="@+id/address"
                 style="@style/SideMenuBottomButtonStyle"
                 android:drawableTop="@drawable/ic_office_white"
-                android:gravity="center"
                 android:text="@string/address"/>
+
+            <View
+                android:background="@drawable/below_shadow"
+                style="@style/VerticalDivider"/>
 
             <TextView
                 android:id="@+id/contact"
                 style="@style/SideMenuBottomButtonStyle"
                 android:drawableTop="@drawable/ic_contact_white"
-                android:gravity="center"
                 android:text="@string/contact_bank"/>
         </LinearLayout>
 

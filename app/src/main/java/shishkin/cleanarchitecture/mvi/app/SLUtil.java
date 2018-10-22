@@ -261,6 +261,18 @@ public class SLUtil {
     }
 
     /**
+     * Заменить почтовое сообщение
+     *
+     * @param mail почтовое сообщение
+     */
+    public static void replaceMail(final Mail mail) {
+        final MailUnion union = getMailUnion();
+        if (union != null) {
+            union.replaceMail(mail);
+        }
+    }
+
+    /**
      * Событие - ошибка
      *
      * @param object источник ошибки

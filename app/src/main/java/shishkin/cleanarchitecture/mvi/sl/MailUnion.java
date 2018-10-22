@@ -27,6 +27,13 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
     void addMail(Mail mail);
 
     /**
+     * Заменить почтовое сообщение
+     *
+     * @param mail the mail
+     */
+    void replaceMail(Mail mail);
+
+    /**
      * Удалить почтовое сообщение
      *
      * @param mail the mail
