@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.adapter.ValCursRecyclerViewAdapter;
+import shishkin.cleanarchitecture.mvi.app.screen.adapter.ValCursRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**

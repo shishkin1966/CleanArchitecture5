@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
 
 /**
@@ -10,6 +10,6 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
 public class ValCursInteractor implements ModelInteractor {
 
     public void getValCurs(String listener, String date) {
-        Repository.getValCurs(listener, date);
+        SLUtil.getRepository().getValCurs(listener, date);
     }
 }

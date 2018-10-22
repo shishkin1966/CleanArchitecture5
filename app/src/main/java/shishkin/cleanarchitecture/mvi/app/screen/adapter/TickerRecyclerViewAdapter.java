@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.adapter;
+package shishkin.cleanarchitecture.mvi.app.screen.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

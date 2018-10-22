@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.create_account;
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -11,7 +11,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public class CreateAccountInteractor implements ModelInteractor {
 
-    public void addAccount(Account account, ResponseListener listener) {
-        Repository.addAccount(account, listener);
+    public void addAccount(ResponseListener listener, Account account) {
+        SLUtil.getRepository().addAccount(listener, account);
     }
 }

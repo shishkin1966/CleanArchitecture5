@@ -9,7 +9,6 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.mail.AccountsBalanceMail;
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts.AccountsPresenter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuPresenter;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -46,7 +45,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     }
 
     private AccountObserver() {
-        Repository.getBalance(this);
+        SLUtil.getRepository().getBalance(this);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
 
     @Override
     public void onChange(Object object) {
-        Repository.getBalance(this);
+        SLUtil.getRepository().getBalance(this);
     }
 
     @Override
