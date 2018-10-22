@@ -141,4 +141,7 @@ dependencies {
     // логирование приложениия
     implementation 'com.github.snowdream.android.util:log:1.2.0'
 
+    // Flashbar
+    implementation 'com.andrognito.flashbar:flashbar:1.0.3'
+
 }

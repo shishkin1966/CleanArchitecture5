@@ -11,7 +11,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 @SuppressWarnings("unused")
 public class ShowMessageEvent extends AbsEvent {
     private String mMessage;
-
+    private String mTitle;
     private String mAction;
     private int mDuration = Snackbar.LENGTH_LONG;
     private int mType = ApplicationUtils.MESSAGE_TYPE_INFO;
@@ -20,9 +20,29 @@ public class ShowMessageEvent extends AbsEvent {
         mMessage = message;
     }
 
+    public ShowMessageEvent(final String title, final String message) {
+        mTitle = title;
+        mMessage = message;
+    }
+
     public ShowMessageEvent(final String message, final int type) {
         mMessage = message;
         mType = type;
+    }
+
+    public ShowMessageEvent(final String title, final String message, final int type) {
+        mTitle = title;
+        mMessage = message;
+        mType = type;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public ShowMessageEvent setTitle(String mTitle) {
+        this.mTitle = mTitle;
+        return this;
     }
 
     public String getMessage() {

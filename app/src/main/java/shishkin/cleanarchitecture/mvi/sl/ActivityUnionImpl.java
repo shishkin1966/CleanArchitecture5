@@ -134,6 +134,14 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
         }
     }
 
+    @Override
+    public void showFlashbar(ShowMessageEvent event) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            ApplicationUtils.showFlashbar((AbsActivity) subscriber, event.getTitle(), event.getMessage(), event.getDuration(), event.getType());
+        }
+    }
+
     private void onSnackbarClick(final View view) {
         String action = null;
         if (AppCompatButton.class.isInstance(view)) {

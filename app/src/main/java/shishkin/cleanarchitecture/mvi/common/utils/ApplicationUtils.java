@@ -16,7 +16,9 @@ import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.andrognito.flashbar.Flashbar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -24,9 +26,11 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import es.dmoral.toasty.Toasty;
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
@@ -214,6 +218,32 @@ public class ApplicationUtils {
                 break;
 
         }
+    }
+
+    public static void showFlashbar(final Activity activity, final String title, final String message, final int duration, final int type) {
+        final Flashbar.Builder builder = new Flashbar.Builder(activity)
+                .gravity(Flashbar.Gravity.TOP)
+                .duration(duration == Toast.LENGTH_LONG ? TimeUnit.SECONDS.toMillis(6) : TimeUnit.SECONDS.toMillis(3))
+                .message(message)
+                .enableSwipeToDismiss();
+        if (!StringUtils.isNullOrEmpty(title)) {
+            builder.title(title);
+        }
+        switch (type) {
+            case ApplicationUtils.MESSAGE_TYPE_INFO:
+                builder.backgroundColorRes(R.color.gray_dark);
+                break;
+
+            case ApplicationUtils.MESSAGE_TYPE_ERROR:
+                builder.backgroundColorRes(R.color.red);
+                break;
+
+            case ApplicationUtils.MESSAGE_TYPE_WARNING:
+                builder.backgroundColorRes(R.color.orange);
+                break;
+
+        }
+        builder.build().show();
     }
 
     /**
