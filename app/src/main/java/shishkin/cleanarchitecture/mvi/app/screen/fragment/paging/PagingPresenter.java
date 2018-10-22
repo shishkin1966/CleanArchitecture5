@@ -8,7 +8,6 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -50,7 +49,7 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
 
     private void getData() {
         getModel().getView().showProgressBar();
-        Repository.getPagingAccounts(NAME);
+        SLUtil.getRepository().getPagingAccounts(NAME);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
 
     @Override
     public void onRefresh() {
-        Repository.cancelRequests(NAME);
+        SLUtil.getRepository().cancelRequests(NAME);
         viewData.clearAccounts();
         getModel().getView().refreshViews(viewData);
         getData();
@@ -80,7 +79,7 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
     @Override
     public void onStop() {
         viewData.clearAccounts();
-        Repository.cancelRequests(NAME);
+        SLUtil.getRepository().cancelRequests(NAME);
     }
 }
 

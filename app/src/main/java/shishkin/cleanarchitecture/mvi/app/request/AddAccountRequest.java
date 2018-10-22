@@ -18,7 +18,7 @@ public class AddAccountRequest extends AbsResultRequest<Account> {
 
     private Account mAccount;
 
-    public AddAccountRequest(final Account account, ResponseListener listener) {
+    public AddAccountRequest(ResponseListener listener, final Account account) {
         super(listener);
 
         mAccount = account;

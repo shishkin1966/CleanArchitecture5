@@ -50,7 +50,7 @@ public class ContactRouter extends BaseModelRouter {
             }
         }
         final Intent intent = ApplicationUtils.sendEmailIntent(rec, "Ошибка", body);
-        if (intent.resolveActivity(((AbsActivity)SLUtil.getActivity()).getPackageManager()) != null) {
+        if (intent.resolveActivity(((AbsActivity) SLUtil.getActivity()).getPackageManager()) != null) {
             SLUtil.getActivityUnion().startActivity(new StartActivityEvent(intent));
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));

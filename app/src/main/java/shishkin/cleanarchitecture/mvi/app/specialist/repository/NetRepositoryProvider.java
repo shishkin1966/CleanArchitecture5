@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.repository;
+package shishkin.cleanarchitecture.mvi.app.specialist.repository;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.request.GetTickerRequest;

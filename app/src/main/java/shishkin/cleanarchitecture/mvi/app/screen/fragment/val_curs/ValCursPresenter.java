@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
@@ -51,7 +50,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
 
     private void getData() {
         getModel().getView().showProgressBar();
-        Repository.getValCurs(NAME, StringUtils.formatDate(System.currentTimeMillis(), "dd/MM/yyyy"));
+        getModel().getInteractor().getValCurs(NAME, StringUtils.formatDate(System.currentTimeMillis(), "dd/MM/yyyy"));
     }
 
     @Override

@@ -10,7 +10,6 @@ import java.util.Observer;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
-import shishkin.cleanarchitecture.mvi.app.repository.Repository;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
@@ -50,7 +49,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     private void getData() {
         getModel().getView().showProgressBar();
-        Repository.getTicker(NAME);
+        getModel().getInteractor().getTicker(NAME);
     }
 
     @Override

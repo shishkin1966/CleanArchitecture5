@@ -53,7 +53,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
 
     public void createAccount(Account account) {
         getModel().getView().showProgressBar();
-        getModel().getInteractor().addAccount(account, this);
+        getModel().getInteractor().addAccount(this, account);
     }
 }
 
