@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +24,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
 
     public static final String NAME = MailUnionImpl.class.getName();
 
-    private Map<Long, Mail> mMail = Collections.synchronizedMap(new ConcurrentHashMap<Long, Mail>());
+    private Map<Long, Mail> mMail = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Map<String, List<String>> mMailingList = Collections.synchronizedMap(new ConcurrentHashMap<>());
     private AtomicLong mId = new AtomicLong(0L);
 
     public MailUnionImpl() {
@@ -79,11 +81,59 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
+    public void addMailingList(String name, List<String> addresses) {
+        if (StringUtils.isNullOrEmpty(name) || addresses == null) return;
+
+        mMailingList.put(name, addresses);
+    }
+
+    @Override
+    public void addMailingList(String name, String[] addresses) {
+        if (StringUtils.isNullOrEmpty(name) || addresses == null) return;
+
+        mMailingList.put(name, Arrays.asList(addresses));
+    }
+
+    @Override
+    public void removeMailingList(String name) {
+        if (StringUtils.isNullOrEmpty(name)) return;
+
+        mMailingList.remove(name);
+    }
+
+    @Override
+    public List<String> getMailingList(String name) {
+        if (StringUtils.isNullOrEmpty(name)) return null;
+
+        if (mMailingList.containsKey(name)) {
+            return mMailingList.get(name);
+        } else {
+            return null;
+        }
+    }
+
+    private List<String> getAddresses(String address) {
+        final List<String> addresses = new ArrayList<>();
+        if (mMailingList.containsKey(address)) {
+            for (String adr : mMailingList.get(address)) {
+                addresses.addAll(getAddresses(adr));
+            }
+        } else {
+            addresses.add(address);
+        }
+        return addresses;
+    }
+
+    @Override
     public void addMail(final Mail mail) {
         if (mail != null) {
-            final List<String> list = mail.getCopyTo();
+            List<String> list = mail.getCopyTo();
             list.add(mail.getAddress());
+            List<String> addresses = new ArrayList<>();
             for (String address : list) {
+                addresses.addAll(getAddresses(address));
+            }
+            for (String address : addresses) {
                 final long id = mId.incrementAndGet();
                 final Mail newMail = mail.copy();
                 newMail.setId(id);
@@ -107,7 +157,11 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
         if (mail != null) {
             final List<String> list = mail.getCopyTo();
             list.add(mail.getAddress());
+            List<String> addresses = new ArrayList<>();
             for (String address : list) {
+                addresses.addAll(getAddresses(address));
+            }
+            for (String address : addresses) {
                 final long id = mId.incrementAndGet();
                 final Mail newMail = mail.copy();
                 newMail.setId(id);
@@ -181,6 +235,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     @Override
     public void onFinishApplication() {
         clearMail();
+        mMailingList.clear();
     }
 
     @Override

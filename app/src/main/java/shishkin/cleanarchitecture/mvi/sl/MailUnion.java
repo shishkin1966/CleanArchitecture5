@@ -59,4 +59,33 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
      */
     void readMail(final MailSubscriber subscriber);
 
+    /**
+     * Добавить список рассылки
+     *
+     * @param name      имя списка рассылки
+     * @param addresses список рассылки
+     */
+    void addMailingList(String name, List<String> addresses);
+
+    /**
+     * Добавить список рассылки
+     *
+     * @param name      имя списка рассылки
+     * @param addresses список рассылки
+     */
+    void addMailingList(String name, String[] addresses);
+
+    /**
+     * Удалить список рассылки
+     *
+     * @param name имя списка рассылки
+     */
+    void removeMailingList(String name);
+
+    /**
+     * Получить список рассылки
+     *
+     * @return список рассылки
+     */
+    List<String> getMailingList(String name);
 }

@@ -27,6 +27,9 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
 
     private static volatile AccountObserver sInstance;
 
+    private static final String ACCOUNTS_MAILING_LIST = NAME + ".MAILING_LIST";
+    private String[] mAccountsMailingList = {SideMenuPresenter.NAME, AccountsPresenter.NAME};
+
     public static void instantiate() {
         if (sInstance == null) {
             synchronized (AccountObserver.class) {
@@ -46,6 +49,8 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
 
     private AccountObserver() {
         SLUtil.getRepository().getBalance(this);
+
+        SLUtil.getMailUnion().addMailingList(ACCOUNTS_MAILING_LIST, mAccountsMailingList);
     }
 
     @Override
@@ -99,8 +104,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
         if (!result.hasError()) {
             final List<MviDao.Balance> list = SafeUtils.cast(result.getData());
             ((ApplicationController) ApplicationController.getInstance()).updateWidget();
-            SLUtil.addMail(new AccountsBalanceMail(SideMenuPresenter.NAME, list));
-            SLUtil.addMail(new AccountsBalanceMail(AccountsPresenter.NAME, list));
+            SLUtil.addMail(new AccountsBalanceMail(ACCOUNTS_MAILING_LIST, list));
         } else {
             SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText(), ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
