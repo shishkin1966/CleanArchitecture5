@@ -7,4 +7,8 @@ import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 
 public interface SettingView {
     void refreshViews(List<Setting> settings);
+
+    void collapseBottomSheet();
+
+
 }

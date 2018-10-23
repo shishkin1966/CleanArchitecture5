@@ -1,18 +1,26 @@
 package shishkin.cleanarchitecture.mvi.sl.repository;
 
+import android.Manifest;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.google.common.io.Files;
 
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
+import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
@@ -67,9 +75,7 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
                         .addCallback(mCallback)
                         .build();
             }
-            if (db != null) {
-                db.getOpenHelper().getReadableDatabase().getVersion();
-            }
+            db.getOpenHelper().getReadableDatabase().getVersion();
             mDb.put(databaseName, db);
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
@@ -179,6 +185,123 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
     @Override
     public int compareTo(@NonNull Object o) {
         return (DbProvider.class.isInstance(o)) ? 0 : 1;
+    }
+
+    @Override
+    public void backup(final String databaseName, final String dirBackup) {
+        if (!ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            return;
+        }
+
+        final T db = mDb.get(databaseName);
+        if (db == null) {
+            return;
+        }
+
+        final Class<T> klass = SafeUtils.cast(db.getClass().getSuperclass());
+        final String pathDb = db.getOpenHelper().getReadableDatabase().getPath();
+        if (StringUtils.isNullOrEmpty(pathDb)) {
+            return;
+        }
+
+        disconnect(databaseName);
+
+        final File fileDb = new File(pathDb);
+        final String nameDb = fileDb.getName();
+        final String pathBackup = dirBackup + File.separator + nameDb;
+        try {
+            final File fileBackup = new File(pathBackup);
+            final File fileBackupOld = new File(pathBackup + "1");
+            if (fileDb.exists()) {
+                if (fileBackup.exists()) {
+                    final File dir = new File(dirBackup);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    if (dir.exists()) {
+                        if (fileBackupOld.exists()) {
+                            fileBackupOld.delete();
+                        }
+                        if (!fileBackupOld.exists()) {
+                            Files.copy(fileBackup, fileBackupOld);
+                            if (fileBackupOld.exists()) {
+                                fileBackup.delete();
+                                if (!fileBackup.exists()) {
+                                    Files.copy(fileDb, fileBackup);
+                                    if (fileBackup.exists()) {
+                                        fileBackupOld.delete();
+                                    } else {
+                                        Files.copy(fileBackupOld, fileBackup);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    final File dir = new File(dirBackup);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    if (dir.exists()) {
+                        Files.copy(fileDb, fileBackup);
+                    }
+                }
+            }
+
+            connect(klass, nameDb);
+
+            ApplicationUtils.runOnUiThread(() -> ApplicationUtils.showToast(ApplicationSpecialistImpl.getInstance().getString(R.string.db_backuped), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_INFO));
+        } catch (Exception e) {
+            ErrorSpecialistImpl.getInstance().onError(NAME, e);
+        }
+    }
+
+    @Override
+    public void restore(final String databaseName, final String dirBackup) {
+        if (!ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            return;
+        }
+
+        final T db = mDb.get(databaseName);
+        if (db == null) {
+            return;
+        }
+
+        final Class<T> klass = SafeUtils.cast(db.getClass().getSuperclass());
+        final String pathDb = db.getOpenHelper().getReadableDatabase().getPath();
+        if (StringUtils.isNullOrEmpty(pathDb)) {
+            return;
+        }
+
+        disconnect(databaseName);
+
+        final File fileDb = new File(pathDb);
+        final String nameDb = fileDb.getName();
+        final String pathBackup = dirBackup + File.separator + nameDb;
+        final File fileBackup = new File(pathBackup);
+        if (fileBackup.exists()) {
+            try {
+                if (fileDb.exists()) {
+                    fileDb.delete();
+                }
+                if (!fileDb.exists()) {
+                    Files.createParentDirs(fileDb);
+                    final File dir = new File(fileDb.getParent());
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    if (dir.exists()) {
+                        Files.copy(fileBackup, fileDb);
+                    }
+                }
+
+                connect(klass, nameDb);
+
+                ApplicationUtils.runOnUiThread(() -> ApplicationUtils.showToast(ApplicationSpecialistImpl.getInstance().getString(R.string.db_restored), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_INFO));
+            } catch (Exception e) {
+                ErrorSpecialistImpl.getInstance().onError(NAME, e);
+            }
+        }
     }
 
 }

@@ -8,6 +8,9 @@
     <string name="cancel">Отмена</string>
     <string name="warning">Внимание</string>
 
+    <string name="db_backuped">Резервная копия БД сделана</string>
+    <string name="db_restored">БД восстановлена из резервной копии</string>
+
     <string name="fragment_open_account_transaction_friendly_name_subtitle">Наименование счета</string>
     <string name="fragment_open_account_transaction_friendly_name_hint">Например: "Текущий счет"</string>
     <string name="fragment_open_account_transaction_balance_subtitle">Баланс по счету</string>
@@ -44,5 +47,8 @@
     <string name="restart_location">Перегрузите устройство. Не работатает служба получения адреса</string>
     <string name="timeout_exit">Приложение вышло по таймауту</string>
     <string name="mail_error">Отсутствуют программы, осуществляющие посылку Email</string>
+    <string name="setting_error">Отсутствует сохраненный файл настроек</string>
+    <string name="setting_backup">Резервная копия настроек сохранена</string>
+    <string name="setting_restore">Настройки восстановлены из резервной копии</string>
 
 </resources>
