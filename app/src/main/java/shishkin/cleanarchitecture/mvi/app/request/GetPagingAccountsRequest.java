@@ -13,6 +13,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.mail.ResultMail;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsResultMailRequest;
+import shishkin.cleanarchitecture.mvi.sl.request.Rank;
 
 public class GetPagingAccountsRequest extends AbsResultMailRequest {
 
@@ -21,6 +22,8 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
 
     public GetPagingAccountsRequest(String listener) {
         super(listener);
+
+        setRank(Rank.LOW_RANK);
     }
 
     @Override

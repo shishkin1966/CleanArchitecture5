@@ -65,6 +65,19 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
     }
 
     @Override
+    protected void beforeExecute(Thread t, Runnable r) {
+        int priority = Thread.NORM_PRIORITY;
+        final int rank = ((Request) r).getRank();
+        if (rank < 4) {
+            priority = Thread.MIN_PRIORITY;
+        } else if (rank > 6) {
+            priority = Thread.MAX_PRIORITY;
+        }
+        t.setPriority(priority);
+        super.beforeExecute(t, r);
+    }
+
+    @Override
     public void clear() {
         checkNullRequest();
 
@@ -139,9 +152,7 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
 
         @Override
         public Thread newThread(@NonNull Runnable runnable) {
-            final Thread thread = new Thread(runnable, "Thread_" + counter++);
-            thread.setPriority(Thread.NORM_PRIORITY);
-            return thread;
+            return new Thread(runnable, "Thread_" + counter++);
         }
     }
 
