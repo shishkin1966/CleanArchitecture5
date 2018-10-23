@@ -15,10 +15,13 @@ import java.util.Observer;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.db.MviDb;
+import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
@@ -61,9 +64,31 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onClick(View v) {
-        final Setting setting = (Setting) v.getTag();
-        if (setting != null) {
-            SLUtil.getActivityUnion().showListDialog(new ShowListDialogEvent(setting.getId(), getName(), setting.getTitle(), null, setting.getValues(), MaterialDialogExt.NO_BUTTON, MaterialDialogExt.NO_BUTTON, true));
+        switch (v.getId()) {
+            case R.id.setting_backup:
+                SettingFactory.backup();
+                break;
+
+            case R.id.setting_restore:
+                SettingFactory.restore();
+                getModel().getView().refreshViews(SettingFactory.getSettings());
+                break;
+
+            case R.id.db_backup:
+                SLUtil.getDbProvider().backup(MviDb.NAME, ApplicationSpecialistImpl.getInstance().getExternalDataPath());
+                break;
+
+            case R.id.db_restore:
+                SLUtil.getDbProvider().restore(MviDb.NAME, ApplicationSpecialistImpl.getInstance().getExternalDataPath());
+                AccountObserver.getInstance().onChange(null);
+                break;
+
+            default:
+                final Setting setting = (Setting) v.getTag();
+                if (setting != null) {
+                    SLUtil.getActivityUnion().showListDialog(new ShowListDialogEvent(setting.getId(), getName(), setting.getTitle(), null, setting.getValues(), MaterialDialogExt.NO_BUTTON, MaterialDialogExt.NO_BUTTON, true));
+                }
+                break;
         }
     }
 

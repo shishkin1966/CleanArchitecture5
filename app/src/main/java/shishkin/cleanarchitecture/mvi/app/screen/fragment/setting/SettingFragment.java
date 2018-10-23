@@ -1,7 +1,9 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.setting;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.SwitchCompat;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -18,7 +20,10 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
+import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
+import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
@@ -31,6 +36,7 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
 
     public static final String NAME = SettingFragment.class.getName();
     private LinearLayout mLinearLayout;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +48,20 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
         super.onViewCreated(view, savedInstanceState);
 
         mLinearLayout = findView(R.id.list);
+
+        mBottomSheetBehavior = LinearLayoutBehavior.from(findView(R.id.bottomSheetContainer));
+
+        if (!ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            findView(R.id.setting_backup).setEnabled(false);
+            findView(R.id.setting_restore).setEnabled(false);
+            findView(R.id.db_backup).setEnabled(false);
+            findView(R.id.db_restore).setEnabled(false);
+        }
+
+        findView(R.id.setting_backup).setOnClickListener(getModel().getPresenter());
+        findView(R.id.setting_restore).setOnClickListener(getModel().getPresenter());
+        findView(R.id.db_backup).setOnClickListener(getModel().getPresenter());
+        findView(R.id.db_restore).setOnClickListener(getModel().getPresenter());
     }
 
     @Override
@@ -124,6 +144,11 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
     public boolean onBackPressed() {
         SLUtil.getActivityUnion().switchToTopFragment();
         return true;
+    }
+
+    @Override
+    public void collapseBottomSheet() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 }
 

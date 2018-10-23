@@ -53,4 +53,21 @@ public interface DbProvider<T extends RoomDatabase> extends Provider {
      * @param db БД
      */
     void onOpenDatabase(SupportSQLiteDatabase db);
+
+    /**
+     * Резервировать БД
+     *
+     * @param databaseName имя БД
+     * @param dirBackup    каталог копии БД
+     */
+    void backup(String databaseName, String dirBackup);
+
+    /**
+     * Восстановить БД
+     *
+     * @param databaseName имя БД
+     * @param dirBackup    каталог копии БД
+     */
+    void restore(String databaseName, String dirBackup);
+
 }
