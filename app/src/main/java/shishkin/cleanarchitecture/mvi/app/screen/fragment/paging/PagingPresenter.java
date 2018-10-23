@@ -59,8 +59,6 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
         if (!result.hasError()) {
             if (result.getOrder() == Result.LAST) {
                 getModel().getView().hideProgressBar();
-            } else {
-                getModel().getView().showProgressBar();
             }
             viewData.addAccounts((List<Account>) result.getData());
             getModel().getView().refreshViews(viewData);

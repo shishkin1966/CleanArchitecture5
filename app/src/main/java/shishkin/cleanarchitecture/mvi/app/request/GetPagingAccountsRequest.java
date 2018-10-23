@@ -59,6 +59,7 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
                     });
                 }
                 Thread.sleep(sleep);
+                Thread.yield();
 
                 if (cnt == 10) {
                     cnt = 20;
