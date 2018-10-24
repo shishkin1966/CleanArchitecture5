@@ -239,7 +239,15 @@ public class ApplicationUtils {
                 break;
 
             case ApplicationUtils.MESSAGE_TYPE_WARNING:
-                builder.backgroundColorRes(R.color.orange);
+                builder.backgroundColorRes(R.color.colorAccent);
+                break;
+
+            case MESSAGE_TYPE_SUCCESS:
+                builder.backgroundColorRes(R.color.blue);
+                break;
+
+            default:
+                builder.backgroundColorRes(R.color.gray_dark);
                 break;
 
         }
