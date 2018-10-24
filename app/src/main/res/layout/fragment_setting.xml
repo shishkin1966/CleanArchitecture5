@@ -71,9 +71,7 @@
                     android:textSize="@dimen/text_size_large"/>
 
                 <View
-                    style="@style/HorizontalDivider"
-                    android:layout_height="0.5dp"
-                    android:background="@color/white_light"/>
+                    style="@style/HorizontalGradientDivider"/>
 
                 <TextView
                     android:id="@+id/setting_restore"
@@ -89,9 +87,7 @@
                     android:textSize="@dimen/text_size_large"/>
 
                 <View
-                    style="@style/HorizontalDivider"
-                    android:layout_height="0.5dp"
-                    android:background="@color/white_light"/>
+                    style="@style/HorizontalGradientDivider"/>
 
                 <TextView
                     android:id="@+id/db_backup"
@@ -107,9 +103,7 @@
                     android:textSize="@dimen/text_size_large"/>
 
                 <View
-                    style="@style/HorizontalDivider"
-                    android:layout_height="0.5dp"
-                    android:background="@color/white_light"/>
+                    style="@style/HorizontalGradientDivider"/>
 
                 <TextView
                     android:id="@+id/db_restore"
