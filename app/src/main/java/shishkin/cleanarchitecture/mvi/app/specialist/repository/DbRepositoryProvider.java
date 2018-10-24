@@ -6,7 +6,6 @@ import shishkin.cleanarchitecture.mvi.app.request.AddAccountRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
-import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public class DbRepositoryProvider {
@@ -24,14 +23,6 @@ public class DbRepositoryProvider {
 
     public static void getCurrency(ResponseListener listener) {
         SLUtil.getDbProvider().request(new GetCurrencyRequest(listener));
-    }
-
-    public static void getPagingAccounts(String listener) {
-        SLUtil.getDbProvider().request(new GetPagingAccountsRequest(listener));
-    }
-
-    public static void cancelRequests(String listener) {
-        SLUtil.getDbProvider().cancelRequests(listener);
     }
 
 }

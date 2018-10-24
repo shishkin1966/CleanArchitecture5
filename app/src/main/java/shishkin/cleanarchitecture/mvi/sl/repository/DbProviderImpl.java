@@ -149,11 +149,6 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
     }
 
     @Override
-    public void cancelRequests(String listener) {
-        ((RequestSpecialist) SL.getInstance().get(RequestSpecialistImpl.NAME)).cancelRequests(this, listener);
-    }
-
-    @Override
     public boolean isPersistent() {
         return false;
     }

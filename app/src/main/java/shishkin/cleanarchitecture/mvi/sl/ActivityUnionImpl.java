@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import java.lang.ref.WeakReference;
@@ -430,6 +432,28 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
                         event.getTitle(), event.getMessage(), event.getList(), event.getSelected(), event.isMultiselect(), event.getButtonPositive(),
                         event.getButtonNegative(), event.isCancelable()).show();
             }
+        }
+    }
+
+    @Override
+    public void showError(String text) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            final AppCompatActivity activity = (AppCompatActivity) subscriber;
+            ApplicationUtils.showFlashbar(activity, ApplicationSpecialistImpl.getInstance().getString(R.string.error), text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+        } else {
+            ApplicationUtils.showToast(text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+        }
+    }
+
+    @Override
+    public void showWarning(String text) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            final AppCompatActivity activity = (AppCompatActivity) subscriber;
+            ApplicationUtils.showFlashbar(activity, ApplicationSpecialistImpl.getInstance().getString(R.string.warning), text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_WARNING);
+        } else {
+            ApplicationUtils.showToast(text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_WARNING);
         }
     }
 

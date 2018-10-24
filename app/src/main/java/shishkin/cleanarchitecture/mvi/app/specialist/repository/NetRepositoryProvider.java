@@ -12,10 +12,4 @@ public class NetRepositoryProvider {
     public static void getValCurs(String listener, String date) {
         SLUtil.getNetCbProvider().request(new GetValCursRequest(listener, date));
     }
-
-    public static void cancelRequests(String listener) {
-        SLUtil.getNetProvider().cancelRequests(listener);
-        SLUtil.getNetCbProvider().cancelRequests(listener);
-    }
-
 }
