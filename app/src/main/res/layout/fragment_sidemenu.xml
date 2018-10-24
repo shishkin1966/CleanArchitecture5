@@ -32,9 +32,7 @@
             android:textSize="@dimen/text_size_large"/>
 
         <View
-            style="@style/HorizontalDivider"
-            android:layout_height="0.5dp"
-            android:background="@color/white_light"/>
+            style="@style/HorizontalGradientDivider"/>
 
         <TextView
             android:id="@+id/calc"
@@ -51,9 +49,7 @@
             android:textSize="@dimen/text_size_large"/>
 
         <View
-            style="@style/HorizontalDivider"
-            android:layout_height="0.5dp"
-            android:background="@color/white_light"/>
+            style="@style/HorizontalGradientDivider"/>
 
         <TextView
             android:id="@+id/scanner"
@@ -70,9 +66,7 @@
             android:textSize="@dimen/text_size_large"/>
 
         <View
-            style="@style/HorizontalDivider"
-            android:layout_height="0.5dp"
-            android:background="@color/white_light"/>
+            style="@style/HorizontalGradientDivider"/>
 
         <TextView
             android:id="@+id/setting"
@@ -314,9 +308,7 @@
             </LinearLayout>
 
             <View
-                style="@style/HorizontalDivider"
-                android:layout_height="0.5dp"
-                android:background="@color/white_light"/>
+                style="@style/HorizontalGradientDivider"/>
 
             <LinearLayout
                 android:id="@+id/deposits"
@@ -358,9 +350,7 @@
             </LinearLayout>
 
             <View
-                style="@style/HorizontalDivider"
-                android:layout_height="0.5dp"
-                android:background="@color/white_light"/>
+                style="@style/HorizontalGradientDivider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -400,9 +390,7 @@
             </LinearLayout>
 
             <View
-                style="@style/HorizontalDivider"
-                android:layout_height="0.5dp"
-                android:background="@color/white_light"/>
+                style="@style/HorizontalGradientDivider"/>
 
             <LinearLayout
                 android:id="@+id/cards"

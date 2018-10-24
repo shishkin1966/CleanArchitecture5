@@ -7,17 +7,22 @@ import android.location.Location;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationSubscriber;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
+import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 
 /**
@@ -31,6 +36,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     private GoogleMap googleMap;
     private boolean isInit = false;
     private MapViewData viewData;
+    private Marker marker;
 
     public MapPresenter(MapModel model) {
         super(model);
@@ -87,6 +93,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
                 isInit = true;
             }
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+            addMarker(location);
 
             final List<Address> list = SLUtil.getLocationUnion().getAddress(location);
             if (list != null && !list.isEmpty()) {
@@ -115,6 +122,19 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     public boolean onMyLocationButtonClick() {
         getModel().getView().getRootView().post(() -> setLocation(SLUtil.getLocationUnion().getLocation()));
         return false;
+    }
+
+    private void addMarker(Location location) {
+        if (marker != null){
+            marker.remove();
+        }
+
+        marker = googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .alpha(0.7f)
+                .icon(ViewUtils.generateBitmapDescriptorFromRes(SLUtil.getContext(), R.drawable.pin))
+                .title("Мое местоположение"));
+
     }
 }
 
