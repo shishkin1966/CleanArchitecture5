@@ -9,7 +9,7 @@
     <string name="warning">Внимание</string>
     <string name="error">Ошибка</string>
 
-    <string name="db_backuped">Резервная копия БД сделана</string>
+    <string name="db_backuped">Резервная копия БД сохранена</string>
     <string name="db_restored">БД восстановлена из резервной копии</string>
 
     <string name="fragment_open_account_transaction_friendly_name_subtitle">Наименование счета</string>

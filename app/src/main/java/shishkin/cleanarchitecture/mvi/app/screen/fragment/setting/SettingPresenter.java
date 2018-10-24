@@ -15,13 +15,12 @@ import java.util.Observer;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.db.MviDb;
-import shishkin.cleanarchitecture.mvi.app.observe.AccountObserver;
+import shishkin.cleanarchitecture.mvi.app.request.DbBackupRequest;
+import shishkin.cleanarchitecture.mvi.app.request.DbRestoreRequest;
 import shishkin.cleanarchitecture.mvi.app.setting.Setting;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingFactory;
 import shishkin.cleanarchitecture.mvi.app.setting.SettingOrientation;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowListDialogEvent;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
@@ -75,12 +74,11 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                 break;
 
             case R.id.db_backup:
-                SLUtil.getDbProvider().backup(MviDb.NAME, ApplicationSpecialistImpl.getInstance().getExternalDataPath());
+                SLUtil.getRequestSpecialist().request(this, new DbBackupRequest());
                 break;
 
             case R.id.db_restore:
-                SLUtil.getDbProvider().restore(MviDb.NAME, ApplicationSpecialistImpl.getInstance().getExternalDataPath());
-                AccountObserver.getInstance().onChange(null);
+                SLUtil.getRequestSpecialist().request(this, new DbRestoreRequest());
                 break;
 
             default:
