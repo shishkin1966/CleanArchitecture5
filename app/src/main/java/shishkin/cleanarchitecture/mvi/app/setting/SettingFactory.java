@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -36,7 +37,7 @@ public class SettingFactory {
         final List<Setting> list = new ArrayList<>();
 
         final Setting setting = new Setting(Setting.TYPE_TEXT)
-                .setTitle(SLUtil.getContext().getString(R.string.setting));
+                .setTitle(SLUtil.getContext().getString(R.string.setting)+ " (версия программы "+ BuildConfig.VERSION_NAME+")");
         list.add(setting);
 
         list.add(getSetting(SettingPlayMusicEnabled.NAME));
