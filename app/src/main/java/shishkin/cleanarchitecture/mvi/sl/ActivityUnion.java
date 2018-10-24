@@ -203,13 +203,13 @@ public interface ActivityUnion extends IView, Union<IActivity> {
      *
      * @param text текст сообщения
      */
-    void showError(String text) ;
+    void showError(String text);
 
     /**
      * Показать warning сообщение
      *
      * @param text warning текст
      */
-    void showWarning(String text) ;
+    void showWarning(String text);
 
 }

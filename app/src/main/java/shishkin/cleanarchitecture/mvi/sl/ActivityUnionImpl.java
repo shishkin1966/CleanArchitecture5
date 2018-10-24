@@ -439,7 +439,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     public void showError(String text) {
         final IActivity subscriber = getCurrentSubscriber();
         if (subscriber != null && subscriber.validate()) {
-            final AppCompatActivity activity = (AppCompatActivity)subscriber;
+            final AppCompatActivity activity = (AppCompatActivity) subscriber;
             ApplicationUtils.showFlashbar(activity, ApplicationSpecialistImpl.getInstance().getString(R.string.error), text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
         } else {
             ApplicationUtils.showToast(text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
@@ -450,7 +450,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
     public void showWarning(String text) {
         final IActivity subscriber = getCurrentSubscriber();
         if (subscriber != null && subscriber.validate()) {
-            final AppCompatActivity activity = (AppCompatActivity)subscriber;
+            final AppCompatActivity activity = (AppCompatActivity) subscriber;
             ApplicationUtils.showFlashbar(activity, ApplicationSpecialistImpl.getInstance().getString(R.string.warning), text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_WARNING);
         } else {
             ApplicationUtils.showToast(text, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_WARNING);

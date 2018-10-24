@@ -94,38 +94,50 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
 
     @Override
     public void onError(final String source, final Exception e) {
-        if (BuildConfig.DEBUG) {
+        Log.e(source, e.getMessage());
+        final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+        if (union != null) {
+            union.showError(e.getMessage());
+        } else {
             ApplicationUtils.showToast(e.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
         }
-        Log.e(source, e.getMessage());
     }
 
     @Override
     public void onError(final String source, final Throwable throwable) {
-        if (BuildConfig.DEBUG) {
+        Log.e(source, throwable.getMessage());
+        final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+        if (union != null) {
+            union.showError(throwable.getMessage());
+        } else {
             ApplicationUtils.showToast(throwable.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
         }
-        Log.e(source, throwable.getMessage());
     }
 
     @Override
     public void onError(final String source, final Exception e, final String displayMessage) {
-        onError(source, e);
-
+        Log.e(source, e.getMessage());
         if (!StringUtils.isNullOrEmpty(displayMessage)) {
-            ApplicationUtils.showToast(displayMessage, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+            final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+            if (union != null) {
+                union.showError(displayMessage);
+            } else {
+                ApplicationUtils.showToast(displayMessage, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+            }
         }
     }
 
     @Override
     public void onError(final String source, final String message, final boolean isDisplay) {
         if (!StringUtils.isNullOrEmpty(message)) {
-            if (BuildConfig.DEBUG && !isDisplay) {
-                ApplicationUtils.showToast(message, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-            }
             Log.e(source, message);
             if (isDisplay) {
-                ApplicationUtils.showToast(message, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+                final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+                if (union != null) {
+                    union.showError(message);
+                } else {
+                    ApplicationUtils.showToast(message, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+                }
             }
         }
     }
@@ -133,7 +145,12 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     @Override
     public void onError(final ExtError extError) {
         if (extError != null && extError.hasError()) {
-            ApplicationUtils.showToast(extError.getErrorText(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+            final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+            if (union != null) {
+                union.showError(extError.getErrorText());
+            } else {
+                ApplicationUtils.showToast(extError.getErrorText(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
+            }
         }
     }
 

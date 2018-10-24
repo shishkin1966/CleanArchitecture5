@@ -6,7 +6,6 @@ import shishkin.cleanarchitecture.mvi.app.request.AddAccountRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
-import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public class DbRepositoryProvider {
