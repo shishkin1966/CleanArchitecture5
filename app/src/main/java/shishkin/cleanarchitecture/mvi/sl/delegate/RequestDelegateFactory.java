@@ -14,10 +14,12 @@ import shishkin.cleanarchitecture.mvi.sl.task.RequestExecutor;
 public class RequestDelegateFactory implements DelegatingFactory<RequestExecutor> {
     @Override
     public RequestExecutor create(Object sender) {
-        if (DbProvider.class.isInstance(sender)) {
-            return DbExecutor.getInstance();
-        } else if (NetProviderImpl.class.isInstance(sender)) {
-            return NetExecutor.getInstance();
+        if (sender != null) {
+            if (DbProvider.class.isInstance(sender)) {
+                return DbExecutor.getInstance();
+            } else if (NetProviderImpl.class.isInstance(sender)) {
+                return NetExecutor.getInstance();
+            }
         }
         return CommonExecutor.getInstance();
     }

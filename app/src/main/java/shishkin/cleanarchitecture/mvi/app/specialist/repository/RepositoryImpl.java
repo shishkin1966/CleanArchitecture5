@@ -3,7 +3,9 @@ package shishkin.cleanarchitecture.mvi.app.specialist.repository;
 import android.support.annotation.NonNull;
 
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -43,13 +45,12 @@ public class RepositoryImpl extends AbsSpecialist implements Repository {
 
     @Override
     public void getPagingAccounts(String listener) {
-        DbRepositoryProvider.getPagingAccounts(listener);
+        SLUtil.getRequestSpecialist().request(this, new GetPagingAccountsRequest(listener));
     }
 
     @Override
     public void cancelRequests(String listener) {
-        DbRepositoryProvider.cancelRequests(listener);
-        NetRepositoryProvider.cancelRequests(listener);
+        SLUtil.getRequestSpecialist().cancelRequests(listener);
     }
 
     @Override

@@ -3,6 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.support.annotation.NonNull;
 
 
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import shishkin.cleanarchitecture.mvi.sl.delegate.RequestDelegate;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
+import shishkin.cleanarchitecture.mvi.sl.task.RequestExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 
 /**
@@ -67,9 +69,9 @@ public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpeci
     }
 
     @Override
-    public void cancelRequests(Object sender, String listener) {
-        final IExecutor executor = mRequestDelegate.get(sender);
-        if (executor != null) {
+    public void cancelRequests(String listener) {
+        List<RequestExecutor> list = mRequestDelegate.getAll();
+        for (RequestExecutor executor : list) {
             executor.cancelRequests(listener);
         }
         mSequentiallyThreadPoolExecutor.cancelRequests(listener);

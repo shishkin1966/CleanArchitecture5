@@ -85,10 +85,6 @@ public abstract class AbsNetProvider<T> extends AbsProvider implements NetProvid
     public void onRegister() {
     }
 
-    public void cancelRequests(String listener) {
-        ((RequestSpecialist) SL.getInstance().get(RequestSpecialistImpl.NAME)).cancelRequests(this, listener);
-    }
-
     @Override
     public int compareTo(@NonNull Object o) {
         return (NetProvider.class.isInstance(o)) ? 0 : 1;

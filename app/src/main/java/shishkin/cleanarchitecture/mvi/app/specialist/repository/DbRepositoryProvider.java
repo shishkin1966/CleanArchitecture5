@@ -26,12 +26,4 @@ public class DbRepositoryProvider {
         SLUtil.getDbProvider().request(new GetCurrencyRequest(listener));
     }
 
-    public static void getPagingAccounts(String listener) {
-        SLUtil.getDbProvider().request(new GetPagingAccountsRequest(listener));
-    }
-
-    public static void cancelRequests(String listener) {
-        SLUtil.getDbProvider().cancelRequests(listener);
-    }
-
 }

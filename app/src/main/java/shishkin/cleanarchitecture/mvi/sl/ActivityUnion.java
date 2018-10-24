@@ -198,5 +198,18 @@ public interface ActivityUnion extends IView, Union<IActivity> {
      */
     void showListDialog(ShowListDialogEvent event);
 
+    /**
+     * Показать сообщение об ошибке
+     *
+     * @param text текст сообщения
+     */
+    void showError(String text) ;
+
+    /**
+     * Показать warning сообщение
+     *
+     * @param text warning текст
+     */
+    void showWarning(String text) ;
 
 }

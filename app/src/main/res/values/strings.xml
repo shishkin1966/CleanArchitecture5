@@ -7,6 +7,7 @@
     <string name="setting">Настройки</string>
     <string name="cancel">Отмена</string>
     <string name="warning">Внимание</string>
+    <string name="error">Ошибка</string>
 
     <string name="db_backuped">Резервная копия БД сделана</string>
     <string name="db_restored">БД восстановлена из резервной копии</string>
