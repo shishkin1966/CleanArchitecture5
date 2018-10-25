@@ -37,7 +37,7 @@ public class SettingFactory {
         final List<Setting> list = new ArrayList<>();
 
         final Setting setting = new Setting(Setting.TYPE_TEXT)
-                .setTitle(SLUtil.getContext().getString(R.string.setting)+ " (версия программы "+ BuildConfig.VERSION_NAME+")");
+                .setTitle(SLUtil.getContext().getString(R.string.setting) + " (версия программы " + BuildConfig.VERSION_NAME + ")");
         list.add(setting);
 
         list.add(getSetting(SettingPlayMusicEnabled.NAME));

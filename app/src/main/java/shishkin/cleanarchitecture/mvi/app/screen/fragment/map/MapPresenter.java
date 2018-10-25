@@ -7,7 +7,6 @@ import android.location.Location;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -125,7 +124,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     }
 
     private void addMarker(Location location) {
-        if (marker != null){
+        if (marker != null) {
             marker.remove();
         }
 
