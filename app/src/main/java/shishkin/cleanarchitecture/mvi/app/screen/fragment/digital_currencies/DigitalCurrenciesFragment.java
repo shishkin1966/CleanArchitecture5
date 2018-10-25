@@ -91,4 +91,12 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         SLUtil.getActivityUnion().switchToTopFragment();
         return true;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mRecyclerView.setAdapter(null);
+    }
+
 }

@@ -67,4 +67,11 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
 
         mBalanceAdapter.setItems(list);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mBalanceView.setAdapter(null);
+    }
 }

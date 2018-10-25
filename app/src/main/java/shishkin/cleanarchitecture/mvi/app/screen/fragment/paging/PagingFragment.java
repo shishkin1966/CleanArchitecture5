@@ -82,4 +82,11 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
         SLUtil.getActivityUnion().switchToTopFragment();
         return true;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mRecyclerView.setAdapter(null);
+    }
 }
