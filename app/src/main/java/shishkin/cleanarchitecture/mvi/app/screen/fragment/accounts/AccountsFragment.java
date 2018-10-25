@@ -136,7 +136,6 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView.setAdapter(null);
     }
 
-
     @Override
     public void refreshBalance(List<MviDao.Balance> list) {
         if (list == null) return;

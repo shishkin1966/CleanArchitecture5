@@ -89,4 +89,11 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         SLUtil.getActivityUnion().switchToTopFragment();
         return true;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mRecyclerView.setAdapter(null);
+    }
 }
