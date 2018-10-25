@@ -40,15 +40,9 @@
         app:behavior_peekHeight="@dimen/menu_peek_height"
         app:layout_behavior="shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/above_shadow"/>
-
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue"
             android:focusable="false"
             android:focusableInTouchMode="false">
 
@@ -61,7 +55,7 @@
                     android:id="@+id/setting_backup"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/menu_height"
-                    android:background="@drawable/side_menu_panel_selector"
+                    android:background="@drawable/side_menu_panel_corner_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dimen_12dp"
