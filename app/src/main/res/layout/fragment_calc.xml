@@ -81,7 +81,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -124,7 +124,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -167,7 +167,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -210,7 +210,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,7 +253,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -295,7 +295,7 @@
 
                     </LinearLayout>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
             </LinearLayout>

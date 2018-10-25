@@ -20,5 +20,5 @@
         android:textColor="@color/text_dark"
         android:textSize="@dimen/text_size_xlarge"/>
 
-    <View style="@style/HorizontalDivider"/>
+    <View style="@style/HorizontalThinDivider"/>
 </LinearLayout>

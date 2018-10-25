@@ -60,7 +60,7 @@
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_large"/>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
 
                     <shishkin.cleanarchitecture.mvi.common.RippleTextView
                         android:id="@+id/mail"
@@ -78,7 +78,7 @@
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_large"/>
 
-                    <View style="@style/HorizontalDivider"/>
+                    <View style="@style/HorizontalThinDivider"/>
                 </LinearLayout>
 
 
