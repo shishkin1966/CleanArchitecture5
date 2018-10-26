@@ -111,7 +111,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                         } else {
                             activity.lockOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         }
-                        if (!ViewUtils.isPhone(SLUtil.getContext())) {
+                        if (!ViewUtils.isPhone(SLUtil.getContext()) && ViewUtils.is10inchTablet(SLUtil.getContext())) {
                             ((AppCompatActivity) activity).recreate();
                         }
                     }
