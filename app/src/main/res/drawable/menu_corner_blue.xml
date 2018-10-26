@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners
-        android:topLeftRadius="8dp"
-        android:topRightRadius="8dp"/>
-    <gradient
-        android:endColor="@color/blue2"
-        android:startColor="@color/blue_dark">
-    </gradient>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners
+                android:topLeftRadius="10dp"
+                android:topRightRadius="10dp"/>
+            <gradient
+                android:endColor="#30377ad0"
+                android:startColor="#60074a90">
+            </gradient>
+        </shape>
+    </item>
+    <item android:top="3dp">
+        <shape>
+            <corners
+                android:topLeftRadius="8dp"
+                android:topRightRadius="8dp"/>
+            <gradient
+                android:endColor="@color/blue2"
+                android:startColor="@color/blue_dark">
+            </gradient>
+        </shape>
+    </item>
+</layer-list>
