@@ -17,16 +17,17 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
 
     public static final String NAME = IdleSpecialistImpl.class.getName();
 
-    private long timeout = TimeUnit.MINUTES.toMillis(10);
+    private long timeout = TimeUnit.MINUTES.toMillis(1);
     private AutoCompleteHandler handler;
-    private long currentTime = System.currentTimeMillis();
+    private long currentTime = 0;
+    private boolean isStart = false;
 
     @Override
     public void onRegister() {
         handler = new AutoCompleteHandler<>(NAME);
         handler.setOnShutdownListener(this);
         handler.setShutdownTimeout(timeout);
-        handler.post(true);
+        start();
     }
 
     @Override
@@ -40,26 +41,43 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
     }
 
     @Override
+    public void start() {
+        currentTime = System.currentTimeMillis();
+        isStart = true;
+        handler.post(true);
+    }
+
+    @Override
+    public void stop() {
+        isStart = false;
+    }
+
+    @Override
     public long getCurrentTime() {
         return currentTime;
     }
 
     @Override
     public void onUserInteraction() {
-        if (System.currentTimeMillis() - currentTime > timeout) {
-            onShutdown(handler);
-        } else {
-            currentTime = System.currentTimeMillis();
-            handler.post(true);
+        if  (isStart) {
+            if (System.currentTimeMillis() - currentTime > timeout) {
+                onShutdown(handler);
+            } else {
+                currentTime = System.currentTimeMillis();
+                handler.post(true);
+            }
         }
     }
 
     @Override
     public void onShutdown(AutoCompleteHandler handler) {
-        ApplicationUtils.runOnUiThread(() -> {
-            SLUtil.getNotificationSpecialist().replaceMessage(SLUtil.getContext().getString(R.string.app_name), SLUtil.getContext().getString(R.string.timeout_exit));
-            ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().finish());
-        });
+        if (isStart) {
+            stop();
+            ApplicationUtils.runOnUiThread(() -> {
+                SLUtil.getNotificationSpecialist().replaceMessage(SLUtil.getContext().getString(R.string.app_name), SLUtil.getContext().getString(R.string.timeout_exit));
+                ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().finish());
+            });
+        }
     }
 
     @Override

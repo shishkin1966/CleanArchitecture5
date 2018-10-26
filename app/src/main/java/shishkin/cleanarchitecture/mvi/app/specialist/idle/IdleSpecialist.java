@@ -29,4 +29,14 @@ public interface IdleSpecialist extends Specialist {
      * получить время последнего поьзовательского действия
      */
     long getCurrentTime();
+
+    /**
+     * Стартовать специалиста
+     */
+    void start();
+
+    /**
+     * Остановить специалиста
+     */
+    void stop();
 }

@@ -78,6 +78,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onFinish() {
+        SLUtil.getIdleSpecialist().stop();
         SLUtil.getJobSpecialist().cancel();
         SLUtil.getCacheSpecialist().clear();
         SLUtil.getMediaSpecialist().release();
