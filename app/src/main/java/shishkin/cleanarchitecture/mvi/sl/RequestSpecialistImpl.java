@@ -13,6 +13,7 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.delegate.RequestDelegate;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
+import shishkin.cleanarchitecture.mvi.sl.task.AwaitTask;
 import shishkin.cleanarchitecture.mvi.sl.task.IExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.RequestExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
@@ -75,6 +76,19 @@ public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpeci
             executor.cancelRequests(listener);
         }
         mSequentiallyThreadPoolExecutor.cancelRequests(listener);
+    }
+
+    @Override
+    public Result await(AwaitTask task) {
+        try {
+            return task.execute().get();
+        } catch (Exception e) {
+            final ErrorSpecialist specialist = SL.getInstance().get(ErrorSpecialistImpl.NAME);
+            if (specialist != null) {
+                specialist.onError(getName(), e);
+            }
+            return new Result().setError(getName(), e);
+        }
     }
 
     @Override
