@@ -5,10 +5,13 @@
             <corners
                 android:topLeftRadius="10dp"
                 android:topRightRadius="10dp"/>
-            <solid android:color="@color/orange"/>
+            <gradient
+                android:endColor="#306e707b"
+                android:startColor="#602e303b">
+            </gradient>
         </shape>
     </item>
-    <item android:top="@dimen/dimen_4dp">
+    <item android:top="3dp">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
             <corners
                 android:topLeftRadius="8dp"
