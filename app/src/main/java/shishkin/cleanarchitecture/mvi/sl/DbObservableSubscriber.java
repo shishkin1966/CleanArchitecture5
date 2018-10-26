@@ -9,6 +9,6 @@ public interface DbObservableSubscriber<T> extends ObservableSubscriber<T> {
      *
      * @return список слушаемых таблиц
      */
-    List<String> getTables();
+    List<String> getListenObjects();
 
 }

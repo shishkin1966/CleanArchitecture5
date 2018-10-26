@@ -18,18 +18,18 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
  * Created by Shishkin on 16.12.2017.
  */
 
-public abstract class AbsDbObservable extends AbsObservable<String> {
+public abstract class AbsDbObservable extends AbsObservable<String, DbObservableSubscriber> {
 
     private Map<String, List<String>> mTables = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     @Override
-    public void addObserver(ObservableSubscriber subscriber) {
+    public void addObserver(DbObservableSubscriber subscriber) {
         if (subscriber == null) return;
 
         super.addObserver(subscriber);
 
         if (DbObservableSubscriber.class.isInstance(subscriber)) {
-            final List<String> list = ((DbObservableSubscriber) subscriber).getTables();
+            final List<String> list = subscriber.getListenObjects();
             for (String table : list) {
                 if (!mTables.containsKey(table)) {
                     mTables.put(table, new ArrayList<>());
@@ -42,7 +42,7 @@ public abstract class AbsDbObservable extends AbsObservable<String> {
     }
 
     @Override
-    public void removeObserver(ObservableSubscriber subscriber) {
+    public void removeObserver(DbObservableSubscriber subscriber) {
         if (subscriber == null) return;
 
         super.removeObserver(subscriber);
@@ -63,7 +63,7 @@ public abstract class AbsDbObservable extends AbsObservable<String> {
         final List<String> tableSubscribers = mTables.get(object);
         for (String name : tableSubscribers) {
             final ObservableSubscriber subscriber = ((ObservableUnion) SL.getInstance().get(ObservableUnionImpl.NAME)).getSubscriber(name);
-            if (subscriber != null) {
+            if (subscriber != null && subscriber.validate()) {
                 subscriber.onChange(object);
             }
         }
