@@ -9,9 +9,6 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
-/**
- * Created by V.Bokov on 08-Oct-15.
- */
 public class CalculationTask extends AsyncTask<Void, Void, Result<CalcViewData>> {
 
     public static final String NAME = CalculationTask.class.getName();
