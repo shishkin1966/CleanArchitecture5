@@ -47,7 +47,7 @@ public class SL extends AbsServiceLocator {
         register(MailUnionImpl.NAME);
 
         // Объединение Activity
-        register(ActivityUnionImpl.NAME);
+        register(ViewUnionImpl.NAME);
 
         // Объединение презенторов
         register(PresenterUnionImpl.NAME);
@@ -72,9 +72,9 @@ public class SL extends AbsServiceLocator {
 
     @Override
     public void onFinish() {
-        ((ActivityUnion) get(ActivityUnionImpl.NAME)).hideKeyboard();
+        ((ViewUnion) get(ViewUnionImpl.NAME)).hideKeyboard();
         ((PresenterUnion) SL.getInstance().get(PresenterUnionImpl.NAME)).onFinishApplication();
-        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).onFinishApplication();
+        ((ViewUnion) SL.getInstance().get(ViewUnionImpl.NAME)).onFinishApplication();
     }
 
     @Override

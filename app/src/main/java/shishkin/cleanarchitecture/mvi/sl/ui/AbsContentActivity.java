@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.Router;
 import shishkin.cleanarchitecture.mvi.sl.SL;
@@ -19,7 +19,7 @@ public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity
     protected void onPause() {
         super.onPause();
 
-        ((ActivityUnion) SL.getInstance().get(ActivityUnionImpl.NAME)).hideKeyboard();
+        ((ViewUnion) SL.getInstance().get(ViewUnionImpl.NAME)).hideKeyboard();
     }
 
     @Override

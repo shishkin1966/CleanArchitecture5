@@ -16,8 +16,8 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.Constant;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -125,7 +125,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
             if (activity != null && IActivity.class.isInstance(activity)) {
                 return (IActivity) activity;
             }
-            final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+            final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
             if (union != null) {
                 return union.getCurrentSubscriber();
             }

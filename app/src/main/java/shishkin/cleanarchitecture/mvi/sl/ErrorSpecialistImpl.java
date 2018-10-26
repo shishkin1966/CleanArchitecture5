@@ -95,7 +95,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     @Override
     public void onError(final String source, final Exception e) {
         Log.e(source, e.getMessage());
-        final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+        final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
         if (union != null) {
             union.showError(e.getMessage());
         } else {
@@ -106,7 +106,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     @Override
     public void onError(final String source, final Throwable throwable) {
         Log.e(source, throwable.getMessage());
-        final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+        final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
         if (union != null) {
             union.showError(throwable.getMessage());
         } else {
@@ -118,7 +118,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     public void onError(final String source, final Exception e, final String displayMessage) {
         Log.e(source, e.getMessage());
         if (!StringUtils.isNullOrEmpty(displayMessage)) {
-            final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+            final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
             if (union != null) {
                 union.showError(displayMessage);
             } else {
@@ -132,7 +132,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
         if (!StringUtils.isNullOrEmpty(message)) {
             Log.e(source, message);
             if (isDisplay) {
-                final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+                final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
                 if (union != null) {
                     union.showError(message);
                 } else {
@@ -145,7 +145,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     @Override
     public void onError(final ExtError extError) {
         if (extError != null && extError.hasError()) {
-            final ActivityUnion union = SL.getInstance().get(ActivityUnionImpl.NAME);
+            final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
             if (union != null) {
                 union.showError(extError.getErrorText());
             } else {
