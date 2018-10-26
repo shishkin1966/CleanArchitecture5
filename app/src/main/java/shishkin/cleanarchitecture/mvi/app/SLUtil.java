@@ -29,8 +29,8 @@ import shishkin.cleanarchitecture.mvi.app.specialist.secure.SecureStorageSpecial
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialist;
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnion;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
@@ -66,8 +66,8 @@ public class SLUtil {
         return ApplicationSpecialistImpl.getInstance();
     }
 
-    public static ActivityUnion getActivityUnion() {
-        return SL.getInstance().get(ActivityUnionImpl.NAME);
+    public static ViewUnion getActivityUnion() {
+        return SL.getInstance().get(ViewUnionImpl.NAME);
     }
 
     public static PresenterUnion getPresenterUnion() {
@@ -151,7 +151,7 @@ public class SLUtil {
     }
 
     public static <C> C getActivity() {
-        final ActivityUnion union = getActivityUnion();
+        final ViewUnion union = getActivityUnion();
         if (union != null) {
             return union.getActivity();
         }
@@ -209,7 +209,7 @@ public class SLUtil {
      * @return the content fragment
      */
     public static AbsContentFragment getContentFragment() {
-        final ActivityUnion union = getActivityUnion();
+        final ViewUnion union = getActivityUnion();
         if (union != null) {
             final AbsActivity activity = union.getActivity();
             if (activity != null && AbsContentActivity.class.isInstance(activity)) {
@@ -225,7 +225,7 @@ public class SLUtil {
      * @return true - существует
      */
     public static boolean isValidActivity() {
-        final ActivityUnion union = getActivityUnion();
+        final ViewUnion union = getActivityUnion();
         if (union != null) {
             final AbsActivity activity = union.getActivity();
             if (activity != null && activity.validate() && (activity.getState() == ViewStateObserver.STATE_RESUME || activity.getState() == ViewStateObserver.STATE_PAUSE)) {

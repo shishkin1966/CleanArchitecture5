@@ -16,10 +16,10 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.IView;
 
 /**
- * Интерфейс объединения Activity
+ * Интерфейс объединения View
  */
 @SuppressWarnings("unused")
-public interface ActivityUnion extends IView, Union<IActivity> {
+public interface ViewUnion extends IView, Union<IActivity> {
 
     /**
      * Показать Snackbar на экран

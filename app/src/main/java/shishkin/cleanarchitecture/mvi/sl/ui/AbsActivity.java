@@ -27,7 +27,7 @@ import shishkin.cleanarchitecture.mvi.common.KeyboardRunnable;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
-import shishkin.cleanarchitecture.mvi.sl.ActivityUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -117,7 +117,7 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
     @Override
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
-                ActivityUnionImpl.NAME
+                ViewUnionImpl.NAME
         );
     }
 

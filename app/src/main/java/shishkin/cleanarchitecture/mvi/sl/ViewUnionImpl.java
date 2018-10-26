@@ -41,15 +41,15 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 
 /**
- * Объединение activities
+ * Объединение View
  */
 @SuppressWarnings("unused")
-public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUnion {
+public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
 
-    public static final String NAME = ActivityUnionImpl.class.getName();
+    public static final String NAME = ViewUnionImpl.class.getName();
     private List<WeakReference<IActivity>> mActivities = Collections.synchronizedList(new ArrayList<>());
 
-    public ActivityUnionImpl() {
+    public ViewUnionImpl() {
         super();
     }
 
@@ -459,7 +459,7 @@ public class ActivityUnionImpl extends AbsUnion<IActivity> implements ActivityUn
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return (ActivityUnion.class.isInstance(o)) ? 0 : 1;
+        return (ViewUnion.class.isInstance(o)) ? 0 : 1;
     }
 
 }
