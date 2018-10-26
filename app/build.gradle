@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 def supportLibVersion = "27.1.1"
 def compileSdk = 27
 def buildTools = "28.0.3"
-def minSdk = 15
+def minSdk = 21
 def targetSdk = 27
 def playServices = "15.0.1"
 
@@ -26,7 +26,6 @@ android {
         resolutionStrategy.force "com.android.support:animated-vector-drawable:$supportLibVersion"
         resolutionStrategy.force "com.android.support:appcompat-v7:$supportLibVersion"
         resolutionStrategy.force "com.android.support:recyclerview-v7:$supportLibVersion"
-
     }
 
     dexOptions {
@@ -39,8 +38,8 @@ android {
         applicationId "shishkin.cleanarchitecture.mvi"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode 4
-        versionName "1.1.4"
+        versionCode 5
+        versionName "1.1.5"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }

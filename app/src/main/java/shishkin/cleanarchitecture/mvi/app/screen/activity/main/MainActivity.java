@@ -53,7 +53,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
         } else if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_landscape))) {
             orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
             lockOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            if (!ViewUtils.isPhone(this)) {
+            if (!ViewUtils.isPhone(this) && ViewUtils.is10inchTablet(this)) {
                 idLayout = R.layout.activity_main_land;
             }
         } else {
@@ -106,7 +106,7 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
     }
 
     private void setMenu() {
-        if (!ViewUtils.isPhone(this) && orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+        if (!ViewUtils.isPhone(this) && ViewUtils.is10inchTablet(this) && orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
         } else {
             prepareSlidingMenu();
         }
