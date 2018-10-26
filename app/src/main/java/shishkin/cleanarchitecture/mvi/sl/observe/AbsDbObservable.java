@@ -63,7 +63,7 @@ public abstract class AbsDbObservable extends AbsObservable<String, DbObservable
         final List<String> tableSubscribers = mTables.get(object);
         for (String name : tableSubscribers) {
             final ObservableSubscriber subscriber = ((ObservableUnion) SL.getInstance().get(ObservableUnionImpl.NAME)).getSubscriber(name);
-            if (subscriber != null) {
+            if (subscriber != null && subscriber.validate()) {
                 subscriber.onChange(object);
             }
         }

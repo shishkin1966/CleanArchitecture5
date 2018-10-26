@@ -59,7 +59,7 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
 
     @Override
     public void onUserInteraction() {
-        if  (isStart) {
+        if (isStart) {
             if (System.currentTimeMillis() - currentTime > timeout) {
                 onShutdown(handler);
             } else {

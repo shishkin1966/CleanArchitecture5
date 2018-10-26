@@ -58,7 +58,7 @@ public abstract class AbsObservable<T, K extends ObservableSubscriber> implement
     @Override
     public void onChange(T object) {
         for (WeakReference<ObservableSubscriber> ref : mObservers.values()) {
-            if (ref != null && ref.get() != null) {
+            if (ref != null && ref.get() != null && ref.get().validate()) {
                 ref.get().onChange(object);
             }
         }
