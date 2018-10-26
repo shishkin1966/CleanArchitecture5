@@ -54,7 +54,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     }
 
     @Override
-    public List<String> getTables() {
+    public List<String> getListenObjects() {
         return StringUtils.arrayToList(Account.TABLE);
     }
 

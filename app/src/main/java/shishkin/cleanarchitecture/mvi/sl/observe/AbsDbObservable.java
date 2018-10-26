@@ -29,7 +29,7 @@ public abstract class AbsDbObservable extends AbsObservable<String, DbObservable
         super.addObserver(subscriber);
 
         if (DbObservableSubscriber.class.isInstance(subscriber)) {
-            final List<String> list = subscriber.getTables();
+            final List<String> list = subscriber.getListenObjects();
             for (String table : list) {
                 if (!mTables.containsKey(table)) {
                     mTables.put(table, new ArrayList<>());
