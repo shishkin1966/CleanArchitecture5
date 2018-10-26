@@ -7,13 +7,14 @@ import android.content.IntentFilter;
 
 
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 
 
 /**
  * Created by Shishkin on 15.12.2017.
  */
 
-public abstract class AbsBroadcastReceiverObservable extends AbsObservable<Intent> {
+public abstract class AbsBroadcastReceiverObservable extends AbsObservable<Intent, ObservableSubscriber> {
 
     private IntentFilter mIntentFilter;
     private BroadcastReceiver mBroadcastReceiver = null;

@@ -9,13 +9,14 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 
 
 /**
  * Created by Shishkin on 16.12.2017.
  */
 
-public abstract class AbsContentObservable extends AbsObservable<Boolean> {
+public abstract class AbsContentObservable extends AbsObservable<Boolean, ObservableSubscriber> {
 
     private BaseContentObserver mObserver = new BaseContentObserver(this);
     private List<Uri> mUris = new ArrayList<>();

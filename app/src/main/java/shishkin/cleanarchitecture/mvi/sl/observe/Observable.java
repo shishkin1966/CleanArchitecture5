@@ -10,21 +10,21 @@ import shishkin.cleanarchitecture.mvi.sl.Subscriber;
  * Created by Shishkin on 15.12.2017.
  */
 
-public interface Observable<T> extends Subscriber {
+public interface Observable<T, K extends ObservableSubscriber> extends Subscriber {
 
     /**
      * Добавить слушателя к слушаемому объекту
      *
      * @param subscriber слушатель
      */
-    void addObserver(ObservableSubscriber subscriber);
+    void addObserver(K subscriber);
 
     /**
      * Удалить слушателя у слушаемого объекта
      *
      * @param subscriber слушатель
      */
-    void removeObserver(ObservableSubscriber subscriber);
+    void removeObserver(K subscriber);
 
     /**
      * Зарегестрировать слушаемый объект. Вызывается при появлении
@@ -50,6 +50,6 @@ public interface Observable<T> extends Subscriber {
      *
      * @return список слушателей
      */
-    List<ObservableSubscriber> getObserver();
+    <K extends ObservableSubscriber> List<K> getObserver();
 
 }

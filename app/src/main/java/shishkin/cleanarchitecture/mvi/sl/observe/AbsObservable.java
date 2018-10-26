@@ -14,7 +14,7 @@ import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
  * Created by Shishkin on 15.12.2017.
  */
 
-public abstract class AbsObservable<T> implements Observable<T> {
+public abstract class AbsObservable<T, K extends ObservableSubscriber> implements Observable<T, K> {
     private Map<String, WeakReference<ObservableSubscriber>> mObservers = Collections.synchronizedMap(new ConcurrentHashMap<String, WeakReference<ObservableSubscriber>>());
 
     private void checkNullObserver() {
@@ -26,7 +26,7 @@ public abstract class AbsObservable<T> implements Observable<T> {
     }
 
     @Override
-    public void addObserver(ObservableSubscriber subscriber) {
+    public void addObserver(K subscriber) {
         if (subscriber == null) return;
 
         checkNullObserver();
@@ -39,7 +39,7 @@ public abstract class AbsObservable<T> implements Observable<T> {
     }
 
     @Override
-    public void removeObserver(ObservableSubscriber subscriber) {
+    public void removeObserver(K subscriber) {
         if (subscriber == null) return;
 
         checkNullObserver();
