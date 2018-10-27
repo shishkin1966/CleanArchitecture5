@@ -17,7 +17,7 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
 
     public static final String NAME = IdleSpecialistImpl.class.getName();
 
-    private long timeout = TimeUnit.MINUTES.toMillis(1);
+    private long timeout = TimeUnit.MINUTES.toMillis(10);
     private AutoCompleteHandler handler;
     private long currentTime = 0;
     private boolean isStart = false;
