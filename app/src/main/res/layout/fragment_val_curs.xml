@@ -16,20 +16,39 @@
             android:layout_height="match_parent"
             android:background="@color/white_light">
 
-            <LinearLayout
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandable_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:orientation="vertical">
+                android:background="@color/blue_dark"
+                app:el_duration="500"
+                app:el_expanded="false"
+                app:el_parallax="0.5">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/list"
+                <TextView
+                    android:id="@+id/message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white_light"
-                    android:scrollbars="vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:minHeight="@dimen/dimen_40dp"
+                    android:paddingLeft="@dimen/dimen_16dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingRight="@dimen/dimen_16dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_xlarge"/>
 
-            </LinearLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottomBar"
+                android:layout_below="@+id/expandable_layout"
+                android:background="@color/white_light"
+                android:scrollbars="vertical"/>
 
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/progressBar"
@@ -44,7 +63,45 @@
                 app:mpb_progressStyle="horizontal"
                 app:mpb_showProgressBackground="false"/>
 
+            <LinearLayout
+                android:id="@+id/bottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/copy"
+                    style="@style/MenuBottomButtonStyle"
+                    android:drawableTop="@drawable/ic_copy_selector"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="Copy"/>
+
+                <TextView
+                    android:id="@+id/rename"
+                    style="@style/MenuBottomButtonStyle"
+                    android:drawableTop="@drawable/ic_rename_selector"
+                    android:enabled="false"
+                    android:text="Rename"/>
+
+                <TextView
+                    android:id="@+id/cut"
+                    style="@style/MenuBottomButtonStyle"
+                    android:drawableTop="@drawable/ic_cut_selector"
+                    android:enabled="false"
+                    android:text="Cut"/>
+
+                <TextView
+                    android:id="@+id/delete"
+                    style="@style/MenuBottomButtonStyle"
+                    android:drawableTop="@drawable/ic_delete_selector"
+                    android:text="Delete"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </android.support.design.widget.CoordinatorLayout>

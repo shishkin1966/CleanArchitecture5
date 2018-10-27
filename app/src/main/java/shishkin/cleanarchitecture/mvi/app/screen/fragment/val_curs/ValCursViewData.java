@@ -4,7 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
@@ -16,6 +18,7 @@ public class ValCursViewData implements Parcelable {
     public static final String NAME = ValCursViewData.class.getName();
 
     private ValCurs valCurs;
+    private Map<String, Valute> selected = new HashMap<>();
 
     public ValCursViewData() {
     }
@@ -34,6 +37,21 @@ public class ValCursViewData implements Parcelable {
         return SLUtil.getDataSpecialist().sort(valCurs.getValute(), (o1, o2) -> o1.getName().compareTo(o2.getName())).toList();
     }
 
+    public boolean isSelected() {
+        return !selected.isEmpty();
+    }
+
+    public Map<String, Valute> getSelected() {
+        return selected;
+    }
+
+    public int getSelectedCount() {
+        return selected.size();
+    }
+
+    public void clearSelected() {
+        selected.clear();
+    }
 
     @Override
     public int describeContents() {
@@ -43,10 +61,22 @@ public class ValCursViewData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.valCurs, flags);
+        dest.writeInt(this.selected.size());
+        for (Map.Entry<String, Valute> entry : this.selected.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeParcelable(entry.getValue(), flags);
+        }
     }
 
     protected ValCursViewData(Parcel in) {
         this.valCurs = in.readParcelable(ValCurs.class.getClassLoader());
+        int selectedSize = in.readInt();
+        this.selected = new HashMap<String, Valute>(selectedSize);
+        for (int i = 0; i < selectedSize; i++) {
+            String key = in.readString();
+            Valute value = in.readParcelable(Valute.class.getClassLoader());
+            this.selected.put(key, value);
+        }
     }
 
     public static final Parcelable.Creator<ValCursViewData> CREATOR = new Parcelable.Creator<ValCursViewData>() {

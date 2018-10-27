@@ -194,8 +194,8 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         getModel().getView().refreshViews(accountsViewData);
     }
 
-    public void onClickAccounts(Account account) {
-        getModel().getRouter().showAccount(account);
+    public void onClickItems(Account item) {
+        getModel().getRouter().showAccount(item);
     }
 
     @Override
