@@ -29,8 +29,6 @@ import shishkin.cleanarchitecture.mvi.app.specialist.secure.SecureStorageSpecial
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialist;
 import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
@@ -48,6 +46,8 @@ import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.Subscriber;
 import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProvider;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProviderImpl;

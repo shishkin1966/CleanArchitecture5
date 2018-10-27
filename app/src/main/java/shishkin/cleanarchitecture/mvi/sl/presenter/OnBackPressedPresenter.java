@@ -10,10 +10,10 @@ import java.util.TimerTask;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 
 public class OnBackPressedPresenter extends AbsPresenter {

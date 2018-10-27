@@ -130,10 +130,8 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
         if (location != null) {
             ApplicationUtils.runOnUiThread(() -> {
-                for (LocationSubscriber subscriber : getSubscribers()) {
-                    if (subscriber.validate()) {
-                        subscriber.setLocation(mLocation);
-                    }
+                for (LocationSubscriber subscriber : getReadySubscribers()) {
+                    subscriber.setLocation(mLocation);
                 }
             });
         }

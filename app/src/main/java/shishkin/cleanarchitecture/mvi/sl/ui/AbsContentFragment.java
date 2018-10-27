@@ -9,9 +9,9 @@ import android.support.v4.app.FragmentManager;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
 import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
-import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 @SuppressWarnings("unused")
