@@ -153,6 +153,36 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
+    public void addNotMandatoryMail(final Mail mail) {
+        if (mail != null) {
+            List<String> list = mail.getCopyTo();
+            list.add(mail.getAddress());
+            List<String> addresses = new ArrayList<>();
+            for (String address : list) {
+                addresses.addAll(getAddresses(address));
+            }
+            for (String address : addresses) {
+                if (checkSubscriber(address)) {
+                    final long id = mId.incrementAndGet();
+                    final Mail newMail = mail.copy();
+                    newMail.setId(id);
+                    newMail.setAddress(address);
+                    newMail.setCopyTo(new ArrayList<>());
+
+                    if (!mail.isCheckDublicate()) {
+                        mMail.put(id, newMail);
+                    } else {
+                        removeDublicate(newMail);
+                        mMail.put(id, newMail);
+                    }
+
+                    checkAddMailSubscriber(address);
+                }
+            }
+        }
+    }
+
+    @Override
     public void replaceMail(final Mail mail) {
         if (mail != null) {
             final List<String> list = mail.getCopyTo();
@@ -189,6 +219,22 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             }
         }
     }
+
+    private boolean checkSubscriber(final String address) {
+        if (StringUtils.isNullOrEmpty(address)) {
+            return false;
+        }
+
+        for (MailSubscriber subscriber : getSubscribers()) {
+            if (address.equalsIgnoreCase(subscriber.getName())) {
+                if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Читать почту

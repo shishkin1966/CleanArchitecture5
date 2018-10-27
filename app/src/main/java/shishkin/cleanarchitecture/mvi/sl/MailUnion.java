@@ -27,6 +27,13 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
     void addMail(Mail mail);
 
     /**
+     * Добавить почтовое сообщение, только в случае если специалист присутствует
+     *
+     * @param mail the mail
+     */
+    void addNotMandatoryMail(Mail mail);
+
+    /**
      * Заменить почтовое сообщение
      *
      * @param mail the mail
@@ -53,7 +60,7 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
     void clearMail(final MailSubscriber subscriber);
 
     /**
-     * Читать почту
+     * Читать почту подписчика
      *
      * @param subscriber почтовый подписчик
      */
