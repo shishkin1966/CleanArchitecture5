@@ -35,9 +35,11 @@
 Наследником интерфейса Specialist является интерфейс SmallUnion, имеющий методы:
 - void register(T subscriber) – зарегистрировать подписчика
 - void unregister(T subscriber) – отписать подписчика
-- List<T> getSubscribers() - получить список подписчиков
+- List<T> getSubscribers() - получить список всех подписчиков
+- List<T> getValidatedSubscribers - получить список валидных подписчиков
+- List<T> getReadySubscribers() - получить список готовых подписчиков. Т.е. подписчиков, которые поддерживают состояния(Stateable) и находятся в соостянии отличном от CREATE и DESTROY
 - boolean hasSubscribers() - проверить наличие подписчиков
-- T getSubscriber(String name) – получить подписчика по его имени. 
+- T getSubscriber(String name) – получить подписчика по его имени.
 - Result<Boolean> validate(String name) - проверить подписчика
 - void onRegisterFirstSubscriber() - событие - появился первый подписчик
 - void onUnRegisterLastSubscriber() - событие - отписан последний подписчик
