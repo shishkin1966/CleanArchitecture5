@@ -102,6 +102,7 @@
 - DbObservable - слушает изменения в БД
 - NetworkBroadcastReceiverObservable - слушает наличие/отсутствие сети и ее качество
 - ScreenBroadcastReceiverObservable - слушает включение/гашение экрана
+- AbsContentObservable - слушает изменения в ContentProvider
 
 Подробнее остановимся на DbObservable объекте. Объект DbObservable предназначен для регистрации изменений
 в объектах БД и оповещении об этом своих слушателей. Для этого DbObservable регистрирует объекты, реализующие интерфейс DbObservableSubscriber (наследник от ObservableSubscriber),
