@@ -172,5 +172,6 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         for (Valute item : items) {
             mAdapter.remove(mAdapter.getItems().indexOf(item));
         }
+        messageView.setText("Выделено : " + 0 + " / " + mAdapter.getItemCount());
     }
 }
