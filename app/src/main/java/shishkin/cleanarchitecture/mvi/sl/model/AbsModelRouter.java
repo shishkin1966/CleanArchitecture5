@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 
-import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowFragmentEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;

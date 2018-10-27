@@ -34,6 +34,20 @@ public interface SmallUnion<T> extends Specialist {
     List<T> getSubscribers();
 
     /**
+     * Получить список валидных подписчиков
+     *
+     * @return список подписчиков
+     */
+    List<T> getValidatedSubscribers();
+
+    /**
+     * Получить список готовых Stateable подписчиков
+     *
+     * @return список подписчиков
+     */
+    List<T> getReadySubscribers();
+
+    /**
      * Проверить наличие подписчиков
      *
      * @return true - подписчики есть

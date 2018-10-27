@@ -1,10 +1,13 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
+import shishkin.cleanarchitecture.mvi.sl.state.Stateable;
+import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 /**
  * Абстрактное малое объединение
@@ -69,6 +72,33 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     @Override
     public List<T> getSubscribers() {
         return mSecretary.values();
+    }
+
+    @Override
+    public List<T> getValidatedSubscribers() {
+        final List<T> subscribers = new ArrayList<>();
+        for (T subscriber : getSubscribers()) {
+            if (subscriber != null && subscriber.validate()) {
+                subscribers.add(subscriber);
+            }
+        }
+        return subscribers;
+    }
+
+    @Override
+    public List<T> getReadySubscribers() {
+        final List<T> subscribers = new ArrayList<>();
+        for (T subscriber : getSubscribers()) {
+            if (subscriber != null && subscriber.validate()) {
+                if (subscriber instanceof Stateable) {
+                    final int state = ((Stateable) subscriber).getState();
+                    if (state != ViewStateObserver.STATE_CREATE && state != ViewStateObserver.STATE_DESTROY) {
+                        subscribers.add(subscriber);
+                    }
+                }
+            }
+        }
+        return subscribers;
     }
 
     @Override

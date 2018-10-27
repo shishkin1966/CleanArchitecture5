@@ -5,11 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
-import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
-import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.Router;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
+import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public abstract class AbsContentActivity<M extends AbsModel> extends AbsActivity<M>
