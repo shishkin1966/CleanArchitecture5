@@ -54,10 +54,8 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
                 SLUtil.onError(NAME, e);
             }
         }
-        for (ScannerSubscriber subscriber : getSubscribers()) {
-            if (subscriber.validate()) {
-                subscriber.onScan(text);
-            }
+        for (ScannerSubscriber subscriber : getReadySubscribers()) {
+            subscriber.onScan(text);
         }
     }
 }
