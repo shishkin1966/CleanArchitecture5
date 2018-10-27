@@ -1,10 +1,16 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 
+import java.util.ArrayList;
+
+
+import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;
+import shishkin.cleanarchitecture.mvi.app.data.Valute;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
@@ -14,7 +20,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class ValCursPresenter extends AbsPresenter<ValCursModel> implements ResponseListener, SwipeRefreshLayout.OnRefreshListener {
+public class ValCursPresenter extends AbsPresenter<ValCursModel> implements ResponseListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     public static final String NAME = ValCursPresenter.class.getName();
 
@@ -45,6 +51,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
             }
         }
         getModel().getView().refreshViews(viewData);
+        getModel().getView().refreshBottomNavigation(viewData);
         getData();
     }
 
@@ -74,6 +81,37 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
     @Override
     public void onRefresh() {
         getData();
+    }
+
+    public boolean isSelected(Valute item) {
+        return viewData.getSelected().containsKey(item.getName());
+    }
+
+    public void onClickItems(Valute item) {
+        if (viewData.getSelected().containsKey(item.getName())) {
+            viewData.getSelected().remove(item.getName());
+        } else {
+            viewData.getSelected().put(item.getName(), item);
+        }
+        getModel().getView().refreshSelected(viewData);
+    }
+
+    public void swipeItem(Valute item) {
+        if (viewData.getSelected().containsKey(item.getName())) {
+            viewData.getSelected().remove(item.getName());
+            getModel().getView().refreshBottomNavigation(viewData);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.delete:
+                getModel().getView().removeItems(new ArrayList<>(viewData.getSelected().values()));
+                viewData.clearSelected();
+                break;
+
+        }
     }
 }
 

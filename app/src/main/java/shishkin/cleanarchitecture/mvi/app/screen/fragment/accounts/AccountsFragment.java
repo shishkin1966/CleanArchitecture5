@@ -90,7 +90,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mAccountsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAccountsView.setItemAnimator(new DefaultItemAnimator());
         mAdapter.setOnItemClickListener((v, position, item) -> {
-            getModel().getPresenter().onClickAccounts(item);
+            getModel().getPresenter().onClickItems(item);
         });
         mAccountsView.setAdapter(mAdapter);
 

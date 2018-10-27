@@ -142,5 +142,4 @@ dependencies {
 
     // Flashbar
     implementation 'com.andrognito.flashbar:flashbar:1.0.3'
-
 }
