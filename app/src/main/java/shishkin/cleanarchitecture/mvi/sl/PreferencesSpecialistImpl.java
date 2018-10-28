@@ -1,13 +1,9 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.preference;
+package shishkin.cleanarchitecture.mvi.sl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-
-
-import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
-import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 
 /**
  * Специалист Preferences

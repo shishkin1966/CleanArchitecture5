@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.storage;
+package shishkin.cleanarchitecture.mvi.sl;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,7 +17,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 @SuppressWarnings("unused")

@@ -1,7 +1,5 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.preference;
+package shishkin.cleanarchitecture.mvi.sl;
 
-
-import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
 /**
  * Интерфейс Preferences

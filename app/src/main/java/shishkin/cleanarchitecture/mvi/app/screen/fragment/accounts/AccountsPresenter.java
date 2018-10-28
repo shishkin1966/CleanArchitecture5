@@ -43,12 +43,12 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
-    private AccountsViewData accountsViewData;
+    private AccountsViewData viewData;
 
     AccountsPresenter(AccountsModel model) {
         super(model);
 
-        accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
+        viewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
     }
 
     @Override
@@ -116,12 +116,12 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     }
 
     private void selectAccounts() {
-        if (accountsViewData.getCurrencies() != null && accountsViewData.getCurrencies().size() > 1) {
-            final CharSequence[] items = new CharSequence[accountsViewData.getCurrencies().size() + 1];
-            final Drawable[] icons = new Drawable[accountsViewData.getCurrencies().size() + 1];
+        if (viewData.getCurrencies() != null && viewData.getCurrencies().size() > 1) {
+            final CharSequence[] items = new CharSequence[viewData.getCurrencies().size() + 1];
+            final Drawable[] icons = new Drawable[viewData.getCurrencies().size() + 1];
             items[0] = ALL;
-            for (int i = 0; i < accountsViewData.getCurrencies().size(); i++) {
-                items[i + 1] = accountsViewData.getCurrencies().get(i);
+            for (int i = 0; i < viewData.getCurrencies().size(); i++) {
+                items[i + 1] = viewData.getCurrencies().get(i);
             }
             if (getModel().getView().getActivity() != null) {
                 final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
@@ -136,19 +136,19 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     }
 
     private void selectAccountsAll() {
-        accountsViewData.setFilter(null);
-        getModel().getView().refreshViews(accountsViewData);
+        viewData.setFilter(null);
+        getModel().getView().refreshViews(viewData);
     }
 
     @Override
     public void onStart() {
-        if (accountsViewData == null) {
-            accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
-            if (accountsViewData == null) {
-                accountsViewData = new AccountsViewData();
+        if (viewData == null) {
+            viewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
+            if (viewData == null) {
+                viewData = new AccountsViewData();
             }
         }
-        getModel().getView().refreshViews(accountsViewData);
+        getModel().getView().refreshViews(viewData);
         getData();
     }
 
@@ -174,10 +174,10 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
-                accountsViewData.setAccounts(SafeUtils.cast(result.getData()));
-                getModel().getView().refreshViews(accountsViewData);
+                viewData.setAccounts(SafeUtils.cast(result.getData()));
+                getModel().getView().refreshViews(viewData);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
-                accountsViewData.setCurrencies(SafeUtils.cast(result.getData()));
+                viewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
         } else {
             SLUtil.onError(NAME, result.getErrorText(), true);
@@ -187,15 +187,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog.equals(sortDialog)) {
-            accountsViewData.setSort(which);
+            viewData.setSort(which);
         } else if (dialog.equals(filterDialog)) {
             if (which == 0) {
-                accountsViewData.setFilter(null);
+                viewData.setFilter(null);
             } else {
-                accountsViewData.setFilter(accountsViewData.getCurrencies().get(which - 1));
+                viewData.setFilter(viewData.getCurrencies().get(which - 1));
             }
         }
-        getModel().getView().refreshViews(accountsViewData);
+        getModel().getView().refreshViews(viewData);
     }
 
     void onClickItems(Account item) {
@@ -204,7 +204,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     @Override
     public void onStop() {
-        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, accountsViewData);
+        SLUtil.getCacheSpecialist().put(AccountsViewData.NAME, viewData);
     }
 
     @Override
@@ -224,20 +224,20 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     @Override
     public void showMessage(ShowMessageEvent event) {
-        accountsViewData.setMessage(event.getMessage());
-        accountsViewData.setMessageType(event.getType());
-        accountsViewData.setShowMessage(true);
+        viewData.setMessage(event.getMessage());
+        viewData.setMessageType(event.getType());
+        viewData.setShowMessage(true);
         getModel().getView().showMessage(event);
     }
 
     void hideMessage() {
-        accountsViewData.setShowMessage(false);
+        viewData.setShowMessage(false);
         getModel().getView().hideMessage();
     }
 
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
-        accountsViewData.setBalance(list);
+        viewData.setBalance(list);
         getModel().getView().refreshBalance(list);
     }
 }

@@ -63,6 +63,13 @@ public class SL extends AbsServiceLocator {
 
         // специалист преобразования данных
         register(DataSpecialistImpl.NAME);
+
+        // специалист Memory Cache
+        register(CacheSpecialistImpl.NAME);
+
+        // специалист Preferences
+        register(PreferencesSpecialistImpl.NAME);
+
     }
 
     @Override

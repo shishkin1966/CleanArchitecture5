@@ -1,9 +1,6 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.secure;
+package shishkin.cleanarchitecture.mvi.sl;
 
 import android.support.annotation.NonNull;
-
-
-import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
 public interface SecureStorageSpecialist extends Specialist {
 
