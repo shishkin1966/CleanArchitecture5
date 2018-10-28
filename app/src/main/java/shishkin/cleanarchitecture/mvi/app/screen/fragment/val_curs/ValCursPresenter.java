@@ -5,7 +5,7 @@ import android.view.View;
 
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.R;
@@ -88,29 +88,31 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         return viewData.getSelected().containsKey(item.getName());
     }
 
-    public void onClickItems(Valute item) {
+    public void onClickItem(Valute item) {
         if (viewData.getSelected().containsKey(item.getName())) {
             viewData.getSelected().remove(item.getName());
         } else {
             viewData.getSelected().put(item.getName(), item);
         }
-        getModel().getView().refreshSelected(viewData);
+        getModel().getView().refreshSelectedItems(viewData);
     }
 
-    public void swipeItem(Valute item) {
+    public void onSwipedItem(Valute item) {
         if (viewData.getSelected().containsKey(item.getName())) {
             viewData.getSelected().remove(item.getName());
-            getModel().getView().refreshBottomNavigation(viewData);
         }
+        final List<Valute> list = new ArrayList<>();
+        list.add(item);
+        getModel().getView().removeItems(list, viewData);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.delete:
-                getModel().getView().removeItems(new ArrayList<>(viewData.getSelected().values()));
+                final List<Valute> list = new ArrayList<>(viewData.getSelected().values());
                 viewData.clearSelected();
-                getModel().getView().getRootView().postDelayed(() -> getModel().getView().refreshBottomNavigation(viewData), TimeUnit.SECONDS.toMillis(5));
+                getModel().getView().removeItems(list, viewData);
                 break;
 
         }

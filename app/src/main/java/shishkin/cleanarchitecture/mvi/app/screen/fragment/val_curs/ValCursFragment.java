@@ -19,6 +19,7 @@ import android.widget.TextView;
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.R;
@@ -64,7 +65,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
         mAdapter = new ValCursRecyclerViewAdapter(getContext(), getModel().getPresenter());
         mAdapter.setOnItemClickListener((v, position, item) -> {
-            getModel().getPresenter().onClickItems(item);
+            getModel().getPresenter().onClickItem(item);
         });
 
         mRecyclerView = findView(R.id.list);
@@ -76,10 +77,8 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                Valute item = mAdapter.getItem(position);
-                getModel().getPresenter().swipeItem(item);
-
-                super.onSwiped(viewHolder, direction);
+                final Valute item = mAdapter.getItem(position);
+                getModel().getPresenter().onSwipedItem(item);
             }
         };
         final ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -129,7 +128,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     }
 
     @Override
-    public void refreshSelected(ValCursViewData viewData) {
+    public void refreshSelectedItems(ValCursViewData viewData) {
         mAdapter.notifyDataSetChanged();
         refreshBottomNavigation(viewData);
     }
@@ -157,7 +156,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
                 bottomBar.startAnimation(animation);
             }
         } else {
-            messageView.setText("Выделено : " + viewData.getSelectedCount() + " / " + mAdapter.getItemCount());
+            refreshUpperBar(viewData);
             if (bottomBar.getVisibility() == View.GONE) {
                 mExpandableLayout.expand();
                 bottomBar.setVisibility(View.VISIBLE);
@@ -168,10 +167,15 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     }
 
     @Override
-    public void removeItems(List<Valute> items) {
+    public void removeItems(List<Valute> items, ValCursViewData viewData) {
         for (Valute item : items) {
             mAdapter.remove(mAdapter.getItems().indexOf(item));
         }
-        messageView.setText("Выделено : " + 0 + " / " + mAdapter.getItemCount());
+        refreshUpperBar(viewData);
+        getRootView().postDelayed(() -> refreshBottomNavigation(viewData), TimeUnit.SECONDS.toMillis(5));
+    }
+
+    private void refreshUpperBar(ValCursViewData viewData) {
+        messageView.setText("Выделено : " + viewData.getSelectedCount() + " / " + mAdapter.getItemCount());
     }
 }
