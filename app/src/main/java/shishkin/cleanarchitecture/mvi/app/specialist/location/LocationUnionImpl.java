@@ -13,7 +13,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
 
 
 import java.util.ArrayList;
@@ -62,10 +61,6 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
         mLocationRequest.setInterval(POLLING_FREQ);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
         mLocationRequest.setSmallestDisplacement(SMALLEST_DISPLACEMENT);
-
-        final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-        builder.addLocationRequest(mLocationRequest);
-        final LocationSettingsRequest locationSettingsRequest = builder.build();
     }
 
     @Override
