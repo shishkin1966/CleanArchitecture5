@@ -27,7 +27,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
 
     private ValCursViewData viewData;
 
-    public ValCursPresenter(ValCursModel model) {
+    ValCursPresenter(ValCursModel model) {
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(ValCursViewData.NAME, ValCursViewData.class);
@@ -88,7 +88,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         return viewData.getSelected().containsKey(item.getName());
     }
 
-    public void onClickItem(Valute item) {
+    void onClickItem(Valute item) {
         if (viewData.getSelected().containsKey(item.getName())) {
             viewData.getSelected().remove(item.getName());
         } else {
@@ -97,10 +97,8 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         getModel().getView().refreshSelectedItems(viewData);
     }
 
-    public void onSwipedItem(Valute item) {
-        if (viewData.getSelected().containsKey(item.getName())) {
-            viewData.getSelected().remove(item.getName());
-        }
+    void onSwipedItem(Valute item) {
+        viewData.getSelected().remove(item.getName());
         final List<Valute> list = new ArrayList<>();
         list.add(item);
         getModel().getView().removeItems(list, viewData);

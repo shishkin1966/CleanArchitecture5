@@ -14,7 +14,7 @@ public class SideMenuViewData implements Parcelable {
 
     private List<MviDao.Balance> balance;
 
-    public SideMenuViewData() {
+    SideMenuViewData() {
     }
 
     public List<MviDao.Balance> getBalance() {
@@ -35,7 +35,7 @@ public class SideMenuViewData implements Parcelable {
         dest.writeTypedList(this.balance);
     }
 
-    protected SideMenuViewData(Parcel in) {
+    private SideMenuViewData(Parcel in) {
         this.balance = in.createTypedArrayList(MviDao.Balance.CREATOR);
     }
 

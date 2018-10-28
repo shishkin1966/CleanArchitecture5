@@ -14,7 +14,7 @@ public class ContactPresenter extends AbsPresenter<ContactModel> implements View
 
     public static final String NAME = ContactPresenter.class.getName();
 
-    public ContactPresenter(ContactModel model) {
+    ContactPresenter(ContactModel model) {
         super(model);
     }
 

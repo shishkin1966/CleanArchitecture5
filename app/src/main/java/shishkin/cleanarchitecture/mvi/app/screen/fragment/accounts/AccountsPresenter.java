@@ -45,7 +45,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     private DialogInterface filterDialog;
     private AccountsViewData accountsViewData;
 
-    public AccountsPresenter(AccountsModel model) {
+    AccountsPresenter(AccountsModel model) {
         super(model);
 
         accountsViewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
@@ -69,15 +69,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 break;
 
             case R.id.sort_accounts:
-                sort_accounts();
+                sortAccounts();
                 break;
 
             case R.id.select_accounts:
-                select_accounts();
+                selectAccounts();
                 break;
 
             case R.id.select_accounts_all:
-                select_accounts_all();
+                selectAccountsAll();
                 break;
 
             case R.id.start:
@@ -103,17 +103,19 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         }
     }
 
-    private void sort_accounts() {
-        final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
-        sortDialog = builder
-                .setDividers(true)
-                .setTitleTextColorRes(R.color.blue)
-                .setTitle(R.string.sort)
-                .setMenu(R.menu.sort_menu, this)
-                .show();
+    private void sortAccounts() {
+        if (getModel().getView().getActivity() != null) {
+            final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
+            sortDialog = builder
+                    .setDividers(true)
+                    .setTitleTextColorRes(R.color.blue)
+                    .setTitle(R.string.sort)
+                    .setMenu(R.menu.sort_menu, this)
+                    .show();
+        }
     }
 
-    private void select_accounts() {
+    private void selectAccounts() {
         if (accountsViewData.getCurrencies() != null && accountsViewData.getCurrencies().size() > 1) {
             final CharSequence[] items = new CharSequence[accountsViewData.getCurrencies().size() + 1];
             final Drawable[] icons = new Drawable[accountsViewData.getCurrencies().size() + 1];
@@ -121,17 +123,19 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
             for (int i = 0; i < accountsViewData.getCurrencies().size(); i++) {
                 items[i + 1] = accountsViewData.getCurrencies().get(i);
             }
-            final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
-            filterDialog = builder
-                    .setDividers(true)
-                    .setTitleTextColorRes(R.color.blue)
-                    .setTitle(R.string.select)
-                    .setItems(items, icons, this)
-                    .show();
+            if (getModel().getView().getActivity() != null) {
+                final BottomSheet.Builder builder = new BottomSheet.Builder(getModel().getView().getActivity());
+                filterDialog = builder
+                        .setDividers(true)
+                        .setTitleTextColorRes(R.color.blue)
+                        .setTitle(R.string.select)
+                        .setItems(items, icons, this)
+                        .show();
+            }
         }
     }
 
-    private void select_accounts_all() {
+    private void selectAccountsAll() {
         accountsViewData.setFilter(null);
         getModel().getView().refreshViews(accountsViewData);
     }
@@ -194,7 +198,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         getModel().getView().refreshViews(accountsViewData);
     }
 
-    public void onClickItems(Account item) {
+    void onClickItems(Account item) {
         getModel().getRouter().showAccount(item);
     }
 
@@ -226,7 +230,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         getModel().getView().showMessage(event);
     }
 
-    public void hideMessage() {
+    void hideMessage() {
         accountsViewData.setShowMessage(false);
         getModel().getView().hideMessage();
     }

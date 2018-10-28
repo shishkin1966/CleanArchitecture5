@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class ContactModel extends AbsModel {
 
-    public ContactModel(ContactFragment fragment) {
+    ContactModel(ContactFragment fragment) {
         super(fragment);
 
         setRouter(new ContactRouter(this));

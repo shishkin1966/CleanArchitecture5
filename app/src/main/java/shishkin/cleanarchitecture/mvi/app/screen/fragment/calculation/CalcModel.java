@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class CalcModel extends AbsModel {
 
-    public CalcModel(CalcFragment fragment) {
+    CalcModel(CalcFragment fragment) {
         super(fragment);
 
         setPresenter(new CalcPresenter(this));

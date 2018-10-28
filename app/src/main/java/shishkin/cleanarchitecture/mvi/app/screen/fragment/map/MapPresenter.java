@@ -37,7 +37,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     private MapViewData viewData;
     private Marker marker;
 
-    public MapPresenter(MapModel model) {
+    MapPresenter(MapModel model) {
         super(model);
     }
 

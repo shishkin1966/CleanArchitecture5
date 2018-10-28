@@ -9,7 +9,7 @@ public class MapViewData implements Parcelable {
 
     private String address;
 
-    public MapViewData() {
+    MapViewData() {
     }
 
     public String getAddress() {
@@ -30,7 +30,7 @@ public class MapViewData implements Parcelable {
         dest.writeString(this.address);
     }
 
-    protected MapViewData(Parcel in) {
+    private MapViewData(Parcel in) {
         this.address = in.readString();
     }
 

@@ -15,7 +15,7 @@ public class CalcViewData implements Parcelable {
     private String item4 = "";
     private String item5 = "";
 
-    public CalcViewData() {
+    CalcViewData() {
     }
 
     public int getSum() {
@@ -30,7 +30,7 @@ public class CalcViewData implements Parcelable {
         return item1;
     }
 
-    public void setItem1(String item1) {
+    void setItem1(String item1) {
         this.item1 = item1;
     }
 
@@ -38,7 +38,7 @@ public class CalcViewData implements Parcelable {
         return item2;
     }
 
-    public void setItem2(String item2) {
+    void setItem2(String item2) {
         this.item2 = item2;
     }
 
@@ -46,7 +46,7 @@ public class CalcViewData implements Parcelable {
         return item3;
     }
 
-    public void setItem3(String item3) {
+    void setItem3(String item3) {
         this.item3 = item3;
     }
 
@@ -54,7 +54,7 @@ public class CalcViewData implements Parcelable {
         return item4;
     }
 
-    public void setItem4(String item4) {
+    void setItem4(String item4) {
         this.item4 = item4;
     }
 
@@ -62,7 +62,7 @@ public class CalcViewData implements Parcelable {
         return item5;
     }
 
-    public void setItem5(String item5) {
+    void setItem5(String item5) {
         this.item5 = item5;
     }
 
@@ -81,7 +81,7 @@ public class CalcViewData implements Parcelable {
         dest.writeString(this.item5);
     }
 
-    protected CalcViewData(Parcel in) {
+    private CalcViewData(Parcel in) {
         this.sum = in.readInt();
         this.item1 = in.readString();
         this.item2 = in.readString();

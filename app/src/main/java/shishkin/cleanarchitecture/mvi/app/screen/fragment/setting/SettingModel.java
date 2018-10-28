@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class SettingModel extends AbsModel {
 
-    public SettingModel(SettingFragment fragment) {
+    SettingModel(SettingFragment fragment) {
         super(fragment);
 
         setPresenter(new SettingPresenter(this));

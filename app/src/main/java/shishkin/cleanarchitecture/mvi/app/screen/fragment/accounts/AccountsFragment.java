@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -54,12 +55,12 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_accounts, container, false);
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         addStateObserver(mOnBackPressedPresenter);
@@ -89,9 +90,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mAccountsView = findView(R.id.list);
         mAccountsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAccountsView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter.setOnItemClickListener((v, position, item) -> {
-            getModel().getPresenter().onClickItems(item);
-        });
+        mAdapter.setOnItemClickListener((v, position, item) -> getModel().getPresenter().onClickItems(item));
         mAccountsView.setAdapter(mAdapter);
 
         mBalanceAdapter = new BalanceRecyclerViewAdapter(getContext());

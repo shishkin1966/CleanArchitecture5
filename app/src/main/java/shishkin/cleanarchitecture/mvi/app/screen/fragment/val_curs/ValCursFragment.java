@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -47,12 +48,12 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     private TextView messageView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_val_curs, container, false);
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mSwipeRefreshLayout = findView(R.id.swipeRefreshLayout);
@@ -64,9 +65,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         messageView = findView(R.id.message);
 
         mAdapter = new ValCursRecyclerViewAdapter(getContext(), getModel().getPresenter());
-        mAdapter.setOnItemClickListener((v, position, item) -> {
-            getModel().getPresenter().onClickItem(item);
-        });
+        mAdapter.setOnItemClickListener((v, position, item) -> getModel().getPresenter().onClickItem(item));
 
         mRecyclerView = findView(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

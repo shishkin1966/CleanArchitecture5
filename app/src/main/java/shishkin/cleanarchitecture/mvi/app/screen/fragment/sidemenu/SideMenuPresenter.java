@@ -19,7 +19,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
 
     private SideMenuViewData sideMenuViewData;
 
-    public SideMenuPresenter(SideMenuModel model) {
+    SideMenuPresenter(SideMenuModel model) {
         super(model);
 
         sideMenuViewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);

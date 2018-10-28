@@ -19,7 +19,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
 
     public static final String NAME = CreateAccountPresenter.class.getName();
 
-    public CreateAccountPresenter(CreateAccountModel model) {
+    CreateAccountPresenter(CreateAccountModel model) {
         super(model);
     }
 
@@ -51,7 +51,7 @@ public class CreateAccountPresenter extends AbsPresenter<CreateAccountModel> imp
         getModel().getView().refresh();
     }
 
-    public void createAccount(Account account) {
+    void createAccount(Account account) {
         getModel().getView().showProgressBar();
         getModel().getInteractor().addAccount(this, account);
     }

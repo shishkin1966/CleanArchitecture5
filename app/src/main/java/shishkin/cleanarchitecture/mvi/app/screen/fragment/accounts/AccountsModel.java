@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class AccountsModel extends AbsModel {
 
-    public AccountsModel(AccountsFragment fragment) {
+    AccountsModel(AccountsFragment fragment) {
         super(fragment);
 
         setInteractor(new AccountsInteractor());

@@ -17,27 +17,19 @@ public class ScannerViewData implements Parcelable {
     private List<Integer> selectedIndices;
     private int cameraId = -1;
 
-    public ScannerViewData() {
+    ScannerViewData() {
         selectedIndices = new ArrayList<>();
         for (int i = 0; i < ZXingScannerView.ALL_FORMATS.size(); i++) {
             selectedIndices.add(i);
         }
     }
 
-    public List<Integer> getSelectedIndices() {
+    List<Integer> getSelectedIndices() {
         return selectedIndices;
     }
 
-    public void setSelectedIndices(List<Integer> selectedIndices) {
-        this.selectedIndices = selectedIndices;
-    }
-
-    public int getCameraId() {
+    int getCameraId() {
         return cameraId;
-    }
-
-    public void setCameraId(int cameraId) {
-        this.cameraId = cameraId;
     }
 
     @Override
@@ -51,8 +43,8 @@ public class ScannerViewData implements Parcelable {
         dest.writeInt(this.cameraId);
     }
 
-    protected ScannerViewData(Parcel in) {
-        this.selectedIndices = new ArrayList<Integer>();
+    private ScannerViewData(Parcel in) {
+        this.selectedIndices = new ArrayList<>();
         in.readList(this.selectedIndices, Integer.class.getClassLoader());
         this.cameraId = in.readInt();
     }

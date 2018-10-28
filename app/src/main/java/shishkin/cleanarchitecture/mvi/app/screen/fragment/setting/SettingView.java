@@ -9,6 +9,4 @@ public interface SettingView {
     void refreshViews(List<Setting> settings);
 
     void collapseBottomSheet();
-
-
 }

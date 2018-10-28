@@ -24,7 +24,7 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
 
     private PagingViewData viewData;
 
-    public PagingPresenter(PagingModel model) {
+    PagingPresenter(PagingModel model) {
         super(model);
     }
 
