@@ -27,11 +27,8 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
     private static final String PARCELABLE = "PARCELABLE";
     private static final String LIST = "LIST";
     private static final long MAX_SIZE = 1000L;
-    private static final long DURATION = 3;
-    private static final TimeUnit DURATION_TIMEUNIT = TimeUnit.MINUTES;
-    private static final int INDEX_EXPIRED = 0;
-    private static final int INDEX_DATA = 1;
-    private static final int COUNT_INDEX = 2;
+    private static final long DURATION = 10;
+    private static final TimeUnit DURATION_TIMEUNIT = TimeUnit.SECONDS;
 
     private ReentrantLock mLock = new ReentrantLock();
     private LoadingCache<String, byte[]> mCache;
@@ -184,7 +181,7 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
     public Result<Boolean> validateExt() {
         final Runtime runtime = Runtime.getRuntime();
         final long percent = 100 - ((runtime.totalMemory() - runtime.freeMemory()) * 100 / runtime.maxMemory());
-        return new Result<>(percent >= 15).setError(NAME, "Not enough memory");
+        return new Result<>(percent >= 15).setError(NAME, "Not enough memory for memory cache");
     }
 
     @Override
