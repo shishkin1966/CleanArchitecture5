@@ -7,9 +7,9 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class ValCursInteractor implements ModelInteractor {
+class ValCursInteractor implements ModelInteractor {
 
-    public void getValCurs(String listener, String date) {
+    void getValCurs(String listener, String date) {
         SLUtil.getRepository().getValCurs(listener, date);
     }
 }

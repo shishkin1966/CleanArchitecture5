@@ -24,17 +24,17 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsActivity;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class ContactRouter extends BaseModelRouter {
+class ContactRouter extends BaseModelRouter {
 
-    public ContactRouter(ContactModel model) {
+    ContactRouter(ContactModel model) {
         super(model);
     }
 
-    public void showUrl() {
+    void showUrl() {
         ApplicationUtils.showUrl(SLUtil.getActivity(), "https://github.com/shishkin1966/CleanArchitecture5");
     }
 
-    public void sendMail() {
+    void sendMail() {
         final String rec = "oleg_shishkin@mail.ru";
         final String path = ErrorSpecialistImpl.getInstance().getPath();
         String body = "\n" + ApplicationUtils.getPhoneInfo();

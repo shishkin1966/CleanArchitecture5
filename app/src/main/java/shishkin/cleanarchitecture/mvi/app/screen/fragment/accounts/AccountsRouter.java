@@ -12,21 +12,21 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsRouter extends BaseModelRouter {
+class AccountsRouter extends BaseModelRouter {
 
-    public AccountsRouter(AbsModel model) {
+    AccountsRouter(AbsModel model) {
         super(model);
     }
 
-    public void createAccount() {
+    void createAccount() {
         showFragment(CreateAccountFragment.newInstance());
     }
 
-    public void showAccount(Account account) {
+    void showAccount(Account account) {
         showFragment(AccountFragment.newInstance(account));
     }
 
-    public void showUrl() {
+    void showUrl() {
         ApplicationUtils.showUrl(SLUtil.getActivity(), "https://github.com/shishkin1966/CleanArchitecture5");
     }
 }

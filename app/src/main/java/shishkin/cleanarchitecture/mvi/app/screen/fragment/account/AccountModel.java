@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class AccountModel extends AbsModel {
 
-    public AccountModel(AccountFragment fragment) {
+    AccountModel(AccountFragment fragment) {
         super(fragment);
 
     }

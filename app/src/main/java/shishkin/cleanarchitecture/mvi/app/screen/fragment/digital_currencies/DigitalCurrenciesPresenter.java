@@ -24,7 +24,7 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
 
     private TickerViewData tickerViewData;
 
-    public DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
+    DigitalCurrenciesPresenter(DigitalCurrenciesModel model) {
         super(model);
 
         tickerViewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);

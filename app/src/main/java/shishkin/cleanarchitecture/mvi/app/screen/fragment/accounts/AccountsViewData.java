@@ -38,11 +38,11 @@ public class AccountsViewData implements Parcelable {
         this.sort = sort;
     }
 
-    public String getFilter() {
+    String getFilter() {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(String filter) {
         this.filter = filter;
     }
 
@@ -54,11 +54,11 @@ public class AccountsViewData implements Parcelable {
         this.accounts = accounts;
     }
 
-    public List<String> getCurrencies() {
+    List<String> getCurrencies() {
         return currencies;
     }
 
-    public void setCurrencies(List<String> currencies) {
+    void setCurrencies(List<String> currencies) {
         this.currencies = currencies;
     }
 
@@ -86,19 +86,19 @@ public class AccountsViewData implements Parcelable {
         this.message = message;
     }
 
-    public int getMessageType() {
+    int getMessageType() {
         return messageType;
     }
 
-    public void setMessageType(int messageType) {
+    void setMessageType(int messageType) {
         this.messageType = messageType;
     }
 
-    public boolean isSortMenuEnabled() {
+    boolean isSortMenuEnabled() {
         return (accounts != null && accounts.size() > 1);
     }
 
-    public boolean isFilterMenuEnabled() {
+    boolean isFilterMenuEnabled() {
         return (accounts != null && accounts.size() > 1);
     }
 
@@ -140,10 +140,10 @@ public class AccountsViewData implements Parcelable {
         dest.writeInt(this.messageType);
     }
 
-    public AccountsViewData() {
+    AccountsViewData() {
     }
 
-    protected AccountsViewData(Parcel in) {
+    private AccountsViewData(Parcel in) {
         this.sort = in.readInt();
         this.filter = in.readString();
         this.accounts = in.createTypedArrayList(Account.CREATOR);

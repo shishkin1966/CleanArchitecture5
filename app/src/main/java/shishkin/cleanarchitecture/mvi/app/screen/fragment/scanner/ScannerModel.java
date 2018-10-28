@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class ScannerModel extends AbsModel {
 
-    public ScannerModel(ScannerFragment fragment) {
+    ScannerModel(ScannerFragment fragment) {
         super(fragment);
 
         setPresenter(new ScannerPresenter(this));

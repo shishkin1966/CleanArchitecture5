@@ -15,41 +15,41 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class SideMenuRouter extends BaseModelRouter {
+class SideMenuRouter extends BaseModelRouter {
 
-    public SideMenuRouter(AbsModel model) {
+    SideMenuRouter(AbsModel model) {
         super(model);
     }
 
-    public void showDigitalCurrencies() {
+    void showDigitalCurrencies() {
         showFragment(DigitalCurrenciesFragment.newInstance());
     }
 
-    public void showValCurs() {
+    void showValCurs() {
         showFragment(ValCursFragment.newInstance());
     }
 
-    public void showMap() {
+    void showMap() {
         showFragment(MapFragment.newInstance());
     }
 
-    public void showSetting() {
+    void showSetting() {
         showFragment(SettingFragment.newInstance());
     }
 
-    public void showScanner() {
+    void showScanner() {
         SLUtil.getScannerUnion().scan();
     }
 
-    public void showCalc() {
+    void showCalc() {
         showFragment(CalcFragment.newInstance());
     }
 
-    public void showPaging() {
+    void showPaging() {
         showFragment(PagingFragment.newInstance());
     }
 
-    public void showContact() {
+    void showContact() {
         showFragment(ContactFragment.newInstance());
     }
 

@@ -32,7 +32,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 public class SettingPresenter extends AbsPresenter<SettingModel> implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, DialogResultListener, Observer {
     public static final String NAME = SettingPresenter.class.getName();
 
-    public SettingPresenter(SettingModel model) {
+    SettingPresenter(SettingModel model) {
         super(model);
     }
 
@@ -63,6 +63,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onClick(View v) {
+        getModel().getView().collapseBottomSheet();
         switch (v.getId()) {
             case R.id.setting_backup:
                 SettingFactory.backup();

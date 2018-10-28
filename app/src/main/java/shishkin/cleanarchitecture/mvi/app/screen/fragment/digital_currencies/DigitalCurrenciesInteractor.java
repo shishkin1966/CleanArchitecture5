@@ -7,9 +7,9 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class DigitalCurrenciesInteractor implements ModelInteractor {
+class DigitalCurrenciesInteractor implements ModelInteractor {
 
-    public void getTicker(String listener) {
+    void getTicker(String listener) {
         SLUtil.getRepository().getTicker(listener);
     }
 }

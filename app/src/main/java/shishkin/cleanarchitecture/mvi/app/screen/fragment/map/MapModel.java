@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class MapModel extends AbsModel {
 
-    public MapModel(MapFragment fragment) {
+    MapModel(MapFragment fragment) {
         super(fragment);
 
         setPresenter(new MapPresenter(this));

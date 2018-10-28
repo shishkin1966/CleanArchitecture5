@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class ValCursModel extends AbsModel {
 
-    public ValCursModel(ValCursFragment fragment) {
+    ValCursModel(ValCursFragment fragment) {
         super(fragment);
 
         setInteractor(new ValCursInteractor());

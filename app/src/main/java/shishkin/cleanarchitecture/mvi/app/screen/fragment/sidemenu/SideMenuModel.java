@@ -5,7 +5,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class SideMenuModel extends AbsModel {
 
-    public SideMenuModel(SideMenuView view) {
+    SideMenuModel(SideMenuView view) {
         super(view);
 
         setRouter(new SideMenuRouter(this));

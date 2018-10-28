@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class PagingModel extends AbsModel {
 
-    public PagingModel(PagingFragment fragment) {
+    PagingModel(PagingFragment fragment) {
         super(fragment);
 
         setPresenter(new PagingPresenter(this));

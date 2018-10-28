@@ -20,14 +20,10 @@ public class ValCursViewData implements Parcelable {
     private ValCurs valCurs;
     private Map<String, Valute> selected = new HashMap<>();
 
-    public ValCursViewData() {
+    ValCursViewData() {
     }
 
-    public ValCurs getValCurs() {
-        return valCurs;
-    }
-
-    public void setValCurs(ValCurs valCurs) {
+    void setValCurs(ValCurs valCurs) {
         this.valCurs = valCurs;
     }
 
@@ -45,11 +41,11 @@ public class ValCursViewData implements Parcelable {
         return selected;
     }
 
-    public int getSelectedCount() {
+    int getSelectedCount() {
         return selected.size();
     }
 
-    public void clearSelected() {
+    void clearSelected() {
         selected.clear();
     }
 
@@ -68,10 +64,10 @@ public class ValCursViewData implements Parcelable {
         }
     }
 
-    protected ValCursViewData(Parcel in) {
+    private ValCursViewData(Parcel in) {
         this.valCurs = in.readParcelable(ValCurs.class.getClassLoader());
         int selectedSize = in.readInt();
-        this.selected = new HashMap<String, Valute>(selectedSize);
+        this.selected = new HashMap<>(selectedSize);
         for (int i = 0; i < selectedSize; i++) {
             String key = in.readString();
             Valute value = in.readParcelable(Valute.class.getClassLoader());

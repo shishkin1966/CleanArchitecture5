@@ -27,7 +27,7 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements Scan
 
     private ScannerViewData viewData;
 
-    public ScannerPresenter(ScannerModel model) {
+    ScannerPresenter(ScannerModel model) {
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(ScannerViewData.NAME, ScannerViewData.class);

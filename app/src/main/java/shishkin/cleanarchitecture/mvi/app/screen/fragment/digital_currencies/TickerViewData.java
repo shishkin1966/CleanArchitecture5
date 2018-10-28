@@ -18,22 +18,22 @@ public class TickerViewData implements Parcelable {
     private List<Ticker> tickers;
     private String filter;
 
-    public TickerViewData() {
+    TickerViewData() {
     }
 
     public List<Ticker> getTickers() {
         return tickers;
     }
 
-    public void setTickers(List<Ticker> tickers) {
+    void setTickers(List<Ticker> tickers) {
         this.tickers = tickers;
     }
 
-    public String getFilter() {
+    String getFilter() {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(String filter) {
         this.filter = filter;
     }
 
@@ -58,7 +58,7 @@ public class TickerViewData implements Parcelable {
         dest.writeString(this.filter);
     }
 
-    protected TickerViewData(Parcel in) {
+    private TickerViewData(Parcel in) {
         this.tickers = in.createTypedArrayList(Ticker.CREATOR);
         this.filter = in.readString();
     }

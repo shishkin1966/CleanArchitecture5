@@ -27,7 +27,7 @@ public class CalcPresenter extends AbsPresenter<CalcModel> implements Observer, 
 
     private CalcViewData viewData;
 
-    public CalcPresenter(CalcModel model) {
+    CalcPresenter(CalcModel model) {
         super(model);
     }
 

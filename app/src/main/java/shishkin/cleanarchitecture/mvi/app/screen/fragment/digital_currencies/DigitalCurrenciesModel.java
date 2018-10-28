@@ -8,7 +8,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 public class DigitalCurrenciesModel extends AbsModel {
 
-    public DigitalCurrenciesModel(DigitalCurrenciesFragment fragment) {
+    DigitalCurrenciesModel(DigitalCurrenciesFragment fragment) {
         super(fragment);
 
         setInteractor(new DigitalCurrenciesInteractor());
