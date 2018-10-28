@@ -76,7 +76,6 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
 
     @Override
     public void onStop() {
-        viewData.clearSelected();
         SLUtil.getCacheSpecialist().put(ValCursViewData.NAME, viewData);
     }
 
@@ -115,6 +114,10 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
                 break;
 
         }
+    }
+
+    public void onBackPressed() {
+        viewData.clearSelected();
     }
 }
 
