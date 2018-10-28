@@ -13,9 +13,9 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 public interface ValCursView extends IFragment {
     void refreshViews(ValCursViewData viewData);
 
-    void refreshSelected(ValCursViewData viewData);
+    void refreshSelectedItems(ValCursViewData viewData);
 
     void refreshBottomNavigation(ValCursViewData viewData);
 
-    void removeItems(List<Valute> items);
+    void removeItems(List<Valute> items, ValCursViewData viewData);
 }
