@@ -115,6 +115,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
     @Override
     public boolean onBackPressed() {
+        getModel().getPresenter().onBackPressed();
         SLUtil.getActivityUnion().switchToTopFragment();
         return true;
     }
