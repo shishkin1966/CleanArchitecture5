@@ -22,10 +22,8 @@ import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.specialist.preference.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.repository.RepositoryImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
-import shishkin.cleanarchitecture.mvi.app.specialist.storage.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
@@ -54,10 +52,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());
-        SLUtil.register(CacheSpecialistImpl.NAME);
         SLUtil.register(NotificationSpecialistImpl.NAME);
         SLUtil.register(LocationUnionImpl.NAME);
-        SLUtil.register(PreferencesSpecialistImpl.NAME);
         SLUtil.register(NetProviderImpl.NAME);
         SLUtil.register(NetCbProviderImpl.NAME);
         SLUtil.register(JobSpecialistImpl.NAME);
@@ -74,7 +70,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
             SLUtil.getMediaSpecialist().play(R.raw.music);
         }
     }
-
 
     @Override
     public void onFinish() {

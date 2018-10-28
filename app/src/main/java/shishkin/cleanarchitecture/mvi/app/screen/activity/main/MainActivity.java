@@ -45,7 +45,6 @@ public class MainActivity extends AbsContentActivity<MainModel> implements MainV
 
         super.onCreate(savedInstanceState);
 
-        Configuration conf = getResources().getConfiguration();
         final Setting setting = SettingFactory.getSetting(SettingOrientation.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase(getString(R.string.orientation_portrait))) {
             orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;

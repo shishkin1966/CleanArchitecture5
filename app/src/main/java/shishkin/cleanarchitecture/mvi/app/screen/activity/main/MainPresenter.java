@@ -48,6 +48,11 @@ public class MainPresenter extends AbsPresenter<MainModel> implements Observable
     }
 
     @Override
+    public void onStart() {
+        onChange(null);
+    }
+
+    @Override
     public void onChange(Object object) {
         if (validate()) {
             if (Connectivity.isNetworkConnected(SLUtil.getContext())) {

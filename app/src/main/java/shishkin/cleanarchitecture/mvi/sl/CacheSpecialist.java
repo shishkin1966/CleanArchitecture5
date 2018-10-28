@@ -1,12 +1,9 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.storage;
+package shishkin.cleanarchitecture.mvi.sl;
 
 import android.os.Parcelable;
 
 
 import java.util.List;
-
-
-import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
 @SuppressWarnings("unused")
 public interface CacheSpecialist extends Specialist {

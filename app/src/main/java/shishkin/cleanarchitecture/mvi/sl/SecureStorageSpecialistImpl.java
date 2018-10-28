@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.specialist.secure;
+package shishkin.cleanarchitecture.mvi.sl;
 
 import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
@@ -34,7 +34,6 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.CollectionsUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 

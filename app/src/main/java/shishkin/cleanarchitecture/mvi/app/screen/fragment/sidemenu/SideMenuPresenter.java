@@ -17,23 +17,23 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
 
     public static final String NAME = SideMenuPresenter.class.getName();
 
-    private SideMenuViewData sideMenuViewData;
+    private SideMenuViewData viewData;
 
     SideMenuPresenter(SideMenuModel model) {
         super(model);
 
-        sideMenuViewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
+        viewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
     }
 
     @Override
     public void onStart() {
-        if (sideMenuViewData == null) {
-            sideMenuViewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
-            if (sideMenuViewData == null) {
-                sideMenuViewData = new SideMenuViewData();
+        if (viewData == null) {
+            viewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
+            if (viewData == null) {
+                viewData = new SideMenuViewData();
             }
         }
-        showAccountsBalance(sideMenuViewData.getBalance());
+        showAccountsBalance(viewData.getBalance());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
 
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
-        sideMenuViewData.setBalance(list);
+        viewData.setBalance(list);
         getModel().getView().accountsChanged(list);
     }
 
@@ -101,7 +101,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
 
     @Override
     public void onDestroyView() {
-        SLUtil.getCacheSpecialist().put(SideMenuViewData.NAME, sideMenuViewData);
+        SLUtil.getCacheSpecialist().put(SideMenuViewData.NAME, viewData);
 
         super.onDestroyView();
     }
