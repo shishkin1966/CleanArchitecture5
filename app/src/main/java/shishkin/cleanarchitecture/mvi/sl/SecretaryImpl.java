@@ -52,9 +52,7 @@ public class SecretaryImpl<T> implements Secretary<T> {
 
     @Override
     public List<T> values() {
-        final List<T> list = new ArrayList<>();
-        list.addAll(mSubscribers.values());
-        return list;
+        return new ArrayList<>(mSubscribers.values());
     }
 
     @Override

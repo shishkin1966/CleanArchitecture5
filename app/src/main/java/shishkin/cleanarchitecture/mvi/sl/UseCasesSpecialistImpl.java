@@ -13,9 +13,6 @@ import shishkin.cleanarchitecture.mvi.sl.usecase.OnActionUseCase;
 public class UseCasesSpecialistImpl extends AbsSpecialist implements UseCasesSpecialist {
     public static final String NAME = UseCasesSpecialistImpl.class.getName();
 
-    public UseCasesSpecialistImpl() {
-    }
-
     @Override
     public String getName() {
         return NAME;

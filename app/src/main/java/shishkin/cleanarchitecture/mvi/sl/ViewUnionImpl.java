@@ -49,10 +49,6 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
     public static final String NAME = ViewUnionImpl.class.getName();
     private List<WeakReference<IActivity>> mActivities = Collections.synchronizedList(new ArrayList<>());
 
-    public ViewUnionImpl() {
-        super();
-    }
-
     @Override
     public void register(final IActivity subscriber) {
         super.register(subscriber);

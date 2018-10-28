@@ -10,14 +10,11 @@ import java.util.Collection;
 import java.util.Comparator;
 
 /**
- * Спеуиалист преобразования данных
+ * Специалист преобразования данных
  */
 @SuppressWarnings("unused")
 public class DataSpecialistImpl extends AbsSpecialist implements DataSpecialist {
     public static final String NAME = DataSpecialistImpl.class.getName();
-
-    public DataSpecialistImpl() {
-    }
 
     @Override
     public String getName() {

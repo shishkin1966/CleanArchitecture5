@@ -17,7 +17,7 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
 
     private static final String NAME = AbsSmallUnion.class.getName();
 
-    private Secretary<T> mSecretary = new RefSecretaryImpl();
+    private Secretary<T> mSecretary = new RefSecretaryImpl<>();
 
     @Override
     public void register(final T subscriber) {

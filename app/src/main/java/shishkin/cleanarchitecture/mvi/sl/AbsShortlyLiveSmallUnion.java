@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Абстрактное коротко живущее малое объединение
  */
+@SuppressWarnings("unused")
 public abstract class AbsShortlyLiveSmallUnion<T extends SpecialistSubscriber> extends AbsSmallUnion<T> implements SmallUnion<T>, AutoCompleteHandler.OnShutdownListener {
 
     private AutoCompleteHandler<Boolean> mServiceHandler;

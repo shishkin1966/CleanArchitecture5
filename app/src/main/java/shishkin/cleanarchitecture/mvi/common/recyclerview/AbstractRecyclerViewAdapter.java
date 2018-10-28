@@ -16,14 +16,15 @@ import android.view.accessibility.AccessibilityEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import shishkin.cleanarchitecture.mvi.common.recyclerview.choice.NoneChoiceMode;
+
 /**
  * Base adapter class that simplifies working with {@link RecyclerView}.
  * Class provides ability to animate data changes, handle clicks on items.
  */
 public abstract class AbstractRecyclerViewAdapter<E, VH extends AbstractViewHolder>
         extends RecyclerView.Adapter<VH> implements AbstractViewHolder.OnViewHolderClickListener {
-
-    private static final String TAG = "RecyclerViewAdapter";
 
     @NonNull
     private final LayoutInflater mLayoutInflater;
