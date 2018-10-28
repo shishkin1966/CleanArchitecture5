@@ -267,9 +267,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     @Override
     public void removeMail(final Mail mail) {
         if (mail != null) {
-            if (mMail.containsKey(mail.getId())) {
-                mMail.remove(mail.getId());
-            }
+            mMail.remove(mail.getId());
         }
     }
 

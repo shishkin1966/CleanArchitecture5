@@ -21,10 +21,6 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
     public static final String NAME = ObservableUnionImpl.class.getName();
     private Map<String, Observable> mObservables = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
-    public ObservableUnionImpl() {
-        super();
-    }
-
     @Override
     public void register(final Observable observable) {
         if (observable == null) return;

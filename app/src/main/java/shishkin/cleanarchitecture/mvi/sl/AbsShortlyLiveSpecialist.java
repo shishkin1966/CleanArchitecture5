@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Абстрактный коротко живущий специалист
  */
+@SuppressWarnings("unused")
 public abstract class AbsShortlyLiveSpecialist extends AbsSpecialist implements AutoCompleteHandler.OnShutdownListener {
 
     private AutoCompleteHandler<Boolean> mServiceHandler;
