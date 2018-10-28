@@ -42,6 +42,8 @@ import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.SecureStorageSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.SecureStorageSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.SerializableDiskStorageSpecialist;
+import shishkin.cleanarchitecture.mvi.sl.SerializableDiskStorageSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.Subscriber;
 import shishkin.cleanarchitecture.mvi.sl.UseCasesSpecialist;
@@ -148,6 +150,10 @@ public class SLUtil {
 
     public static CalculationUnion getCalculationUnion() {
         return SL.getInstance().get(CalculationUnionImpl.NAME);
+    }
+
+    public static SerializableDiskStorageSpecialist getSerializableDiskStorageSpecialist() {
+        return SL.getInstance().get(SerializableDiskStorageSpecialistImpl.NAME);
     }
 
     public static <C> C getActivity() {
