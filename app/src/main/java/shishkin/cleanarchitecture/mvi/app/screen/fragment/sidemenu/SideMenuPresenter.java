@@ -92,6 +92,10 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
                 getModel().getRouter().showPaging();
                 break;
 
+            case R.id.paging_google:
+                getModel().getRouter().showPagingGoogle();
+                break;
+
             case R.id.contact:
                 getModel().getRouter().showContact();
                 break;

@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.sl.task;
 
+import android.support.annotation.NonNull;
+
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -67,5 +70,10 @@ public class CommonExecutor implements RequestExecutor {
     @Override
     public void processing(Object sender, Object object) {
         execute((Request) object);
+    }
+
+    @Override
+    public void execute(@NonNull Runnable command) {
+        mExecutor.execute(command);
     }
 }

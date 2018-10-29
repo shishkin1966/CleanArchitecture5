@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 
 
@@ -191,5 +192,10 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
     @Override
     public boolean validate() {
         return validateExt().getData();
+    }
+
+    @Override
+    public void execute(@NonNull Runnable command) {
+        mExecutor.execute(command);
     }
 }

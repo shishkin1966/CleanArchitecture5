@@ -67,11 +67,13 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         int priority = Thread.NORM_PRIORITY;
-        final int rank = ((Request) r).getRank();
-        if (rank < 4) {
-            priority = Thread.MIN_PRIORITY;
-        } else if (rank > 6) {
-            priority = Thread.MAX_PRIORITY;
+        if (r instanceof Request) {
+            final int rank = ((Request) r).getRank();
+            if (rank < 4) {
+                priority = Thread.MIN_PRIORITY;
+            } else if (rank > 6) {
+                priority = Thread.MAX_PRIORITY;
+            }
         }
         t.setPriority(priority);
         super.beforeExecute(t, r);

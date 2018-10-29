@@ -20,14 +20,37 @@
         <TextView
             android:id="@+id/paging"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/menu_height"
             android:layout_gravity="center_vertical"
             android:background="@drawable/side_menu_panel_selector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_12dp"
             android:paddingRight="@dimen/dimen_12dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
             android:text="Пример постраничной выборки"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"/>
+
+        <View
+            style="@style/HorizontalGradientDivider"/>
+
+        <TextView
+            android:id="@+id/paging_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/menu_height"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/side_menu_panel_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_12dp"
+            android:paddingRight="@dimen/dimen_12dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:text="Пример постраничной выборки от Google"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"/>
 
@@ -37,13 +60,16 @@
         <TextView
             android:id="@+id/calc"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/menu_height"
             android:layout_gravity="center_vertical"
             android:background="@drawable/side_menu_panel_selector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_12dp"
             android:paddingRight="@dimen/dimen_12dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
             android:text="Пример расчета"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"/>
@@ -54,13 +80,16 @@
         <TextView
             android:id="@+id/scanner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/menu_height"
             android:layout_gravity="center_vertical"
             android:background="@drawable/side_menu_panel_selector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_12dp"
             android:paddingRight="@dimen/dimen_12dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
             android:text="Сканер баркодов"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"/>
@@ -71,13 +100,16 @@
         <TextView
             android:id="@+id/setting"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/menu_height"
             android:layout_gravity="center_vertical"
             android:background="@drawable/side_menu_panel_selector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_12dp"
             android:paddingRight="@dimen/dimen_12dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
             android:text="Настройки"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"/>
@@ -345,46 +377,6 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_xlarge"
                         android:textStyle="bold"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                style="@style/HorizontalGradientDivider"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/side_menu_panel_selector"
-                android:clickable="true"
-                android:minHeight="@dimen/menu_header_height"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dimen_12dp"
-                    android:layout_marginRight="@dimen/dimen_8dp"
-                    android:text="Кредиты"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_xlarge"
-                    android:textStyle="bold"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_12dp"
-                        android:gravity="right"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size"/>
                 </LinearLayout>
 
             </LinearLayout>

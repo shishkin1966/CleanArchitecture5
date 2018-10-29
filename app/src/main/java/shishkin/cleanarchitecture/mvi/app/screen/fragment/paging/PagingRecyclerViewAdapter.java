@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.adapter;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,17 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import java.util.Locale;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
 
-public class AccountsRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Account, AccountsRecyclerViewAdapter.ViewHolder> {
+public class PagingRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Account, PagingRecyclerViewAdapter.ViewHolder> {
 
-    public AccountsRecyclerViewAdapter(@NonNull Context context) {
+    public PagingRecyclerViewAdapter(@NonNull Context context) {
         super(context);
 
         setHasStableIds(false);
@@ -27,7 +24,7 @@ public class AccountsRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Acc
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.list_item_account, parent, false);
+        final View view = inflater.inflate(R.layout.list_item_valute, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,19 +35,19 @@ public class AccountsRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Acc
 
     static class ViewHolder extends AbstractViewHolder {
 
-        private TextView friendlyNameView;
-        private TextView balanceView;
+        private TextView name;
+        private TextView value;
 
         ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            friendlyNameView = findView(R.id.friendlyNameView);
-            balanceView = findView(R.id.balanceView);
+            name = findView(R.id.name);
+            value = findView(R.id.value);
         }
 
         void bind(@NonNull final Account item) {
-            friendlyNameView.setText(item.getFriendlyName());
-            balanceView.setText(String.format(Locale.getDefault(), "%,.0f", item.getBalance()) + " " + item.getCurrency());
+            name.setText(item.getFriendlyName());
+            value.setText(item.getBalance().toString());
         }
     }
 

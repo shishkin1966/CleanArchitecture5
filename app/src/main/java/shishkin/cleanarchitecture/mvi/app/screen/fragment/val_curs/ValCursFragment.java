@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Valute;
-import shishkin.cleanarchitecture.mvi.app.screen.adapter.ValCursRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.SwipeTouchHelper;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;

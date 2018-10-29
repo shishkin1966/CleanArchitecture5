@@ -142,4 +142,6 @@ dependencies {
 
     // Flashbar
     implementation 'com.andrognito.flashbar:flashbar:1.0.3'
+
+    implementation "android.arch.paging:runtime:1.0.1"
 }

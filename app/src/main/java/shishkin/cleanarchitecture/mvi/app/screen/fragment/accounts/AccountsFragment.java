@@ -21,7 +21,6 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
-import shishkin.cleanarchitecture.mvi.app.screen.adapter.AccountsRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.screen.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
 import shishkin.cleanarchitecture.mvi.common.OnSwipeTouchListener;
