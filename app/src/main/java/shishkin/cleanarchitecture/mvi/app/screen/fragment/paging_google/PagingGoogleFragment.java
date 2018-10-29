@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import java.util.concurrent.Executors;
+
+
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
@@ -35,6 +38,7 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PagedList.Config config;
+    private AccountsPositionalDataSource dataSource;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,19 +87,21 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     public void onDestroyView() {
         super.onDestroyView();
 
+        dataSource.invalidate();
         mRecyclerView.setAdapter(null);
     }
 
     @Override
     public void onRefresh() {
+        dataSource.invalidate();
         refreshData();
     }
 
     private void refreshData() {
-        final AccountsPositionalDataSource dataSource = new AccountsPositionalDataSource();
+        dataSource = new AccountsPositionalDataSource();
         final PagedList<Account> pagedList = new PagedList.Builder<>(dataSource, config)
                 .setNotifyExecutor(new MainThreadExecutor())
-                .setFetchExecutor(SLUtil.getRequestSpecialist().getSequentiallyExecutor())
+                .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build();
 
         final DiffUtil.ItemCallback<Account> diffUtilCallback = new DiffUtil.ItemCallback<Account>() {
