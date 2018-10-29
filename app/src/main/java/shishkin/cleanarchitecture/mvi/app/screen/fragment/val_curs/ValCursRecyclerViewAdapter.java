@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.adapter;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Valute;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursPresenter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;

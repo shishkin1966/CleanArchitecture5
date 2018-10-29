@@ -7,6 +7,7 @@ import shishkin.cleanarchitecture.mvi.app.screen.fragment.contact.ContactFragmen
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google.PagingGoogleFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.setting.SettingFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursFragment;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
@@ -59,6 +60,12 @@ class SideMenuRouter extends BaseModelRouter {
     void showPaging() {
         if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagingFragment.NAME)) {
             showFragment(PagingFragment.newInstance());
+        }
+    }
+
+    void showPagingGoogle() {
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagingGoogleFragment.NAME)) {
+            showFragment(PagingGoogleFragment.newInstance());
         }
     }
 

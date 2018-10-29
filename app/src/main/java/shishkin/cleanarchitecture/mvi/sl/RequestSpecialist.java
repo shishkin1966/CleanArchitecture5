@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
+import java.util.concurrent.Executor;
+
+
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.task.AwaitTask;
@@ -37,4 +40,15 @@ public interface RequestSpecialist extends Specialist {
      * @return результат выполнения задачи
      */
     Result await(AwaitTask task);
+
+    /**
+     * Получить Executor для последовательного выполнения задач
+     */
+    Executor getSequentiallyExecutor();
+
+    /**
+     * Получить Executor для параллельного выполнения задач
+     */
+    Executor getExecutor(Object object);
+
 }

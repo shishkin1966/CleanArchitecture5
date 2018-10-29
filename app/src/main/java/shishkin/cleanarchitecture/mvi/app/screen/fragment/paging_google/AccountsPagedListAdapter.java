@@ -1,7 +1,8 @@
-package shishkin.cleanarchitecture.mvi.app.screen.adapter;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
-import android.content.Context;
+import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,26 +11,23 @@ import android.widget.TextView;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
 
-public class PagingRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Account, PagingRecyclerViewAdapter.ViewHolder> {
+public class AccountsPagedListAdapter extends PagedListAdapter<Account, AccountsPagedListAdapter.ViewHolder> {
 
-    public PagingRecyclerViewAdapter(@NonNull Context context) {
-        super(context);
-
-        setHasStableIds(false);
+    protected AccountsPagedListAdapter(DiffUtil.ItemCallback<Account> diffUtilCallback) {
+        super(diffUtilCallback);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.list_item_valute, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_valute, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, Account item, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(getItem(position));
     }
 

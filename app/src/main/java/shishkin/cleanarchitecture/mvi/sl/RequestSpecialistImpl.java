@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -95,4 +96,15 @@ public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpeci
     public int compareTo(@NonNull Object o) {
         return (RequestSpecialist.class.isInstance(o)) ? 0 : 1;
     }
+
+    @Override
+    public Executor getSequentiallyExecutor() {
+        return mSequentiallyThreadPoolExecutor;
+    }
+
+    @Override
+    public Executor getExecutor(Object object) {
+        return mRequestDelegate.get(object);
+    }
+
 }
