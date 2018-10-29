@@ -113,6 +113,11 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
                 getModel().getView().removeItems(list, viewData);
                 break;
 
+            case R.id.clear:
+                viewData.clearSelected();
+                getModel().getView().refreshSelectedItems(viewData);
+                break;
+
         }
     }
 
