@@ -85,7 +85,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
             default:
                 final Setting setting = (Setting) v.getTag();
                 if (setting != null) {
-                    SLUtil.getActivityUnion().showListDialog(new ShowListDialogEvent(setting.getId(), getName(), setting.getTitle(), null, setting.getValues(), MaterialDialogExt.NO_BUTTON, MaterialDialogExt.NO_BUTTON, true));
+                    SLUtil.getViewUnion().showListDialog(new ShowListDialogEvent(setting.getId(), getName(), setting.getTitle(), null, setting.getValues(), MaterialDialogExt.NO_BUTTON, MaterialDialogExt.NO_BUTTON, true));
                 }
                 break;
         }

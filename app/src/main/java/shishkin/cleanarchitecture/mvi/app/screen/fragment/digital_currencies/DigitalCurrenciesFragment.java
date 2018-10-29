@@ -26,6 +26,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenciesModel> implements DigitalCurrenciesView {
 
+    public static final String NAME = DigitalCurrenciesFragment.class.getName();
+
     public static DigitalCurrenciesFragment newInstance() {
         return new DigitalCurrenciesFragment();
     }
@@ -70,7 +72,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
     @Override
     public String getName() {
-        return DigitalCurrenciesFragment.class.getName();
+        return NAME;
     }
 
     @Override
@@ -89,7 +91,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 

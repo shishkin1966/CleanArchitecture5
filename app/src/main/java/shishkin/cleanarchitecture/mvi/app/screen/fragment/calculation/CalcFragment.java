@@ -24,6 +24,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcView {
 
+    public static final String NAME = CalcFragment.class.getName();
+
     public static CalcFragment newInstance() {
         return new CalcFragment();
     }
@@ -65,7 +67,7 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
 
     @Override
     public String getName() {
-        return CalcFragment.class.getName();
+        return NAME;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 }

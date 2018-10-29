@@ -28,6 +28,8 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Valute;
 import shishkin.cleanarchitecture.mvi.app.screen.adapter.ValCursRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.SwipeTouchHelper;
+import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -35,6 +37,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
  */
 
 public class ValCursFragment extends AbsContentFragment<ValCursModel> implements ValCursView {
+
+    public static final String NAME = ValCursFragment.class.getName();
 
     public static ValCursFragment newInstance() {
         return new ValCursFragment();
@@ -96,7 +100,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
     @Override
     public String getName() {
-        return ValCursFragment.class.getName();
+        return NAME;
     }
 
     @Override
@@ -108,6 +112,9 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     public void refreshViews(ValCursViewData viewData) {
         if (viewData != null && viewData.getData() != null) {
             mAdapter.setItems(viewData.getData());
+            if (mAdapter.getItemCount() == 0) {
+                showMessage(new ShowMessageEvent("Данных нет").setType(ApplicationUtils.MESSAGE_TYPE_WARNING));
+            }
         }
     }
 
@@ -122,7 +129,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     @Override
     public boolean onBackPressed() {
         getModel().getPresenter().onBackPressed();
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 

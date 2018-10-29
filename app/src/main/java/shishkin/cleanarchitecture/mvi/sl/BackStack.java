@@ -35,7 +35,7 @@ public class BackStack {
         if (Subscriber.class.isInstance(fragment)) {
             tag = ((Subscriber) fragment).getName();
         } else {
-            tag = fragment.getClass().getSimpleName();
+            tag = fragment.getClass().getName();
         }
         if (clearBackStack) {
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -146,6 +146,52 @@ public class BackStack {
                         return true;
                     }
                 }
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasFragment(final AbsActivity activity, String name) {
+        if (activity == null || StringUtils.isNullOrEmpty(name)) return false;
+
+        final FragmentManager fm = activity.getSupportFragmentManager();
+        final int backStackEntryCount = fm.getBackStackEntryCount();
+        if (backStackEntryCount > 0) {
+            for (int i = backStackEntryCount - 1; i >= 0; i--) {
+                final FragmentManager.BackStackEntry backStackEntry = fm
+                        .getBackStackEntryAt(i);
+                final Fragment fragment = fm.findFragmentByTag(backStackEntry.getName());
+                String tag;
+                if (fragment instanceof AbsFragment) {
+                    tag = ((AbsFragment) fragment).getName();
+                } else {
+                    tag = fragment.getClass().getName();
+                }
+                if (name.equals(tag)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCurrentFragment(final AbsActivity activity, String name) {
+        if (activity == null || StringUtils.isNullOrEmpty(name)) return false;
+
+        final FragmentManager fm = activity.getSupportFragmentManager();
+        final int backStackEntryCount = fm.getBackStackEntryCount();
+        if (backStackEntryCount > 0) {
+            final FragmentManager.BackStackEntry backStackEntry = fm
+                    .getBackStackEntryAt(backStackEntryCount - 1);
+            final Fragment fragment = fm.findFragmentByTag(backStackEntry.getName());
+            String tag;
+            if (fragment instanceof AbsFragment) {
+                tag = ((AbsFragment) fragment).getName();
+            } else {
+                tag = fragment.getClass().getName();
+            }
+            if (name.equals(tag)) {
+                return true;
             }
         }
         return false;

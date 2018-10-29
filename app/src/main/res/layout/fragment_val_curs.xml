@@ -72,7 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_below="@+id/expandable_layout"
-                android:background="@drawable/below_shadow">
+                android:background="@drawable/below_shadow"
+                android:visibility="gone">
             </View>
 
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
@@ -93,7 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/copy"
@@ -129,7 +131,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_above="@+id/bottomBar"
-                android:background="@drawable/above_shadow">
+                android:background="@drawable/above_shadow"
+                android:visibility="gone">
             </View>
 
         </RelativeLayout>

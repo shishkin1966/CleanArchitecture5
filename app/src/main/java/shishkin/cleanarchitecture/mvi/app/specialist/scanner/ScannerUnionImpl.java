@@ -34,8 +34,8 @@ public class ScannerUnionImpl extends AbsSmallUnion<ScannerSubscriber> implement
 
     @Override
     public void scan() {
-        if (SLUtil.getActivityUnion().hasSubscribers()) {
-            SLUtil.getActivityUnion().showFragment(new ShowFragmentEvent(ScannerFragment.newInstance()));
+        if (SLUtil.getViewUnion().hasSubscribers()) {
+            SLUtil.getViewUnion().showFragment(new ShowFragmentEvent(ScannerFragment.newInstance()));
         }
     }
 

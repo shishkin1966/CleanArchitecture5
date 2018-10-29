@@ -55,8 +55,8 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements Scan
                 viewData = new ScannerViewData();
             }
         }
-        if (!SLUtil.getActivityUnion().checkPermission(Manifest.permission.CAMERA)) {
-            SLUtil.getActivityUnion().grantPermission(Manifest.permission.CAMERA);
+        if (!SLUtil.getViewUnion().checkPermission(Manifest.permission.CAMERA)) {
+            SLUtil.getViewUnion().grantPermission(Manifest.permission.CAMERA);
         }
     }
 
@@ -79,7 +79,7 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements Scan
         getScannerView().setAutoFocus(true);
 
         if (!ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.CAMERA)) {
-            SLUtil.getActivityUnion().grantPermission(Manifest.permission.CAMERA);
+            SLUtil.getViewUnion().grantPermission(Manifest.permission.CAMERA);
         }
     }
 

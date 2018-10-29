@@ -80,7 +80,7 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 }

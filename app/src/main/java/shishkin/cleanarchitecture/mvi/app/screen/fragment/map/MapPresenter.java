@@ -63,7 +63,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
         super.onResumeView();
 
         if (!ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            SLUtil.getActivityUnion().grantPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            SLUtil.getViewUnion().grantPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
     }
 

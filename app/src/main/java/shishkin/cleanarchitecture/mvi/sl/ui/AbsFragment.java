@@ -227,7 +227,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         if (ApplicationUtils.hasMarshmallow()) {
             if (getState() != ViewStateObserver.STATE_CREATE && getState() != ViewStateObserver.STATE_DESTROY) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
-                    SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
+                    SLUtil.getViewUnion().showDialog(new ShowDialogEvent(R.id.dialog_request_permissions, listener, null, helpMessage).setPositiveButton(R.string.setting).setNegativeButton(R.string.cancel).setCancelable(false));
                 } else {
                     requestPermissions(new String[]{permission}, Constant.REQUEST_PERMISSIONS);
                 }
