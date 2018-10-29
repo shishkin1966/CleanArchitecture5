@@ -91,6 +91,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         bottomBar = findView(R.id.bottomBar);
 
         findView(R.id.delete).setOnClickListener(getModel().getPresenter());
+        findView(R.id.clear).setOnClickListener(getModel().getPresenter());
     }
 
     @Override
