@@ -10,21 +10,21 @@ import shishkin.cleanarchitecture.mvi.sl.task.AwaitTask;
 public interface RequestSpecialist extends Specialist {
 
     /**
-     * Выполнить запрос параллельно
+     * Выполнить неблокирующий запрос параллельно
      *
      * @param request запрос
      */
     void request(Object sender, Request request);
 
     /**
-     * Выполнить запрос последовательно
+     * Выполнить неблокирующий запрос последовательно
      *
      * @param request запрос
      */
     void requestSequentially(Object sender, Request request);
 
     /**
-     * Отменить запросы слушателя
+     * Отменить все запросы слушателя
      *
      * @param listener имя слушателя
      */

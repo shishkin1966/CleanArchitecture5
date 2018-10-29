@@ -22,6 +22,9 @@ public class BackStack {
     private BackStack() {
     }
 
+    /**
+     * Показать фрагмент
+     */
     public static void showFragment(final AbsActivity activity, final int idRes, final Fragment fragment, final boolean addToBackStack,
                                     final boolean clearBackStack,
                                     final boolean animate, final boolean allowingStateLoss) {
@@ -55,6 +58,9 @@ public class BackStack {
         }
     }
 
+    /**
+     * Переключиться на фрагмент верхнего уровня
+     */
     public static void switchToTopFragment(final AbsActivity activity) {
         if (activity == null) return;
         if (!activity.validate()) {
@@ -77,6 +83,9 @@ public class BackStack {
         }
     }
 
+    /**
+     * Переключиться на фрагмент
+     */
     public static boolean switchToFragment(final AbsActivity activity, final String name) {
         if (activity == null) return false;
         if (!activity.validate()) {
@@ -102,6 +111,9 @@ public class BackStack {
         return false;
     }
 
+    /**
+     * Отработать нажатие на BackPressed
+     */
     public static void onBackPressed(final AbsActivity activity) {
         if (activity == null) return;
         if (!activity.validate()) {
@@ -133,6 +145,9 @@ public class BackStack {
         }
     }
 
+    /**
+     * Проверить наличие фрагмента верхнего уровня
+     */
     public static boolean hasTopFragment(final AbsActivity activity) {
         final FragmentManager fm = activity.getSupportFragmentManager();
         final int backStackEntryCount = fm.getBackStackEntryCount();
@@ -151,6 +166,9 @@ public class BackStack {
         return false;
     }
 
+    /**
+     * Проверить наличие фрагмента
+     */
     public static boolean hasFragment(final AbsActivity activity, String name) {
         if (activity == null || StringUtils.isNullOrEmpty(name)) return false;
 
@@ -175,6 +193,9 @@ public class BackStack {
         return false;
     }
 
+    /**
+     * Проверить является ли фрагмент текущим
+     */
     public static boolean isCurrentFragment(final AbsActivity activity, String name) {
         if (activity == null || StringUtils.isNullOrEmpty(name)) return false;
 
@@ -197,14 +218,23 @@ public class BackStack {
         return false;
     }
 
+    /**
+     * Проверить BackStack пуст
+     */
     public static boolean isBackStackEmpty(final AbsActivity activity) {
         return activity.getSupportFragmentManager().getBackStackEntryCount() == 0;
     }
 
+    /**
+     * Получить количество записей в BackStack
+     */
     public static int getBackStackEntryCount(final AbsActivity activity) {
         return activity.getSupportFragmentManager().getBackStackEntryCount();
     }
 
+    /**
+     * Получить фрагмент
+     */
     public static <F> F getFragment(final AbsActivity activity, final Class<F> cls, final int id) {
         if (activity == null) return null;
         if (!activity.validate()) return null;
@@ -217,6 +247,9 @@ public class BackStack {
         return f;
     }
 
+    /**
+     * Очистить BackStack
+     */
     public static void clearBackStack(final AbsActivity activity) {
         final FragmentManager fm = activity.getSupportFragmentManager();
         for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
