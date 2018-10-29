@@ -46,6 +46,8 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     private LinearLayout bottomBar;
     private ExpandableLayout mExpandableLayout;
     private TextView messageView;
+    private View shadowTop;
+    private View shadowBottom;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        shadowBottom = findView(R.id.shadow_bottom);
+        shadowTop = findView(R.id.shadow_top);
 
         mSwipeRefreshLayout = findView(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.blue);
@@ -147,6 +152,8 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         bottomBar.setVisibility(View.GONE);
+                        shadowTop.setVisibility(View.GONE);
+                        shadowBottom.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -158,8 +165,10 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         } else {
             refreshUpperBar(viewData);
             if (bottomBar.getVisibility() == View.GONE) {
-                mExpandableLayout.expand();
                 bottomBar.setVisibility(View.VISIBLE);
+                shadowTop.setVisibility(View.VISIBLE);
+                shadowBottom.setVisibility(View.VISIBLE);
+                mExpandableLayout.expand();
                 final Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
                 bottomBar.startAnimation(animation);
             }
