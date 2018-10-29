@@ -92,7 +92,7 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 }

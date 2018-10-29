@@ -143,7 +143,7 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 

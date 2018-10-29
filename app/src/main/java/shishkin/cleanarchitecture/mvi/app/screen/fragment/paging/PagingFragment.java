@@ -23,6 +23,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 public class PagingFragment extends AbsContentFragment<PagingModel> implements PagingView {
 
+    public static final String NAME = PagingFragment.class.getName();
+
     public static PagingFragment newInstance() {
         return new PagingFragment();
     }
@@ -55,7 +57,7 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
 
     @Override
     public String getName() {
-        return PagingFragment.class.getName();
+        return NAME;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 

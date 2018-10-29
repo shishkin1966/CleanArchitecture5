@@ -9,6 +9,7 @@ import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.setting.SettingFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursFragment;
+import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.model.AbsModel;
 
 /**
@@ -22,19 +23,27 @@ class SideMenuRouter extends BaseModelRouter {
     }
 
     void showDigitalCurrencies() {
-        showFragment(DigitalCurrenciesFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), DigitalCurrenciesFragment.NAME)) {
+            showFragment(DigitalCurrenciesFragment.newInstance());
+        }
     }
 
     void showValCurs() {
-        showFragment(ValCursFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), ValCursFragment.NAME)) {
+            showFragment(ValCursFragment.newInstance());
+        }
     }
 
     void showMap() {
-        showFragment(MapFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), MapFragment.NAME)) {
+            showFragment(MapFragment.newInstance());
+        }
     }
 
     void showSetting() {
-        showFragment(SettingFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), SettingFragment.NAME)) {
+            showFragment(SettingFragment.newInstance());
+        }
     }
 
     void showScanner() {
@@ -42,15 +51,21 @@ class SideMenuRouter extends BaseModelRouter {
     }
 
     void showCalc() {
-        showFragment(CalcFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), CalcFragment.NAME)) {
+            showFragment(CalcFragment.newInstance());
+        }
     }
 
     void showPaging() {
-        showFragment(PagingFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagingFragment.NAME)) {
+            showFragment(PagingFragment.newInstance());
+        }
     }
 
     void showContact() {
-        showFragment(ContactFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), ContactFragment.NAME)) {
+            showFragment(ContactFragment.newInstance());
+        }
     }
 
 }

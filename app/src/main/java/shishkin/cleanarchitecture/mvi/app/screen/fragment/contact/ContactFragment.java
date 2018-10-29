@@ -18,6 +18,8 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 public class ContactFragment extends AbsContentFragment<ContactModel> implements ContactView {
 
+    public static final String NAME = ContactFragment.class.getName();
+
     public static ContactFragment newInstance() {
         return new ContactFragment();
     }
@@ -38,7 +40,7 @@ public class ContactFragment extends AbsContentFragment<ContactModel> implements
 
     @Override
     public String getName() {
-        return ContactFragment.class.getName();
+        return NAME;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ContactFragment extends AbsContentFragment<ContactModel> implements
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getActivityUnion().switchToTopFragment();
+        SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }
 }

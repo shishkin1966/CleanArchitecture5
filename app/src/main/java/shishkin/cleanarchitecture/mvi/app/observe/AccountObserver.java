@@ -106,7 +106,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
             ((ApplicationController) ApplicationController.getInstance()).updateWidget();
             SLUtil.addMail(new AccountsBalanceMail(ACCOUNTS_MAILING_LIST, list));
         } else {
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText(), ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText(), ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 }

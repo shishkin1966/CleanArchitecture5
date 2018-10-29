@@ -68,7 +68,7 @@ public class SLUtil {
         return ApplicationSpecialistImpl.getInstance();
     }
 
-    public static ViewUnion getActivityUnion() {
+    public static ViewUnion getViewUnion() {
         return SL.getInstance().get(ViewUnionImpl.NAME);
     }
 
@@ -157,7 +157,7 @@ public class SLUtil {
     }
 
     public static <C> C getActivity() {
-        final ViewUnion union = getActivityUnion();
+        final ViewUnion union = getViewUnion();
         if (union != null) {
             return union.getActivity();
         }
@@ -215,7 +215,7 @@ public class SLUtil {
      * @return the content fragment
      */
     public static AbsContentFragment getContentFragment() {
-        final ViewUnion union = getActivityUnion();
+        final ViewUnion union = getViewUnion();
         if (union != null) {
             final AbsActivity activity = union.getActivity();
             if (activity != null && AbsContentActivity.class.isInstance(activity)) {
@@ -231,7 +231,7 @@ public class SLUtil {
      * @return true - существует
      */
     public static boolean isValidActivity() {
-        final ViewUnion union = getActivityUnion();
+        final ViewUnion union = getViewUnion();
         if (union != null) {
             final AbsActivity activity = union.getActivity();
             if (activity != null && activity.validate() && (activity.getState() == ViewStateObserver.STATE_RESUME || activity.getState() == ViewStateObserver.STATE_PAUSE)) {

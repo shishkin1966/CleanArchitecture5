@@ -157,7 +157,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         super.onResumeView();
 
         if (!ApplicationUtils.checkPermission(SLUtil.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            SLUtil.getActivityUnion().grantPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            SLUtil.getViewUnion().grantPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 

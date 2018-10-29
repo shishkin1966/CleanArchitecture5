@@ -74,7 +74,7 @@ public class MainPresenter extends AbsPresenter<MainModel> implements Observable
 
     @Override
     public void onScan(String text) {
-        SLUtil.getActivityUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
+        SLUtil.getViewUnion().showDialog(new ShowDialogEvent(-1, null, "Код", text));
     }
 }
 

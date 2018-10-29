@@ -66,7 +66,7 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
             getModel().getView().refreshViews(viewData);
         } else {
             getModel().getView().hideProgressBar();
-            SLUtil.getActivityUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
     }
 

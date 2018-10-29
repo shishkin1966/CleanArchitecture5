@@ -50,9 +50,9 @@ class ContactRouter extends BaseModelRouter {
         }
         final Intent intent = ApplicationUtils.sendEmailIntent(rec, "Ошибка", body);
         if (intent.resolveActivity(((AbsActivity) SLUtil.getActivity()).getPackageManager()) != null) {
-            SLUtil.getActivityUnion().startActivity(new StartActivityEvent(intent));
+            SLUtil.getViewUnion().startActivity(new StartActivityEvent(intent));
         } else {
-            SLUtil.getActivityUnion().showFlashbar(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_WARNING).setTitle(SLUtil.getContext().getString(R.string.warning)));
+            SLUtil.getViewUnion().showFlashbar(new ShowMessageEvent(SLUtil.getContext().getString(R.string.mail_error)).setDuration(Toast.LENGTH_LONG).setType(ApplicationUtils.MESSAGE_TYPE_WARNING).setTitle(SLUtil.getContext().getString(R.string.warning)));
         }
     }
 }

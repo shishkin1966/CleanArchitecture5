@@ -99,7 +99,7 @@ public class SettingFactory {
 
         final File file = new File(ApplicationSpecialistImpl.getInstance().getExternalDataPath(), "settings.json");
         if (!file.exists()) {
-            SLUtil.getActivityUnion().showFlashbar(new ShowMessageEvent(SLUtil.getContext().getString(R.string.warning), SLUtil.getContext().getString(R.string.setting_error), ApplicationUtils.MESSAGE_TYPE_ERROR));
+            SLUtil.getViewUnion().showFlashbar(new ShowMessageEvent(SLUtil.getContext().getString(R.string.warning), SLUtil.getContext().getString(R.string.setting_error), ApplicationUtils.MESSAGE_TYPE_ERROR));
             return;
         }
 
