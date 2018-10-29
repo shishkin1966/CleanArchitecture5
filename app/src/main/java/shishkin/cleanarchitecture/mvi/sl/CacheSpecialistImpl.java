@@ -27,8 +27,8 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
     private static final String PARCELABLE = "PARCELABLE";
     private static final String LIST = "LIST";
     private static final long MAX_SIZE = 1000L;
-    private static final long DURATION = 10;
-    private static final TimeUnit DURATION_TIMEUNIT = TimeUnit.SECONDS;
+    private static final long DURATION = 1;
+    private static final TimeUnit DURATION_TIMEUNIT = TimeUnit.MINUTES;
 
     private ReentrantLock mLock = new ReentrantLock();
     private LoadingCache<String, byte[]> mCache;
