@@ -131,6 +131,7 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
 
     @Override
     public void clear() {
+        mExecutor.clear();
     }
 
     @Override

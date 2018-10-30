@@ -50,6 +50,7 @@ public class CommonExecutor implements RequestExecutor {
 
     @Override
     public void clear() {
+        mExecutor.clear();
     }
 
     @Override
