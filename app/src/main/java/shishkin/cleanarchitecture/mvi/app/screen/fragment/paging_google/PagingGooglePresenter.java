@@ -31,13 +31,5 @@ public class PagingGooglePresenter extends AbsPresenter<PagingGoogleModel> imple
     public void onRefresh() {
         getModel().getView().onRefresh();
     }
-
-    public void showProgressBar() {
-        getModel().getView().showProgressBar();
-    }
-
-    public void hideProgressBar() {
-        getModel().getView().hideProgressBar();
-    }
 }
 

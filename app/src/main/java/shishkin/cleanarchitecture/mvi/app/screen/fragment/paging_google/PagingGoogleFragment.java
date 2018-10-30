@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
-import android.arch.paging.PagedList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,13 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import java.util.concurrent.Executors;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.sl.task.MainThreadExecutor;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -69,7 +64,6 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter = new AccountsPagedListAdapter(diffUtilCallback);
-        //adapter.setHasStableIds(false);
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -100,13 +94,6 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     @Override
     public void onRefresh() {
         adapter.refresh();
-    }
-
-    @Override
-    public void hideProgressBar() {
-        if (validate()) {
-            super.hideProgressBar();
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

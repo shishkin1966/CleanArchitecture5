@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
@@ -67,10 +66,6 @@ public class AccountsPositionalDataSource extends AbsPositionalDataSource<Accoun
     @Override
     public void onInvalidated() {
         ApplicationUtils.runOnUiThread(() -> {
-            final PagingGooglePresenter presenter = SLUtil.getPresenterUnion().getPresenter(PagingGooglePresenter.NAME);
-            if (presenter != null) {
-                presenter.hideProgressBar();
-            }
             ApplicationUtils.showToast("Запрос прерван", Toast.LENGTH_SHORT, ApplicationUtils.MESSAGE_TYPE_INFO);
         });
     }
