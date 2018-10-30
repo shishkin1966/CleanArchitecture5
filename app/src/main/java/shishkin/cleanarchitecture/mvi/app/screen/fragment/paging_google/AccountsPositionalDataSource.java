@@ -9,9 +9,9 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.paging.AbsPositionalDataSource;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.paging.AbsPositionalDataSource;
 
 public class AccountsPositionalDataSource extends AbsPositionalDataSource<Account> {
 

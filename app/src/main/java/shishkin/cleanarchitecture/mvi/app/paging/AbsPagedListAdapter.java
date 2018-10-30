@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.sl.paging;
+package shishkin.cleanarchitecture.mvi.app.paging;
 
 import android.arch.paging.DataSource;
 import android.arch.paging.PagedList;
