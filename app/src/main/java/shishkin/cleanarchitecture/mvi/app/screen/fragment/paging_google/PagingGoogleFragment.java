@@ -37,8 +37,18 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private PagedList.Config config;
-    private AccountsPositionalDataSource dataSource;
+    private AccountsPagedListAdapter adapter;
+    private DiffUtil.ItemCallback<Account> diffUtilCallback = new DiffUtil.ItemCallback<Account>() {
+        @Override
+        public boolean areItemsTheSame(Account oldItem, Account newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areContentsTheSame(Account oldItem, Account newItem) {
+            return oldItem.getFriendlyName().equals(newItem.getFriendlyName());
+        }
+    };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,13 +68,9 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        config = new PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setPrefetchDistance(30)
-                .setPageSize(30)
-                .build();
-
-        refreshData();
+        adapter = new AccountsPagedListAdapter(diffUtilCallback);
+        //adapter.setHasStableIds(false);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -87,39 +93,13 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     public void onDestroyView() {
         super.onDestroyView();
 
-        dataSource.invalidate();
+        adapter.invalidate();
         mRecyclerView.setAdapter(null);
     }
 
     @Override
     public void onRefresh() {
-        dataSource.invalidate();
-        refreshData();
-    }
-
-    private void refreshData() {
-        dataSource = new AccountsPositionalDataSource();
-        final PagedList<Account> pagedList = new PagedList.Builder<>(dataSource, config)
-                .setNotifyExecutor(new MainThreadExecutor())
-                .setFetchExecutor(Executors.newSingleThreadExecutor())
-                .build();
-
-        final DiffUtil.ItemCallback<Account> diffUtilCallback = new DiffUtil.ItemCallback<Account>() {
-            @Override
-            public boolean areItemsTheSame(Account oldItem, Account newItem) {
-                return oldItem.equals(newItem);
-            }
-
-            @Override
-            public boolean areContentsTheSame(Account oldItem, Account newItem) {
-                return oldItem.getFriendlyName().equals(newItem.getFriendlyName());
-            }
-        };
-        final AccountsPagedListAdapter adapter = new AccountsPagedListAdapter(diffUtilCallback);
-        adapter.submitList(pagedList);
-        adapter.setHasStableIds(false);
-
-        mRecyclerView.setAdapter(adapter);
+        adapter.refresh();
     }
 
     @Override

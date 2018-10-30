@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
-import android.arch.paging.PagedListAdapter;
+import android.arch.paging.DataSource;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.view.LayoutInflater;
@@ -12,11 +12,17 @@ import android.widget.TextView;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
+import shishkin.cleanarchitecture.mvi.sl.paging.AbsPagedListAdapter;
 
-public class AccountsPagedListAdapter extends PagedListAdapter<Account, AccountsPagedListAdapter.ViewHolder> {
+public class AccountsPagedListAdapter extends AbsPagedListAdapter<Account, AccountsPagedListAdapter.ViewHolder> {
 
-    protected AccountsPagedListAdapter(DiffUtil.ItemCallback<Account> diffUtilCallback) {
+    AccountsPagedListAdapter(DiffUtil.ItemCallback<Account> diffUtilCallback) {
         super(diffUtilCallback);
+    }
+
+    @Override
+    public DataSource<Integer, Account> getDataSource() {
+        return new AccountsPositionalDataSource();
     }
 
     @NonNull
