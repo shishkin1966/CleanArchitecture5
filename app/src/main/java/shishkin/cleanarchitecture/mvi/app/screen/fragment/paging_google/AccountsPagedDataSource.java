@@ -11,22 +11,20 @@ import java.util.concurrent.TimeUnit;
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.DataSourceUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.datasource.AbsPositionalDataSource;
 
 public class AccountsPagedDataSource extends AbsPositionalDataSource<Account> {
 
     public static final String NAME = AccountsPagedDataSource.class.getName();
 
-    private int size = 400;
+    private int size = 0;
     private int y = 0;
     private long sleep = TimeUnit.SECONDS.toMillis(1);
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Account> callback) {
+        size = 400;
         final List<Account> list = new ArrayList<>();
         for (int i = 0; i < params.pageSize; i++) {
             if (y >= size) {
@@ -39,7 +37,7 @@ public class AccountsPagedDataSource extends AbsPositionalDataSource<Account> {
             y++;
         }
         try {
-            Thread.sleep(sleep/3);
+            Thread.sleep(sleep / 3);
             Thread.yield();
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(getClass().getName(), e);
@@ -74,33 +72,7 @@ public class AccountsPagedDataSource extends AbsPositionalDataSource<Account> {
         super.onInvalidated();
 
         ApplicationUtils.runOnUiThread(() -> {
-            ApplicationUtils.showToast("Отменена регистрация источника данных", Toast.LENGTH_SHORT, ApplicationUtils.MESSAGE_TYPE_INFO);
+            ApplicationUtils.showToast("Источник данных остановлен", Toast.LENGTH_SHORT, ApplicationUtils.MESSAGE_TYPE_INFO);
         });
     }
-
-    @Override
-    public void refresh() {
-        y = 0;
-    }
-
-    @Override
-    public List<String> getSpecialistSubscription() {
-        return StringUtils.arrayToList(DataSourceUnionImpl.NAME);
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
-    }
-
-    @Override
-    public Result<Boolean> validateExt() {
-        return new Result<>(!isInvalid());
-    }
-
-    @Override
-    public boolean validate() {
-        return validateExt().getData();
-    }
-
 }

@@ -7,13 +7,8 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 
 
-import java.util.concurrent.Executors;
-
-
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.sl.DataSourceUnion;
 import shishkin.cleanarchitecture.mvi.sl.task.MainThreadExecutor;
-import shishkin.cleanarchitecture.mvi.sl.usecase.DataSourceSubscriber;
 
 public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder> extends PagedListAdapter<T, VH> {
 
@@ -34,17 +29,10 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
     }
 
     public PagedList<T> getPagedList() {
-        final DataSourceUnion union = SLUtil.getDataSourceUnion();
-        if (union != null) {
-            final DataSourceSubscriber subscriber = getDataSource();
-            if (subscriber != null) {
-                return new PagedList.Builder<>((DataSource<Integer, T>) subscriber, getConfig())
-                        .setNotifyExecutor(new MainThreadExecutor())
-                        .setFetchExecutor(Executors.newSingleThreadExecutor())
-                        .build();
-            }
-        }
-        return null;
+        return new PagedList.Builder<Integer, T>(createDataSource(), getConfig())
+                .setNotifyExecutor(new MainThreadExecutor())
+                .setFetchExecutor(SLUtil.getRequestSpecialist().getExecutor(this))
+                .build();
     }
 
     public abstract String getDataSourceName();
@@ -59,28 +47,15 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
     }
 
     public void refresh() {
-        getDataSource().refresh();
+        invalidate();
         submitList(getPagedList());
     }
 
     public void invalidate() {
-        final DataSourceUnion union = SLUtil.getDataSourceUnion();
-        if (union != null) {
-            if (union.hasSubscriber(getDataSourceName())) {
-                getDataSource().invalidate();
-            }
-        }
+        this.getPagedList().getDataSource().invalidate();
     }
 
-    public DataSourceSubscriber getDataSource() {
-        final DataSourceUnion union = SLUtil.getDataSourceUnion();
-        if (union != null) {
-            if (union.hasSubscriber(getDataSourceName())) {
-                return union.getSubscriber(getDataSourceName());
-            } else {
-                return union.createSubscriber(getDataSourceName());
-            }
-        }
-        return null;
+    public DataSource createDataSource() {
+        return DataSourceFactory.create(getDataSourceName());
     }
 }

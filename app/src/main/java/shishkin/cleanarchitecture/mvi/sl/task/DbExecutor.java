@@ -76,6 +76,8 @@ public class DbExecutor implements RequestExecutor {
 
     @Override
     public void execute(@NonNull Runnable command) {
-        mExecutor.execute(command);
+        if (command instanceof Request) {
+            execute((Request) command);
+        }
     }
 }

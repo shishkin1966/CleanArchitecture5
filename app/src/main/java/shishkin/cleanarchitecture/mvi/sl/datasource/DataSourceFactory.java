@@ -1,12 +1,15 @@
-package shishkin.cleanarchitecture.mvi.sl;
+package shishkin.cleanarchitecture.mvi.sl.datasource;
+
+import android.arch.paging.DataSource;
+
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.usecase.DataSourceSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 
 public class DataSourceFactory {
     private static final String NAME = DataSourceFactory.class.getName();
 
-    public <T extends DataSourceSubscriber> T create(final String name) {
+    public static <T extends DataSource> T create(final String name) {
         if (StringUtils.isNullOrEmpty(name)) return null;
 
         try {
