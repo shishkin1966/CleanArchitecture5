@@ -34,12 +34,15 @@
 - короткоживущие. Самовыгружающиеся специалисты по какому-либо признаку(например по бездействию или отсутствию подписчиков)
 
 Наследником интерфейса Specialist является интерфейс SmallUnion, имеющий методы:
+- Secretary createSecretary() - Получить секретаря (объект учитывающий подписчиков)
 - void register(T subscriber) – зарегистрировать подписчика
 - void unregister(T subscriber) – отписать подписчика
+- void unregister(String name) - отписать подписчика по его имени
 - List<T> getSubscribers() - получить список всех подписчиков
 - List<T> getValidatedSubscribers - получить список валидных подписчиков
 - List<T> getReadySubscribers() - получить список готовых подписчиков. Т.е. подписчиков, которые поддерживают состояния(Stateable) и находятся в соостянии отличном от CREATE и DESTROY
 - boolean hasSubscribers() - проверить наличие подписчиков
+- boolean hasSubscriber(String name) - проверить наличие подписчика
 - T getSubscriber(String name) – получить подписчика по его имени.
 - Result<Boolean> validate(String name) - проверить подписчика
 - void onRegisterFirstSubscriber() - событие - появился первый подписчик
