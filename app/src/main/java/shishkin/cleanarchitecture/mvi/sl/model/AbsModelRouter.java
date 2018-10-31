@@ -25,7 +25,7 @@ public abstract class AbsModelRouter implements ModelRouter {
 
     @Override
     public void finishApplication() {
-        ApplicationSpecialistImpl.getInstance().finish();
+        ApplicationSpecialistImpl.getInstance().stop();
     }
 
     @Override

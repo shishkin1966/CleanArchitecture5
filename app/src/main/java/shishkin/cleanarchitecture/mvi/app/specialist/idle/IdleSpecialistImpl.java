@@ -75,7 +75,7 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
             stop();
             ApplicationUtils.runOnUiThread(() -> {
                 SLUtil.getNotificationSpecialist().replaceMessage(SLUtil.getContext().getString(R.string.app_name), SLUtil.getContext().getString(R.string.timeout_exit));
-                ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().finish());
+                ApplicationUtils.runOnUiThread(() -> ApplicationController.getInstance().stop());
             });
         }
     }

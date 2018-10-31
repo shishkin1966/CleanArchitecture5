@@ -45,6 +45,10 @@ public class CrashSpecialist implements Thread.UncaughtExceptionHandler, Special
     }
 
     @Override
+    public void stop() {
+    }
+
+    @Override
     public Result<Boolean> validateExt() {
         return new Result<>(true);
     }

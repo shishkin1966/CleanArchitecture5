@@ -79,4 +79,10 @@ public class RefSecretaryImpl<T> implements Secretary<T> {
             }
         }
     }
+
+    @Override
+    public void clear() {
+        mSubscribers.clear();
+    }
+
 }

@@ -52,7 +52,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onTrimMemory(int i) {
-        if (!ApplicationSpecialistImpl.getInstance().isFinished()) {
+        if (!ApplicationSpecialistImpl.getInstance().isStoped()) {
             if (i == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
                 isInBackground = true;
                 ApplicationSpecialistImpl.getInstance().onBackgroundApplication();

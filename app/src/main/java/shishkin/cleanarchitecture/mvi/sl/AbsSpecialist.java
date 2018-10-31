@@ -7,7 +7,6 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
  */
 @SuppressWarnings("unused")
 public abstract class AbsSpecialist implements Specialist {
-
     @Override
     public void onUnRegister() {
     }
@@ -31,4 +30,7 @@ public abstract class AbsSpecialist implements Specialist {
         return validateExt().getData();
     }
 
+    @Override
+    public void stop() {
+    }
 }

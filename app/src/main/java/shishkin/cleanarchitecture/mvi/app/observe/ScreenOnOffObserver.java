@@ -66,7 +66,7 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
 
     private void onScreenOff() {
         SLUtil.getLocationUnion().stop();
-        SLUtil.getMediaSpecialist().pause();
+        SLUtil.getMediaSpecialist().pauseMedia();
     }
 
     private void onScreenOn() {
@@ -75,7 +75,7 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
         }
 
         SLUtil.getLocationUnion().start();
-        SLUtil.getMediaSpecialist().resume();
+        SLUtil.getMediaSpecialist().resumeMedia();
     }
 
     @Override

@@ -20,9 +20,9 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     private Secretary<T> mSecretary = new RefSecretaryImpl<>();
 
     @Override
-    public void register(final T subscriber) {
+    public boolean register(final T subscriber) {
         if (subscriber == null) {
-            return;
+            return false;
         }
 
         if (!subscriber.validate()) {
@@ -37,12 +37,13 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
             onRegisterFirstSubscriber();
         }
         onAddSubscriber(subscriber);
+        return true;
     }
 
     @Override
-    public void unregister(final T subscriber) {
+    public boolean unregister(final T subscriber) {
         if (subscriber == null) {
-            return;
+            return false;
         }
 
         final int cnt = mSecretary.size();
@@ -55,6 +56,7 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
         if (cnt == 1 && mSecretary.size() == 0) {
             onUnRegisterLastSubscriber();
         }
+        return true;
     }
 
     @Override
@@ -118,6 +120,11 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     }
 
     @Override
+    public boolean hasSubscriber(String name) {
+        return mSecretary.containsKey(name);
+    }
+
+    @Override
     public Result<Boolean> validateExt(final String name) {
         final T subscriber = getSubscriber(name);
         if (subscriber != null) {
@@ -129,10 +136,6 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     @Override
     public boolean validate(final String name) {
         return validateExt().getData();
-    }
-
-    @Override
-    public void onFinishApplication() {
     }
 
 }

@@ -4,18 +4,18 @@ import shishkin.cleanarchitecture.mvi.sl.Specialist;
 
 public interface MediaSpecialist extends Specialist {
 
-    void play(int resId);
+    void playMedia(int resId);
 
-    int pause();
+    int pauseMedia();
 
-    void resume(int position);
+    void resumeMedia(int position);
 
-    void resume();
+    void resumeMedia();
 
-    void stop();
+    void stopMedia();
 
-    boolean isStop();
+    boolean isStopMedia();
 
-    void release();
+    void releaseMedia();
 
 }

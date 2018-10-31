@@ -79,6 +79,7 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
 
     @Override
     public boolean onBackPressed() {
+        SLUtil.getDataSourceUnion().unregister(AccountsPositionalDataSource.NAME);
         SLUtil.getViewUnion().switchToTopFragment();
         return true;
     }

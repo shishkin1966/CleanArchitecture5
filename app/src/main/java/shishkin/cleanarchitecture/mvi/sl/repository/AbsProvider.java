@@ -16,4 +16,7 @@ public abstract class AbsProvider implements Provider, Validated {
         return validateExt().getData();
     }
 
+    @Override
+    public void stop() {
+    }
 }

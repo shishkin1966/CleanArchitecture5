@@ -29,14 +29,14 @@ public class JobSpecialistImpl extends AbsSpecialist implements JobSpecialist {
     }
 
     @Override
-    public void cancel(String name) {
+    public void stop(String name) {
         if (!StringUtils.isNullOrEmpty(name)) {
             mDispatcher.cancel(name);
         }
     }
 
     @Override
-    public void cancel() {
+    public void stop() {
         mDispatcher.cancelAll();
     }
 

@@ -19,12 +19,12 @@ public interface JobSpecialist extends Specialist {
      *
      * @param name имя задания
      */
-    void cancel(String name);
+    void stop(String name);
 
     /**
      * Отменить все задания
      */
-    void cancel();
+    void stop();
 
     /**
      * Получить построитель заданий

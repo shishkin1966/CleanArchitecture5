@@ -1,5 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
+import java.util.List;
+
 /**
  * Итерфейс администратора(Service Locator)
  */
@@ -72,9 +74,9 @@ public interface ServiceLocator extends Subscriber {
     boolean setCurrentSubscriber(SpecialistSubscriber subscriber);
 
     /**
-     * Событие - остановить service locator
+     * Событие - остановка service locator
      */
-    void onFinish();
+    void onStop();
 
     /**
      * Событие - старт service locator
@@ -87,4 +89,11 @@ public interface ServiceLocator extends Subscriber {
      * @return фабрика специалистов
      */
     SpecialistFactory getSpecialistFactory();
+
+    /**
+     * Получить список специалистов
+     *
+     * @return список специалистов
+     */
+    List<Specialist> getSpecialists();
 }

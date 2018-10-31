@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
-import android.arch.paging.DataSource;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.view.LayoutInflater;
@@ -21,8 +20,8 @@ public class AccountsPagedListAdapter extends AbsPagedListAdapter<Account, Accou
     }
 
     @Override
-    public DataSource<Integer, Account> getDataSource() {
-        return new AccountsPositionalDataSource();
+    public String getDataSourceName() {
+        return AccountsPositionalDataSource.NAME;
     }
 
     @NonNull

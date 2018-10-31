@@ -17,14 +17,14 @@ public interface SmallUnion<T> extends Specialist {
      *
      * @param subscriber подписчик
      */
-    void register(T subscriber);
+    boolean register(T subscriber);
 
     /**
      * Отключить подписчика
      *
      * @param subscriber подписчик
      */
-    void unregister(T subscriber);
+    boolean unregister(T subscriber);
 
     /**
      * Получить список подписчиков
@@ -55,12 +55,20 @@ public interface SmallUnion<T> extends Specialist {
     boolean hasSubscribers();
 
     /**
+     * Проверить наличие подписчика
+     *
+     * @param name имя подписчика
+     * @return true - подписчик есть
+     */
+    boolean hasSubscriber(String name);
+
+    /**
      * Получить подписчика по его имени
      *
      * @param name имя подписчика
      * @return подписчик
      */
-    T getSubscriber(final String name);
+    T getSubscriber(String name);
 
     /**
      * Проверить подписчика
@@ -68,7 +76,7 @@ public interface SmallUnion<T> extends Specialist {
      * @param name имя подписчика
      * @return результат проверки подписчика
      */
-    Result<Boolean> validateExt(final String name);
+    Result<Boolean> validateExt(String name);
 
     /**
      * Проверить подписчика
@@ -95,8 +103,4 @@ public interface SmallUnion<T> extends Specialist {
      */
     void onAddSubscriber(final T subscriber);
 
-    /**
-     * Событие - остановка приложения
-     */
-    void onFinishApplication();
 }

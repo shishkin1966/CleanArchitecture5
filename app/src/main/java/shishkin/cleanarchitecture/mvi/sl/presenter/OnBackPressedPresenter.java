@@ -32,7 +32,7 @@ public class OnBackPressedPresenter extends AbsPresenter {
                     startTimer();
                 }
             } else {
-                ApplicationSpecialistImpl.getInstance().finish();
+                ApplicationSpecialistImpl.getInstance().stop();
                 return true;
             }
         }
