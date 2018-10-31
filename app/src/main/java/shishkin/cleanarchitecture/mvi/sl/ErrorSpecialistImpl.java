@@ -94,36 +94,21 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
 
     @Override
     public void onError(final String source, final Exception e) {
-        Log.e(source, e.getMessage());
-        final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
-        if (union != null) {
-            union.showError(e.getMessage());
-        } else {
-            ApplicationUtils.showToast(e.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-        }
+        Log.e(source, Log.getStackTraceString(e));
+        ApplicationUtils.showToast(e.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
     }
 
     @Override
     public void onError(final String source, final Throwable throwable) {
-        Log.e(source, throwable.getMessage());
-        final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
-        if (union != null) {
-            union.showError(throwable.getMessage());
-        } else {
-            ApplicationUtils.showToast(throwable.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-        }
+        Log.e(source, Log.getStackTraceString(throwable));
+        ApplicationUtils.showToast(throwable.getMessage(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
     }
 
     @Override
     public void onError(final String source, final Exception e, final String displayMessage) {
-        Log.e(source, e.getMessage());
+        Log.e(source, Log.getStackTraceString(e));
         if (!StringUtils.isNullOrEmpty(displayMessage)) {
-            final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
-            if (union != null) {
-                union.showError(displayMessage);
-            } else {
-                ApplicationUtils.showToast(displayMessage, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-            }
+            ApplicationUtils.showToast(displayMessage, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
         }
     }
 
@@ -132,12 +117,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
         if (!StringUtils.isNullOrEmpty(message)) {
             Log.e(source, message);
             if (isDisplay) {
-                final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
-                if (union != null) {
-                    union.showError(message);
-                } else {
-                    ApplicationUtils.showToast(message, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-                }
+                ApplicationUtils.showToast(message, Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
             }
         }
     }
@@ -145,12 +125,7 @@ public class ErrorSpecialistImpl extends AbsSpecialist implements ErrorSpecialis
     @Override
     public void onError(final ExtError extError) {
         if (extError != null && extError.hasError()) {
-            final ViewUnion union = SL.getInstance().get(ViewUnionImpl.NAME);
-            if (union != null) {
-                union.showError(extError.getErrorText());
-            } else {
-                ApplicationUtils.showToast(extError.getErrorText(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
-            }
+            ApplicationUtils.showToast(extError.getErrorText(), Toast.LENGTH_LONG, ApplicationUtils.MESSAGE_TYPE_ERROR);
         }
     }
 
