@@ -37,6 +37,8 @@ public class JobSpecialistImpl extends AbsSpecialist implements JobSpecialist {
 
     @Override
     public void stop() {
+        super.stop();
+        
         mDispatcher.cancelAll();
     }
 

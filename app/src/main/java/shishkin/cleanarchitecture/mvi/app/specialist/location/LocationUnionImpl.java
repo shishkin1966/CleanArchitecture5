@@ -112,6 +112,8 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
     @Override
     public void stop() {
+        super.stop();
+
         isRuning = false;
         if (mFusedLocationClient != null) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);

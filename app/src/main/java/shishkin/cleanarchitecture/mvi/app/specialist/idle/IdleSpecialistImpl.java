@@ -49,6 +49,8 @@ public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist,
 
     @Override
     public void stop() {
+        super.stop();
+
         isStart = false;
     }
 

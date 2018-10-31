@@ -48,9 +48,4 @@ public interface CacheSpecialist extends Specialist {
      */
     void clear(final String key);
 
-    /**
-     * delete cache
-     */
-    void stop();
-
 }

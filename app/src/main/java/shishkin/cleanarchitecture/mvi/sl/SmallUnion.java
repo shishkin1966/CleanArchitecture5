@@ -13,18 +13,30 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 public interface SmallUnion<T> extends Specialist {
 
     /**
+     * Получить секретаря (объект учитывающий подписчиков)
+     */
+    Secretary createSecretary();
+
+    /**
      * Зарегестрировать подписчика
      *
      * @param subscriber подписчик
      */
-    boolean register(T subscriber);
+    void register(T subscriber);
 
     /**
      * Отключить подписчика
      *
      * @param subscriber подписчик
      */
-    boolean unregister(T subscriber);
+    void unregister(T subscriber);
+
+    /**
+     * Отключить подписчика по его имени
+     *
+     * @param name имя подписчика
+     */
+    void unregister(String name);
 
     /**
      * Получить список подписчиков

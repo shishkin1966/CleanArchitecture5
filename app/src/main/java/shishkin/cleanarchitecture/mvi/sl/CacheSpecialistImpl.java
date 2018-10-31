@@ -203,6 +203,8 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
 
     @Override
     public void stop() {
+        super.stop();
+
         mLock.lock();
 
         try {

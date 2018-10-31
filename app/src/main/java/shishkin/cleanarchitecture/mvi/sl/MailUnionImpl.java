@@ -25,7 +25,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     public static final String NAME = MailUnionImpl.class.getName();
 
     private Map<Long, Mail> mMail = Collections.synchronizedMap(new ConcurrentHashMap<>());
-    private Map<String, List<String>> mMailingList = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Secretary<List<String>> mMailingList = new SecretaryImpl<>();
     private AtomicLong mId = new AtomicLong(0L);
 
     public MailUnionImpl() {
@@ -280,6 +280,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     public void stop() {
         clearMail();
         mMailingList.clear();
+
+        super.stop();
     }
 
     @Override
