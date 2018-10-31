@@ -17,7 +17,7 @@ import shishkin.cleanarchitecture.mvi.sl.usecase.DataSourceSubscriber;
 
 public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder> extends PagedListAdapter<T, VH> {
 
-    private int pageSize = 30;
+    private int pageSize = 50;
 
     public AbsPagedListAdapter(DiffUtil.ItemCallback<T> callback) {
         super(callback);
@@ -53,7 +53,7 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         return new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPrefetchDistance(pageSize)
-                .setInitialLoadSizeHint(pageSize / 3)
+                .setInitialLoadSizeHint(pageSize / 5)
                 .setPageSize(pageSize)
                 .build();
     }
