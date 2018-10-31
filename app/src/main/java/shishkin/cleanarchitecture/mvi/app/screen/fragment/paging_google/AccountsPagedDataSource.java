@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.app.data.Account;
@@ -22,7 +23,7 @@ public class AccountsPagedDataSource extends AbsPositionalDataSource<Account> {
 
     private int size = 400;
     private int y = 0;
-    private int sleep = 200;
+    private long sleep = TimeUnit.SECONDS.toMillis(1);
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Account> callback) {
@@ -38,7 +39,7 @@ public class AccountsPagedDataSource extends AbsPositionalDataSource<Account> {
             y++;
         }
         try {
-            Thread.sleep(sleep);
+            Thread.sleep(sleep/3);
             Thread.yield();
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(getClass().getName(), e);
