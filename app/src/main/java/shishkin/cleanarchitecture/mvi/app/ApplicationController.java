@@ -69,19 +69,8 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
         final Setting setting = SettingFactory.getSetting(SettingPlayMusicEnabled.NAME);
         if (setting.getCurrentValue().equalsIgnoreCase("true")) {
-            SLUtil.getMediaSpecialist().play(R.raw.music);
+            SLUtil.getMediaSpecialist().playMedia(R.raw.music);
         }
-    }
-
-    @Override
-    public void onStop() {
-        SLUtil.getDataSourceUnion().stop();
-        SLUtil.getIdleSpecialist().stop();
-        SLUtil.getJobSpecialist().stop();
-        SLUtil.getCacheSpecialist().stop();
-        SLUtil.getMediaSpecialist().release();
-
-        super.onStop();
     }
 
     @Override

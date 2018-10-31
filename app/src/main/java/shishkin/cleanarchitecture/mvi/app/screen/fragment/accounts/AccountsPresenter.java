@@ -81,15 +81,15 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 break;
 
             case R.id.start:
-                if (SLUtil.getMediaSpecialist().isStop()) {
-                    SLUtil.getMediaSpecialist().play(R.raw.music);
+                if (SLUtil.getMediaSpecialist().isStopMedia()) {
+                    SLUtil.getMediaSpecialist().playMedia(R.raw.music);
                 } else {
-                    SLUtil.getMediaSpecialist().resume();
+                    SLUtil.getMediaSpecialist().resumeMedia();
                 }
                 break;
 
             case R.id.pause:
-                SLUtil.getMediaSpecialist().pause();
+                SLUtil.getMediaSpecialist().pauseMedia();
                 break;
 
             case R.id.stop:

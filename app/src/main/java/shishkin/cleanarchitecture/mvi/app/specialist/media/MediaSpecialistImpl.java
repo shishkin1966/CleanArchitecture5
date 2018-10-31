@@ -17,7 +17,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
 
     @Override
     public void onUnRegister() {
-        release();
+        releaseMedia();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void play(int resId) {
+    public void playMedia(int resId) {
         position = -1;
         player = MediaPlayer.create(SLUtil.getContext(), resId);
         player.setWakeMode(SLUtil.getContext(), PowerManager.PARTIAL_WAKE_LOCK);
@@ -42,7 +42,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public int pause() {
+    public int pauseMedia() {
         if (player != null) {
             player.pause();
             position = player.getCurrentPosition();
@@ -52,7 +52,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void resume(int position) {
+    public void resumeMedia(int position) {
         if (player != null) {
             if (position < 0) {
                 return;
@@ -64,7 +64,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void resume() {
+    public void resumeMedia() {
         if (player != null) {
             if (position < 0) {
                 return;
@@ -75,7 +75,7 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void stop() {
+    public void stopMedia() {
         if (player != null) {
             isStop = true;
             position = -1;
@@ -84,15 +84,20 @@ public class MediaSpecialistImpl extends AbsSpecialist implements MediaSpecialis
     }
 
     @Override
-    public void release() {
-        stop();
+    public void stop() {
+        releaseMedia();
+    }
+
+    @Override
+    public void releaseMedia() {
+        stopMedia();
         if (player != null) {
             player.release();
         }
     }
 
     @Override
-    public boolean isStop() {
+    public boolean isStopMedia() {
         if (player == null) return true;
 
         return isStop;

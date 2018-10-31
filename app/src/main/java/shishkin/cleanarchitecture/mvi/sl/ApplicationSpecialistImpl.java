@@ -113,7 +113,7 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
 
         onStop();
 
-        SL.getInstance().onFinish();
+        SL.getInstance().onStop();
     }
 
     @Override

@@ -11,6 +11,7 @@ public class DataSourceUnionImpl extends AbsSmallUnion<DataSourceSubscriber> imp
     public static final String NAME = DataSourceUnionImpl.class.getName();
 
     private Secretary<DataSourceSubscriber> secretary = new SecretaryImpl<>();
+    private DataSourceFactory factory = new DataSourceFactory();
 
     @Override
     public boolean register(final DataSourceSubscriber subscriber) {
@@ -39,6 +40,11 @@ public class DataSourceUnionImpl extends AbsSmallUnion<DataSourceSubscriber> imp
             super.unregister(subscriber);
             secretary.remove(name);
         }
+    }
+
+    @Override
+    public DataSourceSubscriber createSubscriber(String name) {
+        return factory.create(name);
     }
 
     @Override

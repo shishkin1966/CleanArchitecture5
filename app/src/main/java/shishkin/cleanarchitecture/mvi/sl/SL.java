@@ -78,8 +78,9 @@ public class SL extends AbsServiceLocator {
     }
 
     @Override
-    public void onFinish() {
+    public void onStop() {
         ((ViewUnion) get(ViewUnionImpl.NAME)).hideKeyboard();
+
         ((PresenterUnion) SL.getInstance().get(PresenterUnionImpl.NAME)).stop();
         ((ViewUnion) SL.getInstance().get(ViewUnionImpl.NAME)).stop();
     }

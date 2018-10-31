@@ -4,4 +4,6 @@ import shishkin.cleanarchitecture.mvi.sl.usecase.DataSourceSubscriber;
 
 public interface DataSourceUnion extends SmallUnion<DataSourceSubscriber> {
     void unregister(final String name);
+
+    DataSourceSubscriber createSubscriber(final String name);
 }

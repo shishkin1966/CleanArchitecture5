@@ -32,8 +32,8 @@ public class AccountsPositionalDataSource extends AbsPositionalDataSource<Accoun
                 break;
             }
             final Account account = new Account();
-            account.setFriendlyName("Счет " + y);
-            account.setBalance(Double.valueOf("" + y));
+            account.setFriendlyName("Счет " + (y + 1));
+            account.setBalance(Double.valueOf(y + 1));
             list.add(account);
             y++;
         }
@@ -54,8 +54,8 @@ public class AccountsPositionalDataSource extends AbsPositionalDataSource<Accoun
                 break;
             }
             final Account account = new Account();
-            account.setFriendlyName("Счет " + y);
-            account.setBalance(Double.valueOf("" + y));
+            account.setFriendlyName("Счет " + (y + 1));
+            account.setBalance(Double.valueOf(y + 1));
             list.add(account);
             y++;
         }
@@ -73,6 +73,11 @@ public class AccountsPositionalDataSource extends AbsPositionalDataSource<Accoun
         ApplicationUtils.runOnUiThread(() -> {
             ApplicationUtils.showToast("Запрос прерван", Toast.LENGTH_SHORT, ApplicationUtils.MESSAGE_TYPE_INFO);
         });
+    }
+
+    @Override
+    public void refresh() {
+        y = 0;
     }
 
     @Override

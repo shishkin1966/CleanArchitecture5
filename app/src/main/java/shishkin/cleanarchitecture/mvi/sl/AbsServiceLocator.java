@@ -14,7 +14,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
     private static final String NAME = AbsServiceLocator.class.getName();
 
-    private Secretary<Specialist> mSecretary = new SecretaryImpl<>();
+    private Secretary<Specialist> secretary = new SecretaryImpl<>();
 
     private String getShortName(final String name) {
         return StringUtils.last(name, "\\.");
@@ -30,10 +30,10 @@ public abstract class AbsServiceLocator implements ServiceLocator {
 
         try {
             final String specialistName = getShortName(name);
-            if (mSecretary.get(specialistName) != null) {
-                return (C) mSecretary.get(specialistName);
+            if (secretary.get(specialistName) != null) {
+                return (C) secretary.get(specialistName);
             } else {
-                mSecretary.remove(specialistName);
+                secretary.remove(specialistName);
             }
         } catch (Exception e) {
             ErrorSpecialistImpl.getInstance().onError(NAME, e);
@@ -47,13 +47,13 @@ public abstract class AbsServiceLocator implements ServiceLocator {
             return false;
         }
 
-        return mSecretary.containsKey(getShortName(specialistName));
+        return secretary.containsKey(getShortName(specialistName));
     }
 
     @Override
     public boolean register(final Specialist newSpecialist) {
         if (newSpecialist != null && !StringUtils.isNullOrEmpty(newSpecialist.getName())) {
-            if (mSecretary.containsKey(getShortName(newSpecialist.getName()))) {
+            if (secretary.containsKey(getShortName(newSpecialist.getName()))) {
                 if (newSpecialist.compareTo(get(getShortName(newSpecialist.getName()))) != 0) {
                     return false;
                 }
@@ -72,8 +72,8 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         }
 
                         for (String type : types) {
-                            if (mSecretary.containsKey(type)) {
-                                ((SmallUnion) mSecretary.get(type)).register(newSpecialist);
+                            if (secretary.containsKey(type)) {
+                                ((SmallUnion) secretary.get(type)).register(newSpecialist);
                             }
                         }
                     }
@@ -82,7 +82,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                 // регистрируем других специалистов у специалиста
                 if (SmallUnion.class.isInstance(newSpecialist)) {
                     final String type = getShortName(newSpecialist.getName());
-                    for (Specialist specialist : mSecretary.values()) {
+                    for (Specialist specialist : secretary.values()) {
                         if (SpecialistSubscriber.class.isInstance(specialist)) {
                             final List<String> types = ((SpecialistSubscriber) specialist).getSpecialistSubscription();
                             if (types != null) {
@@ -99,7 +99,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         }
                     }
                 }
-                mSecretary.put(getShortName(newSpecialist.getName()), newSpecialist);
+                secretary.put(getShortName(newSpecialist.getName()), newSpecialist);
                 newSpecialist.onRegister();
             } catch (Exception e) {
                 ErrorSpecialistImpl.getInstance().onError(NAME, e);
@@ -123,8 +123,8 @@ public abstract class AbsServiceLocator implements ServiceLocator {
         if (!StringUtils.isNullOrEmpty(name)) {
             try {
                 final String specialistName = getShortName(name);
-                if (mSecretary.containsKey(specialistName)) {
-                    final Specialist specialist = mSecretary.get(specialistName);
+                if (secretary.containsKey(specialistName)) {
+                    final Specialist specialist = secretary.get(specialistName);
                     if (specialist != null) {
                         if (!specialist.isPersistent()) {
                             // нельзя отменить подписку у объединения с подписчиками
@@ -140,16 +140,16 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                             if (SpecialistSubscriber.class.isInstance(specialist)) {
                                 final List<String> subscribers = ((SpecialistSubscriber) specialist).getSpecialistSubscription();
                                 for (String subscriber : subscribers) {
-                                    final Specialist specialistSubscriber = mSecretary.get(getShortName(subscriber));
+                                    final Specialist specialistSubscriber = secretary.get(getShortName(subscriber));
                                     if (specialistSubscriber != null && SmallUnion.class.isInstance(specialistSubscriber)) {
                                         ((SmallUnion) specialistSubscriber).unregister(specialist);
                                     }
                                 }
                             }
-                            mSecretary.remove(specialistName);
+                            secretary.remove(specialistName);
                         }
                     } else {
-                        mSecretary.remove(specialistName);
+                        secretary.remove(specialistName);
                     }
                 }
             } catch (Exception e) {
@@ -169,12 +169,12 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                     // регистрируемся subscriber у специалистов
                     for (String subscriberType : types) {
                         final String specialistName = getShortName(subscriberType);
-                        if (mSecretary.containsKey(specialistName)) {
-                            ((SmallUnion) mSecretary.get(specialistName)).register(subscriber);
+                        if (secretary.containsKey(specialistName)) {
+                            ((SmallUnion) secretary.get(specialistName)).register(subscriber);
                         } else {
                             register(subscriberType);
-                            if (mSecretary.containsKey(specialistName)) {
-                                ((SmallUnion) mSecretary.get(specialistName)).register(subscriber);
+                            if (secretary.containsKey(specialistName)) {
+                                ((SmallUnion) secretary.get(specialistName)).register(subscriber);
                             } else {
                                 ErrorSpecialistImpl.getInstance().onError(NAME, "Not found subscriber type: " + subscriberType, false);
                                 return false;
@@ -200,7 +200,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         types.set(i, getShortName(types.get(i)));
                     }
 
-                    for (Specialist specialist : mSecretary.values()) {
+                    for (Specialist specialist : secretary.values()) {
                         if (SmallUnion.class.isInstance(specialist)) {
                             final String subscriberType = getShortName(specialist.getName());
                             if (!StringUtils.isNullOrEmpty(subscriberType) && types.contains(subscriberType)) {
@@ -227,7 +227,7 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                         types.set(i, getShortName(types.get(i)));
                     }
 
-                    for (Specialist specialist : mSecretary.values()) {
+                    for (Specialist specialist : secretary.values()) {
                         if (Union.class.isInstance(specialist)) {
                             final String specialistSubscriberType = getShortName(specialist.getName());
                             if (!StringUtils.isNullOrEmpty(specialistSubscriberType)) {
@@ -244,5 +244,10 @@ public abstract class AbsServiceLocator implements ServiceLocator {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Specialist> getSpecialists() {
+        return secretary.values();
     }
 }

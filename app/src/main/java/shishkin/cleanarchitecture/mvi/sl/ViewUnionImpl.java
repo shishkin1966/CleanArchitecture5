@@ -216,6 +216,11 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
     public void onUnRegisterLastSubscriber() {
         if (ApplicationSpecialistImpl.getInstance().isStoped()) {
             if (ApplicationSpecialistImpl.getInstance().isKillOnFinish()) {
+                for (Specialist specialist : SL.getInstance().getSpecialists()) {
+                    if (!(specialist instanceof ViewUnion) && !(specialist instanceof ApplicationSpecialist)) {
+                        specialist.stop();
+                    }
+                }
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
         }

@@ -7,4 +7,6 @@ public interface DataSourceSubscriber extends SpecialistSubscriber {
     void invalidate();
 
     void onInvalidated();
+
+    void refresh();
 }
