@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class StateObservable implements Stateable {
-    private List<WeakReference<Stateable>> mList = Collections.synchronizedList(new ArrayList<WeakReference<Stateable>>());
+    private List<WeakReference<Stateable>> mList = Collections.synchronizedList(new ArrayList<>());
     private int mState = ViewStateObserver.STATE_CREATE;
 
     public StateObservable(final int state) {

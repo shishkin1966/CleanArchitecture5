@@ -168,16 +168,20 @@ public abstract class AbsServiceLocator implements ServiceLocator {
                 if (types != null) {
                     // регистрируемся subscriber у специалистов
                     for (String subscriberType : types) {
-                        final String specialistName = getShortName(subscriberType);
-                        if (secretary.containsKey(specialistName)) {
-                            ((SmallUnion) secretary.get(specialistName)).register(subscriber);
-                        } else {
-                            register(subscriberType);
-                            if (secretary.containsKey(specialistName)) {
-                                ((SmallUnion) secretary.get(specialistName)).register(subscriber);
-                            } else {
-                                ErrorSpecialistImpl.getInstance().onError(NAME, "Not found subscriber type: " + subscriberType, false);
-                                return false;
+                        if (!StringUtils.isNullOrEmpty(subscriberType)) {
+                            final String specialistName = getShortName(subscriberType);
+                            if (!StringUtils.isNullOrEmpty(specialistName)) {
+                                if (secretary.containsKey(specialistName)) {
+                                    ((SmallUnion) secretary.get(specialistName)).register(subscriber);
+                                } else {
+                                    register(subscriberType);
+                                    if (secretary.containsKey(specialistName)) {
+                                        ((SmallUnion) secretary.get(specialistName)).register(subscriber);
+                                    } else {
+                                        ErrorSpecialistImpl.getInstance().onError(NAME, "Not found subscriber type: " + subscriberType, false);
+                                        return false;
+                                    }
+                                }
                             }
                         }
                     }

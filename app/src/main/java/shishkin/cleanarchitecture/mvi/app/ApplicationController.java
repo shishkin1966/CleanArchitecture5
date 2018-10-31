@@ -75,7 +75,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
 
     @Override
     public void onBackgroundApplication() {
-        SLUtil.getLocationUnion().stop();
+        SLUtil.getLocationUnion().stopLocation();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         if (System.currentTimeMillis() - SLUtil.getIdleSpecialist().getCurrentTime() > SLUtil.getIdleSpecialist().getTimeout()) {
             SLUtil.getIdleSpecialist().onUserInteraction();
         }
-        SLUtil.getLocationUnion().start();
+        SLUtil.getLocationUnion().startLocation();
     }
 
     public void updateWidget() {

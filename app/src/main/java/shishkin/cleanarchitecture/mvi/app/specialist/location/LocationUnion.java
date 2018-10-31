@@ -19,12 +19,12 @@ public interface LocationUnion extends SmallUnion<LocationSubscriber> {
     /**
      * запустить службу геолокации
      */
-    void start();
+    void startLocation();
 
     /**
      * остановить службу геолокации
      */
-    void stop();
+    void stopLocation();
 
     /**
      * Получить текущее положение
