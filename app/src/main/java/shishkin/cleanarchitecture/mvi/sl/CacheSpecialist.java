@@ -51,6 +51,6 @@ public interface CacheSpecialist extends Specialist {
     /**
      * delete cache
      */
-    void clear();
+    void stop();
 
 }

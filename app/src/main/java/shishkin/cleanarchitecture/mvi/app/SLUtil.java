@@ -26,6 +26,8 @@ import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.CacheSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.CacheSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.DataSourceUnion;
+import shishkin.cleanarchitecture.mvi.sl.DataSourceUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
@@ -154,6 +156,10 @@ public class SLUtil {
 
     public static SerializableDiskStorageSpecialist getSerializableDiskStorageSpecialist() {
         return SL.getInstance().get(SerializableDiskStorageSpecialistImpl.NAME);
+    }
+
+    public static DataSourceUnion getDataSourceUnion() {
+        return SL.getInstance().get(DataSourceUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {

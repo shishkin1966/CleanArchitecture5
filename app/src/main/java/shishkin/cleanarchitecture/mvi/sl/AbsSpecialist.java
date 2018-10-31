@@ -31,4 +31,7 @@ public abstract class AbsSpecialist implements Specialist {
         return validateExt().getData();
     }
 
+    @Override
+    public void stop() {
+    }
 }

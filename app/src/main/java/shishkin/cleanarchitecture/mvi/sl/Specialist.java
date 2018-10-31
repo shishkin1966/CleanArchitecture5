@@ -23,4 +23,9 @@ public interface Specialist extends Subscriber, Validated, Comparable {
      */
     void onRegister();
 
+    /**
+     * Остановитить работу специалиста
+     */
+    void stop();
+
 }

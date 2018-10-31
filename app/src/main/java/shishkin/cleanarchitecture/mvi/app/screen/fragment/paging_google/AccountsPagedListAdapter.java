@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import shishkin.cleanarchitecture.mvi.R;
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.paging.AbsPagedListAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
@@ -22,7 +23,11 @@ public class AccountsPagedListAdapter extends AbsPagedListAdapter<Account, Accou
 
     @Override
     public DataSource<Integer, Account> getDataSource() {
-        return new AccountsPositionalDataSource();
+        if (SLUtil.getDataSourceUnion().hasSubscriber(AccountsPositionalDataSource.NAME)) {
+            return (DataSource<Integer, Account>) SLUtil.getDataSourceUnion().getSubscriber(AccountsPositionalDataSource.NAME);
+        } else {
+            return new AccountsPositionalDataSource();
+        }
     }
 
     @NonNull

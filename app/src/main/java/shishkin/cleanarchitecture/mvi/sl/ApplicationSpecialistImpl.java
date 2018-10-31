@@ -24,7 +24,7 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     public static final String NAME = ApplicationSpecialistImpl.class.getName();
     private static volatile ApplicationSpecialistImpl sInstance;
     private static volatile ApplicationLifecycleHandler sHandler;
-    private boolean isFinished = false;
+    private boolean isStoped = false;
     private boolean isScreenOff = false;
 
     @Override
@@ -108,21 +108,21 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
     }
 
     @Override
-    public void finish() {
-        isFinished = true;
+    public void stop() {
+        isStoped = true;
 
-        onFinish();
+        onStop();
 
         SL.getInstance().onFinish();
     }
 
     @Override
-    public void onFinish() {
+    public void onStop() {
     }
 
     @Override
-    public boolean isFinished() {
-        return isFinished;
+    public boolean isStoped() {
+        return isStoped;
     }
 
     @Override

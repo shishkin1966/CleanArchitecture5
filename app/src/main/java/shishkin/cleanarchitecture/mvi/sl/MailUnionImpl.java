@@ -277,7 +277,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
-    public void onFinishApplication() {
+    public void stop() {
         clearMail();
         mMailingList.clear();
     }

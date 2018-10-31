@@ -17,4 +17,6 @@ public interface Secretary<T> {
     List<T> values();
 
     boolean isEmpty();
+
+    void clear();
 }

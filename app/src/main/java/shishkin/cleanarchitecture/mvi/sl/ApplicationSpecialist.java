@@ -35,7 +35,7 @@ public interface ApplicationSpecialist extends Specialist {
      *
      * @return true = приложение остановлено
      */
-    boolean isFinished();
+    boolean isStoped();
 
     /**
      * Событие  - старт приложениея
@@ -43,14 +43,9 @@ public interface ApplicationSpecialist extends Specialist {
     void onStart();
 
     /**
-     * Остановить приложение
-     */
-    void finish();
-
-    /**
      * Событие  - остановка приложениея
      */
-    void onFinish();
+    void onStop();
 
     /**
      * Событие - приложение уходит в Background

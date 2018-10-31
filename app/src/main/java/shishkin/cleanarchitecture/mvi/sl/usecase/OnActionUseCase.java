@@ -20,7 +20,7 @@ public class OnActionUseCase extends AbsUseCase {
 
         if (context != null) {
             if (action.equals(context.getString(R.string.exit))) {
-                ApplicationSpecialistImpl.getInstance().finish();
+                ApplicationSpecialistImpl.getInstance().stop();
             }
         }
     }

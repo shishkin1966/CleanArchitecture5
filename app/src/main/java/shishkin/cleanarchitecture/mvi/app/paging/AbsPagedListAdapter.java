@@ -43,7 +43,7 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         return new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPrefetchDistance(pageSize)
-                .setInitialLoadSizeHint(pageSize/3)
+                .setInitialLoadSizeHint(pageSize / 3)
                 .setPageSize(pageSize)
                 .build();
     }

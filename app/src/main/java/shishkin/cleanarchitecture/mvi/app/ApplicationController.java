@@ -26,6 +26,7 @@ import shishkin.cleanarchitecture.mvi.app.specialist.repository.RepositoryImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.DataSourceUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.observe.ScreenBroadcastReceiverObservable;
 
@@ -61,6 +62,7 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         SLUtil.register(ScannerUnionImpl.NAME);
         SLUtil.register(IdleSpecialistImpl.NAME);
         SLUtil.register(CalculationUnionImpl.NAME);
+        SLUtil.register(DataSourceUnionImpl.NAME);
 
         SLUtil.register(ScreenOnOffObserver.getInstance());
         SLUtil.register(AccountObserver.getInstance());
@@ -72,13 +74,14 @@ public class ApplicationController extends ApplicationSpecialistImpl {
     }
 
     @Override
-    public void onFinish() {
+    public void onStop() {
+        SLUtil.getDataSourceUnion().stop();
         SLUtil.getIdleSpecialist().stop();
-        SLUtil.getJobSpecialist().cancel();
-        SLUtil.getCacheSpecialist().clear();
+        SLUtil.getJobSpecialist().stop();
+        SLUtil.getCacheSpecialist().stop();
         SLUtil.getMediaSpecialist().release();
 
-        super.onFinish();
+        super.onStop();
     }
 
     @Override

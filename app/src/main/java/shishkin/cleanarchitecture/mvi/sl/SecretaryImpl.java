@@ -59,4 +59,9 @@ public class SecretaryImpl<T> implements Secretary<T> {
     public boolean isEmpty() {
         return mSubscribers.isEmpty();
     }
+
+    @Override
+    public void clear() {
+        mSubscribers.clear();
+    }
 }

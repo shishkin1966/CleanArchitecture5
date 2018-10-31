@@ -39,8 +39,8 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
     }
 
     @Override
-    public void register(final ObservableSubscriber subscriber) {
-        if (subscriber == null) return;
+    public boolean register(final ObservableSubscriber subscriber) {
+        if (subscriber == null) return false;
 
         super.register(subscriber);
 
@@ -55,11 +55,12 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
                 }
             }
         }
+        return true;
     }
 
     @Override
-    public void unregister(final ObservableSubscriber subscriber) {
-        if (subscriber == null) return;
+    public boolean unregister(final ObservableSubscriber subscriber) {
+        if (subscriber == null) return false;
 
         super.unregister(subscriber);
 
@@ -73,6 +74,7 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
                 }
             }
         }
+        return true;
     }
 
     @Override
