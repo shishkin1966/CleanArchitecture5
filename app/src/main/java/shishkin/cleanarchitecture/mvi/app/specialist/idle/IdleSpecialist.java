@@ -35,8 +35,4 @@ public interface IdleSpecialist extends Specialist {
      */
     void start();
 
-    /**
-     * Остановить специалиста
-     */
-    void stop();
 }

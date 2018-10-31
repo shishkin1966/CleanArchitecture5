@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -19,34 +16,34 @@ import shishkin.cleanarchitecture.mvi.sl.observe.Observable;
 public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> implements ObservableUnion {
 
     public static final String NAME = ObservableUnionImpl.class.getName();
-    private Map<String, Observable> mObservables = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Secretary<Observable> observableSecretary = new SecretaryImpl<>();
 
     @Override
     public void register(final Observable observable) {
         if (observable == null) return;
 
-        mObservables.put(observable.getName(), observable);
+        observableSecretary.put(observable.getName(), observable);
     }
 
     @Override
     public void unregister(String name) {
         if (StringUtils.isNullOrEmpty(name)) return;
 
-        if (mObservables.containsKey(name)) {
-            mObservables.get(name).unregister();
-            mObservables.remove(name);
+        if (observableSecretary.containsKey(name)) {
+            observableSecretary.get(name).unregister();
+            observableSecretary.remove(name);
         }
     }
 
     @Override
-    public boolean register(final ObservableSubscriber subscriber) {
-        if (subscriber == null) return false;
+    public void register(final ObservableSubscriber subscriber) {
+        if (subscriber == null) return;
 
         super.register(subscriber);
 
         final List<String> list = subscriber.getObservable();
         if (list != null) {
-            for (Observable observable : mObservables.values()) {
+            for (Observable observable : observableSecretary.values()) {
                 if (observable != null) {
                     final String name = observable.getName();
                     if (list.contains(name)) {
@@ -55,18 +52,17 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
                 }
             }
         }
-        return true;
     }
 
     @Override
-    public boolean unregister(final ObservableSubscriber subscriber) {
-        if (subscriber == null) return false;
+    public void unregister(final ObservableSubscriber subscriber) {
+        if (subscriber == null) return;
 
         super.unregister(subscriber);
 
         final List<String> list = subscriber.getObservable();
         if (list != null) {
-            for (Observable observable : mObservables.values()) {
+            for (Observable observable : observableSecretary.values()) {
                 if (observable != null) {
                     if (list.contains(observable.getName())) {
                         observable.removeObserver(subscriber);
@@ -74,25 +70,24 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
                 }
             }
         }
-        return true;
     }
 
     @Override
     public void onUnRegister() {
-        for (Observable observable : mObservables.values()) {
+        for (Observable observable : observableSecretary.values()) {
             if (observable != null) {
                 observable.unregister();
             }
         }
-        mObservables.clear();
+        observableSecretary.clear();
     }
 
     @Override
     public Observable get(final String name) {
         if (StringUtils.isNullOrEmpty(name)) return null;
 
-        if (mObservables.containsKey(name)) {
-            return mObservables.get(name);
+        if (observableSecretary.containsKey(name)) {
+            return observableSecretary.get(name);
         }
         return null;
     }
@@ -100,7 +95,7 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
     @Override
     public List<Observable> getObservables() {
         final List<Observable> list = new ArrayList<>();
-        for (Observable observable : mObservables.values()) {
+        for (Observable observable : observableSecretary.values()) {
             if (observable != null) {
                 list.add(observable);
             }

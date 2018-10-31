@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.paging;
+package shishkin.cleanarchitecture.mvi.sl.datasource;
 
 import android.arch.paging.DataSource;
 import android.arch.paging.PagedList;
@@ -37,7 +37,6 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         final DataSourceUnion union = SLUtil.getDataSourceUnion();
         if (union != null) {
             final DataSourceSubscriber subscriber = getDataSource();
-            union.register(subscriber);
             if (subscriber != null) {
                 return new PagedList.Builder<>((DataSource<Integer, T>) subscriber, getConfig())
                         .setNotifyExecutor(new MainThreadExecutor())
@@ -65,8 +64,12 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
     }
 
     public void invalidate() {
-        getDataSource().invalidate();
-        SLUtil.getDataSourceUnion().unregister(getDataSourceName());
+        final DataSourceUnion union = SLUtil.getDataSourceUnion();
+        if (union != null) {
+            if (union.hasSubscriber(getDataSourceName())) {
+                getDataSource().invalidate();
+            }
+        }
     }
 
     public DataSourceSubscriber getDataSource() {
@@ -80,6 +83,4 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         }
         return null;
     }
-
-
 }

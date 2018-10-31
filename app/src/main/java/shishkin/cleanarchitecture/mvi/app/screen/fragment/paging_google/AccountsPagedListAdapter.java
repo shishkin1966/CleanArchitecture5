@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.app.paging.AbsPagedListAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
+import shishkin.cleanarchitecture.mvi.sl.datasource.AbsPagedListAdapter;
 
 public class AccountsPagedListAdapter extends AbsPagedListAdapter<Account, AccountsPagedListAdapter.ViewHolder> {
 
@@ -21,7 +21,7 @@ public class AccountsPagedListAdapter extends AbsPagedListAdapter<Account, Accou
 
     @Override
     public String getDataSourceName() {
-        return AccountsPositionalDataSource.NAME;
+        return AccountsPagedDataSource.NAME;
     }
 
     @NonNull

@@ -23,13 +23,12 @@ public class PresenterUnionImpl extends AbsUnion<Presenter>
     private Map<String, Bundle> mStates = Collections.synchronizedMap(new ConcurrentHashMap<String, Bundle>());
 
     @Override
-    public boolean register(final Presenter subscriber) {
-        if (subscriber == null) return false;
+    public void register(final Presenter subscriber) {
+        if (subscriber == null) return;
 
         if (subscriber.isRegister()) {
             super.register(subscriber);
         }
-        return true;
     }
 
     @Override
@@ -42,6 +41,7 @@ public class PresenterUnionImpl extends AbsUnion<Presenter>
         for (Presenter presenter : getSubscribers()) {
             unregister(presenter);
         }
+        super.stop();
     }
 
     @Override

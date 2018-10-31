@@ -50,10 +50,10 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
     private List<WeakReference<IActivity>> mActivities = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public boolean register(final IActivity subscriber) {
+    public void register(final IActivity subscriber) {
         super.register(subscriber);
 
-        if (subscriber == null) return false;
+        if (subscriber == null) return;
 
         for (int i = mActivities.size() - 1; i >= 0; i--) {
             if (mActivities.get(i) == null) {
@@ -74,14 +74,13 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
         }
 
         mActivities.add(new WeakReference<>(subscriber));
-        return true;
     }
 
     @Override
-    public boolean unregister(final IActivity subscriber) {
+    public void unregister(final IActivity subscriber) {
         super.unregister(subscriber);
 
-        if (subscriber == null) return false;
+        if (subscriber == null) return;
 
         for (int i = mActivities.size() - 1; i >= 0; i--) {
             if (mActivities.get(i) == null) {
@@ -97,7 +96,6 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
                 mActivities.remove(i);
             }
         }
-        return true;
     }
 
     @Override

@@ -17,16 +17,21 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
 
     private static final String NAME = AbsSmallUnion.class.getName();
 
-    private Secretary<T> mSecretary = new RefSecretaryImpl<>();
+    private Secretary<T> mSecretary = createSecretary();
 
     @Override
-    public boolean register(final T subscriber) {
+    public Secretary createSecretary() {
+        return new RefSecretaryImpl<>();
+    }
+
+    @Override
+    public void register(final T subscriber) {
         if (subscriber == null) {
-            return false;
+            return;
         }
 
         if (!subscriber.validate()) {
-            ErrorSpecialistImpl.getInstance().onError(NAME, "Registration not valid subscriber: " + subscriber.toString(), false);
+            ErrorSpecialistImpl.getInstance().onError(NAME, "Registration not valid subscriber: " + subscriber.toString(), true);
         }
 
         final int cnt = mSecretary.size();
@@ -37,13 +42,12 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
             onRegisterFirstSubscriber();
         }
         onAddSubscriber(subscriber);
-        return true;
     }
 
     @Override
-    public boolean unregister(final T subscriber) {
+    public void unregister(final T subscriber) {
         if (subscriber == null) {
-            return false;
+            return;
         }
 
         final int cnt = mSecretary.size();
@@ -56,7 +60,13 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
         if (cnt == 1 && mSecretary.size() == 0) {
             onUnRegisterLastSubscriber();
         }
-        return true;
+    }
+
+    @Override
+    public void unregister(String name) {
+        if (hasSubscriber(name)) {
+            unregister(getSubscriber(name));
+        }
     }
 
     @Override
@@ -138,4 +148,8 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
         return validateExt().getData();
     }
 
+    @Override
+    public void stop() {
+        mSecretary.clear();
+    }
 }

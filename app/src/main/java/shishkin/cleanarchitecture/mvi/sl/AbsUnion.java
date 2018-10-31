@@ -11,8 +11,8 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
     private WeakReference<T> mCurrentSubscriber;
 
     @Override
-    public boolean register(final T subscriber) {
-        if (subscriber == null) return false;
+    public void register(final T subscriber) {
+        if (subscriber == null) return;
 
         super.register(subscriber);
 
@@ -21,13 +21,12 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
                 mCurrentSubscriber = new WeakReference<>(subscriber);
             }
         }
-        return true;
     }
 
 
     @Override
-    public boolean unregister(final T subscriber) {
-        if (subscriber == null) return false;
+    public void unregister(final T subscriber) {
+        if (subscriber == null) return;
 
         super.unregister(subscriber);
 
@@ -39,7 +38,6 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
                 }
             }
         }
-        return true;
     }
 
     @Override
