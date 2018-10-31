@@ -243,6 +243,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
      */
     @Override
     public void readMail(final MailSubscriber subscriber) {
+        if (subscriber == null) return;
+
         final List<Mail> list = getMail(subscriber);
         for (Mail mail : list) {
             if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {

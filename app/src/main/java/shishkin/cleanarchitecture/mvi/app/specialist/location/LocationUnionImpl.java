@@ -66,17 +66,17 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
     @Override
     public void onRegisterFirstSubscriber() {
         if (ApplicationUtils.checkPermission(ApplicationSpecialistImpl.getInstance(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            start();
+            startLocation();
         }
     }
 
     @Override
     public void onUnRegisterLastSubscriber() {
-        stop();
+        stopLocation();
     }
 
     @Override
-    public void start() {
+    public void startLocation() {
         if (!validate()) return;
 
         if (!hasSubscribers()) {
@@ -84,7 +84,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
         }
 
         if (isRuning) {
-            stop();
+            stopLocation();
         }
 
         isRuning = true;
@@ -112,8 +112,12 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
 
     @Override
     public void stop() {
+        stopLocation();
         super.stop();
+    }
 
+    @Override
+    public void stopLocation() {
         isRuning = false;
         if (mFusedLocationClient != null) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
@@ -137,7 +141,7 @@ public class LocationUnionImpl extends AbsSmallUnion<LocationSubscriber> impleme
     @Override
     public Location getLocation() {
         if (mLocation == null) {
-            start();
+            startLocation();
         }
         return mLocation;
     }

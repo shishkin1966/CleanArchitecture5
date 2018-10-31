@@ -68,7 +68,7 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
     @Override
     public void onPermisionGranted(final String permission) {
         if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
-            SLUtil.getLocationUnion().start();
+            SLUtil.getLocationUnion().startLocation();
             startMap();
         }
     }
