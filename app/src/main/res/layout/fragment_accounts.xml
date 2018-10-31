@@ -250,8 +250,7 @@
                 </LinearLayout>
 
                 <View
-                    style="@style/HorizontalDivider"
-                    android:layout_height="0.5dp"
+                    style="@style/HorizontalThinDivider"
                     android:background="@color/white_light"/>
 
             </LinearLayout>
