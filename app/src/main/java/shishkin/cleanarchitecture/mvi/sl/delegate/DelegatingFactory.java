@@ -5,5 +5,5 @@ package shishkin.cleanarchitecture.mvi.sl.delegate;
  */
 
 public interface DelegatingFactory<T> {
-    T create(Object object);
+    T create(String object);
 }

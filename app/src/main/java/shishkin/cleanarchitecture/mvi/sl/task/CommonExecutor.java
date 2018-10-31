@@ -3,15 +3,15 @@ package shishkin.cleanarchitecture.mvi.sl.task;
 import android.support.annotation.NonNull;
 
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 
-import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
-public class CommonExecutor implements RequestExecutor {
+public class CommonExecutor implements RequestExecutor, Executor {
 
     public static final String NAME = CommonExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
@@ -34,13 +34,8 @@ public class CommonExecutor implements RequestExecutor {
     }
 
     private CommonExecutor() {
-        final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
+        final BlockingQueue queue = new ArrayBlockingQueue(QUEUE_CAPACITY);
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
-    }
-
-    @Override
-    public void execute(final Request request) {
-        mExecutor.addRequest(request);
     }
 
     @Override
@@ -70,7 +65,12 @@ public class CommonExecutor implements RequestExecutor {
 
     @Override
     public void processing(Object sender, Object object) {
-        execute((Request) object);
+        execute((Runnable) object);
+    }
+
+    @Override
+    public void execute(@NonNull Request command) {
+        mExecutor.execute(command);
     }
 
     @Override

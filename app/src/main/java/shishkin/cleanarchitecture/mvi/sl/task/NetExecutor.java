@@ -123,6 +123,13 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
     }
 
     @Override
+    public void execute(@NonNull Runnable command) {
+        if (command instanceof Request) {
+            execute((Request) command);
+        }
+    }
+
+    @Override
     public void shutdown() {
         mExecutor.shutdown();
 
@@ -195,8 +202,4 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
         return validateExt().getData();
     }
 
-    @Override
-    public void execute(@NonNull Runnable command) {
-        mExecutor.execute(command);
-    }
 }
