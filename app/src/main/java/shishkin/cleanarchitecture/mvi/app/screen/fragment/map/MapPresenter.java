@@ -131,7 +131,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
         marker = googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
                 .alpha(0.7f)
-                .icon(ViewUtils.generateBitmapDescriptorFromRes(SLUtil.getContext(), R.drawable.pin))
+                .icon(ViewUtils.generateBitmapDescriptorFromRes(SLUtil.getContext(), R.drawable.ic_room))
                 .title("Мое местоположение"));
 
     }
