@@ -13,9 +13,6 @@ import com.google.common.io.Files;
 
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 import shishkin.cleanarchitecture.mvi.R;
@@ -27,6 +24,8 @@ import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.RequestSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.Secretary;
+import shishkin.cleanarchitecture.mvi.sl.SecretaryImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
@@ -37,7 +36,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.Request;
 public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implements DbProvider<T> {
 
     public static final String NAME = DbProviderImpl.class.getName();
-    private Map<String, T> mDb = Collections.synchronizedMap(new ConcurrentHashMap<String, T>());
+    private Secretary<T> mDb = new SecretaryImpl<>();
     private RoomDatabase.Callback mCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -155,7 +154,7 @@ public class DbProviderImpl<T extends RoomDatabase> extends AbsProvider implemen
 
     @Override
     public void onUnRegister() {
-        for (String databaseName : mDb.keySet()) {
+        for (String databaseName : mDb.keys()) {
             disconnect(databaseName);
         }
     }

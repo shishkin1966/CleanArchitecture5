@@ -3,20 +3,21 @@ package shishkin.cleanarchitecture.mvi.sl.task;
 import android.support.annotation.NonNull;
 
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 
+import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
-public class CommonExecutor implements RequestExecutor, Executor {
+@SuppressWarnings("unused")
+public class CommonExecutor implements RequestExecutor {
 
     public static final String NAME = CommonExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
-    private int mThreadCount = 4;
-    private int mMaxThreadCount = 4;
+    private int mThreadCount = 8;
+    private int mMaxThreadCount = 8;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
@@ -34,8 +35,13 @@ public class CommonExecutor implements RequestExecutor, Executor {
     }
 
     private CommonExecutor() {
-        final BlockingQueue queue = new ArrayBlockingQueue(QUEUE_CAPACITY);
+        final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
+    }
+
+    @Override
+    public void execute(final Request request) {
+        mExecutor.addRequest(request);
     }
 
     @Override
@@ -65,16 +71,13 @@ public class CommonExecutor implements RequestExecutor, Executor {
 
     @Override
     public void processing(Object sender, Object object) {
-        execute((Runnable) object);
-    }
-
-    @Override
-    public void execute(@NonNull Request command) {
-        mExecutor.execute(command);
+        execute((Request) object);
     }
 
     @Override
     public void execute(@NonNull Runnable command) {
-        mExecutor.execute(command);
+        if (command instanceof Request) {
+            execute((Request) command);
+        }
     }
 }

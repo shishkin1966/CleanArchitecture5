@@ -3,45 +3,39 @@ package shishkin.cleanarchitecture.mvi.sl.task;
 import android.support.annotation.NonNull;
 
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 
-import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
-@SuppressWarnings("unused")
-public class DbExecutor implements RequestExecutor {
+public class RunnableExecutor implements RequestExecutor, Executor {
 
-    public static final String NAME = DbExecutor.class.getName();
+    public static final String NAME = RunnableExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
     private int mThreadCount = 4;
-    private int mMaxThreadCount = 8;
+    private int mMaxThreadCount = 4;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
-    private static volatile DbExecutor sInstance;
+    private static volatile RunnableExecutor sInstance;
 
-    public static DbExecutor getInstance() {
+    public static RunnableExecutor getInstance() {
         if (sInstance == null) {
-            synchronized (DbExecutor.class) {
+            synchronized (RunnableExecutor.class) {
                 if (sInstance == null) {
-                    sInstance = new DbExecutor();
+                    sInstance = new RunnableExecutor();
                 }
             }
         }
         return sInstance;
     }
 
-    private DbExecutor() {
-        final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
+    private RunnableExecutor() {
+        final BlockingQueue queue = new ArrayBlockingQueue(QUEUE_CAPACITY);
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
-    }
-
-    @Override
-    public void execute(final Request request) {
-        mExecutor.addRequest(request);
     }
 
     @Override
@@ -71,13 +65,16 @@ public class DbExecutor implements RequestExecutor {
 
     @Override
     public void processing(Object sender, Object object) {
-        execute((Request) object);
+        execute((Runnable) object);
+    }
+
+    @Override
+    public void execute(@NonNull Request command) {
+        mExecutor.execute(command);
     }
 
     @Override
     public void execute(@NonNull Runnable command) {
-        if (command instanceof Request) {
-            execute((Request) command);
-        }
+        mExecutor.execute(command);
     }
 }

@@ -12,32 +12,18 @@ import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
 @SuppressWarnings("unused")
-public class DbExecutor implements RequestExecutor {
+public abstract class AbsExecutor implements RequestExecutor {
 
-    public static final String NAME = DbExecutor.class.getName();
+    public static final String NAME = AbsExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
-    private int mThreadCount = 4;
+    private int mThreadCount = 8;
     private int mMaxThreadCount = 8;
     private long mKeepAliveTime = 10; // 10 мин
     private TimeUnit mUnit = TimeUnit.MINUTES;
     private RequestThreadPoolExecutor mExecutor;
-    private static volatile DbExecutor sInstance;
+    private static volatile AbsExecutor sInstance;
 
-    public static DbExecutor getInstance() {
-        if (sInstance == null) {
-            synchronized (DbExecutor.class) {
-                if (sInstance == null) {
-                    sInstance = new DbExecutor();
-                }
-            }
-        }
-        return sInstance;
-    }
-
-    private DbExecutor() {
-        final BlockingQueue queue = new PriorityBlockingQueue<AbsRequest>(QUEUE_CAPACITY);
-        mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
-    }
+    protected abstract RequestThreadPoolExecutor getExecutor();
 
     @Override
     public void execute(final Request request) {

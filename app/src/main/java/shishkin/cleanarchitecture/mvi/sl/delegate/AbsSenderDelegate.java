@@ -2,10 +2,11 @@ package shishkin.cleanarchitecture.mvi.sl.delegate;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
+
+import shishkin.cleanarchitecture.mvi.sl.Secretary;
+import shishkin.cleanarchitecture.mvi.sl.SecretaryImpl;
 
 /**
  * Created by Shishkin on 07.03.2018.
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbsSenderDelegate<T extends SenderDelegating> implements SenderDelegate<T> {
 
-    private Map<String, T> mDelegates = Collections.synchronizedMap(new ConcurrentHashMap<String, T>());
+    private Secretary<T> mDelegates = new SecretaryImpl<>();
     private DelegatingFactory<T> mDelegateFactory = getDelegateFactory();
 
     public abstract DelegatingFactory<T> getDelegateFactory();

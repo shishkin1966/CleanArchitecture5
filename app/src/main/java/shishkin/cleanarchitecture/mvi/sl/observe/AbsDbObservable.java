@@ -1,10 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.observe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -13,6 +10,8 @@ import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
+import shishkin.cleanarchitecture.mvi.sl.Secretary;
+import shishkin.cleanarchitecture.mvi.sl.SecretaryImpl;
 
 /**
  * Created by Shishkin on 16.12.2017.
@@ -20,7 +19,7 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
 
 public abstract class AbsDbObservable extends AbsObservable<String, DbObservableSubscriber> {
 
-    private Map<String, List<String>> mTables = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Secretary<List<String>> mTables = new SecretaryImpl<>();
 
     @Override
     public void addObserver(DbObservableSubscriber subscriber) {
