@@ -16,18 +16,18 @@ public class PagingViewData implements Parcelable {
 
     private List<Account> accounts = null;
 
-    PagingViewData() {
+    public PagingViewData() {
     }
 
     public List<Account> getAccounts() {
         return accounts;
     }
 
-    void clearAccounts() {
+    public void clearAccounts() {
         accounts = new ArrayList<>();
     }
 
-    void addAccounts(List<Account> accounts) {
+    public void addAccounts(List<Account> accounts) {
         if (this.accounts == null) {
             this.accounts = accounts;
         } else {

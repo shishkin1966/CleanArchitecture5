@@ -19,6 +19,10 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResultMailRequest;
 
 public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IExecutor {
 
+    public static int ACTION_NOTHING = -1;
+    public static int ACTION_DELETE = 0;
+    public static int ACTION_IGNORE = 1;
+
     private Secretary<Request> mRequests = new RefSecretaryImpl<>();
 
     /**
@@ -36,17 +40,22 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
     public void addRequest(Request request) {
         if (request == null) return;
 
+        int action = ACTION_NOTHING;
         if (request.isDistinct()) {
             if (mRequests.containsKey(request.getName())) {
                 final Request oldRequest = mRequests.get(request.getName());
                 if (oldRequest != null) {
-                    oldRequest.setCanceled();
+                    action = request.getAction(oldRequest);
+                    if (action == ACTION_DELETE) {
+                        oldRequest.setCanceled();
+                    }
                 }
             }
         }
-        mRequests.put(request.getName(), request);
-
-        execute(request);
+        if (action != ACTION_IGNORE) {
+            mRequests.put(request.getName(), request);
+            execute(request);
+        }
     }
 
     @Override

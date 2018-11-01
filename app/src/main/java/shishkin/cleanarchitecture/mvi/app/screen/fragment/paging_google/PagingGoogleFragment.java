@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,9 @@ import android.view.ViewGroup;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingRecyclerViewAdapter;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingViewData;
+import shishkin.cleanarchitecture.mvi.sl.paged.OnPagedScrollListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -32,18 +33,8 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private AccountsPagedListAdapter adapter;
-    private DiffUtil.ItemCallback<Account> diffUtilCallback = new DiffUtil.ItemCallback<Account>() {
-        @Override
-        public boolean areItemsTheSame(Account oldItem, Account newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areContentsTheSame(Account oldItem, Account newItem) {
-            return oldItem.getFriendlyName().equals(newItem.getFriendlyName());
-        }
-    };
+    private PagingRecyclerViewAdapter adapter;
+    private AccountsPaginator paginator;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,8 +54,10 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new AccountsPagedListAdapter(diffUtilCallback);
+        adapter = new PagingRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(adapter);
+        paginator = new AccountsPaginator(getModel().getPresenter());
+        mRecyclerView.addOnScrollListener(new OnPagedScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager(), paginator));
     }
 
     @Override
@@ -87,13 +80,21 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     public void onDestroyView() {
         super.onDestroyView();
 
-        adapter.invalidate();
         mRecyclerView.setAdapter(null);
     }
 
     @Override
     public void onRefresh() {
-        adapter.refresh();
+        paginator.clear();
+        adapter.clear();
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
+    @Override
+    public void refreshViews(PagingViewData viewData) {
+        if (viewData != null && viewData.getAccounts() != null) {
+            adapter.setItems(viewData.getAccounts());
+        }
+    }
+
 }

@@ -14,6 +14,8 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.mail.ResultMail;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsResultMailRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Rank;
+import shishkin.cleanarchitecture.mvi.sl.request.Request;
+import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 
 public class GetPagingAccountsRequest extends AbsResultMailRequest {
 
@@ -29,6 +31,11 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
     @Override
     public boolean isDistinct() {
         return true;
+    }
+
+    @Override
+    public int getAction(Request oldRequest) {
+        return RequestThreadPoolExecutor.ACTION_DELETE;
     }
 
     @Override
