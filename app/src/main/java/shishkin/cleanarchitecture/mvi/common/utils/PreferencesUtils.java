@@ -18,8 +18,8 @@ public class PreferencesUtils {
 
     public static void putString(final Context context, final String key, final String value) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.putString(key, value).apply();
         }
     }
@@ -30,16 +30,16 @@ public class PreferencesUtils {
 
     public static String getString(final Context context, final String key, final String defaultValue) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getString(key, defaultValue);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getString(key, defaultValue);
         }
         return defaultValue;
     }
 
     public static void putInt(final Context context, final String key, final int value) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(key, value).apply();
         }
     }
@@ -50,16 +50,16 @@ public class PreferencesUtils {
 
     public static int getInt(final Context context, final String key, final int defaultValue) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getInt(key, defaultValue);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getInt(key, defaultValue);
         }
         return defaultValue;
     }
 
     public static void putLong(final Context context, final String key, final long value) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.putLong(key, value).apply();
         }
     }
@@ -70,16 +70,16 @@ public class PreferencesUtils {
 
     public static long getLong(final Context context, final String key, final long defaultValue) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getLong(key, defaultValue);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getLong(key, defaultValue);
         }
         return defaultValue;
     }
 
     public static void putFloat(final Context context, final String key, final float value) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.putFloat(key, value).apply();
         }
     }
@@ -90,16 +90,16 @@ public class PreferencesUtils {
 
     public static float getFloat(final Context context, String key, float defaultValue) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getFloat(key, defaultValue);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getFloat(key, defaultValue);
         }
         return defaultValue;
     }
 
     public static void putBoolean(final Context context, final String key, final boolean value) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(key, value).apply();
         }
     }
@@ -110,40 +110,40 @@ public class PreferencesUtils {
 
     public static boolean getBoolean(final Context context, final String key, final boolean defaultValue) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getBoolean(key, defaultValue);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getBoolean(key, defaultValue);
         }
         return defaultValue;
     }
 
     public static Map<String, ?> getAll(final Context context) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.getAll();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getAll();
         }
         return null;
     }
 
     public static void remove(final Context context, final String key) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.remove(key).commit();
         }
     }
 
     public static boolean contains(final Context context, final String key) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            return settings.contains(key);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.contains(key);
         }
         return false;
     }
 
     public static void clear(final Context context) {
         if (context != null) {
-            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.Editor editor = settings.edit();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
             editor.clear().commit();
         }
     }

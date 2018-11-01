@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -14,18 +15,18 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
  */
 public class SecretaryImpl<T> implements Secretary<T> {
 
-    private Map<String, T> mSubscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Map<String, T> subscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     @Override
     public T remove(String key) {
         if (StringUtils.isNullOrEmpty(key)) return null;
 
-        return mSubscribers.remove(key);
+        return subscribers.remove(key);
     }
 
     @Override
     public int size() {
-        return mSubscribers.size();
+        return subscribers.size();
     }
 
     @Override
@@ -33,35 +34,40 @@ public class SecretaryImpl<T> implements Secretary<T> {
         if (value == null) return null;
         if (StringUtils.isNullOrEmpty(key)) return null;
 
-        return mSubscribers.put(key, value);
+        return subscribers.put(key, value);
     }
 
     @Override
     public boolean containsKey(String key) {
         if (StringUtils.isNullOrEmpty(key)) return false;
 
-        return mSubscribers.containsKey(key);
+        return subscribers.containsKey(key);
     }
 
     @Override
     public T get(String key) {
         if (StringUtils.isNullOrEmpty(key)) return null;
 
-        return mSubscribers.get(key);
+        return subscribers.get(key);
     }
 
     @Override
     public List<T> values() {
-        return new ArrayList<>(mSubscribers.values());
+        return new ArrayList<>(subscribers.values());
     }
 
     @Override
     public boolean isEmpty() {
-        return mSubscribers.isEmpty();
+        return subscribers.isEmpty();
     }
 
     @Override
     public void clear() {
-        mSubscribers.clear();
+        subscribers.clear();
+    }
+
+    @Override
+    public Collection<String> keys() {
+        return subscribers.keySet();
     }
 }

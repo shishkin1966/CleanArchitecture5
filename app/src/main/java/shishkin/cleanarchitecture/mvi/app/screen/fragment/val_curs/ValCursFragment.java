@@ -11,6 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
@@ -51,6 +52,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     private TextView messageView;
     private View shadowTop;
     private View shadowBottom;
+    private View emptyText;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
         shadowBottom = findView(R.id.shadow_bottom);
         shadowTop = findView(R.id.shadow_top);
+        emptyText = findView(R.id.emptyText);
 
         mSwipeRefreshLayout = findView(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.blue);
@@ -95,6 +98,10 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
         findView(R.id.delete).setOnClickListener(getModel().getPresenter());
         findView(R.id.clear).setOnClickListener(getModel().getPresenter());
+
+        view.postDelayed(() -> {
+            showEmptyText();
+        }, TimeUnit.SECONDS.toMillis(4));
     }
 
     @Override
@@ -111,8 +118,19 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
     public void refreshViews(ValCursViewData viewData) {
         if (viewData != null && viewData.getData() != null) {
             mAdapter.setItems(viewData.getData());
+            showEmptyText();
+        }
+    }
+
+    private void showEmptyText(){
+        if (validate()) {
             if (mAdapter.getItemCount() == 0) {
-                showMessage(new ShowMessageEvent("Данных нет").setType(ApplicationUtils.MESSAGE_TYPE_WARNING));
+                final AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(1000);
+                emptyText.startAnimation(anim);
+                emptyText.setVisibility(View.VISIBLE);
+            } else {
+                emptyText.setVisibility(View.INVISIBLE);
             }
         }
     }

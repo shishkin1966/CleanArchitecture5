@@ -1,39 +1,26 @@
 package shishkin.cleanarchitecture.mvi.sl.observe;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 import shishkin.cleanarchitecture.mvi.sl.ObservableSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.RefSecretaryImpl;
+import shishkin.cleanarchitecture.mvi.sl.Secretary;
 
 /**
  * Created by Shishkin on 15.12.2017.
  */
 
 public abstract class AbsObservable<T, K extends ObservableSubscriber> implements Observable<T, K> {
-    private Map<String, WeakReference<ObservableSubscriber>> mObservers = Collections.synchronizedMap(new ConcurrentHashMap<String, WeakReference<ObservableSubscriber>>());
-
-    private void checkNullObserver() {
-        for (Map.Entry<String, WeakReference<ObservableSubscriber>> entry : mObservers.entrySet()) {
-            if (entry.getValue() == null || entry.getValue().get() == null) {
-                mObservers.remove(entry.getKey());
-            }
-        }
-    }
+    private Secretary<K> secretary = new RefSecretaryImpl<>();
 
     @Override
     public void addObserver(K subscriber) {
         if (subscriber == null) return;
 
-        checkNullObserver();
+        secretary.put(subscriber.getName(), subscriber);
 
-        mObservers.put(subscriber.getName(), new WeakReference<>(subscriber));
-
-        if (mObservers.size() == 1) {
+        if (secretary.size() == 1) {
             register();
         }
     }
@@ -42,14 +29,12 @@ public abstract class AbsObservable<T, K extends ObservableSubscriber> implement
     public void removeObserver(K subscriber) {
         if (subscriber == null) return;
 
-        checkNullObserver();
-
-        if (mObservers.containsKey(subscriber.getName())) {
-            if (subscriber.equals(mObservers.get(subscriber.getName()).get())) {
-                mObservers.remove(subscriber.getName());
+        if (secretary.containsKey(subscriber.getName())) {
+            if (subscriber.equals(secretary.get(subscriber.getName()))) {
+                secretary.remove(subscriber.getName());
             }
 
-            if (mObservers.isEmpty()) {
+            if (secretary.isEmpty()) {
                 unregister();
             }
         }
@@ -57,23 +42,16 @@ public abstract class AbsObservable<T, K extends ObservableSubscriber> implement
 
     @Override
     public void onChange(T object) {
-        for (WeakReference<ObservableSubscriber> ref : mObservers.values()) {
-            if (ref != null && ref.get() != null && ref.get().validate()) {
-                ref.get().onChange(object);
+        for (ObservableSubscriber observableSubscriber : secretary.values()) {
+            if (observableSubscriber.validate()) {
+                observableSubscriber.onChange(object);
             }
         }
     }
 
     @Override
-    public List<ObservableSubscriber> getObserver() {
-        final List<ObservableSubscriber> list = new ArrayList<>();
-
-        for (WeakReference<ObservableSubscriber> ref : mObservers.values()) {
-            if (ref != null && ref.get() != null) {
-                list.add(ref.get());
-            }
-        }
-        return list;
+    public List<K> getObserver() {
+        return secretary.values();
     }
 
 }

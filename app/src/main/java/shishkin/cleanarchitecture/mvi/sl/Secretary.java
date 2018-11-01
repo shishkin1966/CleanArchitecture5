@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface Secretary<T> {
@@ -19,4 +20,6 @@ public interface Secretary<T> {
     boolean isEmpty();
 
     void clear();
+
+    Collection<String> keys();
 }

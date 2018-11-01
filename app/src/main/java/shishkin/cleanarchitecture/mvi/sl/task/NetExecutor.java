@@ -27,7 +27,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 @SuppressWarnings("unused")
-public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent> {
+public class NetExecutor extends AbsRequestExecutor implements ObservableSubscriber<Intent> {
 
     public static final String NAME = NetExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
@@ -56,6 +56,11 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
         mExecutor = new RequestThreadPoolExecutor(mThreadCount, mMaxThreadCount, mKeepAliveTime, mUnit, queue);
 
         SL.getInstance().register(this);
+    }
+
+    @Override
+    protected RequestThreadPoolExecutor getExecutor() {
+        return mExecutor;
     }
 
     public void setThreadCount() {
@@ -118,47 +123,10 @@ public class NetExecutor implements RequestExecutor, ObservableSubscriber<Intent
     }
 
     @Override
-    public void execute(final Request request) {
-        mExecutor.addRequest(request);
-    }
-
-    @Override
-    public void execute(@NonNull Runnable command) {
-        if (command instanceof Request) {
-            execute((Request) command);
-        }
-    }
-
-    @Override
     public void shutdown() {
-        mExecutor.shutdown();
+        super.shutdown();
 
         SL.getInstance().unregister(this);
-    }
-
-    @Override
-    public void clear() {
-        mExecutor.clear();
-    }
-
-    @Override
-    public void cancelRequests(String listener) {
-        mExecutor.cancelRequests(listener);
-    }
-
-    @Override
-    public void cancelRequests(String listener, String taskName) {
-        mExecutor.cancelRequests(listener, taskName);
-    }
-
-    @Override
-    public boolean isShutdown() {
-        return mExecutor.isShutdown();
-    }
-
-    @Override
-    public void processing(Object sender, Object object) {
-        execute((Request) object);
     }
 
     @Override

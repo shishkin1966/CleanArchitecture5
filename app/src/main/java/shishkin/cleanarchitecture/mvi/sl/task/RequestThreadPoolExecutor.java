@@ -3,27 +3,23 @@ package shishkin.cleanarchitecture.mvi.sl.task;
 import android.support.annotation.NonNull;
 
 
-import java.lang.ref.WeakReference;
-import java.util.Collections;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
-import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
+import shishkin.cleanarchitecture.mvi.sl.RefSecretaryImpl;
+import shishkin.cleanarchitecture.mvi.sl.Secretary;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResultMailRequest;
-import shishkin.cleanarchitecture.mvi.sl.request.ResultRequest;
 
 
 public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IExecutor {
 
-    private Map<String, WeakReference<Request>> mRequests = Collections.synchronizedMap(new ConcurrentHashMap<String, WeakReference<Request>>());
+    private Secretary<Request> mRequests = new RefSecretaryImpl<>();
 
     /**
      * @param corePoolSize    The size of the pool
@@ -40,17 +36,15 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
     public void addRequest(Request request) {
         if (request == null) return;
 
-        checkNullRequest();
-
         if (request.isDistinct()) {
             if (mRequests.containsKey(request.getName())) {
-                final Request oldRequest = mRequests.get(request.getName()).get();
+                final Request oldRequest = mRequests.get(request.getName());
                 if (oldRequest != null) {
                     oldRequest.setCanceled();
                 }
             }
         }
-        mRequests.put(request.getName(), new WeakReference<>(request));
+        mRequests.put(request.getName(), request);
 
         execute(request);
     }
@@ -81,61 +75,37 @@ public class RequestThreadPoolExecutor extends ThreadPoolExecutor implements IEx
 
     @Override
     public void clear() {
-        checkNullRequest();
-
-        for (WeakReference<Request> ref : mRequests.values()) {
-            ref.get().setCanceled();
+        for (Request request : mRequests.values()) {
+            request.setCanceled();
         }
 
         mRequests.clear();
-    }
-
-    private void checkNullRequest() {
-        for (Map.Entry<String, WeakReference<Request>> entry : mRequests.entrySet()) {
-            if (entry.getValue() != null && entry.getValue().get() != null) {
-                if (!entry.getValue().get().validate()) {
-                    mRequests.remove(entry.getKey());
-                }
-            } else {
-                mRequests.remove(entry.getKey());
-            }
-        }
     }
 
     @Override
     public void cancelRequests(String listener) {
         if (listener == null) return;
 
-        checkNullRequest();
-
-        for (WeakReference<Request> ref : mRequests.values()) {
-            if (ResultMailRequest.class.isInstance(ref.get())) {
-                final ResultMailRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getOwnerName().equals(listener)) {
+        for (Request request : mRequests.values()) {
+            if (ResultMailRequest.class.isInstance(request)) {
+                if (request.validate() && ((ResultMailRequest) request).getOwnerName().equals(listener)) {
                     request.setCanceled();
                 }
             }
         }
-
-        checkNullRequest();
     }
 
     @Override
     public void cancelRequests(String listener, String taskName) {
         if (listener == null || StringUtils.isNullOrEmpty(taskName)) return;
 
-        checkNullRequest();
-
-        for (WeakReference<Request> ref : mRequests.values()) {
-            if (ResultRequest.class.isInstance(ref.get())) {
-                final ResultRequest request = SafeUtils.cast(ref.get());
-                if (request != null && request.validate() && request.getOwnerName().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
+        for (Request request : mRequests.values()) {
+            if (ResultMailRequest.class.isInstance(request)) {
+                if (request.validate() && ((ResultMailRequest) request).getOwnerName().equals(listener) && taskName.equalsIgnoreCase(request.getName())) {
                     request.setCanceled();
                 }
             }
         }
-
-        checkNullRequest();
     }
 
     @Override

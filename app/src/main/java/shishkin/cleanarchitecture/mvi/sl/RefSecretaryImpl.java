@@ -2,6 +2,7 @@ package shishkin.cleanarchitecture.mvi.sl;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -15,20 +16,20 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
  */
 public class RefSecretaryImpl<T> implements Secretary<T> {
 
-    private Map<String, WeakReference<T>> mSubscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
+    private Map<String, WeakReference<T>> subscribers = Collections.synchronizedMap(new ConcurrentHashMap<>());
 
     @Override
     public T remove(String key) {
         if (StringUtils.isNullOrEmpty(key)) return null;
 
         checkNull();
-        return mSubscribers.remove(key).get();
+        return subscribers.remove(key).get();
     }
 
     @Override
     public int size() {
         checkNull();
-        return mSubscribers.size();
+        return subscribers.size();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class RefSecretaryImpl<T> implements Secretary<T> {
         if (value == null) return null;
         if (StringUtils.isNullOrEmpty(key)) return null;
 
-        mSubscribers.put(key, new WeakReference<>(value));
+        subscribers.put(key, new WeakReference<>(value));
         return get(key);
     }
 
@@ -45,7 +46,7 @@ public class RefSecretaryImpl<T> implements Secretary<T> {
         if (StringUtils.isNullOrEmpty(key)) return false;
 
         checkNull();
-        return mSubscribers.containsKey(key);
+        return subscribers.containsKey(key);
     }
 
     @Override
@@ -53,14 +54,14 @@ public class RefSecretaryImpl<T> implements Secretary<T> {
         if (StringUtils.isNullOrEmpty(key)) return null;
 
         checkNull();
-        return mSubscribers.get(key).get();
+        return subscribers.get(key).get();
     }
 
     @Override
     public List<T> values() {
         checkNull();
         final List<T> list = new ArrayList<>();
-        for (WeakReference<T> reference : mSubscribers.values()) {
+        for (WeakReference<T> reference : subscribers.values()) {
             list.add(reference.get());
         }
         return list;
@@ -69,20 +70,24 @@ public class RefSecretaryImpl<T> implements Secretary<T> {
     @Override
     public boolean isEmpty() {
         checkNull();
-        return mSubscribers.isEmpty();
+        return subscribers.isEmpty();
     }
 
     private void checkNull() {
-        for (Map.Entry<String, WeakReference<T>> entry : mSubscribers.entrySet()) {
+        for (Map.Entry<String, WeakReference<T>> entry : subscribers.entrySet()) {
             if (entry.getValue() == null || entry.getValue().get() == null) {
-                mSubscribers.remove(entry.getKey());
+                subscribers.remove(entry.getKey());
             }
         }
     }
 
     @Override
     public void clear() {
-        mSubscribers.clear();
+        subscribers.clear();
     }
 
+    @Override
+    public Collection<String> keys() {
+        return subscribers.keySet();
+    }
 }
