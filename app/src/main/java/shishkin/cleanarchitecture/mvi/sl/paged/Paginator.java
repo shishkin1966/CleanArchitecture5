@@ -7,7 +7,7 @@ public interface Paginator extends ResponseListener {
 
     void hasData();
 
-    void clear();
+    void reset();
 
     Request getRequest(int currentPosition, int currentPageSize);
 

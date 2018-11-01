@@ -85,7 +85,7 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
 
     @Override
     public void onRefresh() {
-        paginator.clear();
+        paginator.reset();
         adapter.clear();
         mSwipeRefreshLayout.setRefreshing(false);
     }

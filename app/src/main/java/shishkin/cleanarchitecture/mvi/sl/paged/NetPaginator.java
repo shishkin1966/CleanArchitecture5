@@ -103,7 +103,7 @@ public abstract class NetPaginator implements Paginator {
     }
 
     @Override
-    public void clear() {
+    public void reset() {
         final RequestSpecialist specialist = SL.getInstance().get(RequestSpecialistImpl.NAME);
         if (specialist != null) {
             specialist.cancelRequests(this.getName());
