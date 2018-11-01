@@ -65,6 +65,14 @@ public interface ViewUnion extends IView, Union<IActivity> {
     <F> F getFragment(final Class<F> cls, final int id);
 
     /**
+     * Получить фрагмент по его id.
+     *
+     * @param <F> тип фрагмента
+     * @return фрагмент
+     */
+    <F> F getCurrentFragment();
+
+    /**
      * Показать фрагмент
      *
      * @param event событие

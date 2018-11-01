@@ -234,6 +234,15 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
     }
 
     @Override
+    public <F> F getCurrentFragment() {
+        final AbsActivity activity = getActivity();
+        if (activity != null) {
+            return BackStack.getCurrentFragment(activity);
+        }
+        return null;
+    }
+
+    @Override
     public boolean isBackStackEmpty() {
         final AbsActivity activity = getActivity();
         if (activity != null) {

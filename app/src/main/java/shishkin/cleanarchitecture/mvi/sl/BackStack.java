@@ -248,6 +248,23 @@ public class BackStack {
     }
 
     /**
+     * Получить текущий фрагмент
+     */
+    public static <F> F getCurrentFragment(final AbsActivity activity) {
+        if (activity == null) return null;
+        if (!activity.validate()) return null;
+
+        final FragmentManager fm = activity.getSupportFragmentManager();
+        final int backStackEntryCount = fm.getBackStackEntryCount();
+        if (backStackEntryCount > 0) {
+            final FragmentManager.BackStackEntry backStackEntry = fm
+                    .getBackStackEntryAt(backStackEntryCount - 1);
+            return (F)fm.findFragmentByTag(backStackEntry.getName());
+        }
+        return null;
+    }
+
+    /**
      * Очистить BackStack
      */
     public static void clearBackStack(final AbsActivity activity) {
