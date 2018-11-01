@@ -259,7 +259,7 @@ public class BackStack {
         if (backStackEntryCount > 0) {
             final FragmentManager.BackStackEntry backStackEntry = fm
                     .getBackStackEntryAt(backStackEntryCount - 1);
-            return (F)fm.findFragmentByTag(backStackEntry.getName());
+            return (F) fm.findFragmentByTag(backStackEntry.getName());
         }
         return null;
     }

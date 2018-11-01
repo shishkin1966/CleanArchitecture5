@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
-import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 
 
@@ -23,7 +22,6 @@ import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.observe.NetworkBroadcastReceiverObservable;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;
-import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
 @SuppressWarnings("unused")

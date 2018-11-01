@@ -3,9 +3,6 @@ package shishkin.cleanarchitecture.mvi.sl.task;
 import android.support.annotation.NonNull;
 
 
-import java.util.concurrent.TimeUnit;
-
-
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
 @SuppressWarnings("unused")
