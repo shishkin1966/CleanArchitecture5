@@ -5,13 +5,12 @@ import android.support.annotation.NonNull;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
-public class RunnableExecutor implements RequestExecutor, Executor {
+public class RunnableExecutor extends AbsRequestExecutor {
 
     public static final String NAME = RunnableExecutor.class.getName();
     private static int QUEUE_CAPACITY = 1024;
@@ -39,28 +38,8 @@ public class RunnableExecutor implements RequestExecutor, Executor {
     }
 
     @Override
-    public void shutdown() {
-        mExecutor.shutdown();
-    }
-
-    @Override
-    public void clear() {
-        mExecutor.clear();
-    }
-
-    @Override
-    public void cancelRequests(String listener) {
-        mExecutor.cancelRequests(listener);
-    }
-
-    @Override
-    public void cancelRequests(String listener, String taskName) {
-        mExecutor.cancelRequests(listener, taskName);
-    }
-
-    @Override
-    public boolean isShutdown() {
-        return mExecutor.isShutdown();
+    protected RequestThreadPoolExecutor getExecutor() {
+        return mExecutor;
     }
 
     @Override
