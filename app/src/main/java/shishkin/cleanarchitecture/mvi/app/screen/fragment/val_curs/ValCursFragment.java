@@ -28,8 +28,6 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Valute;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.SwipeTouchHelper;
-import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -122,7 +120,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         }
     }
 
-    private void showEmptyText(){
+    private void showEmptyText() {
         if (validate()) {
             if (mAdapter.getItemCount() == 0) {
                 final AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
