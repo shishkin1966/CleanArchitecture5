@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,26 +14,26 @@ import android.view.ViewGroup;
 
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingRecyclerViewAdapter;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingViewData;
-import shishkin.cleanarchitecture.mvi.sl.paged.OnPagedScrollListener;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PageRecyclerViewAdapter;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PagingViewData;
+import shishkin.cleanarchitecture.mvi.sl.paginator.OnPagedScrollListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> implements PagingGoogleView {
+public class PagedFragment extends AbsContentFragment<PagedModel> implements PagedView {
 
-    public static final String NAME = PagingGoogleFragment.class.getName();
+    public static final String NAME = PagedFragment.class.getName();
 
-    public static PagingGoogleFragment newInstance() {
-        return new PagingGoogleFragment();
+    public static PagedFragment newInstance() {
+        return new PagedFragment();
     }
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private PagingRecyclerViewAdapter adapter;
+    private PageRecyclerViewAdapter adapter;
     private AccountsPaginator paginator;
 
     @Override
@@ -54,7 +54,7 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new PagingRecyclerViewAdapter(getContext());
+        adapter = new PageRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(adapter);
         paginator = new AccountsPaginator(getModel().getPresenter());
         mRecyclerView.addOnScrollListener(new OnPagedScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager(), paginator));
@@ -66,8 +66,8 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     }
 
     @Override
-    public PagingGoogleModel createModel() {
-        return new PagingGoogleModel(this);
+    public PagedModel createModel() {
+        return new PagedModel(this);
     }
 
     @Override
@@ -80,6 +80,7 @@ public class PagingGoogleFragment extends AbsContentFragment<PagingGoogleModel> 
     public void onDestroyView() {
         super.onDestroyView();
 
+        paginator.stop();
         mRecyclerView.setAdapter(null);
     }
 

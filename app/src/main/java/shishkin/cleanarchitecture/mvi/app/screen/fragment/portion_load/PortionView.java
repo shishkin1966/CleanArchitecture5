@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load;
 
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
@@ -6,7 +6,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  * Created by Shishkin on 17.03.2018.
  */
 
-public interface PagingView extends IFragment {
+public interface PortionView extends IFragment {
     void refreshViews(PagingViewData viewData);
 
 }

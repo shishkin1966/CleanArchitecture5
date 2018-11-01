@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,15 +20,15 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class PagingFragment extends AbsContentFragment<PagingModel> implements PagingView {
+public class PortionFragment extends AbsContentFragment<PortionModel> implements PortionView {
 
-    public static final String NAME = PagingFragment.class.getName();
+    public static final String NAME = PortionFragment.class.getName();
 
-    public static PagingFragment newInstance() {
-        return new PagingFragment();
+    public static PortionFragment newInstance() {
+        return new PortionFragment();
     }
 
-    private PagingRecyclerViewAdapter mAdapter;
+    private PageRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -46,7 +46,7 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
         mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.gray_light);
         mSwipeRefreshLayout.setOnRefreshListener(getModel().getPresenter());
 
-        mAdapter = new PagingRecyclerViewAdapter(getContext());
+        mAdapter = new PageRecyclerViewAdapter(getContext());
 
         mRecyclerView = findView(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -60,8 +60,8 @@ public class PagingFragment extends AbsContentFragment<PagingModel> implements P
     }
 
     @Override
-    public PagingModel createModel() {
-        return new PagingModel(this);
+    public PortionModel createModel() {
+        return new PortionModel(this);
     }
 
     @Override

@@ -2,17 +2,17 @@ package shishkin.cleanarchitecture.mvi.app.request;
 
 import android.widget.Toast;
 
-import com.github.snowdream.android.util.Log;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load.PagedPresenter;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
-import shishkin.cleanarchitecture.mvi.sl.paged.Paginator;
+import shishkin.cleanarchitecture.mvi.sl.paginator.Paginator;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsPaginatorRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.PaginatorRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
@@ -40,7 +40,12 @@ public class AccountsPaginatorRequest extends AbsPaginatorRequest<List<Account>>
         }
 
         try {
-            Log.i(NAME, "Position:" + getCurrentPosition() + "|PageSize:" + getCurrentPageSize());
+            ApplicationUtils.runOnUiThread(() -> {
+                final PagedPresenter presenter = SLUtil.getPresenterUnion().getPresenter(PagedPresenter.NAME);
+                if (presenter != null) {
+                    presenter.showProgressBar();
+                }
+            });
 
             final List<Account> list = new ArrayList<>();
             for (int i = 0; i < getCurrentPageSize(); i++) {
@@ -55,6 +60,12 @@ public class AccountsPaginatorRequest extends AbsPaginatorRequest<List<Account>>
             Thread.sleep(getCurrentPageSize() * 4);
             Thread.yield();
             setData(list);
+            ApplicationUtils.runOnUiThread(() -> {
+                final PagedPresenter presenter = SLUtil.getPresenterUnion().getPresenter(PagedPresenter.NAME);
+                if (presenter != null) {
+                    presenter.hideProgressBar();
+                }
+            });
         } catch (Exception e) {
             setError(new ExtError().addError(NAME, e));
         }

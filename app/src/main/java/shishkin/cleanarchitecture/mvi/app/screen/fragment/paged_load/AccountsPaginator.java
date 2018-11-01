@@ -1,10 +1,10 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load;
 
 import android.support.annotation.NonNull;
 
 
 import shishkin.cleanarchitecture.mvi.app.request.AccountsPaginatorRequest;
-import shishkin.cleanarchitecture.mvi.sl.paged.NetPaginator;
+import shishkin.cleanarchitecture.mvi.sl.paginator.NetPaginator;
 import shishkin.cleanarchitecture.mvi.sl.request.PaginatorRequest;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -13,7 +13,7 @@ public class AccountsPaginator extends NetPaginator {
     public static final String NAME = AccountsPaginator.class.getName();
 
     public AccountsPaginator(@NonNull ResponseListener listener) {
-        super(listener, 10);
+        super(listener);
     }
 
     @Override

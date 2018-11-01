@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
-import shishkin.cleanarchitecture.mvi.sl.paged.Paginator;
+import shishkin.cleanarchitecture.mvi.sl.paginator.Paginator;
 
 public abstract class AbsPaginatorRequest<T> extends AbsResultRequest<T> implements PaginatorRequest {
 

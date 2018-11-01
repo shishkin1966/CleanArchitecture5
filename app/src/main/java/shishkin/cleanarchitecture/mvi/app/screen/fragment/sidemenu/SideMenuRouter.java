@@ -6,8 +6,8 @@ import shishkin.cleanarchitecture.mvi.app.screen.fragment.calculation.CalcFragme
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.contact.ContactFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies.DigitalCurrenciesFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.map.MapFragment;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingFragment;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google.PagingGoogleFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load.PagedFragment;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PortionFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.setting.SettingFragment;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs.ValCursFragment;
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
@@ -58,14 +58,14 @@ class SideMenuRouter extends BaseModelRouter {
     }
 
     void showPaging() {
-        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagingFragment.NAME)) {
-            showFragment(PagingFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PortionFragment.NAME)) {
+            showFragment(PortionFragment.newInstance());
         }
     }
 
     void showPagingGoogle() {
-        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagingGoogleFragment.NAME)) {
-            showFragment(PagingGoogleFragment.newInstance());
+        if (!BackStack.isCurrentFragment(SLUtil.getActivity(), PagedFragment.NAME)) {
+            showFragment(PagedFragment.newInstance());
         }
     }
 

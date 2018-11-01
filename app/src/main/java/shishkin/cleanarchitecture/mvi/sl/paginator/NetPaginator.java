@@ -1,11 +1,10 @@
-package shishkin.cleanarchitecture.mvi.sl.paged;
+package shishkin.cleanarchitecture.mvi.sl.paginator;
 
 import android.support.annotation.NonNull;
 
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -18,28 +17,41 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
 public abstract class NetPaginator implements Paginator {
 
-    private static int PREFETCH_SIZE = 50;
+    private static int PREFETCH_SIZE = 40;
 
     private WeakReference<ResponseListener> listener;
     private int currentPageSize = 0;
     private int currentPosition = 0;
     private int requestPosition = -1;
-    private List<Integer> pageSize = Arrays.asList(new Integer[]{5, 10, 20, 50});
+    private List<Integer> pageSize;
     private boolean bof = false;
 
     public NetPaginator(@NonNull ResponseListener listener) {
         this.listener = new WeakReference<>(listener);
+
+        setPageSize(10);
     }
 
     public NetPaginator(@NonNull ResponseListener listener, int minPageSize) {
-        this.listener = new WeakReference<>(listener);
+        this(listener);
 
+        setPageSize(minPageSize);
+    }
+
+    public NetPaginator(@NonNull ResponseListener listener, List<Integer> pageSize) {
+        this(listener);
+
+        if (pageSize != null && !pageSize.isEmpty()) {
+            this.pageSize = pageSize;
+        }
+    }
+
+    private void setPageSize(int minPageSize) {
         if (minPageSize > 0) {
             pageSize = new ArrayList<>();
             pageSize.add(minPageSize);
             pageSize.add(minPageSize * 2);
             pageSize.add(minPageSize * 4);
-            pageSize.add(minPageSize * 10);
         }
     }
 
@@ -110,6 +122,15 @@ public abstract class NetPaginator implements Paginator {
         }
         init();
         hasData();
+    }
+
+    @Override
+    public void stop() {
+        final RequestSpecialist specialist = SL.getInstance().get(RequestSpecialistImpl.NAME);
+        if (specialist != null) {
+            specialist.cancelRequests(this.getName());
+        }
+        bof = true;
     }
 
     private void request(int currentPosition, int currentPageSize) {

@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.sl.paged;
+package shishkin.cleanarchitecture.mvi.sl.paginator;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;

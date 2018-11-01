@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -8,7 +8,6 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
-import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -19,34 +18,14 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class PagingGooglePresenter extends AbsPresenter<PagingGoogleModel> implements SwipeRefreshLayout.OnRefreshListener, ResponseListener {
+public class PortionPresenter extends AbsPresenter<PortionModel> implements ResponseListener, SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String NAME = PagingGooglePresenter.class.getName();
+    public static final String NAME = PortionPresenter.class.getName();
 
     private PagingViewData viewData;
 
-    public PagingGooglePresenter(PagingGoogleModel model) {
+    PortionPresenter(PortionModel model) {
         super(model);
-    }
-
-    @Override
-    public void onStart() {
-        if (viewData == null) {
-            viewData = new PagingViewData();
-        }
-    }
-
-    @Override
-    public void response(Result result) {
-        if (!validate()) return;
-
-        if (!result.hasError()) {
-            viewData.addAccounts((List<Account>) result.getData());
-            getModel().getView().refreshViews(viewData);
-        } else {
-            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
-        }
-
     }
 
     @Override
@@ -60,17 +39,49 @@ public class PagingGooglePresenter extends AbsPresenter<PagingGoogleModel> imple
     }
 
     @Override
-    public void onRefresh() {
+    public void onStart() {
+        if (viewData == null) {
+            viewData = new PagingViewData();
+        }
         viewData.clearAccounts();
-        getModel().getView().onRefresh();
+        getData();
     }
 
-    public void showProgressBar() {
+    private void getData() {
         getModel().getView().showProgressBar();
+        SLUtil.getRepository().getPagingAccounts(NAME);
     }
 
-    public void hideProgressBar() {
-        getModel().getView().hideProgressBar();
+    @Override
+    public void response(Result result) {
+        if (!validate()) return;
+
+        if (!result.hasError()) {
+            if (result.getOrder() == Result.LAST) {
+                getModel().getView().hideProgressBar();
+            } else {
+                getModel().getView().showProgressBar();
+            }
+            viewData.addAccounts((List<Account>) result.getData());
+            getModel().getView().refreshViews(viewData);
+        } else {
+            getModel().getView().hideProgressBar();
+            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        SLUtil.getRepository().cancelRequests(NAME);
+        viewData.clearAccounts();
+        getModel().getView().refreshViews(viewData);
+        getData();
+    }
+
+    @Override
+    public void onStop() {
+        viewData.clearAccounts();
+        SLUtil.getRepository().cancelRequests(NAME);
     }
 }
 

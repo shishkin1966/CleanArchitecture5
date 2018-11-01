@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.sl.paged;
+package shishkin.cleanarchitecture.mvi.sl.paginator;
 
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
@@ -14,5 +14,7 @@ public interface Paginator extends ResponseListener {
     int getPrefetchSize();
 
     ResponseListener getListener();
+
+    void stop();
 
 }
