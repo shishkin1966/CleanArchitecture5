@@ -67,6 +67,16 @@
                 android:background="@color/white_light"
                 android:scrollbars="vertical"/>
 
+            <TextView
+                android:id="@+id/emptyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Повторите запрос"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size_xlarge"
+                android:visibility="invisible"/>
+
             <View
                 android:id="@+id/shadow_top"
                 android:layout_width="match_parent"
