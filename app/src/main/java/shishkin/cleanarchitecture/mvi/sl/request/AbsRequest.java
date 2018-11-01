@@ -2,6 +2,9 @@ package shishkin.cleanarchitecture.mvi.sl.request;
 
 import android.support.annotation.NonNull;
 
+
+import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
+
 @SuppressWarnings("unused")
 public abstract class AbsRequest implements Request {
 
@@ -42,9 +45,6 @@ public abstract class AbsRequest implements Request {
         return (!isCancelled());
     }
 
-    @Override
-    public abstract boolean isDistinct();
-
     public int getId() {
         return mId;
     }
@@ -63,4 +63,10 @@ public abstract class AbsRequest implements Request {
     public String getName() {
         return this.getClass().getName();
     }
+
+    @Override
+    public int getAction(Request oldRequest) {
+        return RequestThreadPoolExecutor.ACTION_DELETE;
+    }
+
 }

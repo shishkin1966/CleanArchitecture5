@@ -7,7 +7,9 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDb;
 import shishkin.cleanarchitecture.mvi.sl.data.ExtError;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsResultRequest;
+import shishkin.cleanarchitecture.mvi.sl.request.Request;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 
 /**
  * Created by Shishkin on 06.12.2017.
@@ -29,6 +31,11 @@ public class GetCurrencyRequest extends AbsResultRequest<List<String>> {
     @Override
     public boolean isDistinct() {
         return true;
+    }
+
+    @Override
+    public int getAction(Request oldRequest) {
+        return RequestThreadPoolExecutor.ACTION_DELETE;
     }
 
     @Override

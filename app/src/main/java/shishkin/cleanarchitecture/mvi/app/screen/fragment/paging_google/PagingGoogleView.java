@@ -1,5 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging_google;
 
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.paging.PagingViewData;
 import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 /**
@@ -8,4 +9,6 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
 
 public interface PagingGoogleView extends IFragment {
     void onRefresh();
+
+    void refreshViews(PagingViewData viewData);
 }
