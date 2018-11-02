@@ -81,6 +81,18 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
+    public void clearMail(final String name) {
+        if (StringUtils.isNullOrEmpty(name)) return;
+
+        final List<Mail> list = ((DataSpecialist) SL.getInstance().get(DataSpecialistImpl.NAME)).filter(mMail.values(), mail -> mail.contains(name)).toList();
+        if (!list.isEmpty()) {
+            for (Mail mail : list) {
+                mMail.remove(mail.getId());
+            }
+        }
+    }
+
+    @Override
     public void addMailingList(String name, List<String> addresses) {
         if (StringUtils.isNullOrEmpty(name) || addresses == null) return;
 

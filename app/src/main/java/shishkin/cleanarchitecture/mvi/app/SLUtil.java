@@ -33,6 +33,8 @@ import shishkin.cleanarchitecture.mvi.sl.MailUnion;
 import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.PaginatorUnion;
+import shishkin.cleanarchitecture.mvi.sl.PaginatorUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.PreferencesSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.PreferencesSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnion;
@@ -154,6 +156,10 @@ public class SLUtil {
 
     public static SerializableDiskStorageSpecialist getSerializableDiskStorageSpecialist() {
         return SL.getInstance().get(SerializableDiskStorageSpecialistImpl.NAME);
+    }
+
+    public static PaginatorUnion getPaginatorUnion() {
+        return SL.getInstance().get(PaginatorUnionImpl.NAME);
     }
 
     public static <C> C getActivity() {

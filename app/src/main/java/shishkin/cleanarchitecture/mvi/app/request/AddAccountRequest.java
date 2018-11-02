@@ -52,4 +52,5 @@ public class AddAccountRequest extends AbsResultRequest<Account> {
         }
         response();
     }
+
 }

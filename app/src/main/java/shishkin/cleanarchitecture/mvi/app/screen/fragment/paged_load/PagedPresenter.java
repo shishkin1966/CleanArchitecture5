@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -8,6 +8,7 @@ import java.util.List;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PagingViewData;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -18,14 +19,34 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
  * Created by Shishkin on 17.03.2018.
  */
 
-public class PagingPresenter extends AbsPresenter<PagingModel> implements ResponseListener, SwipeRefreshLayout.OnRefreshListener {
+public class PagedPresenter extends AbsPresenter<PagedModel> implements SwipeRefreshLayout.OnRefreshListener, ResponseListener {
 
-    public static final String NAME = PagingPresenter.class.getName();
+    public static final String NAME = PagedPresenter.class.getName();
 
     private PagingViewData viewData;
 
-    PagingPresenter(PagingModel model) {
+    public PagedPresenter(PagedModel model) {
         super(model);
+    }
+
+    @Override
+    public void onStart() {
+        if (viewData == null) {
+            viewData = new PagingViewData();
+        }
+    }
+
+    @Override
+    public void response(Result result) {
+        if (!validate()) return;
+
+        if (!result.hasError()) {
+            viewData.addAccounts((List<Account>) result.getData());
+            getModel().getView().refreshViews(viewData);
+        } else {
+            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
+        }
+
     }
 
     @Override
@@ -39,49 +60,23 @@ public class PagingPresenter extends AbsPresenter<PagingModel> implements Respon
     }
 
     @Override
-    public void onStart() {
-        if (viewData == null) {
-            viewData = new PagingViewData();
-        }
-        viewData.clearAccounts();
-        getData();
-    }
-
-    private void getData() {
-        getModel().getView().showProgressBar();
-        SLUtil.getRepository().getPagingAccounts(NAME);
-    }
-
-    @Override
-    public void response(Result result) {
-        if (!validate()) return;
-
-        if (!result.hasError()) {
-            if (result.getOrder() == Result.LAST) {
-                getModel().getView().hideProgressBar();
-            } else {
-                getModel().getView().showProgressBar();
-            }
-            viewData.addAccounts((List<Account>) result.getData());
-            getModel().getView().refreshViews(viewData);
-        } else {
-            getModel().getView().hideProgressBar();
-            SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
-        }
-    }
-
-    @Override
     public void onRefresh() {
-        SLUtil.getRepository().cancelRequests(NAME);
         viewData.clearAccounts();
-        getModel().getView().refreshViews(viewData);
-        getData();
+        getModel().getView().onRefresh();
     }
 
-    @Override
-    public void onStop() {
-        viewData.clearAccounts();
-        SLUtil.getRepository().cancelRequests(NAME);
+    public void showProgressBar() {
+        getModel().getView().showProgressBar();
+    }
+
+    public void hideProgressBar() {
+        getModel().getView().hideProgressBar();
+    }
+
+    public boolean onBackPressed() {
+        SLUtil.getPaginatorUnion().unregister(AccountsPaginator.NAME);
+        SLUtil.getViewUnion().switchToTopFragment();
+        return true;
     }
 }
 

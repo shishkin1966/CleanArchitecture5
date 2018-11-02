@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.app.screen.fragment.paging;
+package shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,9 +13,9 @@ import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractViewHolder;
 
-public class PagingRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Account, PagingRecyclerViewAdapter.ViewHolder> {
+public class PageRecyclerViewAdapter extends AbstractRecyclerViewAdapter<Account, PageRecyclerViewAdapter.ViewHolder> {
 
-    public PagingRecyclerViewAdapter(@NonNull Context context) {
+    public PageRecyclerViewAdapter(@NonNull Context context) {
         super(context);
 
         setHasStableIds(false);

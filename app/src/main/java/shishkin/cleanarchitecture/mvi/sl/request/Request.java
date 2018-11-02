@@ -49,4 +49,11 @@ public interface Request extends Runnable, Subscriber, Comparable<Request> {
      * @return true - при запуске все предыдущие такие же запросы будут прерваны
      */
     boolean isDistinct();
+
+    /**
+     * Что делать если такой запрос уже есть
+     *
+     * @return 0 - удалить старые запросы, 1 = не выполнять
+     */
+    int getAction(Request oldRequest);
 }
