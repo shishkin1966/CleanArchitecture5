@@ -20,7 +20,7 @@ public interface Paginator extends ResponseListener, SpecialistSubscriber {
     void reset();
 
     /**
-     * Получить запрос для выборки данныъ
+     * Получить запрос для выборки данных
      *
      * @param currentPosition - текущая позиция для выборки данных
      * @param currentPageSize - текущее количество выбираемых данных
@@ -37,21 +37,21 @@ public interface Paginator extends ResponseListener, SpecialistSubscriber {
      *
      * @param listener - имя слушателя
      */
-    NetPaginator setListener(String listener);
+    Paginator setListener(String listener);
 
     /**
      * Установить начальный размер выбираемых данных
      *
      * @param initialPageSize - размер первоначальной выборки данных
      */
-    NetPaginator setInitialPageSize(int initialPageSize);
+    Paginator setInitialPageSize(int initialPageSize);
 
     /**
      * Установить размеры выбираемых данных
      *
      * @param pageSize - последовательнось размеров выборки данных
      */
-    NetPaginator setPageSize(List<Integer> pageSize);
+    Paginator setPageSize(List<Integer> pageSize);
 
     /**
      * Остановить выборку данных
