@@ -56,34 +56,24 @@ public class CalcPresenter extends AbsPresenter<CalcModel> implements Observer, 
         final String value = StringUtils.allTrim((String) arg);
         switch (tag) {
             case "1":
-                if (!viewData.getItem1().equalsIgnoreCase(value)) {
-                    viewData.setItem1(value);
-                    calc();
-                }
+                viewData.setItem1(value);
+                calc();
                 break;
             case "2":
-                if (!viewData.getItem2().equalsIgnoreCase(value)) {
-                    viewData.setItem2(value);
-                    calc();
-                }
+                viewData.setItem2(value);
+                calc();
                 break;
             case "3":
-                if (!viewData.getItem3().equalsIgnoreCase(value)) {
-                    viewData.setItem3(value);
-                    calc();
-                }
+                viewData.setItem3(value);
+                calc();
                 break;
             case "4":
-                if (!viewData.getItem4().equalsIgnoreCase(value)) {
-                    viewData.setItem4(value);
-                    calc();
-                }
+                viewData.setItem4(value);
+                calc();
                 break;
             case "5":
-                if (!viewData.getItem1().equalsIgnoreCase(value)) {
-                    viewData.setItem5(value);
-                    calc();
-                }
+                viewData.setItem5(value);
+                calc();
                 break;
         }
     }
