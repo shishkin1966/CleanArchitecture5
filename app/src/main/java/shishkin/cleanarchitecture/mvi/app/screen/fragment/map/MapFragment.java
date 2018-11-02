@@ -54,7 +54,7 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
                     .mapType(GoogleMap.MAP_TYPE_NORMAL);
             final SupportMapFragment fragment = SupportMapFragment.newInstance(mapOptions);
             fragment.getMapAsync(getModel().getPresenter());
-            final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.add(R.id.map, fragment, "map");
             transaction.commit();
         }
