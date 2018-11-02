@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.data;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;

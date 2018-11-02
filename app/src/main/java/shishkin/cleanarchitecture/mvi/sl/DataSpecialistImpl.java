@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.annimon.stream.Stream;
 import com.annimon.stream.function.Predicate;

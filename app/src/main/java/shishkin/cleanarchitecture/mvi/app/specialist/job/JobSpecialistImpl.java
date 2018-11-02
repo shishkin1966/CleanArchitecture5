@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.job;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;

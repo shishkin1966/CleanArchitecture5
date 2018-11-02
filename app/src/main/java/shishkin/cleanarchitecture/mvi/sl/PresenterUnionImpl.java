@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import shishkin.cleanarchitecture.mvi.sl.presenter.Presenter;

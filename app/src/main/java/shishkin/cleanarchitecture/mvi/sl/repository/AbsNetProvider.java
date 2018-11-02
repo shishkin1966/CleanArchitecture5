@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.repository;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import java.util.concurrent.TimeUnit;

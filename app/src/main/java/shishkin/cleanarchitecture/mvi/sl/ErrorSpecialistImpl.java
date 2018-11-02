@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import android.Manifest;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import com.github.snowdream.android.util.FilePathGenerator;

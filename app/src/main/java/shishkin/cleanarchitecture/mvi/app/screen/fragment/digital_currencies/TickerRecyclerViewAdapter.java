@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;

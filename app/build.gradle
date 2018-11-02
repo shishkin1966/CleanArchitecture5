@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 
 def supportLibVersion = "27.1.1"
-def compileSdk = 27
+def compileSdk = 28
 def buildTools = "28.0.3"
 def minSdk = 21
 def targetSdk = 27
 def playServices = "15.0.1"
+def androidx = "1.0.0"
+def room = "2.0.0"
 
 android {
     buildToolsVersion buildTools
@@ -60,11 +62,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:support-core-utils:$supportLibVersion"
-    implementation "com.android.support:support-v13:$supportLibVersion"
-    implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation "com.android.support:design:$supportLibVersion"
+    implementation "androidx.appcompat:appcompat:$androidx"
+    implementation "androidx.legacy:legacy-support-core-utils:$androidx"
+    implementation "androidx.legacy:legacy-support-v13:$androidx"
+    implementation "androidx.legacy:legacy-support-v4:$androidx"
+    implementation "com.google.android.material:material:$androidx"
 
     implementation "com.google.android.gms:play-services-base:$playServices"
     implementation "com.google.android.gms:play-services-maps:$playServices"
@@ -72,7 +74,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5'
 
     // поддержка multidex на Android 4.*
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
 
     // Toastы
     implementation 'com.github.GrenderG:Toasty:1.3.0'
@@ -81,8 +83,8 @@ dependencies {
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
 
     // БД ROOM
-    implementation 'android.arch.persistence.room:runtime:1.1.1';
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1';
+    implementation "androidx.room:room-runtime:$room";
+    annotationProcessor "androidx.room:room-compiler:$room";
 
     // сериализация
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -142,6 +144,4 @@ dependencies {
 
     // Flashbar
     implementation 'com.andrognito.flashbar:flashbar:1.0.3'
-
-    implementation "android.arch.paging:runtime:1.0.1"
 }

@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import java.util.List;

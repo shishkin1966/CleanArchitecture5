@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.calculation;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
