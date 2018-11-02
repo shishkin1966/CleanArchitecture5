@@ -22,7 +22,7 @@ public class CalculationTask extends AsyncTask<Void, Void, Result<CalcViewData>>
         if (sInstance != null) {
             if (!sInstance.isCancelled()) {
                 try {
-                    sInstance.cancel(true);
+                    sInstance.cancel(false);
                 } catch (Exception e) {
                 }
             }

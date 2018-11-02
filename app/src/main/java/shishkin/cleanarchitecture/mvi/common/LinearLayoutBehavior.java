@@ -21,8 +21,10 @@ public class LinearLayoutBehavior extends BottomSheetBehavior<LinearLayout> {
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, LinearLayout child, View dependency) {
-        final float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
-        child.setTranslationY(translationY);
+        if (dependency != null && child != null) {
+            final float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
+            child.setTranslationY(translationY);
+        }
         return true;
     }
 }
