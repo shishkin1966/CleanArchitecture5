@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.view.View;
 
 

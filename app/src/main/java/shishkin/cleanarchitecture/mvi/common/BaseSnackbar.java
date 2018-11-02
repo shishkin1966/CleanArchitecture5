@@ -1,11 +1,11 @@
 package shishkin.cleanarchitecture.mvi.common;
 
 import android.content.Context;
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -34,8 +34,8 @@ public class BaseSnackbar {
         final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) snackbarView.getLayoutParams();
         params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
         snackbarView.setLayoutParams(params);
-        final TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-        final TextView actionView = snackbarView.findViewById(android.support.design.R.id.snackbar_action);
+        final TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        final TextView actionView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_action);
         textView.setTextColor(ViewUtils.getColor(view.getContext(), R.color.white));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));
         actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ViewUtils.getDimensionPx(view.getContext(), R.dimen.text_size_large));

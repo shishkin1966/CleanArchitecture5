@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.task;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import shishkin.cleanarchitecture.mvi.sl.request.Request;

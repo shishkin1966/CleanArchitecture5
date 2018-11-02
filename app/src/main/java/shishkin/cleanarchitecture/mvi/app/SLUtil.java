@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app;
 
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.RoomDatabase;
 import android.content.Context;
 
 

@@ -1,9 +1,9 @@
 package shishkin.cleanarchitecture.mvi.common;
 
 import android.content.Context;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar.SnackbarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;

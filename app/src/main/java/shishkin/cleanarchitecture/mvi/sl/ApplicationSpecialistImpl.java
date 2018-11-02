@@ -3,9 +3,9 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 
 import java.io.File;

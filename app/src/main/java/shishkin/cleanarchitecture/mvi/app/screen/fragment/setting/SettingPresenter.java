@@ -2,7 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.setting;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 

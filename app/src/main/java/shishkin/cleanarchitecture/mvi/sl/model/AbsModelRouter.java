@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.model;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;

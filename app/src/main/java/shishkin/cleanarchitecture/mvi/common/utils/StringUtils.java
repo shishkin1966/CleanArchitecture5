@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.common.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Base64;
 import android.util.SparseArray;
 

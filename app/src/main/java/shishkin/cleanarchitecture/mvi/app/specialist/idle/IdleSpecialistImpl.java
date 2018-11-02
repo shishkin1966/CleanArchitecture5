@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.idle;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import java.util.concurrent.TimeUnit;

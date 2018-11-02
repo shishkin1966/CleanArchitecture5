@@ -2,7 +2,7 @@ package shishkin.cleanarchitecture.mvi.app.specialist.media;
 
 import android.media.MediaPlayer;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;

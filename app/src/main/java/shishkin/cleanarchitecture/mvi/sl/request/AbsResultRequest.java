@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import java.lang.ref.WeakReference;

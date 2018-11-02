@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.model;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 public interface ModelRouter {
 
