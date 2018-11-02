@@ -21,7 +21,10 @@ public class CalculationTask extends AsyncTask<Void, Void, Result<CalcViewData>>
     public static void executeInstance(ResponseListener listener, CalcViewData viewData) {
         if (sInstance != null) {
             if (!sInstance.isCancelled()) {
-                sInstance.cancel(true);
+                try {
+                    sInstance.cancel(true);
+                } catch (Exception e) {
+                }
             }
         }
 
@@ -45,7 +48,7 @@ public class CalculationTask extends AsyncTask<Void, Void, Result<CalcViewData>>
         }
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             Thread.yield();
 
             if (isCancelled()) {
