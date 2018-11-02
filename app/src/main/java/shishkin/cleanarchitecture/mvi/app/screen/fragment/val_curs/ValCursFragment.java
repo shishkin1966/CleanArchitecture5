@@ -166,7 +166,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         if (!viewData.isSelected()) {
             if (bottomBar.getVisibility() == View.VISIBLE) {
                 mExpandableLayout.collapse();
-                final Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_down);
+                final Animation animation = AnimationUtils.loadAnimation(SLUtil.getContext(), R.anim.slide_down);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
