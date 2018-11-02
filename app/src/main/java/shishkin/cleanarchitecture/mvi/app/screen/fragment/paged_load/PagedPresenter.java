@@ -72,5 +72,11 @@ public class PagedPresenter extends AbsPresenter<PagedModel> implements SwipeRef
     public void hideProgressBar() {
         getModel().getView().hideProgressBar();
     }
+
+    public boolean onBackPressed() {
+        SLUtil.getPaginatorUnion().unregister(AccountsPaginator.NAME);
+        SLUtil.getViewUnion().switchToTopFragment();
+        return true;
+    }
 }
 

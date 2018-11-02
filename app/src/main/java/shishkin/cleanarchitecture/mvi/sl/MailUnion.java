@@ -60,6 +60,13 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
     void clearMail(final MailSubscriber subscriber);
 
     /**
+     * Удалить сообщения подписчика
+     *
+     * @param name имя подписчика
+     */
+    void clearMail(final String name);
+
+    /**
      * Читать почту подписчика
      *
      * @param subscriber почтовый подписчик

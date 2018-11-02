@@ -17,6 +17,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PageRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PagingViewData;
 import shishkin.cleanarchitecture.mvi.sl.paginator.OnPagedScrollListener;
+import shishkin.cleanarchitecture.mvi.sl.paginator.Paginator;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 
 /**
@@ -34,7 +35,6 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PageRecyclerViewAdapter adapter;
-    private AccountsPaginator paginator;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +56,10 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
 
         adapter = new PageRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(adapter);
-        paginator = new AccountsPaginator(getModel().getPresenter());
+
+        final Paginator paginator = SLUtil.getPaginatorUnion().getPaginator(AccountsPaginator.NAME);
+        paginator.setListener(getModel().getPresenter().getName()).reset();
+        SLUtil.getMailUnion().clearMail(getModel().getPresenter());
         mRecyclerView.addOnScrollListener(new OnPagedScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager(), paginator));
     }
 
@@ -72,21 +75,19 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
 
     @Override
     public boolean onBackPressed() {
-        SLUtil.getViewUnion().switchToTopFragment();
-        return true;
+        return getModel().getPresenter().onBackPressed();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        paginator.stop();
         mRecyclerView.setAdapter(null);
     }
 
     @Override
     public void onRefresh() {
-        paginator.reset();
+        SLUtil.getPaginatorUnion().getPaginator(AccountsPaginator.NAME).reset();
         adapter.clear();
         mSwipeRefreshLayout.setRefreshing(false);
     }
