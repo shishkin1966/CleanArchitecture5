@@ -48,7 +48,7 @@ public class CalculationTask extends AsyncTask<Void, Void, Result<CalcViewData>>
         }
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
             Thread.yield();
 
             if (isCancelled()) {
