@@ -1,9 +1,9 @@
 package shishkin.cleanarchitecture.mvi.sl.model;
 
-import androidx.annotation.IdRes;
 import android.view.View;
 
 
+import androidx.annotation.IdRes;
 import shishkin.cleanarchitecture.mvi.sl.Validated;
 import shishkin.cleanarchitecture.mvi.sl.state.Stateable;
 import shishkin.cleanarchitecture.mvi.sl.ui.IView;

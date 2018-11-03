@@ -1,8 +1,8 @@
 package shishkin.cleanarchitecture.mvi.sl.repository;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * Created by Shishkin on 22.12.2017.

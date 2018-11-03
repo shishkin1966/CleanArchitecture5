@@ -1,11 +1,9 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.idle;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;

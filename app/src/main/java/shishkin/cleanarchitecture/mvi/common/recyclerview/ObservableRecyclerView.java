@@ -1,16 +1,18 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
 import android.content.Context;
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * RecyclerView that allow to handle {@link #dispatchTouchEvent(MotionEvent)} callbacks.

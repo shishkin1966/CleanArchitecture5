@@ -166,4 +166,9 @@ public abstract class NetPaginator implements Paginator, InterruptListener {
         currentPageSize = getNextPageSize();
         request(currentPosition, currentPageSize);
     }
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }

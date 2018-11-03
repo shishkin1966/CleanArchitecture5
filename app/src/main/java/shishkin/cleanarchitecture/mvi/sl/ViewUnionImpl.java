@@ -2,10 +2,6 @@ package shishkin.cleanarchitecture.mvi.sl;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +14,10 @@ import java.util.Collections;
 import java.util.List;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -50,30 +50,30 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
     private List<WeakReference<IActivity>> mActivities = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public void register(final IActivity subscriber) {
-        super.register(subscriber);
-
-        if (subscriber == null) return;
-
-        for (int i = mActivities.size() - 1; i >= 0; i--) {
-            if (mActivities.get(i) == null) {
-                mActivities.remove(i);
-                continue;
-            }
-            if (mActivities.get(i).get() == null) {
-                mActivities.remove(i);
-                continue;
-            }
-
-            if (mActivities.get(i).get().getName().equals(subscriber.getName())) {
-                if (!mActivities.get(i).get().equals(subscriber)) {
-                    mActivities.get(i).get().exit();
+    public boolean register(final IActivity subscriber) {
+        if (super.register(subscriber)) {
+            for (int i = mActivities.size() - 1; i >= 0; i--) {
+                if (mActivities.get(i) == null) {
+                    mActivities.remove(i);
+                    continue;
                 }
-                mActivities.remove(i);
-            }
-        }
+                if (mActivities.get(i).get() == null) {
+                    mActivities.remove(i);
+                    continue;
+                }
 
-        mActivities.add(new WeakReference<>(subscriber));
+                if (mActivities.get(i).get().getName().equals(subscriber.getName())) {
+                    if (!mActivities.get(i).get().equals(subscriber)) {
+                        mActivities.get(i).get().exit();
+                    }
+                    mActivities.remove(i);
+                }
+            }
+
+            mActivities.add(new WeakReference<>(subscriber));
+            return true;
+        }
+        return false;
     }
 
     @Override

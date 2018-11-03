@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.task;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
 @SuppressWarnings("unused")

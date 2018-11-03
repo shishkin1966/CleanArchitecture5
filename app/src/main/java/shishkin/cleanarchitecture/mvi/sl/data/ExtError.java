@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.data;
 
 import androidx.annotation.Nullable;
-
-
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 
 @SuppressWarnings("unused")

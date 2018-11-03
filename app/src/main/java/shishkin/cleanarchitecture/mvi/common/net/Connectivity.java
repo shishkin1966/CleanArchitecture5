@@ -5,10 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 
 /**

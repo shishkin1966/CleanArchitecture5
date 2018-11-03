@@ -4,7 +4,6 @@ import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import androidx.annotation.NonNull;
 import android.util.Base64;
 
 import com.google.common.base.Charsets;
@@ -29,6 +28,7 @@ import javax.crypto.spec.PSource;
 import javax.security.auth.x500.X500Principal;
 
 
+import androidx.annotation.NonNull;
 import io.paperdb.Paper;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;

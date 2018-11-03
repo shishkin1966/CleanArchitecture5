@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.common.utils;
 
-import androidx.annotation.NonNull;
 import android.util.Base64;
 import android.util.SparseArray;
 
@@ -16,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
+
+
+import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
 public class StringUtils {

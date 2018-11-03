@@ -1,13 +1,11 @@
 package shishkin.cleanarchitecture.mvi.sl.task;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.sl.request.Request;
 
 public class RunnableExecutor extends AbsRequestExecutor {

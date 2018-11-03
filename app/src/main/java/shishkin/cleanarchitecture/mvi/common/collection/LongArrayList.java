@@ -2,6 +2,8 @@ package shishkin.cleanarchitecture.mvi.common.collection;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+
 import androidx.annotation.NonNull;
 
 /**

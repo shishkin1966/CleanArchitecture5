@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.event;
 
 import androidx.fragment.app.Fragment;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 
 /**

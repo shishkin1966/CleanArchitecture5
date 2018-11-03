@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.core.view.MotionEventCompat;
-import androidx.core.view.VelocityTrackerCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -24,6 +20,12 @@ import android.widget.Scroller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
 public class CustomViewAbove extends ViewGroup {
 

@@ -1,13 +1,13 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview.choice;
 
 import android.os.Bundle;
+import android.view.View;
+
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-
-
 import shishkin.cleanarchitecture.mvi.common.recyclerview.ChoiceMode;
 
 /**

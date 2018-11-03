@@ -1,7 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import android.Manifest;
-import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import com.github.snowdream.android.util.FilePathGenerator;
@@ -11,6 +10,7 @@ import com.github.snowdream.android.util.Log;
 import java.io.File;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;

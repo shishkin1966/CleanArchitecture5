@@ -1,7 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.Gson;
 
 
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 
+import androidx.annotation.NonNull;
 import io.paperdb.Paper;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 

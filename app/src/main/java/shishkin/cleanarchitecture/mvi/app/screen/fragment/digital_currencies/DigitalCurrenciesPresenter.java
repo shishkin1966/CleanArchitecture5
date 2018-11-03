@@ -1,13 +1,11 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Ticker;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;

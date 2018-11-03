@@ -7,11 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +17,11 @@ import android.view.inputmethod.InputMethodManager;
 import java.util.List;
 
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.KeyboardRunnable;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -43,6 +43,11 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
 
     private StateObservable mStateObservable = new StateObservable(ViewStateObserver.STATE_CREATE);
     private M mModel;
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 
     @Override
     public M getModel() {

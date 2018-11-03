@@ -9,11 +9,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -21,6 +16,7 @@ import android.widget.Toast;
 import com.andrognito.flashbar.Flashbar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.lang.reflect.Field;
@@ -29,6 +25,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ActivityCompat;
 import es.dmoral.toasty.Toasty;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.BaseSnackbar;

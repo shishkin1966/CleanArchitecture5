@@ -1,12 +1,12 @@
 package shishkin.cleanarchitecture.mvi.sl.repository;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 
 
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -89,7 +89,6 @@ public abstract class AbsNetProvider<T> extends AbsProvider implements NetProvid
     public int compareTo(@NonNull Object o) {
         return (NetProvider.class.isInstance(o)) ? 0 : 1;
     }
-
 }
 
 

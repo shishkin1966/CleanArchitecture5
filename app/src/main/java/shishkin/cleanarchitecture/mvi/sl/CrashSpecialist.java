@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
 /**
@@ -29,6 +27,11 @@ public class CrashSpecialist implements Thread.UncaughtExceptionHandler, Special
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public String getPasport() {
+        return getName();
     }
 
     @Override

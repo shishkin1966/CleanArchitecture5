@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.create_account;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;

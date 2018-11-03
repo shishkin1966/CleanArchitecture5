@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.notification;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 
 public class NotificationSpecialistImpl extends AbsSpecialist implements NotificationSpecialist {
