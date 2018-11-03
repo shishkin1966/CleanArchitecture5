@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import shishkin.cleanarchitecture.mvi.common.Interrupt;
+import shishkin.cleanarchitecture.mvi.common.InterruptListener;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.MailUnion;
 import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
@@ -15,16 +17,16 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.mail.ResultMail;
 import shishkin.cleanarchitecture.mvi.sl.request.PaginatorRequest;
 
-public abstract class NetPaginator implements Paginator {
+public abstract class NetPaginator implements Paginator, InterruptListener {
 
     private static int PREFETCH_SIZE = 20;
 
     private String listener;
     private int currentPageSize = 0;
     private int currentPosition = 0;
-    private int requestPosition = -1;
     private List<Integer> pageSize;
-    private boolean bof = false;
+    private boolean eof = false;
+    private Interrupt interrupt = new Interrupt(this);
 
     public NetPaginator() {
         setPageSize(10);
@@ -78,41 +80,32 @@ public abstract class NetPaginator implements Paginator {
 
     @Override
     public void hasData() {
-        if (!bof) {
-            if (currentPosition > requestPosition) {
-                requestPosition = currentPosition;
-                currentPageSize = getNextPageSize();
-                request(currentPosition, currentPageSize);
-            }
+        if (!eof) {
+            interrupt.up();
         }
     }
 
     @Override
     public void response(Result result) {
-        if (!bof) {
+        interrupt.down();
+        if (!eof) {
             if (!result.hasError()) {
                 final List list = (List) result.getData();
                 if (list != null) {
                     if (!list.isEmpty()) {
                         currentPosition += list.size();
-                        if (validate()) {
-                            final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
-                            if (union != null) {
-                                union.addMail(new ResultMail(listener, result));
-                            }
+                        final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
+                        if (union != null) {
+                            union.addMail(new ResultMail(listener, result));
                         }
                     } else {
-                        bof = true;
+                        eof = true;
                     }
-                } else {
-                    bof = true;
                 }
             } else {
-                if (validate()) {
-                    final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
-                    if (union != null) {
-                        union.addMail(new ResultMail(listener, result));
-                    }
+                final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
+                if (union != null) {
+                    union.addMail(new ResultMail(listener, result));
                 }
             }
         }
@@ -121,8 +114,8 @@ public abstract class NetPaginator implements Paginator {
     private void init() {
         currentPosition = 0;
         currentPageSize = 0;
-        requestPosition = -1;
-        bof = false;
+        eof = false;
+        interrupt.down();
     }
 
     @Override
@@ -141,7 +134,7 @@ public abstract class NetPaginator implements Paginator {
         if (specialist != null) {
             specialist.cancelRequests(this.getName());
         }
-        bof = true;
+        eof = true;
     }
 
     private void request(int currentPosition, int currentPageSize) {
@@ -166,5 +159,11 @@ public abstract class NetPaginator implements Paginator {
     @Override
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(PaginatorUnionImpl.NAME);
+    }
+
+    @Override
+    public void onInterrupt() {
+        currentPageSize = getNextPageSize();
+        request(currentPosition, currentPageSize);
     }
 }
