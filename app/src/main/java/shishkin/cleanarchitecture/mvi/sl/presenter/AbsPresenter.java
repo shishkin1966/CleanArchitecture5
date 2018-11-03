@@ -43,6 +43,8 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
         SL.getInstance().register(this);
 
         onStart();
+
+        ((MailUnion) SL.getInstance().get(MailUnionImpl.NAME)).readMail(this);
     }
 
     @Override
