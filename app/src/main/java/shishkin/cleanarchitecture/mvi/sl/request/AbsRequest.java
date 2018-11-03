@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.request;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 
 @SuppressWarnings("unused")
@@ -62,6 +60,11 @@ public abstract class AbsRequest implements Request {
     @Override
     public String getName() {
         return this.getClass().getName();
+    }
+
+    @Override
+    public String getPasport() {
+        return getName();
     }
 
     @Override

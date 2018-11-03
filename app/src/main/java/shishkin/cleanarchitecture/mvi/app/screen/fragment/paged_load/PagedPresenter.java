@@ -1,11 +1,9 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.paged_load;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-
 import java.util.List;
 
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PagingViewData;

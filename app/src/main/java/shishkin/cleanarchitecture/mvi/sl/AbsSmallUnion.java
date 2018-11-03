@@ -25,13 +25,24 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
     }
 
     @Override
-    public void register(final T subscriber) {
+    public boolean checkSubscriber(T subscriber) {
+        return !StringUtils.isNullOrEmpty(subscriber.getPasport()) && !StringUtils.isNullOrEmpty(subscriber.getName());
+    }
+
+    @Override
+    public boolean register(final T subscriber) {
         if (subscriber == null) {
-            return;
+            return false;
+        }
+
+        if (!checkSubscriber(subscriber)) {
+            ErrorSpecialistImpl.getInstance().onError(NAME, "Suscriber is not authenticated : " + subscriber.toString(), true);
+            return false;
         }
 
         if (!subscriber.validate()) {
             ErrorSpecialistImpl.getInstance().onError(NAME, "Registration not valid subscriber: " + subscriber.toString(), true);
+            return false;
         }
 
         final int cnt = mSecretary.size();
@@ -42,6 +53,7 @@ public abstract class AbsSmallUnion<T extends SpecialistSubscriber> extends AbsS
             onRegisterFirstSubscriber();
         }
         onAddSubscriber(subscriber);
+        return true;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.val_curs;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.View;
 
 
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.ValCurs;

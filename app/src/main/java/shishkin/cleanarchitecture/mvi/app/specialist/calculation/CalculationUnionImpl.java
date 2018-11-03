@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.calculation;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.calculation.CalcViewData;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;

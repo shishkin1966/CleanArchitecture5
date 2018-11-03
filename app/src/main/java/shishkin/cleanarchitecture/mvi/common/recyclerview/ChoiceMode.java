@@ -1,16 +1,18 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
 import android.os.Bundle;
+import android.view.View;
+
+
+import java.util.Arrays;
+
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.view.View;
-
-
-import java.util.Arrays;
 
 /**
  * Base class for any choice mode that can be used with {@link AbstractRecyclerViewAdapter}.

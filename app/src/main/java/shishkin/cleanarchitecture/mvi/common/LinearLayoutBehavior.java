@@ -1,12 +1,15 @@
 package shishkin.cleanarchitecture.mvi.common;
 
 import android.content.Context;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar.SnackbarLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout;
+
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class LinearLayoutBehavior extends BottomSheetBehavior<LinearLayout> {
 

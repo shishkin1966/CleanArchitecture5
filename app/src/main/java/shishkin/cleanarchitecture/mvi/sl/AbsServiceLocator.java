@@ -254,4 +254,9 @@ public abstract class AbsServiceLocator implements ServiceLocator {
     public List<Specialist> getSpecialists() {
         return secretary.values();
     }
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }

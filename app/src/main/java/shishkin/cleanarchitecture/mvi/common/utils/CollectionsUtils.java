@@ -1,11 +1,11 @@
 package shishkin.cleanarchitecture.mvi.common.utils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-
 import java.util.ArrayList;
 import java.util.List;
+
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * {@code CollectionsExt} contains static methods which operate on

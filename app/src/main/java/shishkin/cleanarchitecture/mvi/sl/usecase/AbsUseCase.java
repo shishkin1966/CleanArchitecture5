@@ -17,4 +17,6 @@ public abstract class AbsUseCase implements Subscriber, Validated {
     public boolean validate() {
         return validateExt().getData();
     }
+
+
 }

@@ -1,9 +1,9 @@
 package shishkin.cleanarchitecture.mvi.app;
 
-import androidx.room.RoomDatabase;
 import android.content.Context;
 
 
+import androidx.room.RoomDatabase;
 import shishkin.cleanarchitecture.mvi.app.net.NetCbProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.calculation.CalculationUnion;

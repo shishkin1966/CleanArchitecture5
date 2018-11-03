@@ -1,11 +1,5 @@
 package shishkin.cleanarchitecture.mvi.app.db;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Transaction;
-import androidx.room.Update;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,6 +7,12 @@ import android.os.Parcelable;
 import java.util.List;
 
 
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Transaction;
+import androidx.room.Update;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.data.Transfer;
 

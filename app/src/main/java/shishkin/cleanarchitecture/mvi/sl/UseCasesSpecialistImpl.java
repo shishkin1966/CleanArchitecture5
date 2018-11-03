@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.event.OnActionEvent;
 import shishkin.cleanarchitecture.mvi.sl.usecase.OnActionUseCase;
 

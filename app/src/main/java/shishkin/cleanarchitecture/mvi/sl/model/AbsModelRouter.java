@@ -1,9 +1,9 @@
 package shishkin.cleanarchitecture.mvi.sl.model;
 
 import android.app.Activity;
+
+
 import androidx.fragment.app.Fragment;
-
-
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;

@@ -1,14 +1,12 @@
 package shishkin.cleanarchitecture.mvi.sl.task;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.RefSecretaryImpl;

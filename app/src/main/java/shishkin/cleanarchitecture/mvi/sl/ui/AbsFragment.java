@@ -3,14 +3,14 @@ package shishkin.cleanarchitecture.mvi.sl.ui;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
+
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import android.view.View;
-
-
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
@@ -36,6 +36,11 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
 
     private StateObservable mStateObservable = new StateObservable(ViewStateObserver.STATE_CREATE);
     private M mModel;
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 
     @Override
     public M getModel() {

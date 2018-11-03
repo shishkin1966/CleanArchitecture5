@@ -3,8 +3,6 @@ package shishkin.cleanarchitecture.mvi.sl.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-
 import shishkin.cleanarchitecture.mvi.sl.BackStack;
 import shishkin.cleanarchitecture.mvi.sl.Router;
 import shishkin.cleanarchitecture.mvi.sl.SL;

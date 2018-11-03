@@ -1,7 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.AbstractRecyclerViewAdapter;

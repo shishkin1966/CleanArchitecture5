@@ -12,4 +12,12 @@ public interface Subscriber {
      */
     String getName();
 
+
+    /**
+     * Получить паспорт подписчика
+     *
+     * @return паспорт подписчика
+     */
+    String getPasport();
+
 }

@@ -1,16 +1,16 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview.choice;
 
 import android.os.Bundle;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.view.ActionMode;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.view.ActionMode;
+import androidx.recyclerview.widget.RecyclerView;
 import shishkin.cleanarchitecture.mvi.common.collection.LongArrayList;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.ActionModeCompat;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.ChoiceMode;

@@ -19,4 +19,9 @@ public abstract class AbsProvider implements Provider, Validated {
     @Override
     public void stop() {
     }
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }

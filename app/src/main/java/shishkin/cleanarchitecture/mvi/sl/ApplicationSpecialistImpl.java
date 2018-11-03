@@ -3,14 +3,14 @@ package shishkin.cleanarchitecture.mvi.sl;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Environment;
-import androidx.annotation.NonNull;
-import androidx.multidex.MultiDex;
-import androidx.multidex.MultiDexApplication;
 
 
 import java.io.File;
 
 
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import shishkin.cleanarchitecture.mvi.BuildConfig;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 
@@ -158,6 +158,10 @@ public abstract class ApplicationSpecialistImpl extends MultiDexApplication impl
         return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + BuildConfig.APPLICATION_ID + File.separator;
     }
 
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }
 
 

@@ -29,4 +29,9 @@ public class OnActionUseCase extends AbsUseCase {
     public String getName() {
         return NAME;
     }
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }

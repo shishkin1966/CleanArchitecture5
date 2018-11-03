@@ -1,10 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.data;
 
-import androidx.room.ColumnInfo;
-import androidx.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Comparator;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.PrimaryKey;
 import shishkin.cleanarchitecture.mvi.sl.data.AbsEntity;
 
 /**

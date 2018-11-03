@@ -1,12 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.repository;
 
 import android.Manifest;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import com.google.common.io.Files;
@@ -15,6 +10,11 @@ import com.google.common.io.Files;
 import java.io.File;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;

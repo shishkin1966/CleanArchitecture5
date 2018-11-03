@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.paginator.Paginator;
 import shishkin.cleanarchitecture.mvi.sl.paginator.PaginatorFactory;
 
@@ -26,16 +24,19 @@ public class PaginatorUnionImpl extends AbsSmallUnion<Paginator> implements Pagi
     }
 
     @Override
-    public void register(final Paginator paginator) {
-        if (paginator == null) return;
+    public boolean register(final Paginator paginator) {
+        if (paginator == null) return false;
 
-        if (hasSubscriber(paginator.getName())) {
-            final Paginator oldpaginator = getSubscriber(paginator.getName());
-            if (oldpaginator != null) {
-                oldpaginator.stop();
+        if (checkSubscriber(paginator)) {
+            if (hasSubscriber(paginator.getName())) {
+                final Paginator oldpaginator = getSubscriber(paginator.getName());
+                if (oldpaginator != null) {
+                    oldpaginator.stop();
+                }
             }
+            return super.register(paginator);
         }
-        super.register(paginator);
+        return false;
     }
 
 
@@ -55,6 +56,11 @@ public class PaginatorUnionImpl extends AbsSmallUnion<Paginator> implements Pagi
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public String getPasport() {
+        return getName();
     }
 
     @Override

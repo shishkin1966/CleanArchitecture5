@@ -17,12 +17,20 @@ public interface SmallUnion<T> extends Specialist {
      */
     Secretary createSecretary();
 
+
+    /**
+     * Проверить подписчика
+     *
+     * @return результат проверки подписчика
+     */
+    boolean checkSubscriber(T subscriber);
+
     /**
      * Зарегестрировать подписчика
      *
      * @param subscriber подписчик
      */
-    void register(T subscriber);
+    boolean register(T subscriber);
 
     /**
      * Отключить подписчика

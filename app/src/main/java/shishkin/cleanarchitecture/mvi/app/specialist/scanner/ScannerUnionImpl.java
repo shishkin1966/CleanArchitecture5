@@ -1,11 +1,10 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.scanner;
 
-import androidx.annotation.NonNull;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner.ScannerFragment;
 import shishkin.cleanarchitecture.mvi.sl.AbsSmallUnion;
