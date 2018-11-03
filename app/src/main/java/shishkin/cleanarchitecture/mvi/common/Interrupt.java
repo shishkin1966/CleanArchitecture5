@@ -1,5 +1,8 @@
 package shishkin.cleanarchitecture.mvi.common;
 
+/**
+ * Объект, реализующий прерывание по уровню
+ */
 public class Interrupt {
 
     private  InterruptListener listener;
