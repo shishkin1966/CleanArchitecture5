@@ -37,6 +37,11 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
+    public void onAddSubscriber(final MailSubscriber subscriber) {
+        readMail(subscriber);
+    }
+
+    @Override
     public List<Mail> getMail(final MailSubscriber subscriber) {
         if (subscriber != null) {
             if (mMail.isEmpty()) {
@@ -225,7 +230,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
 
         for (MailSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
-                if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+                final int state = subscriber.getState();
+                if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
                     readMail(subscriber);
                 }
             }
@@ -239,7 +245,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
 
         for (MailSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
-                if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+                final int state = subscriber.getState();
+                if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
                     return true;
                 }
             }
@@ -259,7 +266,8 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
 
         final List<Mail> list = getMail(subscriber);
         for (Mail mail : list) {
-            if (subscriber.getState() == ViewStateObserver.STATE_RESUME) {
+            final int state = subscriber.getState();
+            if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
                 mail.read(subscriber);
                 removeMail(mail);
             }
