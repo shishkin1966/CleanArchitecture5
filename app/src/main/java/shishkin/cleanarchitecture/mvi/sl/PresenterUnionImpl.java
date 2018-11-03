@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.sl.presenter.Presenter;
 
 /**
@@ -15,12 +13,16 @@ public class PresenterUnionImpl extends AbsUnion<Presenter>
     public static final String NAME = PresenterUnionImpl.class.getName();
 
     @Override
-    public void register(final Presenter subscriber) {
-        if (subscriber == null) return;
+    public boolean register(final Presenter subscriber) {
+        if (subscriber == null) return false;
 
-        if (subscriber.isRegister()) {
-            super.register(subscriber);
+        if (checkSubscriber(subscriber)) {
+            if (subscriber.isRegister()) {
+                return super.register(subscriber);
+            }
+            return true;
         }
+        return false;
     }
 
     @Override

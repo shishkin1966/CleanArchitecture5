@@ -91,5 +91,4 @@ public class ApplicationController extends ApplicationSpecialistImpl {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         getInstance().sendBroadcast(intent);
     }
-
 }

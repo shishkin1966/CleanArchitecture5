@@ -1,8 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -10,6 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.delegate.RequestDelegate;
 import shishkin.cleanarchitecture.mvi.sl.request.AbsRequest;

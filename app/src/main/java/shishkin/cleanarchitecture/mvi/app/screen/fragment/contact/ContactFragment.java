@@ -1,13 +1,13 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.contact;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;

@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SwipeMoveTouchHelper extends ItemTouchHelper.SimpleCallback {
     private AbstractRecyclerViewAdapter mMovieAdapter;

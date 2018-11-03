@@ -1,13 +1,13 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.scanner;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 

@@ -1,12 +1,11 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.job;
 
-import androidx.annotation.NonNull;
-
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;

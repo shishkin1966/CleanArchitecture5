@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.specialist.repository;
 
 import androidx.annotation.NonNull;
-
-
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;

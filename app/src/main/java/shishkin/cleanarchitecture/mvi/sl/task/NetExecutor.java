@@ -28,6 +28,7 @@ import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 public class NetExecutor extends AbsRequestExecutor implements ObservableSubscriber<Intent> {
 
     public static final String NAME = NetExecutor.class.getName();
+
     private static int QUEUE_CAPACITY = 1024;
     private int mThreadCount = 2;
     private int mMaxThreadCount = 2;
@@ -139,6 +140,11 @@ public class NetExecutor extends AbsRequestExecutor implements ObservableSubscri
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public String getPasport() {
+        return getName();
     }
 
     @Override

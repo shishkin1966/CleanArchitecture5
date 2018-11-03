@@ -1,8 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
@@ -34,6 +32,11 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public String getPasport() {
+        return getName();
     }
 
     @Override

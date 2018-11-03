@@ -2,7 +2,6 @@ package shishkin.cleanarchitecture.mvi.app.screen.fragment.setting;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -12,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationConstant;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;

@@ -11,16 +11,18 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
     private WeakReference<T> mCurrentSubscriber;
 
     @Override
-    public void register(final T subscriber) {
-        if (subscriber == null) return;
+    public boolean register(final T subscriber) {
+        if (subscriber == null) return false;
 
-        super.register(subscriber);
-
-        if (subscriber != null && mCurrentSubscriber != null && mCurrentSubscriber.get() != null) {
-            if (subscriber.getName().equalsIgnoreCase(mCurrentSubscriber.get().getName())) {
-                mCurrentSubscriber = new WeakReference<>(subscriber);
+        if (super.register(subscriber)) {
+            if (mCurrentSubscriber != null && mCurrentSubscriber.get() != null) {
+                if (subscriber.getName().equalsIgnoreCase(mCurrentSubscriber.get().getName())) {
+                    mCurrentSubscriber = new WeakReference<>(subscriber);
+                }
             }
+            return true;
         }
+        return false;
     }
 
 
@@ -30,7 +32,7 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
 
         super.unregister(subscriber);
 
-        if (subscriber != null && mCurrentSubscriber != null && mCurrentSubscriber.get() != null) {
+        if (mCurrentSubscriber != null && mCurrentSubscriber.get() != null) {
             if (subscriber.getName().equalsIgnoreCase(mCurrentSubscriber.get().getName())) {
                 if (mCurrentSubscriber.get().equals(subscriber)) {
                     mCurrentSubscriber.clear();
@@ -42,9 +44,11 @@ public abstract class AbsUnion<T extends SpecialistSubscriber> extends AbsSmallU
 
     @Override
     public void setCurrentSubscriber(final T subscriber) {
-        if (subscriber != null) {
-            mCurrentSubscriber = new WeakReference<>(subscriber);
-        }
+        if (subscriber == null) return;
+
+        if (!checkSubscriber(subscriber)) return;
+
+        mCurrentSubscriber = new WeakReference<>(subscriber);
     }
 
     @Override

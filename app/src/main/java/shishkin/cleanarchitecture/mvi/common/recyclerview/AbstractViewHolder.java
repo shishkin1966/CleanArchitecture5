@@ -3,12 +3,14 @@ package shishkin.cleanarchitecture.mvi.common.recyclerview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
+import android.view.View;
+import android.widget.Checkable;
+
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.Checkable;
 
 /**
  * Base {@link RecyclerView.ViewHolder} class that works in conjunction

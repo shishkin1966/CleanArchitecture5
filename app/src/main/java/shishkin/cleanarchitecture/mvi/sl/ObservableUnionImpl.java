@@ -1,12 +1,10 @@
 package shishkin.cleanarchitecture.mvi.sl;
 
-import androidx.annotation.NonNull;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.observe.Observable;
 
@@ -36,22 +34,24 @@ public class ObservableUnionImpl extends AbsSmallUnion<ObservableSubscriber> imp
     }
 
     @Override
-    public void register(final ObservableSubscriber subscriber) {
-        if (subscriber == null) return;
+    public boolean register(final ObservableSubscriber subscriber) {
+        if (subscriber == null) return false;
 
-        super.register(subscriber);
-
-        final List<String> list = subscriber.getObservable();
-        if (list != null) {
-            for (Observable observable : observableSecretary.values()) {
-                if (observable != null) {
-                    final String name = observable.getName();
-                    if (list.contains(name)) {
-                        observable.addObserver(subscriber);
+        if (super.register(subscriber)) {
+            final List<String> list = subscriber.getObservable();
+            if (list != null) {
+                for (Observable observable : observableSecretary.values()) {
+                    if (observable != null) {
+                        final String name = observable.getName();
+                        if (list.contains(name)) {
+                            observable.addObserver(subscriber);
+                        }
                     }
                 }
             }
+            return true;
         }
+        return false;
     }
 
     @Override

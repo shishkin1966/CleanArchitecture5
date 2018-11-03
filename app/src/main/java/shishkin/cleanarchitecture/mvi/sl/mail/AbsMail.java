@@ -132,5 +132,9 @@ public abstract class AbsMail implements Mail {
         return gson.fromJson(gson.toJson(this), getClass());
     }
 
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 
 }

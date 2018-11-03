@@ -5,7 +5,7 @@ package shishkin.cleanarchitecture.mvi.common;
  */
 public class Interrupt {
 
-    private  InterruptListener listener;
+    private InterruptListener listener;
     private boolean isInterrupt = false;
 
     public Interrupt(InterruptListener listener) {

@@ -49,6 +49,11 @@ public class ScreenOnOffObserver implements ObservableSubscriber<Intent> {
     }
 
     @Override
+    public String getPasport() {
+        return getName();
+    }
+
+    @Override
     public List<String> getObservable() {
         return StringUtils.arrayToList(ScreenBroadcastReceiverObservable.NAME);
     }

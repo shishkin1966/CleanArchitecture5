@@ -1,14 +1,14 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 
 import java.util.List;
 
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.ViewUnion;
 import shishkin.cleanarchitecture.mvi.sl.ViewUnionImpl;

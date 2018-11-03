@@ -25,6 +25,11 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
     }
 
     @Override
+    public String getPasport() {
+        return getName();
+    }
+
+    @Override
     public int getState() {
         return mLifecycle.getState();
     }

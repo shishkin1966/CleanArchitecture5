@@ -33,4 +33,9 @@ public abstract class AbsSpecialist implements Specialist {
     @Override
     public void stop() {
     }
+
+    @Override
+    public String getPasport() {
+        return getName();
+    }
 }

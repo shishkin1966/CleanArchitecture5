@@ -54,4 +54,10 @@ public abstract class AbsObservable<T, K extends ObservableSubscriber> implement
         return secretary.values();
     }
 
+    @Override
+    public String getPasport() {
+        return getName();
+    }
+
+
 }

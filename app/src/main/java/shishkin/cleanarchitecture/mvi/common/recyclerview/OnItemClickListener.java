@@ -1,7 +1,9 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
-import androidx.annotation.NonNull;
 import android.view.View;
+
+
+import androidx.annotation.NonNull;
 
 /**
  * Interface definition for a callback to be invoked when an item in this

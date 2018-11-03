@@ -1,17 +1,17 @@
 package shishkin.cleanarchitecture.mvi.app.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
-import androidx.annotation.NonNull;
-
-import com.google.gson.annotations.SerializedName;
-
-
 import shishkin.cleanarchitecture.mvi.sl.data.AbsEntity;
 
 /**

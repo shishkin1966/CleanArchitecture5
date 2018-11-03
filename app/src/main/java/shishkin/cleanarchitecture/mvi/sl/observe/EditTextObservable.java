@@ -1,6 +1,5 @@
 package shishkin.cleanarchitecture.mvi.sl.observe;
 
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -11,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.common.Debounce;
 
 public class EditTextObservable extends Observable implements TextWatcher {

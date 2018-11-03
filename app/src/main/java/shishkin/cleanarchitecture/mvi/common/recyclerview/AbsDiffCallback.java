@@ -1,10 +1,10 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
-import androidx.recyclerview.widget.DiffUtil;
-
-
 import java.util.ArrayList;
 import java.util.List;
+
+
+import androidx.recyclerview.widget.DiffUtil;
 
 /**
  * Created by Shishkin on 20.12.2017.

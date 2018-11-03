@@ -2,11 +2,6 @@ package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -18,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.choice.NoneChoiceMode;
 
 /**

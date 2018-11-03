@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
 import android.view.ViewGroup;
 
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import shishkin.cleanarchitecture.mvi.R;

@@ -81,6 +81,11 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     }
 
     @Override
+    public String getPasport() {
+        return getName();
+    }
+
+    @Override
     public Result<Boolean> validateExt() {
         return new Result<>(true);
     }

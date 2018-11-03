@@ -1,8 +1,6 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.calculation;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,8 @@ import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;

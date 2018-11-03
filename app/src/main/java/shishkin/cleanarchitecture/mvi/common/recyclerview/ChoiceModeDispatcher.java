@@ -1,16 +1,16 @@
 package shishkin.cleanarchitecture.mvi.common.recyclerview;
 
 import android.os.Bundle;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 
 import java.lang.ref.WeakReference;
 
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.choice.NoneChoiceMode;
 
 /**
