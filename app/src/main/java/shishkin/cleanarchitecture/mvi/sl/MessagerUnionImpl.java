@@ -18,16 +18,13 @@ import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 /**
  * Объединение, предоставляющее почтовый сервис подписчикам
  */
-public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements MailUnion {
+public class MessagerUnionImpl extends AbsSmallUnion<MessagerSubscriber> implements MessagerUnion {
 
-    public static final String NAME = MailUnionImpl.class.getName();
+    public static final String NAME = MessagerUnionImpl.class.getName();
 
     private Map<Long, Mail> mMail = Collections.synchronizedMap(new ConcurrentHashMap<>());
     private Secretary<List<String>> mMailingList = new SecretaryImpl<>();
     private AtomicLong mId = new AtomicLong(0L);
-
-    public MailUnionImpl() {
-    }
 
     @Override
     public String getName() {
@@ -40,12 +37,12 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
-    public void onAddSubscriber(final MailSubscriber subscriber) {
+    public void onAddSubscriber(final MessagerSubscriber subscriber) {
         readMail(subscriber);
     }
 
     @Override
-    public List<Mail> getMail(final MailSubscriber subscriber) {
+    public List<Mail> getMail(final MessagerSubscriber subscriber) {
         if (subscriber != null) {
             if (mMail.isEmpty()) {
                 return new ArrayList<>();
@@ -72,7 +69,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
     }
 
     @Override
-    public void clearMail(final MailSubscriber subscriber) {
+    public void clearMail(final MessagerSubscriber subscriber) {
         if (subscriber != null) {
             if (mMail.isEmpty()) {
                 return;
@@ -231,7 +228,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             return;
         }
 
-        for (MailSubscriber subscriber : getSubscribers()) {
+        for (MessagerSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
                 final int state = subscriber.getState();
                 if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
@@ -246,7 +243,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
             return false;
         }
 
-        for (MailSubscriber subscriber : getSubscribers()) {
+        for (MessagerSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
                 final int state = subscriber.getState();
                 if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
@@ -264,7 +261,7 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
      * @param subscriber почтовый подписчик
      */
     @Override
-    public void readMail(final MailSubscriber subscriber) {
+    public void readMail(final MessagerSubscriber subscriber) {
         if (subscriber == null) return;
 
         final List<Mail> list = getMail(subscriber);
@@ -316,6 +313,6 @@ public class MailUnionImpl extends AbsSmallUnion<MailSubscriber> implements Mail
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return (MailUnion.class.isInstance(o)) ? 0 : 1;
+        return (MessagerUnion.class.isInstance(o)) ? 0 : 1;
     }
 }

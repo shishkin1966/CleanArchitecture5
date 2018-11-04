@@ -4,7 +4,7 @@ import android.widget.Toast;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MessagerSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.Messager;
 
@@ -45,7 +45,7 @@ public class ShowMessageMail extends AbsMail {
     }
 
     @Override
-    public void read(MailSubscriber subscriber) {
+    public void read(MessagerSubscriber subscriber) {
         if (subscriber instanceof Messager) {
             ((Messager) subscriber).showMessage(new ShowMessageEvent(mMessage)
                     .setDuration(mDuration)

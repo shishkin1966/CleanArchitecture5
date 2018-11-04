@@ -9,7 +9,7 @@ import shishkin.cleanarchitecture.mvi.sl.mail.Mail;
  * Интерфейс объединения, предоставляющего почтовый сервис подписчикам
  */
 @SuppressWarnings("unused")
-public interface MailUnion extends SmallUnion<MailSubscriber> {
+public interface MessagerUnion extends SmallUnion<MessagerSubscriber> {
 
     /**
      * Получить почту подписчика
@@ -17,7 +17,7 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
      * @param subscriber подписчик
      * @return the list
      */
-    List<Mail> getMail(MailSubscriber subscriber);
+    List<Mail> getMail(MessagerSubscriber subscriber);
 
     /**
      * Добавить почтовое сообщение
@@ -57,7 +57,7 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
      *
      * @param subscriber подписчик
      */
-    void clearMail(final MailSubscriber subscriber);
+    void clearMail(final MessagerSubscriber subscriber);
 
     /**
      * Удалить сообщения подписчика
@@ -71,7 +71,7 @@ public interface MailUnion extends SmallUnion<MailSubscriber> {
      *
      * @param subscriber почтовый подписчик
      */
-    void readMail(final MailSubscriber subscriber);
+    void readMail(final MessagerSubscriber subscriber);
 
     /**
      * Добавить список рассылки

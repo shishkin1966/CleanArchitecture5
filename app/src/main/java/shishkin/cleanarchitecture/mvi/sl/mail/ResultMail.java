@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.mail;
 
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
-import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MessagerSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 
@@ -38,7 +38,7 @@ public class ResultMail extends AbsMail {
     }
 
     @Override
-    public void read(MailSubscriber subscriber) {
+    public void read(MessagerSubscriber subscriber) {
         if (ResponseListener.class.isInstance(subscriber)) {
             ApplicationUtils.runOnUiThread(() -> ((ResponseListener) subscriber).response(mResult));
         }

@@ -1,10 +1,10 @@
 package shishkin.cleanarchitecture.mvi.sl.presenter;
 
-import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MessagerSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.SpecialistSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateListener;
 
-public interface Presenter<M> extends ViewStateListener, SpecialistSubscriber, MailSubscriber {
+public interface Presenter<M> extends ViewStateListener, SpecialistSubscriber, MessagerSubscriber {
 
     /**
      * Установить модель презентера

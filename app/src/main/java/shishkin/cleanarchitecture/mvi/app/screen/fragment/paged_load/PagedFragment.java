@@ -60,7 +60,7 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
 
         final Paginator paginator = SLUtil.getPaginatorUnion().getPaginator(AccountsPaginator.NAME);
         paginator.setListener(getModel().getPresenter().getName()).reset();
-        SLUtil.getMailUnion().clearMail(getModel().getPresenter());
+        SLUtil.getMessagerUnion().clearMail(getModel().getPresenter());
         mRecyclerView.addOnScrollListener(new OnPagedScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager(), paginator));
     }
 

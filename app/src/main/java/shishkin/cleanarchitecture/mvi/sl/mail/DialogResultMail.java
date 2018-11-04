@@ -1,6 +1,6 @@
 package shishkin.cleanarchitecture.mvi.sl.mail;
 
-import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MessagerSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.event.DialogResultEvent;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
 
@@ -38,7 +38,7 @@ public class DialogResultMail extends AbsMail {
     }
 
     @Override
-    public void read(MailSubscriber subscriber) {
+    public void read(MessagerSubscriber subscriber) {
         if (DialogResultListener.class.isInstance(subscriber)) {
             ((DialogResultListener) subscriber).onDialogResult(mEvent);
         }

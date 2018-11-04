@@ -27,8 +27,8 @@ import shishkin.cleanarchitecture.mvi.sl.CacheSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.DataSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.sl.MailUnion;
-import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnion;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnion;
 import shishkin.cleanarchitecture.mvi.sl.ObservableUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.PaginatorUnion;
@@ -104,8 +104,8 @@ public class SLUtil {
         return SL.getInstance().get(DataSpecialistImpl.NAME);
     }
 
-    public static MailUnion getMailUnion() {
-        return SL.getInstance().get(MailUnionImpl.NAME);
+    public static MessagerUnion getMessagerUnion() {
+        return SL.getInstance().get(MessagerUnionImpl.NAME);
     }
 
     public static CacheSpecialist getCacheSpecialist() {
@@ -260,7 +260,7 @@ public class SLUtil {
      * @param mail почтовое сообщение
      */
     public static void addMail(final Mail mail) {
-        final MailUnion union = getMailUnion();
+        final MessagerUnion union = getMessagerUnion();
         if (union != null) {
             union.addMail(mail);
         }
@@ -272,7 +272,7 @@ public class SLUtil {
      * @param mail почтовое сообщение
      */
     public static void replaceMail(final Mail mail) {
-        final MailUnion union = getMailUnion();
+        final MessagerUnion union = getMessagerUnion();
         if (union != null) {
             union.replaceMail(mail);
         }

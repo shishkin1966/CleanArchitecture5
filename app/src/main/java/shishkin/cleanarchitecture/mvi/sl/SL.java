@@ -44,7 +44,7 @@ public class SL extends AbsServiceLocator {
         register(CrashSpecialist.NAME);
 
         // Почтовый специалист
-        register(MailUnionImpl.NAME);
+        register(MessagerUnionImpl.NAME);
 
         // Объединение Activity
         register(ViewUnionImpl.NAME);
