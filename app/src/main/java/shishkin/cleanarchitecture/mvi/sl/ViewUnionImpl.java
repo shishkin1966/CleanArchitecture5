@@ -39,6 +39,7 @@ import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
 import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Объединение View
@@ -472,4 +473,11 @@ public class ViewUnionImpl extends AbsUnion<IActivity> implements ViewUnion {
         return (ViewUnion.class.isInstance(o)) ? 0 : 1;
     }
 
+    @Override
+    public void doViewAction(ViewAction action) {
+        final IActivity subscriber = getCurrentSubscriber();
+        if (subscriber != null && subscriber.validate()) {
+            subscriber.doViewAction(action);
+        }
+    }
 }
