@@ -94,6 +94,8 @@ public class PortionFragment extends AbsContentFragment<PortionModel> implements
 
     @Override
     public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
         switch (action.getName()) {
             case "refreshViews":
                 refreshViews((PagingViewData) action.getValue());

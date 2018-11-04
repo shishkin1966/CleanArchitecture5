@@ -88,6 +88,8 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
 
     @Override
     public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
         switch (action.getName()) {
             case "refreshViews":
                 refreshViews((CalcViewData) action.getValue());

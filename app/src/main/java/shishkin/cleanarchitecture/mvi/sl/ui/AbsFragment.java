@@ -29,6 +29,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
 import shishkin.cleanarchitecture.mvi.sl.state.StateObservable;
 import shishkin.cleanarchitecture.mvi.sl.state.Stateable;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 @SuppressWarnings("unused")
 public abstract class AbsFragment<M extends AbsModel> extends Fragment
@@ -247,6 +248,23 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
         ApplicationUtils.showToast(event.getMessage(), event.getDuration(), event.getType());
     }
 
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "showMessage":
+                showMessage((ShowMessageEvent) action.getValue());
+                break;
+
+            case "hideProgressBar":
+                hideProgressBar();
+                break;
+
+            case "showProgressBar":
+                hideProgressBar();
+                break;
+
+        }
+    }
 }
 
 

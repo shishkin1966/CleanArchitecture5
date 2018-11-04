@@ -86,6 +86,8 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
 
     @Override
     public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
         switch (action.getName()) {
             case "refreshViews":
                 refreshViews((MapViewData) action.getValue());

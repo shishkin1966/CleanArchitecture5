@@ -100,6 +100,8 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
 
     @Override
     public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
         switch (action.getName()) {
             case "onRefresh":
                 onRefresh();

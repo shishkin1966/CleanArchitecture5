@@ -37,6 +37,7 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelView;
 import shishkin.cleanarchitecture.mvi.sl.state.StateObservable;
 import shishkin.cleanarchitecture.mvi.sl.state.Stateable;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         implements IActivity, ModelView {
@@ -334,6 +335,31 @@ public abstract class AbsActivity<M extends Model> extends AppCompatActivity
         if (event == null) return;
 
         ApplicationUtils.showToast(event.getMessage(), event.getDuration(), event.getType());
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "showMessage":
+                showMessage((ShowMessageEvent) action.getValue());
+                break;
+
+            case "hideProgressBar":
+                hideProgressBar();
+                break;
+
+            case "showProgressBar":
+                hideProgressBar();
+                break;
+
+            case "showKeyboard":
+                showKeyboard((View) action.getValue());
+                break;
+
+            case "hideKeyboard":
+                hideKeyboard();
+                break;
+        }
     }
 }
 

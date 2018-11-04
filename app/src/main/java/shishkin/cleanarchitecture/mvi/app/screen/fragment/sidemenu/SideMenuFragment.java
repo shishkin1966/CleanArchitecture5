@@ -79,6 +79,8 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
 
     @Override
     public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
         switch (action.getName()) {
             case "accountsChanged":
                 accountsChanged((List<MviDao.Balance>) action.getValue());

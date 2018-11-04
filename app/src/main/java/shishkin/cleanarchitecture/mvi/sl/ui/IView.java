@@ -1,6 +1,8 @@
 package shishkin.cleanarchitecture.mvi.sl.ui;
 
-public interface IView extends Messager {
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewActionListener;
+
+public interface IView extends Messager, ViewActionListener {
 
     /**
      * Показать progress bar.

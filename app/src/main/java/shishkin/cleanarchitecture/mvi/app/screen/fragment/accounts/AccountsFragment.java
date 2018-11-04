@@ -183,11 +183,9 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
 
     @Override
     public void doViewAction(ViewAction action) {
-        switch (action.getName()) {
-            case "showMessage":
-                showMessage((ShowMessageEvent) action.getValue());
-                break;
+        super.doViewAction(action);
 
+        switch (action.getName()) {
             case "hideMessage":
                 hideMessage();
                 break;
