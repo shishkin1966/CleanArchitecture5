@@ -140,7 +140,7 @@ public abstract class NetPaginator implements Paginator, InterruptListener {
     private void request(int currentPosition, int currentPageSize) {
         final RequestSpecialist specialist = SL.getInstance().get(RequestSpecialistImpl.NAME);
         if (specialist != null) {
-            specialist.request(this, getRequest(currentPosition, currentPageSize));
+            specialist.request(RequestSpecialistImpl.COMMON, getRequest(currentPosition, currentPageSize));
         }
     }
 

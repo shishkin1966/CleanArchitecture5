@@ -22,14 +22,28 @@ public abstract class AbsSenderDelegate<T extends SenderDelegating> implements S
     @Override
     public void processing(Object sender, Object object) {
         if (sender != null) {
-            if (!mDelegates.containsKey(sender.getClass().getName())) {
-                final T delegate = mDelegateFactory.create(sender.getClass().getName());
-                mDelegates.put(sender.getClass().getName(), delegate);
-            }
-            if (mDelegates.containsKey(sender.getClass().getName())) {
-                final T delegating = mDelegates.get(sender.getClass().getName());
-                if (delegating != null) {
-                    delegating.processing(sender, object);
+            if (sender instanceof String) {
+                final String name = (String) sender;
+                if (!mDelegates.containsKey(name)) {
+                    final T delegate = mDelegateFactory.create(name);
+                    mDelegates.put(name, delegate);
+                }
+                if (mDelegates.containsKey(name)) {
+                    final T delegating = mDelegates.get(name);
+                    if (delegating != null) {
+                        delegating.processing(name, object);
+                    }
+                }
+            } else {
+                if (!mDelegates.containsKey(sender.getClass().getName())) {
+                    final T delegate = mDelegateFactory.create(sender.getClass().getName());
+                    mDelegates.put(sender.getClass().getName(), delegate);
+                }
+                if (mDelegates.containsKey(sender.getClass().getName())) {
+                    final T delegating = mDelegates.get(sender.getClass().getName());
+                    if (delegating != null) {
+                        delegating.processing(sender, object);
+                    }
                 }
             }
         }
@@ -37,12 +51,23 @@ public abstract class AbsSenderDelegate<T extends SenderDelegating> implements S
 
     @Override
     public T get(Object sender) {
-        if (!mDelegates.containsKey(sender.getClass().getName())) {
-            final T delegate = mDelegateFactory.create(sender.getClass().getName());
-            mDelegates.put(sender.getClass().getName(), delegate);
-        }
-        if (mDelegates.containsKey(sender.getClass().getName())) {
-            return (T) mDelegates.get(sender.getClass().getName());
+        if (sender instanceof String) {
+            final String name = (String) sender;
+            if (!mDelegates.containsKey(name)) {
+                final T delegate = mDelegateFactory.create(name);
+                mDelegates.put(name, delegate);
+            }
+            if (mDelegates.containsKey(name)) {
+                return (T) mDelegates.get(name);
+            }
+        } else {
+            if (!mDelegates.containsKey(sender.getClass().getName())) {
+                final T delegate = mDelegateFactory.create(sender.getClass().getName());
+                mDelegates.put(sender.getClass().getName(), delegate);
+            }
+            if (mDelegates.containsKey(sender.getClass().getName())) {
+                return (T) mDelegates.get(sender.getClass().getName());
+            }
         }
         return null;
     }

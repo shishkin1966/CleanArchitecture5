@@ -6,6 +6,7 @@ import java.util.List;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
+import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
@@ -48,7 +49,7 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
 
     private void getData() {
         getModel().getView().showProgressBar();
-        SLUtil.getRepository().getPagingAccounts(NAME);
+        SLUtil.getRequestSpecialist().request(this, new GetPagingAccountsRequest(NAME));
     }
 
     @Override
@@ -71,7 +72,7 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
 
     @Override
     public void onRefresh() {
-        SLUtil.getRepository().cancelRequests(NAME);
+        SLUtil.getRequestSpecialist().cancelRequests(NAME);
         viewData.clearAccounts();
         getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         getData();
@@ -80,7 +81,7 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
     @Override
     public void onStop() {
         viewData.clearAccounts();
-        SLUtil.getRepository().cancelRequests(NAME);
+        SLUtil.getRequestSpecialist().cancelRequests(NAME);
     }
 }
 

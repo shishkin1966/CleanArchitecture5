@@ -23,6 +23,9 @@ import shishkin.cleanarchitecture.mvi.sl.task.RequestThreadPoolExecutor;
 public class RequestSpecialistImpl extends AbsSpecialist implements RequestSpecialist {
 
     public static final String NAME = RequestSpecialistImpl.class.getName();
+    public static final String COMMON = "common";
+    public static final String DB = "db";
+    public static final String NET = "net";
 
     private RequestThreadPoolExecutor mSequentiallyThreadPoolExecutor;
     private static long KEEP_ALIVE_TIME = 10; // 10 мин

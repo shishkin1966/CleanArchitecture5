@@ -1,7 +1,7 @@
 package shishkin.cleanarchitecture.mvi.sl.delegate;
 
 import shishkin.cleanarchitecture.mvi.app.net.NetProviderImpl;
-import shishkin.cleanarchitecture.mvi.app.specialist.repository.RepositoryImpl;
+import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.repository.DbProviderImpl;
 import shishkin.cleanarchitecture.mvi.sl.task.CommonExecutor;
 import shishkin.cleanarchitecture.mvi.sl.task.DbExecutor;
@@ -21,8 +21,14 @@ public class RequestDelegateFactory implements DelegatingFactory<RequestExecutor
                 return DbExecutor.getInstance();
             } else if (NetProviderImpl.class.getName().equals(sender)) {
                 return NetExecutor.getInstance();
-            } else if (RepositoryImpl.class.getName().equals(sender)) {
+            } else if (RequestSpecialistImpl.COMMON.equalsIgnoreCase(sender)) {
                 return CommonExecutor.getInstance();
+            } else if (RequestSpecialistImpl.NAME.equalsIgnoreCase(sender)) {
+                return CommonExecutor.getInstance();
+            } else if (RequestSpecialistImpl.DB.equalsIgnoreCase(sender)) {
+                return DbExecutor.getInstance();
+            } else if (RequestSpecialistImpl.NET.equalsIgnoreCase(sender)) {
+                return NetExecutor.getInstance();
             }
         }
         return RunnableExecutor.getInstance();

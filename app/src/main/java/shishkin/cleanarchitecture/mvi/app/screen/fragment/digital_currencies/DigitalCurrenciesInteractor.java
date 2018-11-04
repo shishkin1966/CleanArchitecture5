@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.screen.fragment.digital_currencies;
 
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.app.request.GetTickerRequest;
 import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
 
 /**
@@ -10,6 +11,6 @@ import shishkin.cleanarchitecture.mvi.sl.model.ModelInteractor;
 class DigitalCurrenciesInteractor implements ModelInteractor {
 
     void getTicker(String listener) {
-        SLUtil.getRepository().getTicker(listener);
+        SLUtil.getNetProvider().request(new GetTickerRequest(listener));
     }
 }
