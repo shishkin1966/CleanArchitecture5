@@ -7,6 +7,4 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface PortionView extends IFragment {
-    void refreshViews(PagingViewData viewData);
-
 }

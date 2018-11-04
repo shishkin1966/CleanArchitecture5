@@ -32,12 +32,13 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView, View.OnClickListener {
+public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView {
 
     public static final String NAME = AccountsFragment.class.getName();
 
@@ -135,19 +136,16 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mBalanceView.setAdapter(null);
     }
 
-    @Override
-    public void refreshBalance(List<MviDao.Balance> list) {
+    private void refreshBalance(List<MviDao.Balance> list) {
         if (list == null) return;
         mBalanceAdapter.setItems(list);
     }
 
-    @Override
-    public void collapseBottomSheet() {
+    private void collapseBottomSheet() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
-    @Override
-    public void refreshViews(AccountsViewData viewData) {
+    private void refreshViews(AccountsViewData viewData) {
         if (viewData == null || viewData.getData() == null) return;
 
         mAdapter.setItems(viewData.getData());
@@ -179,8 +177,31 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
         mExpandableLayout.expand();
     }
 
-    @Override
-    public void hideMessage() {
+    private void hideMessage() {
         mExpandableLayout.collapse();
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
+        switch (action.getName()) {
+            case "hideMessage":
+                hideMessage();
+                break;
+
+            case "refreshBalance":
+                refreshBalance((List<MviDao.Balance>) action.getValue());
+                break;
+
+            case "collapseBottomSheet":
+                collapseBottomSheet();
+                break;
+
+            case "refreshViews":
+                refreshViews((AccountsViewData) action.getValue());
+                break;
+
+        }
     }
 }

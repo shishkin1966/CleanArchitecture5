@@ -22,7 +22,6 @@ import shishkin.cleanarchitecture.mvi.app.specialist.job.JobSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.location.LocationUnionImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.specialist.repository.RepositoryImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
@@ -48,7 +47,6 @@ public class ApplicationController extends ApplicationSpecialistImpl {
                 .apply();
 
         SLUtil.getDbProvider().getDb(MviDb.class, MviDb.NAME);
-        SLUtil.register(RepositoryImpl.NAME);
         SLUtil.getObservableUnion().register(new DbObservable());
         SLUtil.getObservableUnion().register(new NetworkBroadcastReceiverObservable());
         SLUtil.getObservableUnion().register(new ScreenBroadcastReceiverObservable());

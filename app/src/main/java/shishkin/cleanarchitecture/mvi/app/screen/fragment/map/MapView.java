@@ -7,5 +7,4 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface MapView extends IFragment {
-    void refreshViews(MapViewData viewData);
 }

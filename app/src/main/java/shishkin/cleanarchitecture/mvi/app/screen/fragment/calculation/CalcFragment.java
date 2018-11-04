@@ -17,6 +17,7 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -75,8 +76,7 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
         return new CalcModel(this);
     }
 
-    @Override
-    public void refreshViews(CalcViewData viewData) {
+    private void refreshViews(CalcViewData viewData) {
         sumView.setText(String.valueOf(viewData.getSum()));
     }
 
@@ -84,5 +84,17 @@ public class CalcFragment extends AbsContentFragment<CalcModel> implements CalcV
     public boolean onBackPressed() {
         SLUtil.getViewUnion().switchToTopFragment();
         return true;
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
+        switch (action.getName()) {
+            case "refreshViews":
+                refreshViews((CalcViewData) action.getValue());
+                break;
+
+        }
     }
 }

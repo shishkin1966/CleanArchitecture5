@@ -7,5 +7,4 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface CalcView extends IFragment {
-    void refreshViews(CalcViewData viewData);
 }

@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.app.screen.fragment.portion_load.PagingVie
 import shishkin.cleanarchitecture.mvi.sl.paginator.OnPagedScrollListener;
 import shishkin.cleanarchitecture.mvi.sl.paginator.Paginator;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -85,18 +86,31 @@ public class PagedFragment extends AbsContentFragment<PagedModel> implements Pag
         mRecyclerView.setAdapter(null);
     }
 
-    @Override
-    public void onRefresh() {
+    private void onRefresh() {
         SLUtil.getPaginatorUnion().getPaginator(AccountsPaginator.NAME).reset();
         adapter.clear();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void refreshViews(PagingViewData viewData) {
+    private void refreshViews(PagingViewData viewData) {
         if (viewData != null && viewData.getAccounts() != null) {
             adapter.setItems(viewData.getAccounts());
         }
     }
 
+    @Override
+    public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
+        switch (action.getName()) {
+            case "onRefresh":
+                onRefresh();
+                break;
+
+            case "refreshViews":
+                refreshViews((PagingViewData) action.getValue());
+                break;
+
+        }
+    }
 }

@@ -114,12 +114,11 @@
                     android:layout_height="wrap_content"
                     android:minHeight="?listPreferredItemHeight">
 
-                    <org.angmarch.views.NiceSpinner
-                        android:id="@+id/balanceCurrencySpinner"
-                        android:layout_width="wrap_content"
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinner"
+                        android:layout_width="96dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="?listPreferredItemHeight"
-                        android:minWidth="96dp"/>
+                        android:minHeight="?listPreferredItemHeight"/>
 
                     <ProgressBar
                         android:id="@+id/currenciesProgressBar"

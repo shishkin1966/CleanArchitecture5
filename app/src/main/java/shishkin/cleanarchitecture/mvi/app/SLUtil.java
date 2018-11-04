@@ -18,8 +18,6 @@ import shishkin.cleanarchitecture.mvi.app.specialist.media.MediaSpecialist;
 import shishkin.cleanarchitecture.mvi.app.specialist.media.MediaSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSpecialist;
 import shishkin.cleanarchitecture.mvi.app.specialist.notification.NotificationSpecialistImpl;
-import shishkin.cleanarchitecture.mvi.app.specialist.repository.Repository;
-import shishkin.cleanarchitecture.mvi.app.specialist.repository.RepositoryImpl;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnion;
 import shishkin.cleanarchitecture.mvi.app.specialist.scanner.ScannerUnionImpl;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
@@ -80,10 +78,6 @@ public class SLUtil {
 
     public static UseCasesSpecialist getUseCasesSpecialist() {
         return SL.getInstance().get(UseCasesSpecialistImpl.NAME);
-    }
-
-    public static Repository getRepository() {
-        return SL.getInstance().get(RepositoryImpl.NAME);
     }
 
     public static RequestSpecialist getRequestSpecialist() {

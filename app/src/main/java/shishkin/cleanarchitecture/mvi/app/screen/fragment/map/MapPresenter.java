@@ -23,6 +23,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -105,7 +106,7 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
                     }
                 }
                 viewData.setAddress(sb.toString());
-                getModel().getView().refreshViews(viewData);
+                getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
             }
         }
     }

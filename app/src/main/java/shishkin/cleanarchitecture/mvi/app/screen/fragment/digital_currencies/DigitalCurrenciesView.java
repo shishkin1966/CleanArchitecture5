@@ -7,7 +7,4 @@ import shishkin.cleanarchitecture.mvi.sl.ui.IFragment;
  */
 
 public interface DigitalCurrenciesView extends IFragment {
-
-    void refreshViews(TickerViewData viewData);
-
 }

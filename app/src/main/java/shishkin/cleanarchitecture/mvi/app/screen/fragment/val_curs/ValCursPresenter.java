@@ -16,6 +16,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -51,8 +52,8 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
                 viewData = new ValCursViewData();
             }
         }
-        getModel().getView().refreshViews(viewData);
-        getModel().getView().refreshBottomNavigation(viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
+        getModel().getView().doViewAction(new ViewAction("refreshBottomNavigation", viewData));
         getData();
     }
 
@@ -68,7 +69,7 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         getModel().getView().hideProgressBar();
         if (!result.hasError()) {
             viewData.setValCurs((ValCurs) result.getData());
-            getModel().getView().refreshViews(viewData);
+            getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         } else {
             SLUtil.onError(NAME, result.getErrorText(), true);
         }
@@ -94,14 +95,14 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         } else {
             viewData.getSelected().put(item.getName(), item);
         }
-        getModel().getView().refreshSelectedItems(viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshSelectedItems", viewData));
     }
 
     void onSwipedItem(Valute item) {
         viewData.getSelected().remove(item.getName());
         final List<Valute> list = new ArrayList<>();
         list.add(item);
-        getModel().getView().removeItems(list, viewData);
+        getModel().getView().doViewAction(new ViewAction("removeItems", list, viewData));
     }
 
     @Override
@@ -110,12 +111,12 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
             case R.id.delete:
                 final List<Valute> list = new ArrayList<>(viewData.getSelected().values());
                 viewData.clearSelected();
-                getModel().getView().removeItems(list, viewData);
+                getModel().getView().doViewAction(new ViewAction("removeItems", list, viewData));
                 break;
 
             case R.id.clear:
                 viewData.clearSelected();
-                getModel().getView().refreshSelectedItems(viewData);
+                getModel().getView().doViewAction(new ViewAction("refreshSelectedItems", viewData));
                 break;
 
         }

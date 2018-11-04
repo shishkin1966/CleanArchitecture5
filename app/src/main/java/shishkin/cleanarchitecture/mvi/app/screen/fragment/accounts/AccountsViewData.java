@@ -20,9 +20,9 @@ public class AccountsViewData implements Parcelable {
 
     private int sort = 0;
     private String filter;
-    private List<Account> accounts;
-    private List<String> currencies;
-    private List<MviDao.Balance> balance;
+    private List<Account> accounts = new ArrayList<>();
+    private List<String> currencies = new ArrayList<>();
+    private List<MviDao.Balance> balance = new ArrayList<>();
     private boolean isShowMessage = false;
     private String message;
     private int messageType;
@@ -51,6 +51,9 @@ public class AccountsViewData implements Parcelable {
     }
 
     public void setAccounts(List<Account> accounts) {
+        if (accounts == null) {
+            accounts = new ArrayList<>();
+        }
         this.accounts = accounts;
     }
 
@@ -59,6 +62,9 @@ public class AccountsViewData implements Parcelable {
     }
 
     void setCurrencies(List<String> currencies) {
+        if (currencies == null) {
+            currencies = new ArrayList<>();
+        }
         this.currencies = currencies;
     }
 
@@ -67,6 +73,9 @@ public class AccountsViewData implements Parcelable {
     }
 
     public void setBalance(List<MviDao.Balance> balance) {
+        if (balance == null) {
+            balance = new ArrayList<>();
+        }
         this.balance = balance;
     }
 

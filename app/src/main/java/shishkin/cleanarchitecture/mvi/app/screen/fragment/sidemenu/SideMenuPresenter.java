@@ -12,6 +12,7 @@ import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.screen.activity.main.MainPresenter;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements AccountsBalanceListener, View.OnClickListener {
 
@@ -49,7 +50,7 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
         viewData.setBalance(list);
-        getModel().getView().accountsChanged(list);
+        getModel().getView().doViewAction(new ViewAction("accountsChanged", list));
     }
 
     @Override

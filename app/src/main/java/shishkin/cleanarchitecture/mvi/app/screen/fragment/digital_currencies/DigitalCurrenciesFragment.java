@@ -18,6 +18,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -74,8 +75,7 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         return NAME;
     }
 
-    @Override
-    public void refreshViews(TickerViewData viewData) {
+    private void refreshViews(TickerViewData viewData) {
         if (viewData == null || viewData.getData() == null) return;
         mAdapter.setItems(viewData.getData());
     }
@@ -101,4 +101,15 @@ public class DigitalCurrenciesFragment extends AbsContentFragment<DigitalCurrenc
         mRecyclerView.setAdapter(null);
     }
 
+    @Override
+    public void doViewAction(ViewAction action) {
+        super.doViewAction(action);
+
+        switch (action.getName()) {
+            case "refreshViews":
+                refreshViews((TickerViewData) action.getValue());
+                break;
+
+        }
+    }
 }

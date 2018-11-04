@@ -76,7 +76,7 @@ public class GetPagingAccountsRequest extends AbsResultMailRequest {
                     sleep = 400;
                 } else if (cnt == 20) {
                     cnt = 100;
-                    sleep = 2000;
+                    sleep = 1000;
                 }
             }
         } catch (Exception e) {

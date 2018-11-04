@@ -16,6 +16,7 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -46,7 +47,7 @@ public class CalcPresenter extends AbsPresenter<CalcModel> implements Observer, 
         if (viewData == null) {
             viewData = new CalcViewData();
         }
-        getModel().getView().refreshViews(viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
     }
 
     @Override
@@ -96,7 +97,7 @@ public class CalcPresenter extends AbsPresenter<CalcModel> implements Observer, 
         getModel().getView().hideProgressBar();
         this.viewData = (CalcViewData) result.getData();
 
-        getModel().getView().refreshViews(viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
     }
 }
 
