@@ -12,6 +12,7 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -40,7 +41,7 @@ public class PagedPresenter extends AbsPresenter<PagedModel> implements SwipeRef
 
         if (!result.hasError()) {
             viewData.addAccounts((List<Account>) result.getData());
-            getModel().getView().refreshViews(viewData);
+            getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         } else {
             SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
@@ -60,7 +61,7 @@ public class PagedPresenter extends AbsPresenter<PagedModel> implements SwipeRef
     @Override
     public void onRefresh() {
         viewData.clearAccounts();
-        getModel().getView().onRefresh();
+        getModel().getView().doViewAction(new ViewAction("onRefresh"));
     }
 
     public void showProgressBar() {

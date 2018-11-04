@@ -28,6 +28,7 @@ import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
 import shishkin.cleanarchitecture.mvi.sl.ApplicationSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.observe.EditTextObservable;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 @SuppressWarnings("unused")
 public class SettingFragment extends AbsContentFragment<SettingModel> implements SettingView {
@@ -66,8 +67,7 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
         findView(R.id.db_restore).setOnClickListener(getModel().getPresenter());
     }
 
-    @Override
-    public void refreshViews(List<Setting> settings) {
+    private void refreshViews(List<Setting> settings) {
         mLinearLayout.removeAllViews();
 
         for (Setting setting : settings) {
@@ -148,9 +148,22 @@ public class SettingFragment extends AbsContentFragment<SettingModel> implements
         return true;
     }
 
-    @Override
-    public void collapseBottomSheet() {
+    private void collapseBottomSheet() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "collapseBottomSheet":
+                collapseBottomSheet();
+                break;
+
+            case "refreshViews":
+                refreshViews((List<Setting>) action.getValue());
+                break;
+
+        }
     }
 }
 

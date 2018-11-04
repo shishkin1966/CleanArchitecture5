@@ -29,6 +29,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Valute;
 import shishkin.cleanarchitecture.mvi.common.recyclerview.SwipeTouchHelper;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -112,8 +113,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         return new ValCursModel(this);
     }
 
-    @Override
-    public void refreshViews(ValCursViewData viewData) {
+    private void refreshViews(ValCursViewData viewData) {
         if (viewData != null && viewData.getData() != null) {
             mAdapter.setItems(viewData.getData());
             showEmptyText();
@@ -155,14 +155,12 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         mRecyclerView.setAdapter(null);
     }
 
-    @Override
-    public void refreshSelectedItems(ValCursViewData viewData) {
+    private void refreshSelectedItems(ValCursViewData viewData) {
         mAdapter.notifyDataSetChanged();
         refreshBottomNavigation(viewData);
     }
 
-    @Override
-    public void refreshBottomNavigation(ValCursViewData viewData) {
+    private void refreshBottomNavigation(ValCursViewData viewData) {
         if (!viewData.isSelected()) {
             if (bottomBar.getVisibility() == View.VISIBLE) {
                 mExpandableLayout.collapse();
@@ -198,8 +196,7 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
         }
     }
 
-    @Override
-    public void removeItems(List<Valute> items, ValCursViewData viewData) {
+    private void removeItems(List<Valute> items, ValCursViewData viewData) {
         for (Valute item : items) {
             mAdapter.remove(mAdapter.getItems().indexOf(item));
         }
@@ -209,5 +206,27 @@ public class ValCursFragment extends AbsContentFragment<ValCursModel> implements
 
     private void refreshUpperBar(ValCursViewData viewData) {
         messageView.setText("Выделено : " + viewData.getSelectedCount() + " / " + mAdapter.getItemCount());
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "refreshSelectedItems":
+                refreshSelectedItems((ValCursViewData) action.getValue());
+                break;
+
+            case "refreshBottomNavigation":
+                refreshBottomNavigation((ValCursViewData) action.getValue());
+                break;
+
+            case "removeItems":
+                removeItems((List<Valute>) action.getValue(0), (ValCursViewData) action.getValue(1));
+                break;
+
+            case "refreshViews":
+                refreshViews((ValCursViewData) action.getValue());
+                break;
+
+        }
     }
 }

@@ -21,26 +21,24 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import shishkin.cleanarchitecture.mvi.R;
-import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.screen.adapter.BalanceRecyclerViewAdapter;
-import shishkin.cleanarchitecture.mvi.app.viewaction.ViewActionListener;
 import shishkin.cleanarchitecture.mvi.common.LinearLayoutBehavior;
 import shishkin.cleanarchitecture.mvi.common.OnSwipeTouchListener;
 import shishkin.cleanarchitecture.mvi.common.RippleTextView;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.ViewUtils;
-import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.OnBackPressedPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
  */
 
-public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView, View.OnClickListener, ViewActionListener {
+public class AccountsFragment extends AbsContentFragment<AccountsModel> implements AccountsView {
 
     public static final String NAME = AccountsFragment.class.getName();
 
@@ -184,10 +182,10 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
     }
 
     @Override
-    public void doViewAction(String action, Object value) {
-        switch (action) {
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
             case "showMessage":
-                showMessage((ShowMessageEvent)value);
+                showMessage((ShowMessageEvent) action.getValue());
                 break;
 
             case "hideMessage":
@@ -195,7 +193,7 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
                 break;
 
             case "refreshBalance":
-                refreshBalance((List<MviDao.Balance>) value);
+                refreshBalance((List<MviDao.Balance>) action.getValue());
                 break;
 
             case "collapseBottomSheet":
@@ -203,12 +201,9 @@ public class AccountsFragment extends AbsContentFragment<AccountsModel> implemen
                 break;
 
             case "refreshViews":
-                refreshViews((AccountsViewData) value);
+                refreshViews((AccountsViewData) action.getValue());
                 break;
 
-            default:
-                SLUtil.onError(getName(), "Неподдерживаемое действие", true);
-                break;
         }
     }
 }

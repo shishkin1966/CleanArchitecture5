@@ -11,6 +11,7 @@ import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -61,7 +62,7 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
                 getModel().getView().showProgressBar();
             }
             viewData.addAccounts((List<Account>) result.getData());
-            getModel().getView().refreshViews(viewData);
+            getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         } else {
             getModel().getView().hideProgressBar();
             SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText()).setType(ApplicationUtils.MESSAGE_TYPE_ERROR));
@@ -72,7 +73,7 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
     public void onRefresh() {
         SLUtil.getRepository().cancelRequests(NAME);
         viewData.clearAccounts();
-        getModel().getView().refreshViews(viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         getData();
     }
 

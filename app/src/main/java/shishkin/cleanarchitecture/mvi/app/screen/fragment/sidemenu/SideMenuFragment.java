@@ -17,6 +17,7 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.screen.adapter.BalanceRecyclerViewAdapter;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 public class SideMenuFragment extends AbsFragment<SideMenuModel> implements SideMenuView {
 
@@ -63,8 +64,7 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
         return new SideMenuModel(this);
     }
 
-    @Override
-    public void accountsChanged(List<MviDao.Balance> list) {
+    private void accountsChanged(List<MviDao.Balance> list) {
         if (list == null) return;
 
         mBalanceAdapter.setItems(list);
@@ -76,4 +76,15 @@ public class SideMenuFragment extends AbsFragment<SideMenuModel> implements Side
 
         mBalanceView.setAdapter(null);
     }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "accountsChanged":
+                accountsChanged((List<MviDao.Balance>) action.getValue());
+                break;
+
+        }
+    }
+
 }

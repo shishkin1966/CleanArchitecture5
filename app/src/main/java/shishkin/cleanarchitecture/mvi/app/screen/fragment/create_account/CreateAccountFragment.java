@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import org.angmarch.views.NiceSpinner;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -34,7 +34,7 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
         return new CreateAccountFragment();
     }
 
-    private NiceSpinner mSpinner;
+    private MaterialSpinner mSpinner;
     private EditText mFriendlyNameView;
     private EditText mBalanceValueView;
     private RippleTextView mOpenAccountButton;
@@ -48,8 +48,8 @@ public class CreateAccountFragment extends AbsContentFragment<CreateAccountModel
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSpinner = findView(R.id.balanceCurrencySpinner);
-        mSpinner.attachDataSource(new LinkedList<>(Arrays.asList(Currency.RUR, Currency.USD, Currency.EUR, Currency.GBP, Currency.CHF)));
+        mSpinner = findView(R.id.spinner);
+        mSpinner.setItems(new LinkedList<>(Arrays.asList(Currency.RUR, Currency.USD, Currency.EUR, Currency.GBP, Currency.CHF)));
         mSpinner.setSelectedIndex(0);
 
         mOpenAccountButton = findView(R.id.openAccountButton);

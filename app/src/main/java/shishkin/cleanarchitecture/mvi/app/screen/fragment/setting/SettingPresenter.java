@@ -28,6 +28,7 @@ import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.IActivity;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 public class SettingPresenter extends AbsPresenter<SettingModel> implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, DialogResultListener, Observer {
     public static final String NAME = SettingPresenter.class.getName();
@@ -48,7 +49,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onStart() {
-        getModel().getView().refreshViews(SettingFactory.getSettings());
+        getModel().getView().doViewAction(new ViewAction("refreshViews", SettingFactory.getSettings()));
     }
 
     @Override
@@ -63,7 +64,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
     @Override
     public void onClick(View v) {
-        getModel().getView().collapseBottomSheet();
+        getModel().getView().doViewAction(new ViewAction("collapseBottomSheet"));
         switch (v.getId()) {
             case R.id.setting_backup:
                 SettingFactory.backup();
@@ -71,7 +72,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
 
             case R.id.setting_restore:
                 SettingFactory.restore();
-                getModel().getView().refreshViews(SettingFactory.getSettings());
+                getModel().getView().doViewAction(new ViewAction("refreshViews", SettingFactory.getSettings()));
                 break;
 
             case R.id.db_backup:
@@ -102,7 +103,7 @@ public class SettingPresenter extends AbsPresenter<SettingModel> implements Comp
                     final Setting setting = SettingFactory.getSetting(SettingOrientation.NAME);
                     setting.setCurrentValue(currentValue);
                     SettingFactory.setSetting(setting);
-                    getModel().getView().refreshViews(SettingFactory.getSettings());
+                    getModel().getView().doViewAction(new ViewAction("refreshViews", SettingFactory.getSettings()));
                     final IActivity activity = SLUtil.getActivity();
                     if (activity != null) {
                         if (setting.getCurrentValue().equalsIgnoreCase(SLUtil.getContext().getString(R.string.orientation_portrait))) {

@@ -19,6 +19,7 @@ import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 @SuppressWarnings("unused")
 public class MapFragment extends AbsContentFragment<MapModel> implements MapView {
@@ -73,8 +74,7 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
         }
     }
 
-    @Override
-    public void refreshViews(MapViewData viewData) {
+    private void refreshViews(MapViewData viewData) {
         ((TextView) findView(R.id.name)).setText(viewData.getAddress());
     }
 
@@ -82,6 +82,16 @@ public class MapFragment extends AbsContentFragment<MapModel> implements MapView
     public boolean onBackPressed() {
         SLUtil.getViewUnion().switchToTopFragment();
         return true;
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "refreshViews":
+                refreshViews((MapViewData) action.getValue());
+                break;
+
+        }
     }
 }
 

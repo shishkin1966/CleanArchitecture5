@@ -93,7 +93,7 @@ dependencies {
     implementation 'com.balysv:material-ripple:1.0.2'
 
     // Spinner
-    implementation 'com.github.arcadefire:nice-spinner:1.3.4'
+    implementation 'com.jaredrummler:material-spinner:1.3.0'
 
     //BottomSheetDialog
     implementation 'org.michaelbel:bottomsheet:1.2.3'

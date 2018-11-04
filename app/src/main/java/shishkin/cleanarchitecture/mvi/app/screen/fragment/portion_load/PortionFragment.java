@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.sl.ui.AbsContentFragment;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -64,8 +65,7 @@ public class PortionFragment extends AbsContentFragment<PortionModel> implements
         return new PortionModel(this);
     }
 
-    @Override
-    public void refreshViews(PagingViewData viewData) {
+    private void refreshViews(PagingViewData viewData) {
         if (viewData != null && viewData.getAccounts() != null) {
             mAdapter.setItems(viewData.getAccounts());
         }
@@ -90,5 +90,15 @@ public class PortionFragment extends AbsContentFragment<PortionModel> implements
         super.onDestroyView();
 
         mRecyclerView.setAdapter(null);
+    }
+
+    @Override
+    public void doViewAction(ViewAction action) {
+        switch (action.getName()) {
+            case "refreshViews":
+                refreshViews((PagingViewData) action.getValue());
+                break;
+
+        }
     }
 }

@@ -21,7 +21,6 @@ import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
-import shishkin.cleanarchitecture.mvi.app.viewaction.ViewAction;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -32,6 +31,7 @@ import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.DialogResultListener;
 import shishkin.cleanarchitecture.mvi.sl.ui.MaterialDialogExt;
 import shishkin.cleanarchitecture.mvi.sl.ui.Messager;
+import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
 /**
  * Created by Shishkin on 17.03.2018.
@@ -45,7 +45,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
     private AccountsViewData viewData;
-    private ViewAction viewAction = new ViewAction(getModel().getView());
 
     AccountsPresenter(AccountsModel model) {
         super(model);
@@ -64,7 +63,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     }
 
     public void onClick(int id) {
-        viewAction.doViewAction("collapseBottomSheet");
+        getModel().getView().doViewAction(new ViewAction("collapseBottomSheet"));
         switch (id) {
             case R.id.create_account:
                 getModel().getRouter().createAccount();
@@ -139,7 +138,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     private void selectAccountsAll() {
         viewData.setFilter(null);
-        viewAction.doViewAction("refreshViews", viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
     }
 
     @Override
@@ -150,7 +149,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 viewData = new AccountsViewData();
             }
         }
-        viewAction.doViewAction("refreshViews", viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         getData();
     }
 
@@ -177,7 +176,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
                 viewData.setAccounts(SafeUtils.cast(result.getData()));
-                viewAction.doViewAction("refreshViews", viewData);
+                getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
                 viewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
@@ -197,7 +196,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 viewData.setFilter(viewData.getCurrencies().get(which - 1));
             }
         }
-        viewAction.doViewAction("refreshViews", viewData);
+        getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
     }
 
     void onClickItems(Account item) {
@@ -229,18 +228,18 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         viewData.setMessage(event.getMessage());
         viewData.setMessageType(event.getType());
         viewData.setShowMessage(true);
-        viewAction.doViewAction("showMessage", event);
+        getModel().getView().doViewAction(new ViewAction("showMessage", event));
     }
 
     void hideMessage() {
         viewData.setShowMessage(false);
-        viewAction.doViewAction("hideMessage");
+        getModel().getView().doViewAction(new ViewAction("hideMessage"));
     }
 
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
         viewData.setBalance(list);
-        viewAction.doViewAction("refreshBalance", list);
+        getModel().getView().doViewAction(new ViewAction("refreshBalance", list));
     }
 }
 
