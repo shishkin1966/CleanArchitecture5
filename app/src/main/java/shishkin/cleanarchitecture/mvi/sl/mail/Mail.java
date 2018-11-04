@@ -3,7 +3,7 @@ package shishkin.cleanarchitecture.mvi.sl.mail;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.sl.MailSubscriber;
+import shishkin.cleanarchitecture.mvi.sl.MessagerSubscriber;
 import shishkin.cleanarchitecture.mvi.sl.Subscriber;
 
 @SuppressWarnings("unused")
@@ -14,7 +14,7 @@ public interface Mail extends Subscriber {
      *
      * @param subscriber подписчик получения почты
      */
-    void read(MailSubscriber subscriber);
+    void read(MessagerSubscriber subscriber);
 
     /**
      * Проверить наличие адреса. Проверяются поля Получатель и CopyTo

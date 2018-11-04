@@ -51,7 +51,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
     private AccountObserver() {
         SLUtil.getDbProvider().request(new GetBalanceRequest(this));
 
-        SLUtil.getMailUnion().addMailingList(ACCOUNTS_MAILING_LIST, mAccountsMailingList);
+        SLUtil.getMessagerUnion().addMailingList(ACCOUNTS_MAILING_LIST, mAccountsMailingList);
     }
 
     @Override

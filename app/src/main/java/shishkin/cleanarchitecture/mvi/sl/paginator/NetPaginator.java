@@ -7,8 +7,8 @@ import java.util.List;
 import shishkin.cleanarchitecture.mvi.common.Interrupt;
 import shishkin.cleanarchitecture.mvi.common.InterruptListener;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.MailUnion;
-import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnion;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.PaginatorUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.RequestSpecialist;
 import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
@@ -94,7 +94,7 @@ public abstract class NetPaginator implements Paginator, InterruptListener {
                 if (list != null) {
                     if (!list.isEmpty()) {
                         currentPosition += list.size();
-                        final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
+                        final MessagerUnion union = SL.getInstance().get(MessagerUnionImpl.NAME);
                         if (union != null) {
                             union.addMail(new ResultMail(listener, result));
                         }
@@ -103,7 +103,7 @@ public abstract class NetPaginator implements Paginator, InterruptListener {
                     }
                 }
             } else {
-                final MailUnion union = SL.getInstance().get(MailUnionImpl.NAME);
+                final MessagerUnion union = SL.getInstance().get(MessagerUnionImpl.NAME);
                 if (union != null) {
                     union.addMail(new ResultMail(listener, result));
                 }

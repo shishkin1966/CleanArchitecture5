@@ -4,8 +4,8 @@ import java.util.List;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
-import shishkin.cleanarchitecture.mvi.sl.MailUnion;
-import shishkin.cleanarchitecture.mvi.sl.MailUnionImpl;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnion;
+import shishkin.cleanarchitecture.mvi.sl.MessagerUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.PresenterUnionImpl;
 import shishkin.cleanarchitecture.mvi.sl.SL;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -49,12 +49,12 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
 
         onStart();
 
-        ((MailUnion) SL.getInstance().get(MailUnionImpl.NAME)).readMail(this);
+        ((MessagerUnion) SL.getInstance().get(MessagerUnionImpl.NAME)).readMail(this);
     }
 
     @Override
     public void onResumeView() {
-        ((MailUnion) SL.getInstance().get(MailUnionImpl.NAME)).readMail(this);
+        ((MessagerUnion) SL.getInstance().get(MessagerUnionImpl.NAME)).readMail(this);
     }
 
     @Override
@@ -92,7 +92,7 @@ public abstract class AbsPresenter<M> implements Presenter<M> {
     public List<String> getSpecialistSubscription() {
         return StringUtils.arrayToList(
                 PresenterUnionImpl.NAME,
-                MailUnionImpl.NAME
+                MessagerUnionImpl.NAME
         );
     }
 
