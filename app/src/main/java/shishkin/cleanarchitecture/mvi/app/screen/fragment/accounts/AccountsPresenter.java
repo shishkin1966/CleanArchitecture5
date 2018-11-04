@@ -21,6 +21,7 @@ import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.request.GetAccountsRequest;
 import shishkin.cleanarchitecture.mvi.app.request.GetCurrencyRequest;
+import shishkin.cleanarchitecture.mvi.app.viewaction.ViewAction;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
@@ -44,6 +45,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     private DialogInterface sortDialog;
     private DialogInterface filterDialog;
     private AccountsViewData viewData;
+    private ViewAction viewAction = new ViewAction(getModel().getView());
 
     AccountsPresenter(AccountsModel model) {
         super(model);
@@ -62,7 +64,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
     }
 
     public void onClick(int id) {
-        getModel().getView().collapseBottomSheet();
+        viewAction.doViewAction("collapseBottomSheet");
         switch (id) {
             case R.id.create_account:
                 getModel().getRouter().createAccount();
@@ -137,7 +139,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     private void selectAccountsAll() {
         viewData.setFilter(null);
-        getModel().getView().refreshViews(viewData);
+        viewAction.doViewAction("refreshViews", viewData);
     }
 
     @Override
@@ -148,7 +150,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 viewData = new AccountsViewData();
             }
         }
-        getModel().getView().refreshViews(viewData);
+        viewAction.doViewAction("refreshViews", viewData);
         getData();
     }
 
@@ -175,7 +177,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         if (!result.hasError()) {
             if (result.getName().equals(GetAccountsRequest.NAME)) {
                 viewData.setAccounts(SafeUtils.cast(result.getData()));
-                getModel().getView().refreshViews(viewData);
+                viewAction.doViewAction("refreshViews", viewData);
             } else if (result.getName().equals(GetCurrencyRequest.NAME)) {
                 viewData.setCurrencies(SafeUtils.cast(result.getData()));
             }
@@ -195,7 +197,7 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
                 viewData.setFilter(viewData.getCurrencies().get(which - 1));
             }
         }
-        getModel().getView().refreshViews(viewData);
+        viewAction.doViewAction("refreshViews", viewData);
     }
 
     void onClickItems(Account item) {
@@ -227,18 +229,18 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         viewData.setMessage(event.getMessage());
         viewData.setMessageType(event.getType());
         viewData.setShowMessage(true);
-        getModel().getView().showMessage(event);
+        viewAction.doViewAction("showMessage", event);
     }
 
     void hideMessage() {
         viewData.setShowMessage(false);
-        getModel().getView().hideMessage();
+        viewAction.doViewAction("hideMessage");
     }
 
     @Override
     public void showAccountsBalance(List<MviDao.Balance> list) {
         viewData.setBalance(list);
-        getModel().getView().refreshBalance(list);
+        viewAction.doViewAction("refreshBalance", list);
     }
 }
 
