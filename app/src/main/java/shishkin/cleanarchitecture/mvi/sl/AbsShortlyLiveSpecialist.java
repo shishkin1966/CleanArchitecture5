@@ -2,6 +2,9 @@ package shishkin.cleanarchitecture.mvi.sl;
 
 import java.util.concurrent.TimeUnit;
 
+
+import shishkin.cleanarchitecture.mvi.common.AutoCompleteHandler;
+
 /**
  * Абстрактный коротко живущий специалист
  */

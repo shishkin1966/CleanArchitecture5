@@ -1,4 +1,4 @@
-package shishkin.cleanarchitecture.mvi.sl;
+package shishkin.cleanarchitecture.mvi.common;
 
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
+import shishkin.cleanarchitecture.mvi.sl.ErrorSpecialistImpl;
 
 /**
  * Класс помещает действие, которое будет выполняться в другом потоке, чем ваш собственный.

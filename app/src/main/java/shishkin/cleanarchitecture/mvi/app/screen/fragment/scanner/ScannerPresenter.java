@@ -31,6 +31,9 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements Scan
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(ScannerViewData.NAME, ScannerViewData.class);
+        if (viewData == null) {
+            viewData = new ScannerViewData();
+        }
     }
 
     @Override
@@ -49,12 +52,6 @@ public class ScannerPresenter extends AbsPresenter<ScannerModel> implements Scan
 
     @Override
     public void onStart() {
-        if (viewData == null) {
-            viewData = SLUtil.getCacheSpecialist().get(ScannerViewData.NAME, ScannerViewData.class);
-            if (viewData == null) {
-                viewData = new ScannerViewData();
-            }
-        }
         if (!SLUtil.getViewUnion().checkPermission(Manifest.permission.CAMERA)) {
             SLUtil.getViewUnion().grantPermission(Manifest.permission.CAMERA);
         }

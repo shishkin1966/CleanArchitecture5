@@ -3,12 +3,12 @@ package shishkin.cleanarchitecture.mvi.common;
 /**
  * Объект, реализующий прерывание по уровню
  */
-public class Interrupt {
+public class InterruptByLevel {
 
     private InterruptListener listener;
     private boolean isInterrupt = false;
 
-    public Interrupt(InterruptListener listener) {
+    public InterruptByLevel(InterruptListener listener) {
         this.listener = listener;
     }
 

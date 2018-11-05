@@ -1,6 +1,7 @@
 package shishkin.cleanarchitecture.mvi.app.observe;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import shishkin.cleanarchitecture.mvi.BuildConfig;
@@ -12,6 +13,8 @@ import shishkin.cleanarchitecture.mvi.app.mail.AccountsBalanceMail;
 import shishkin.cleanarchitecture.mvi.app.request.GetBalanceRequest;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.accounts.AccountsPresenter;
 import shishkin.cleanarchitecture.mvi.app.screen.fragment.sidemenu.SideMenuPresenter;
+import shishkin.cleanarchitecture.mvi.common.InterruptByTime;
+import shishkin.cleanarchitecture.mvi.common.InterruptListener;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
@@ -22,7 +25,7 @@ import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.state.ViewStateObserver;
 
-public class AccountObserver implements DbObservableSubscriber, ResponseListener {
+public class AccountObserver implements DbObservableSubscriber, ResponseListener, InterruptListener {
     public static final String NAME = AccountObserver.class.getName();
     public static final String ACTION_CLICK = BuildConfig.APPLICATION_ID + ".ACTION_CLICK";
 
@@ -30,6 +33,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
 
     private static final String ACCOUNTS_MAILING_LIST = NAME + ".MAILING_LIST";
     private String[] mAccountsMailingList = {SideMenuPresenter.NAME, AccountsPresenter.NAME};
+    private InterruptByTime interrupt = new InterruptByTime(this, TimeUnit.SECONDS.toMillis(5));
 
     public static void instantiate() {
         if (sInstance == null) {
@@ -66,7 +70,7 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
 
     @Override
     public void onChange(Object object) {
-        SLUtil.getDbProvider().request(new GetBalanceRequest(this));
+        interrupt.up();
     }
 
     @Override
@@ -114,5 +118,10 @@ public class AccountObserver implements DbObservableSubscriber, ResponseListener
         } else {
             SLUtil.getViewUnion().showMessage(new ShowMessageEvent(result.getErrorText(), ApplicationUtils.MESSAGE_TYPE_ERROR));
         }
+    }
+
+    @Override
+    public void onInterrupt() {
+        SLUtil.getDbProvider().request(new GetBalanceRequest(this));
     }
 }

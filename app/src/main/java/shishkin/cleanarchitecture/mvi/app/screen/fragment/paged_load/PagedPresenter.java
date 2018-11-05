@@ -26,13 +26,8 @@ public class PagedPresenter extends AbsPresenter<PagedModel> implements SwipeRef
 
     public PagedPresenter(PagedModel model) {
         super(model);
-    }
 
-    @Override
-    public void onStart() {
-        if (viewData == null) {
-            viewData = new PagingViewData();
-        }
+        viewData = new PagingViewData();
     }
 
     @Override

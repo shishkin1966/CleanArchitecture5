@@ -8,6 +8,7 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.data.Account;
 import shishkin.cleanarchitecture.mvi.app.request.GetPagingAccountsRequest;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
+import shishkin.cleanarchitecture.mvi.sl.RequestSpecialistImpl;
 import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.event.ShowMessageEvent;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
@@ -26,6 +27,8 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
 
     PortionPresenter(PortionModel model) {
         super(model);
+
+        viewData = new PagingViewData();
     }
 
     @Override
@@ -40,16 +43,13 @@ public class PortionPresenter extends AbsPresenter<PortionModel> implements Resp
 
     @Override
     public void onStart() {
-        if (viewData == null) {
-            viewData = new PagingViewData();
-        }
         viewData.clearAccounts();
         getData();
     }
 
     private void getData() {
         getModel().getView().showProgressBar();
-        SLUtil.getRequestSpecialist().request(this, new GetPagingAccountsRequest(NAME));
+        SLUtil.getRequestSpecialist().request(RequestSpecialistImpl.COMMON, new GetPagingAccountsRequest(NAME));
     }
 
     @Override

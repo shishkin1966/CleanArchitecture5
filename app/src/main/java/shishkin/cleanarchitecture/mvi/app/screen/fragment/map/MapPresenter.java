@@ -40,6 +40,8 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
 
     MapPresenter(MapModel model) {
         super(model);
+
+        viewData = new MapViewData();
     }
 
     @Override
@@ -50,13 +52,6 @@ public class MapPresenter extends AbsPresenter<MapModel> implements OnMapReadyCa
     @Override
     public boolean isRegister() {
         return true;
-    }
-
-    @Override
-    public void onStart() {
-        if (viewData == null) {
-            viewData = new MapViewData();
-        }
     }
 
     @Override

@@ -32,6 +32,9 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(ValCursViewData.NAME, ValCursViewData.class);
+        if (viewData == null) {
+            viewData = new ValCursViewData();
+        }
     }
 
     @Override
@@ -46,12 +49,6 @@ public class ValCursPresenter extends AbsPresenter<ValCursModel> implements Resp
 
     @Override
     public void onStart() {
-        if (viewData == null) {
-            viewData = SLUtil.getCacheSpecialist().get(ValCursViewData.NAME, ValCursViewData.class);
-            if (viewData == null) {
-                viewData = new ValCursViewData();
-            }
-        }
         getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         getModel().getView().doViewAction(new ViewAction("refreshBottomNavigation", viewData));
         getData();
