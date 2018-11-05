@@ -179,21 +179,9 @@ public class MessagerUnionImpl extends AbsSmallUnion<MessagerSubscriber> impleme
                 addresses.addAll(getAddresses(address));
             }
             for (String address : addresses) {
-                if (checkSubscriber(address)) {
-                    final long id = mId.incrementAndGet();
-                    final Mail newMail = mail.copy();
-                    newMail.setId(id);
-                    newMail.setAddress(address);
-                    newMail.setCopyTo(new ArrayList<>());
-
-                    if (!mail.isCheckDublicate()) {
-                        mMail.put(id, newMail);
-                    } else {
-                        removeDublicate(newMail);
-                        mMail.put(id, newMail);
-                    }
-
-                    checkAddMailSubscriber(address);
+                final MessagerSubscriber subscriber = checkSubscriber(address);
+                if (subscriber != null) {
+                    mail.read(subscriber);
                 }
             }
         }
@@ -238,20 +226,20 @@ public class MessagerUnionImpl extends AbsSmallUnion<MessagerSubscriber> impleme
         }
     }
 
-    private boolean checkSubscriber(final String address) {
+    private MessagerSubscriber checkSubscriber(final String address) {
         if (StringUtils.isNullOrEmpty(address)) {
-            return false;
+            return null;
         }
 
         for (MessagerSubscriber subscriber : getSubscribers()) {
             if (address.equalsIgnoreCase(subscriber.getName())) {
                 final int state = subscriber.getState();
-                if (state == ViewStateObserver.STATE_RESUME || state == ViewStateObserver.STATE_READY) {
-                    return true;
+                if (state != ViewStateObserver.STATE_DESTROY && state != ViewStateObserver.STATE_CREATE) {
+                    return subscriber;
                 }
             }
         }
-        return false;
+        return null;
     }
 
 

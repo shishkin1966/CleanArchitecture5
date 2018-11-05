@@ -267,6 +267,18 @@ public class SLUtil {
     }
 
     /**
+     * Добавить не обязательное почтовое сообщение
+     *
+     * @param mail почтовое сообщение
+     */
+    public static void addNotMandatoryMail(final Mail mail) {
+        final MessagerUnion union = getMessagerUnion();
+        if (union != null) {
+            union.addNotMandatoryMail(mail);
+        }
+    }
+
+    /**
      * Заменить почтовое сообщение
      *
      * @param mail почтовое сообщение
