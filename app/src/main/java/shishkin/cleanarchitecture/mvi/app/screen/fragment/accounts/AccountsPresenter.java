@@ -50,6 +50,9 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
+        if (viewData == null) {
+            viewData = new AccountsViewData();
+        }
     }
 
     @Override
@@ -143,12 +146,6 @@ public class AccountsPresenter extends AbsPresenter<AccountsModel> implements Re
 
     @Override
     public void onStart() {
-        if (viewData == null) {
-            viewData = SLUtil.getCacheSpecialist().get(AccountsViewData.NAME, AccountsViewData.class);
-            if (viewData == null) {
-                viewData = new AccountsViewData();
-            }
-        }
         getModel().getView().doViewAction(new ViewAction("refreshViews", viewData));
         getData();
     }

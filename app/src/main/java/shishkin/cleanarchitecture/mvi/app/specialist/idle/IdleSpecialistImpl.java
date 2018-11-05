@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import shishkin.cleanarchitecture.mvi.R;
 import shishkin.cleanarchitecture.mvi.app.ApplicationController;
 import shishkin.cleanarchitecture.mvi.app.SLUtil;
+import shishkin.cleanarchitecture.mvi.common.AutoCompleteHandler;
 import shishkin.cleanarchitecture.mvi.common.utils.ApplicationUtils;
 import shishkin.cleanarchitecture.mvi.sl.AbsSpecialist;
-import shishkin.cleanarchitecture.mvi.sl.AutoCompleteHandler;
 
 public class IdleSpecialistImpl extends AbsSpecialist implements IdleSpecialist, AutoCompleteHandler.OnShutdownListener {
 

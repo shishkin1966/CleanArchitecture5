@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import shishkin.cleanarchitecture.mvi.common.Interrupt;
+import shishkin.cleanarchitecture.mvi.common.InterruptByLevel;
 import shishkin.cleanarchitecture.mvi.common.InterruptListener;
 import shishkin.cleanarchitecture.mvi.common.utils.StringUtils;
 import shishkin.cleanarchitecture.mvi.sl.MessagerUnion;
@@ -26,7 +26,7 @@ public abstract class NetPaginator implements Paginator, InterruptListener {
     private int currentPosition = 0;
     private List<Integer> pageSize;
     private boolean eof = false;
-    private Interrupt interrupt = new Interrupt(this);
+    private InterruptByLevel interrupt = new InterruptByLevel(this);
 
     public NetPaginator() {
         setPageSize(10);

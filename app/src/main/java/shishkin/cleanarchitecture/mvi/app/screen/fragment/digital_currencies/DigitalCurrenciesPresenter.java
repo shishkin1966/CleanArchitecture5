@@ -27,6 +27,9 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
+        if (viewData == null) {
+            viewData = new TickerViewData();
+        }
     }
 
     @Override
@@ -83,12 +86,6 @@ public class DigitalCurrenciesPresenter extends AbsPresenter<DigitalCurrenciesMo
     }
 
     public TickerViewData getViewData() {
-        if (viewData == null) {
-            viewData = SLUtil.getCacheSpecialist().get(TickerViewData.NAME, TickerViewData.class);
-            if (viewData == null) {
-                viewData = new TickerViewData();
-            }
-        }
         return viewData;
     }
 }

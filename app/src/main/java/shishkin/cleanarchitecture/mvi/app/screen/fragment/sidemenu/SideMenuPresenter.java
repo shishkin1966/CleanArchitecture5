@@ -11,10 +11,13 @@ import shishkin.cleanarchitecture.mvi.app.SLUtil;
 import shishkin.cleanarchitecture.mvi.app.db.MviDao;
 import shishkin.cleanarchitecture.mvi.app.observe.AccountsBalanceListener;
 import shishkin.cleanarchitecture.mvi.app.screen.activity.main.MainPresenter;
+import shishkin.cleanarchitecture.mvi.common.utils.SafeUtils;
+import shishkin.cleanarchitecture.mvi.sl.data.Result;
 import shishkin.cleanarchitecture.mvi.sl.presenter.AbsPresenter;
+import shishkin.cleanarchitecture.mvi.sl.request.ResponseListener;
 import shishkin.cleanarchitecture.mvi.sl.viewaction.ViewAction;
 
-public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements AccountsBalanceListener, View.OnClickListener {
+public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements AccountsBalanceListener, View.OnClickListener, ResponseListener {
 
     public static final String NAME = SideMenuPresenter.class.getName();
 
@@ -24,17 +27,18 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
         super(model);
 
         viewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
+        if (viewData == null) {
+            viewData = new SideMenuViewData();
+        }
     }
 
     @Override
     public void onStart() {
-        if (viewData == null) {
-            viewData = SLUtil.getCacheSpecialist().get(SideMenuViewData.NAME, SideMenuViewData.class);
-            if (viewData == null) {
-                viewData = new SideMenuViewData();
-            }
+        if (viewData.getBalance() == null) {
+            getModel().getInteractor().getBalance(this);
+        } else {
+            showAccountsBalance(viewData.getBalance());
         }
-        showAccountsBalance(viewData.getBalance());
     }
 
     @Override
@@ -111,4 +115,14 @@ public class SideMenuPresenter extends AbsPresenter<SideMenuModel> implements Ac
         super.onDestroyView();
     }
 
+    @Override
+    public void response(Result result) {
+        if (!result.hasError()) {
+            viewData.setBalance(SafeUtils.cast(result.getData()));
+            getModel().getView().doViewAction(new ViewAction("accountsChanged", viewData.getBalance()));
+        } else {
+            SLUtil.onError(NAME, result.getErrorText(), true);
+        }
+
+    }
 }
