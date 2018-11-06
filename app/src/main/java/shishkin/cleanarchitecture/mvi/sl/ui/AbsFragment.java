@@ -260,7 +260,7 @@ public abstract class AbsFragment<M extends AbsModel> extends Fragment
                 break;
 
             case "showProgressBar":
-                hideProgressBar();
+                showProgressBar();
                 break;
 
         }
