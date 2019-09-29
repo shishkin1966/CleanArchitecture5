@@ -36,8 +36,6 @@ public class CacheSpecialistImpl extends AbsSpecialist implements CacheSpecialis
 
     @Override
     public void onRegister() {
-        mLock.lock();
-
         if (mCache == null) {
             mCache = CacheBuilder.newBuilder()
                     .maximumSize(MAX_SIZE)
